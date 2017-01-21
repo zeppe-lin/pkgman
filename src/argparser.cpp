@@ -219,11 +219,7 @@ bool ArgParser::parse()
                 m_pkgmkArgs += " " + s;
             } else if ( s == "-um" ) {
                 m_pkgmkArgs += " " + s;
-            } else if ( s == "-is" ) {
-		m_pkgmkArgs += " " + s;
-            } else if ( s == "-us" ) {
-		m_pkgmkArgs += " " + s;
-	    } else if ( s == "-kw" ) {
+            } else if ( s == "-kw" ) {
                 m_pkgmkArgs += " " + s;
             } else if ( s == "-ns" ) {
                 m_pkgmkArgs += " " + s;
