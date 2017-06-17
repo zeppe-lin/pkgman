@@ -754,12 +754,15 @@ void PrtGet::printDepends( bool simpleListing )
 
     const list<string>& deps = transaction.dependencies();
     if ( simpleListing ) {
+        /* check if stdout is a tty, for package exclusion via: prt-get install `prt-get quickdep foobar | grep -v ^gnome-` */
+        bool const tty = isatty(1);
         if ( deps.size() > 0 ) {
             list<string>::const_iterator it = deps.begin();
-            for ( ; it != deps.end(); ++it ) {
-                cout << *it << " ";
-            }
-            cout << endl;
+
+            for ( ; it != deps.end(); ++it )
+                cout << *it << (tty ? " " : "\n"); 
+            if (tty)
+                cout << endl;
         }
     } else {
         if ( deps.size() > 0 ) {
