@@ -58,18 +58,18 @@ string stripWhiteSpace( const string& s )
         return s;
     }
 
-    int pos = 0;
+    size_t pos = 0;
     string line = s;
-    string::size_type len = line.length();
+    size_t len = line.length();
     while ( pos < len && isspace( line[pos] ) ) {
         ++pos;
     }
     line.erase( 0, pos );
     pos = line.length()-1;
-    while ( pos > -1 && isspace( line[pos] ) ) {
+    while ( pos != (size_t) -1 && isspace( line[pos] ) ) {
         --pos;
     }
-    if ( pos != -1 ) {
+    if ( pos != (size_t) -1 ) {
         line.erase( pos+1 );
     }
     return line;

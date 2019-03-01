@@ -926,7 +926,7 @@ void PrtGet::printDiff()
     const map<string, string>& installed = m_pkgDB->installedPackages();
     map<string, string>::const_iterator it = installed.begin();
     const Package* p = 0;
-    int count = 0;
+    size_t count = 0;
     COMP_RESULT result;
     for ( ; it != installed.end(); ++it ) {
 
@@ -1941,28 +1941,28 @@ void PrtGet::remove()
 
 }
 
-void PrtGet::assertMaxArgCount(int count)
+void PrtGet::assertMaxArgCount(size_t count)
 {
     if ( m_parser->otherArgs().size() > count ) {
         argCountFailure(count, "at most");
     }
 }
 
-void PrtGet::assertExactArgCount(int count)
+void PrtGet::assertExactArgCount(size_t count)
 {
     if ( m_parser->otherArgs().size() != count ) {
         argCountFailure(count, "exactly");
     }
 }
 
-void PrtGet::assertMinArgCount(int count)
+void PrtGet::assertMinArgCount(size_t count)
 {
      if ( m_parser->otherArgs().size() < count ) {
          argCountFailure(count, "at least");
      }
 }
 
-void PrtGet::argCountFailure(int count, const string& specifier)
+void PrtGet::argCountFailure(size_t count, const string& specifier)
 {
     cerr << m_appName << " "
          << m_parser->commandName() << " takes " << specifier << " "

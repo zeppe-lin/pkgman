@@ -19,7 +19,7 @@ enum COMP_RESULT { LESS, GREATER, EQUAL, UNDEFINED };
 
 COMP_RESULT compareVersions(const string& v1, const string& v2) ;
 void tokenizeIntoBlocks(const string& version, vector<string>& blocks);
-int normalizeVectors(vector<string>& v1, vector<string>& v2);
+size_t normalizeVectors(vector<string>& v1, vector<string>& v2);
 void tokenizeMixed(const string& s, vector<string>& tokens);
 
 }

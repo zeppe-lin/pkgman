@@ -146,10 +146,10 @@ protected:
     static const string DEFAULT_CACHE_FILE;
 
 
-    void assertMinArgCount(int count);
-    void assertMaxArgCount(int count);
-    void assertExactArgCount(int count);
-    void argCountFailure(int count, const string& specifier);
+    void assertMinArgCount(size_t count);
+    void assertMaxArgCount(size_t count);
+    void assertExactArgCount(size_t count);
+    void argCountFailure(size_t count, const string& specifier);
 
     VersionComparator::COMP_RESULT
     compareVersions( const string& v1, const string& v2 );

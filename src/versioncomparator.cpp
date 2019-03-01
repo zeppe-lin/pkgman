@@ -39,16 +39,16 @@ COMP_RESULT compareVersions(const string& v1, const string& v2)
 
     tokenizeIntoBlocks(v1, blocks1);
     tokenizeIntoBlocks(v2, blocks2);
-    int blockLen = normalizeVectors(blocks1, blocks2);
+    size_t blockLen = normalizeVectors(blocks1, blocks2);
 
-    for (int i = 0; i < blockLen; ++i) {
+    for (size_t i = 0; i < blockLen; ++i) {
         vector<string> tokens1;
         vector<string> tokens2;
         split(blocks1[i], '.', tokens1);
         split(blocks2[i], '.', tokens2);
-        int tokLen = normalizeVectors(tokens1, tokens2);
+        size_t tokLen = normalizeVectors(tokens1, tokens2);
 
-        for (int j = 0; j < tokLen; ++j) {
+        for (size_t j = 0; j < tokLen; ++j) {
             if (tokens1[j] == tokens2[j]) {
                 continue;
             }
@@ -67,8 +67,8 @@ COMP_RESULT compareVersions(const string& v1, const string& v2)
 
                 tokenizeMixed(tokens1[j], subtokens1);
                 tokenizeMixed(tokens2[j], subtokens2);
-                int subTokLen = normalizeVectors(subtokens1, subtokens2);
-                for (int k = 0; k < subTokLen; ++k) {
+                size_t subTokLen = normalizeVectors(subtokens1, subtokens2);
+                for (size_t k = 0; k < subTokLen; ++k) {
                     long sl1 = strtol(subtokens1[k].c_str(), &error1, 10);
                     long sl2 = strtol(subtokens2[k].c_str(), &error2, 10);
                     if (*error1 == 0 && *error2 == 0) {
@@ -123,9 +123,9 @@ COMP_RESULT compareVersions(const string& v1, const string& v2)
     return EQUAL;
 }
 
-int normalizeVectors(vector<string>& v1, vector<string>& v2)
+size_t normalizeVectors(vector<string>& v1, vector<string>& v2)
 {
-    int length = max(v1.size(), v2.size());
+    size_t length = max(v1.size(), v2.size());
 
     while (v1.size() < length) {
         v1.push_back("-1");
@@ -140,14 +140,14 @@ int normalizeVectors(vector<string>& v1, vector<string>& v2)
 void tokenizeMixed(const string& s, vector<string>& tokens)
 {
     vector<bool> digitMask;
-    for (int i = 0; i < s.length(); ++i) {
+    for (size_t i = 0; i < s.length(); ++i) {
         digitMask.push_back(isdigit(s[i]));
     }
 
     bool state = digitMask[0];
     string tok;
     tok = s[0];
-    for (int i = 1; i < digitMask.size(); ++i) {
+    for (size_t i = 1; i < digitMask.size(); ++i) {
         if (digitMask[i] != state) {
             tokens.push_back(tok);
             tok = s[i];
