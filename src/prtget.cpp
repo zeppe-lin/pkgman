@@ -1628,6 +1628,8 @@ SignalHandler::HandlerResult PrtGet::handleSignal( int signal )
     if ( m_currentTransaction ) {
         evaluateResult( *m_currentTransaction, false, true );
     }
+
+    return EXIT;
 }
 
 /*!
