@@ -553,7 +553,7 @@ void PrtGet::listInstalled()
 	    l.erase(mit);
 	
 	    InstallTransaction trans( name, m_repo, m_pkgDB, m_config );
-	    InstallTransaction::InstallResult result = trans.calcDependencies();
+	    InstallTransaction::InstallResult result __attribute__((unused)) = trans.calcDependencies();
 	    const list<string>& depRef = trans.dependencies();
 	    list<string>::const_iterator it = depRef.begin();
 
@@ -1810,7 +1810,7 @@ void PrtGet::ls()
         DIR* dir = opendir(dirname.c_str());
         struct dirent* entry;
         vector<string> files;
-        while (entry = readdir(dir)) {
+        while ((entry = readdir(dir))) {
             string dName = entry->d_name;
             if (dName != "." && dName != "..") {
                 files.push_back(dName);

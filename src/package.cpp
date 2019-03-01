@@ -316,10 +316,8 @@ void Package::expandShellCommands(std::string& input,
     for (int i = 0; i < TAG_COUNT; ++i) {
         string::size_type pos, dpos = 0;
         
-        int len;
         pos = 0;
         while ((pos = input.find(startTag[i], pos)) != string::npos) {
-            len = input.length();
             
             if (unameBuf.release) {
                 input = replaceAll(input,
