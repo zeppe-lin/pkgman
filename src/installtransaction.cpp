@@ -51,9 +51,17 @@ InstallTransaction::InstallTransaction( const list<string>& names,
                                         const Repository* repo,
                                         PkgDB* pkgDB,
                                         const Configuration* config )
-    : m_repo( repo ),
-      m_pkgDB( pkgDB ),
+    : m_pkgDB( pkgDB ),
+      m_resolver(),
+      m_repo( repo ),
       m_depCalced( false ),
+      m_installedPackages(),
+      m_alreadyInstalledPackages(),
+      m_ignoredPackages(),
+      m_depNameList(),
+      m_depList(),
+      m_missingPackages(),
+      m_installErrors(),
       m_config( config )
 {
     list<string>::const_iterator it = names.begin();
@@ -73,9 +81,17 @@ InstallTransaction::InstallTransaction( const list<char*>& names,
                                         const Repository* repo,
                                         PkgDB* pkgDB,
                                         const Configuration* config )
-    : m_repo( repo ),
-      m_pkgDB( pkgDB ),
+    : m_pkgDB( pkgDB ),
+      m_resolver(),
+      m_repo( repo ),
       m_depCalced( false ),
+      m_installedPackages(),
+      m_alreadyInstalledPackages(),
+      m_ignoredPackages(),
+      m_depNameList(),
+      m_depList(),
+      m_missingPackages(),
+      m_installErrors(),
       m_config( config )
 {
     list<char*>::const_iterator it = names.begin();
@@ -97,9 +113,17 @@ InstallTransaction::InstallTransaction( const string& name,
                                         const Repository* repo,
                                         PkgDB* pkgDB,
                                         const Configuration* config )
-    : m_repo( repo ),
-      m_pkgDB( pkgDB ),
+    : m_pkgDB( pkgDB ),
+      m_resolver(), 
+      m_repo( repo ),
       m_depCalced( false ),
+      m_installedPackages(),
+      m_alreadyInstalledPackages(),
+      m_ignoredPackages(),
+      m_depNameList(),
+      m_depList(),
+      m_missingPackages(),
+      m_installErrors(),
       m_config( config )
 {
     m_packages.push_back( make_pair( name, m_repo->getPackage( name ) ) );

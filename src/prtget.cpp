@@ -56,10 +56,11 @@ const string PrtGet::DEFAULT_CACHE_FILE = LOCALSTATEDIR"/lib/pkg/prt-get.cache";
 PrtGet::PrtGet( const ArgParser* parser )
     : m_repo( 0 ),
       m_config( 0 ),
+      m_currentTransaction( 0 ),
+      m_locker(),
       m_parser( parser ),
       m_cacheFile( DEFAULT_CACHE_FILE ),
-      m_returnValue( PG_OK ),
-      m_currentTransaction( 0 )
+      m_returnValue( PG_OK )
 {
     if ( m_parser->wasCalledAsPrtCached() ) {
         m_appName = "prt-cache";
