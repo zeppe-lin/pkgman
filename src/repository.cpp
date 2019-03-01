@@ -256,7 +256,7 @@ Repository::initFromCache( const string& cacheFile )
     if ( fgets( input, length, fp ) ) {
         line = stripWhiteSpace( input );
         if ( line != CACHE_VERSION ) {
-            close( fp );
+            fclose( fp );
             return FORMAT_ERR;
         }
     }
