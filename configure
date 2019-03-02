@@ -2585,7 +2585,7 @@ fi
 # Define the identity of the package.
 
  PACKAGE=prt-get
- VERSION=5.19.1
+ VERSION=5.19.2
 
 
 cat >>confdefs.h <<_ACEOF
