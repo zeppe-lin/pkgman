@@ -524,7 +524,8 @@ void PrtGet::listInstalled()
 {
     assertMaxArgCount(1);
 
-    string arg = "*";
+    string arg = m_useRegex ? ".*" : "*";
+
     if ( m_parser->otherArgs().size() == 1 ) {
         arg = *(m_parser->otherArgs().begin());
     }
