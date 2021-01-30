@@ -1,88 +1,16 @@
-prt - advanced package management tool for CRUX
-***********************************************
-
-Copyright (C) 2001-2001 Firm
-Copyright (C) 2001-2001 Name Surname <mail>
-
-
-Compilation and installation
-============================
-
-In order to compile prt you need following software packages:
-	- GCC compiler	>= 8.3
-	- CMake		>= ...
-	- Doxygen	>= ...	(optional)
-
-To configure run:
-	mkdir build
-	cd build
-	cmake .. -D ...
-
-To compile and install run:
-	make && make install
-
-
-Information
-===========
-
-Mailing lists:
-	...
-
-For additional information about the project visit prt web site:
-	https://prt.chinarulezzz.fun
-
------------------------------------------------
-
-## About
+About
+=====
 
 *prt* is a package management tool which provides additional
-functionality to crux' package management system.
+functionality to package management system.
 
-It appeared in an attempt to rewrite the
-[prt-get](https://crux.nu/gitweb/?p=tools/prt-get.git;a=summary) tool
-which is used by CRUX Linux distribution.
+It appeared in an attempt to rewrite the prt-get tool, which is used
+by CRUX: https://crux.nu/gitweb/?p=tools/prt-get.git;a=summary.
 
-The main differences from *prt-get*:
+Copyright and License
+---------------------
 
-- most of the *prt* code has been ported to -std=c++17;
-- switch to cmake;
-- `prt-cache`, `aliases`, `deplist` functionality was removed;
-- added support of pre-/post-remove scripts;
-- added `sync` command (`ports -u` replacement);
-- added `depmiss` command to check for missing dependencies;
-- the code was simplified; (!)
+Copyright (c) Johannes Winkelmann and all CRUX community.
 
-## Description
-
-*prt* offers the following features:
-
-- sync ports collections via various transports such as
-git(1)/rsync(8)/httpup(8);
-
-- abstract ports installation/update from file system;
-
-- install/update a list of ports with one command;
-
-- list dependencies for a list of ports and search a missing
-dependencies of installed ports;
-
-- show information about ports;
-
-- search within the ports;
-
-What *prt* basically does is installing and upgrading ports, using
-pkgmk(8) and pkgadd(8). Additionally, you don't have be in the 
-port's directory to call prt. It will search for the respective
-port itself in a list of directories specified in */etc/prt.conf*.
-This allows you to just install or update a port, without caring
-where it actually is located on your file system.
-
-*prt also offers some features like searching ports by name/description,
-showing information about ports (without installing them of course), and
-provide a complete dependency list for a port.
-
-See man page for more details.
-
-## Credits
-
-Johannes Winkelmann and all CRUX community.
+prt is licensed through the GNU General Public License v2.
+Read the COPYING file for the complete license.
