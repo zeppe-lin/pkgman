@@ -1,60 +1,81 @@
-////////////////////////////////////////////////////////////////////////
-// FILE:        pkgdb.h
-// AUTHOR:      Johannes Winkelmann, jw@tks6.net
-// COPYRIGHT:   (c) 2002 by Johannes Winkelmann
-// ---------------------------------------------------------------------
-//  This program is free software; you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation; either version 2 of the License, or
-//  (at your option) any later version.
-////////////////////////////////////////////////////////////////////////
+//! \file      pkgdb.h
+//! \brief     PkgDB Definition
+//! \copyright See LICENSE file for copyright and license details.
 
-#ifndef _PKGDB_H_
-#define _PKGDB_H_
+#pragma once
 
 #include <map>
+#include <string>
 #include <utility>
 #include <vector>
-#include <string>
 
+#include "package.h"
 
-/*!
-  \class PkgDB
-  \brief database of installed packages
+using namespace std;
 
-  A representation of crux' package database of installed packages
-*/
+//! \class  PkgDB
+//! \brief  The Representation of CRUX' package database of installed
+//!         packages
 class PkgDB
 {
 public:
-    PkgDB( const std::string& installRoot = "" );
-    bool isInstalled( const std::string& name,
-                      bool useAlias = false,
-                      bool* isAlias = 0,
-                      string* aliasOrignalName = 0 ) const;
+  //! \brief   Create a PkgDB object
+  //!
+  //! \param   root  use a different root directory
+  PkgDB( const string& root="" );
 
+  //! \brief   Check whether a package is installed
+  //!
+  //! \param   name  the package name
+  //!
+  //! \return  whether package \a name is installed
+  bool isInstalled( const pkgname_t& name ) const;
 
-    std::string getPackageVersion( const std::string& name ) const;
-    const std::map<std::string, std::string>& installedPackages();
-    void getMatchingPackages( const std::string& pattern,
-                              map<std::string,std::string>& target,
-                              bool useRegex ) const;
+  //! \brief   Get the package version and release
+  //!
+  //! \param   name  the package name
+  //!
+  //! \return  a package's version and release or an empty string
+  //!          if not found
+  string getVersionRelease( const pkgname_t& name ) const;
 
-    static const std::string ALIAS_STORE;
+  //! \brief   Get all installed packages
+  //!
+  //! \return  a map of installed packages, where
+  //!          pair.first   is the package name,
+  //!          pair.second  is the version-release string
+  const map< pkgname_t, pkgver_t >& installedPackages();
+
+  //! \brief   Search packages for a match of \a pattern in name
+  //!
+  //! \note    The name can contain shell wildcards or regex
+  //!
+  //! \param   pattern   the pattern to be found
+  //! \param   target    save matching result into the target, where
+  //!                    pair.first   is the package name,
+  //!                    pair.second  is the version-release string
+  //! \param   useRegex  interpret the \a pattern as regular expression
+  void getMatchingPackages( const string&                pattern,
+                            map< pkgname_t, pkgver_t >&  target,
+                            bool                         useRegex )
+    const;
 
 private:
-    bool load() const;
+  //! The package db location
+  static const string PKGDB;
 
-    bool aliasExistsFor(const string& name, string& provider) const;
+  //! Load the package db
+  bool load() const;
 
-    mutable bool m_isLoaded;
-    mutable std::map<std::string, std::string> m_packages;
-    mutable std::map<std::string, std::string> m_aliases;
-    mutable std::map<std::string, std::vector<std::string> > m_splitAliases;
+  //! Don't load the package db twice
+  mutable bool m_isLoaded;
 
-    std::string m_installRoot;
+  //! All installed packages
+  mutable map< pkgname_t, pkgver_t > m_packages;
 
-    static const std::string PKGDB;
+  //! For a different than "/" root directory
+  string m_root;
 };
 
-#endif /* _PKGDB_H_ */
+// vim:sw=2:ts=2:sts=2:et:cc=72
+// End of file

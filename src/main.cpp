@@ -1,174 +1,274 @@
-////////////////////////////////////////////////////////////////////////
-// FILE:        main.cpp
-// AUTHOR:      Johannes Winkelmann, jw@tks6.net
-// COPYRIGHT:   (c) 2002 by Johannes Winkelmann
-// ---------------------------------------------------------------------
-//  This program is free software; you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation; either version 2 of the License, or
-//  (at your option) any later version.
-////////////////////////////////////////////////////////////////////////
+//! \file       main.cpp
+//! \brief      Command-line utility of \a prt
+//! \copyright  See LICENSE file for copyright and license details.
+
+#include <cstdlib>
+#include <iostream>
 
 #include <signal.h>
-#include <iostream>
-#include <cstdlib>
-using namespace std;
 
 #include "argparser.h"
-#include "prtget.h"
+#include "prt.h"
 #include "signaldispatcher.h"
+
+using namespace std;
+
+static void inline exit_fail( const string& message )
+{
+  cerr << "prt: " << message << endl
+       << "See 'man prt' for detailed usage information." << endl;
+  exit( EXIT_FAILURE );
+}
+
+static void inline exit_succ( const string& message )
+{
+  cerr << message << endl;
+  exit( EXIT_SUCCESS );
+}
 
 int main( int argc, char** argv )
 {
-    ArgParser argParser( argc, argv );
-    if ( !argParser.parse() ) {
-        if (argParser.unknownOption().size() > 0){
-            cerr << "prt-get: Unknown option: " << argParser.unknownOption()
-                 << endl;
-        } else if ( !argParser.isCommandGiven() ) {
-            if (argParser.commandName() != "") {
-                cerr << "prt-get: Unknown command '"
-                     << argParser.commandName() << "'. "
-                     << "try prt-get help for more information" << endl;
-            } else {
-                cerr << "prt-get: no command given. "
-                     << "try prt-get help for more information" << endl;
-            }
-        }
+  ArgParser parser( argc, argv );
+  parser.parse();
 
-        exit( -1 );
-    }
-    if ( argParser.verbose() > 2 ) {
-        cerr << "prt-get: can't specify both -v and -vv. " << endl;
-        exit( -1 );
-    }
+  if ( parser.unknownOpt().size() )
+    exit_fail( "unknown option: " + parser.unknownOpt() );
 
-    PrtGet prtGet( &argParser );
+  if ( parser.unknownCmdOpt().size() )
+    exit_fail( "unknown command option: " + parser.unknownCmdOpt() );
 
-    signal( SIGHUP, SignalDispatcher::dispatch );
-    signal( SIGINT, SignalDispatcher::dispatch );
-    signal( SIGQUIT, SignalDispatcher::dispatch );
-    signal( SIGILL, SignalDispatcher::dispatch );
+  if ( parser.verbose() > 2 )
+    exit_fail( "can't specify both -v and -vv" );
 
-    SignalDispatcher::instance()->registerHandler( &prtGet, SIGINT );
-    SignalDispatcher::instance()->registerHandler( &prtGet, SIGHUP );
-    SignalDispatcher::instance()->registerHandler( &prtGet, SIGQUIT );
-    SignalDispatcher::instance()->registerHandler( &prtGet, SIGILL );
+  const string& cmd = parser.cmdName();
+  if ( cmd.empty() )
+    exit_fail( "no command given" );
+  else if ( cmd == "version" )
+    exit_succ( VERSION );
+  else if ( cmd == "help" )
+    exit_succ( "See 'man 8 prt'" );
 
+  if ( parser.isTest() )
+    cout << "\n*** TEST MODE ***\n";
 
-    ArgParser::Type command = argParser.commandType();
-    switch ( command )
-    {
-        case ArgParser::HELP:
-            prtGet.printUsage();
-            break;
-        case ArgParser::SHOW_VERSION:
-            prtGet.printVersion();
-            break;
-        case ArgParser::LIST:
-            prtGet.listPackages();
-            break;
-        case ArgParser::DUP:
-            prtGet.listShadowed();
-            break;
-        case ArgParser::SEARCH:
-            prtGet.searchPackages();
-            break;
-        case ArgParser::DSEARCH:
-            prtGet.searchPackages( true );
-            break;
-        case ArgParser::INFO:
-            prtGet.printInfo();
-            break;
-        case ArgParser::ISINST:
-            prtGet.isInstalled();
-            break;
-        case ArgParser::INSTALL:
-            prtGet.install();
-            break;
-        case ArgParser::DEPINST:
-            prtGet.install(false, true, true);
-            break;
-        case ArgParser::GRPINST:
-            prtGet.install( false, true );
-            break;
-        case ArgParser::DEPENDS:
-            prtGet.printDepends();
-            break;
-        case ArgParser::QUICKDEP:
-            prtGet.printDepends( true );
-            break;
-        case ArgParser::UPDATE:
-            prtGet.install( true );
-            break;
-        case ArgParser::DIFF:
-            prtGet.printDiff();
-            break;
-        case ArgParser::QUICKDIFF:
-            prtGet.printQuickDiff();
-            break;
-        case ArgParser::CREATE_CACHE:
-            prtGet.createCache();
-            break;
-        case ArgParser::PATH:
-            prtGet.printPath();
-            break;
-        case ArgParser::LISTINST:
-            prtGet.listInstalled();
-            break;
-        case ArgParser::PRINTF:
-            prtGet.printf();
-            break;
-        case ArgParser::README:
-            prtGet.readme();
-            break;
-        case ArgParser::DEPENDENT:
-            prtGet.printDependent();
-            break;
-        case ArgParser::SYSUP:
-            prtGet.sysup();
-            break;
-        case ArgParser::CURRENT:
-            prtGet.current();
-            break;
-        case ArgParser::FSEARCH:
-            prtGet.fsearch();
-            break;
-        case ArgParser::LOCK:
-            prtGet.setLock( true );
-            break;
-        case ArgParser::UNLOCK:
-            prtGet.setLock( false );
-            break;
-        case ArgParser::LISTLOCKED:
-            prtGet.listLocked();
-            break;
-        case ArgParser::CAT:
-            prtGet.cat();
-            break;
-        case ArgParser::LS:
-            prtGet.ls();
-            break;
-        case ArgParser::EDIT:
-            prtGet.edit();
-            break;
-        case ArgParser::REMOVE:
-            prtGet.remove();
-            break;
-        case ArgParser::DEPTREE:
-            prtGet.printDependTree();
-            break;
-        case ArgParser::DUMPCONFIG:
-            prtGet.dumpConfig();
-            break;
-        case ArgParser::LISTORPHANS:
-            prtGet.listOrphans();
-            break;
-        default:
-            cerr << "unknown command" << endl;
-            break;
-    }
+  Prt prt( &parser );
+  //if ( prt.returnValue() == -1 )
+  //  exit( EXIT_FAILURE );
 
+  signal( SIGHUP,  SignalDispatcher::dispatch );
+  signal( SIGINT,  SignalDispatcher::dispatch );
+  signal( SIGQUIT, SignalDispatcher::dispatch );
+  signal( SIGILL,  SignalDispatcher::dispatch );
 
-    return prtGet.returnValue();
+  SignalDispatcher::instance()->registerHandler( &prt, SIGINT  );
+  SignalDispatcher::instance()->registerHandler( &prt, SIGHUP  );
+  SignalDispatcher::instance()->registerHandler( &prt, SIGQUIT );
+  SignalDispatcher::instance()->registerHandler( &prt, SIGILL  );
+
+  // some useful lambdas to avoid boilerplate
+
+  auto argify = []( size_t count )
+  {
+    return  to_string( count ) +
+          ( count > 1 ? " arguments" : " argument" );
+  };
+
+  auto assertMinArgCount = [ &parser, &argify ]( size_t count )
+  {
+    if ( parser.cmdArgs().size() < count )
+      exit_fail( parser.cmdName() + " takes at least " +
+                 argify( count ) );
+  };
+
+  auto assertMaxArgCount = [ &parser, &argify ]( size_t count )
+  {
+    if ( parser.cmdArgs().size() > count )
+      exit_fail( parser.cmdName() + " takes at most "  +
+                 argify( count ) );
+  };
+
+  auto assertExactArgCount = [ &parser, &argify ]( size_t count )
+  {
+    if ( parser.cmdArgs().size() != count )
+      exit_fail( parser.cmdName() + " takes exactly "  +
+                 argify( count ) );
+  };
+
+  /////////////////////////////////////////////////////////////////////
+  /////////////////////// Prt Commands Handling ///////////////////////
+  /////////////////////////////////////////////////////////////////////
+
+  /////////////////////////////////////////////////////////////////////
+  //                          Informational                          //
+  /////////////////////////////////////////////////////////////////////
+  if ( cmd == "dumpconfig" )
+  {
+    prt.dumpConfig();
+  }
+  else if ( cmd == "list" )
+  {
+    prt.listPackages();
+  }
+  else if ( cmd == "list-dup" )
+  {
+    assertMaxArgCount( 1 );
+    prt.listShadowed();
+  }
+  else if ( cmd == "list-orphans" )
+  {
+    prt.listOrphans();
+  }
+  else if ( cmd == "list-locked" )
+  {
+    prt.listLocked();
+  }
+  else if ( cmd == "printf" )
+  {
+    assertExactArgCount( 1 );
+    prt.printf();
+  }
+  else if ( cmd == "info" )
+  {
+    assertExactArgCount( 1 );
+    prt.printInfo();
+  }
+  else if ( cmd == "readme" )
+  {
+    assertExactArgCount( 1 );
+    prt.printReadme();
+  }
+  else if ( cmd == "path" )
+  {
+    assertExactArgCount( 1 );
+    prt.printPath();
+  }
+  else if ( cmd == "isinst" )
+  {
+    assertMinArgCount( 1 );
+    prt.printIsInstalled();
+  }
+  else if ( cmd == "current" )
+  {
+    assertExactArgCount( 1 );
+    prt.printCurrentVersion();
+  }
+
+  /////////////////////////////////////////////////////////////////////
+  //                 Differences / Check for updates                 //
+  /////////////////////////////////////////////////////////////////////
+  else if ( cmd == "diff" )
+  {
+    prt.printDiff();
+  }
+ 
+  /////////////////////////////////////////////////////////////////////
+  //                          Dependencies                           //
+  /////////////////////////////////////////////////////////////////////
+  else if ( cmd == "mdep" )
+  {
+    prt.printMissingDep();
+  }
+  else if ( cmd == "dep" )
+  {
+    assertExactArgCount( 1 );
+    prt.printDep();
+  }
+  else if ( cmd == "rdep" )
+  {
+    assertExactArgCount( 1 );
+    prt.printRevDep();
+  }
+
+  /////////////////////////////////////////////////////////////////////
+  //                            Searching                            //
+  /////////////////////////////////////////////////////////////////////
+  else if ( cmd == "search" )
+  {
+    assertExactArgCount( 1 );
+    prt.psearch();
+  }
+  else if ( cmd == "dsearch" )
+  {
+    assertExactArgCount( 1 );
+    prt.psearch( /*desc*/ true );
+  }
+  else if ( cmd == "fsearch" )
+  {
+    assertMinArgCount( 1 );
+    prt.fsearch();
+  }
+
+  /////////////////////////////////////////////////////////////////////
+  //                    Install / Update / Remove                    //
+  /////////////////////////////////////////////////////////////////////
+  else if ( cmd == "install" )
+  {
+    assertMinArgCount( 1 );
+    prt.install( Transaction::INSTALL );
+  }
+  else if ( cmd == "update" )
+  {
+    assertMinArgCount( 1 );
+    prt.install( Transaction::UPDATE );
+  }
+  else if ( cmd == "remove" )
+  {
+    assertMinArgCount( 1 );
+    prt.remove();
+  }
+
+  /////////////////////////////////////////////////////////////////////
+  //                          System update                          //
+  /////////////////////////////////////////////////////////////////////
+  else if ( cmd == "sync" )
+  {
+    prt.sync();
+  }
+  else if ( cmd == "sysup" )
+  {
+    prt.sysup();
+  }
+  else if ( cmd == "lock" )
+  {
+    assertMinArgCount( 1 );   // package name
+    prt.setLock( /*lock*/ true );
+  }
+  else if ( cmd == "unlock" )
+  {
+    assertMinArgCount( 1 );
+    prt.setLock( /*lock*/ false );
+  }
+
+  /////////////////////////////////////////////////////////////////////
+  //                         File operations                         //
+  /////////////////////////////////////////////////////////////////////
+  else if ( cmd == "ls" )
+  {
+    assertExactArgCount( 1 ); // package name
+    prt.ls();
+  }
+  else if ( cmd == "cat" )
+  {
+    assertMinArgCount( 1 );   // package name
+    assertMaxArgCount( 2 );   // optional file
+    prt.cat();
+  }
+  else if ( cmd == "edit" )
+  {
+    assertMinArgCount( 1 );   // package name
+    assertMaxArgCount( 2 );   // optional file
+    prt.edit();
+  }
+
+  /////////////////////////////////////////////////////////////////////
+  else
+    exit_fail( "unknown command " + cmd );
+
+  if ( parser.isTest() )
+    cout << "\n*** TEST MODE END ***\n";
+
+  return prt.returnValue();
 }
+
+// vim:sw=2:ts=2:sts=2:et:cc=72
+// End of file

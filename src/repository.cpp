@@ -1,439 +1,221 @@
-////////////////////////////////////////////////////////////////////////
-// FILE:        repository.cpp
-// AUTHOR:      Johannes Winkelmann, jw@tks6.net
-// COPYRIGHT:   (c) 2002 by Johannes Winkelmann
-// ---------------------------------------------------------------------
-//  This program is free software; you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation; either version 2 of the License, or
-//  (at your option) any later version.
-////////////////////////////////////////////////////////////////////////
+//! \file       repository.cpp
+//! \brief      Repository class implementation
+//! \copyright  See LICENSE file for copyright and license details.
 
+#include <algorithm>
 #include <cstdio>
 #include <cstring>
+#include <filesystem>
+#include <fstream>
 #include <iostream>
-#include <algorithm>
 #include <vector>
-using namespace std;
 
-
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <dirent.h>
-#include <unistd.h>
 #include <fnmatch.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #include "datafileparser.h"
+#include "p_regex.h"
 #include "repository.h"
-#include "stringhelper.h"
-#include "pg_regex.h"
+#include "helpers.h"
+
+namespace fs = std::filesystem;
+
+using namespace std;
 using namespace StringHelper;
+using namespace ListHelper;
 
-
-const string Repository::CACHE_VERSION = "V5";
-
-/*!
-  Create a repository
-*/
-Repository::Repository(bool useRegex)
-    : m_useRegex(useRegex)
+Repository::Repository( bool useRegex ):
+  m_useRegex( useRegex )
 {
 }
 
-/*!
-  Destroy a repository
-*/
 Repository::~Repository()
 {
-    map<string, Package*>::const_iterator it = m_packageMap.begin();
-    for ( ; it != m_packageMap.end(); ++it ) {
-        delete it->second;
-    }
+  for ( const auto& [ name, pkgobj ]: m_packageMap )
+    delete pkgobj;
 }
 
-
-/*!
-  \return a map of available packages
-*/
-const map<string, Package*>& Repository::packages() const
+const Package* Repository::getPackage( const pkgname_t& name ) const
 {
-    return m_packageMap;
+  const auto& pkg = m_packageMap.find( name );
+  if ( pkg == m_packageMap.end() )
+    return 0;
+  return pkg->second; /* Package pointer */
 }
 
-
-/*!
-  Returns a sorted list of duplicate packages in the repository.
-  In the pairs \a first is the shadowed port and
-  \a second is the port which preceeds over \a first
-  \return a list of duplicate packages in the repository
-*/
-const list< pair<Package*, Package*> >& Repository::shadowedPackages() const
+const map< pkgname_t, Package* >& Repository::packages() const
 {
-    return m_shadowedPackages;
+  return m_packageMap;
 }
 
-
-/*!
-  \param name the package name to be returned
-  \return a Package pointer for a package name or 0 if not found
-*/
-const Package* Repository::getPackage( const string& name ) const
+const
+list< pair< Package*, Package* > >& Repository::shadowedPackages()
+  const
 {
-    map<string, Package*>::const_iterator it = m_packageMap.find( name );
-    if ( it == m_packageMap.end() ) {
-        return 0;
-    }
-    return it->second;
+  return m_shadowedPackages;
 }
 
-
-/*!
-  Search packages for a match of \a pattern in name, and description of
-  \a searchDesc is true.
-  \note Name searches can often done without opening the Pkgfiles, but not
-  description search. Therefore, the later is much slower
-
-  \param pattern the pattern to be found
-  \param searchDesc whether descriptions should be searched as well
-  \return a list of matching packages
-*/
-
-void Repository::searchMatchingPackages( const string& pattern,
-                                         list<Package*>& target,
-                                         bool searchDesc ) const
-    // note: searchDesc true will read _every_ Pkgfile
+void
+Repository::searchMatchingPackages( const string&      pattern,
+                                    list< Package* >&  target,
+                                    bool               searchDesc )
+  const
 {
-    map<string, Package*>::const_iterator it = m_packageMap.begin();
-    if (m_useRegex) {
-        RegEx re(pattern);
-        for ( ; it != m_packageMap.end(); ++it ) {
-            if (re.match(it->first)) {
-                target.push_back( it->second );
-            } else if ( searchDesc ) {
-                if ( re.match(it->second->description())) {
-                    target.push_back( it->second );
-                }
-            }
-        }
-    } else {
-        for ( ; it != m_packageMap.end(); ++it ) {
-            if ( it->first.find( pattern ) != string::npos ) {
-                target.push_back( it->second );
-            } else if (searchDesc ) {
-                string s = toLowerCase( it->second->description() );
-                if ( s.find( toLowerCase( pattern ) ) != string::npos ) {
-                    target.push_back( it->second );
-                }
-            }
-        }
-    }
+  //! \note  \a searchDesc \a true will read _every_ Pkgfile
+  if ( m_useRegex )
+  {
+    RegEx re( pattern );
+
+    for ( const auto& [ pkgname, pkgobj ]: m_packageMap )
+      if ( re.match( pkgname ) )
+        target.push_back( pkgobj );
+      else if ( searchDesc )
+      {
+        if ( re.match( pkgobj->description() ) )
+          target.push_back( pkgobj );
+      }
+  }
+  else
+  {
+    for ( const auto& [ pkgname, pkgobj ]: m_packageMap )
+      if ( contains( pkgname, pattern ) )
+        target.push_back( pkgobj );
+      else if ( searchDesc )
+      {
+        string s = toLowerCase( pkgobj->description() );
+        if ( contains( s, pattern ) )
+          target.push_back( pkgobj );
+      }
+  }
 }
 
-int Repository::compareShadowPair(pair<Package*, Package*>& p1,
-                                  pair<Package*, Package*>& p2)
+int Repository::compareShadowPair( pair< Package*, Package* >&  p1,
+                                   pair< Package*, Package* >&  p2 )
 {
-    return p1.second->name() < p2.second->name();
+  return p1.second->name() < p2.second->name();
 }
 
-
-/*!
-  init repository by reading the directories passed. Doesn't search
-  recursively, so if you want /dir and /dir/subdir checked, you have to
-  specify both
-
-  \param rootList a list of directories to look for ports in
-  \param listDuplicate whether duplicates should registered (slower)
-*/
-void Repository::initFromFS( const list< pair<string, string> >& rootList,
-                             bool listDuplicate )
+void Repository::initFromFS( const rootList_t& rootList,
+                             bool         listDuplicate )
 {
-    list< pair<string, string> >::const_iterator it = rootList.begin();
-    DIR* d;
-    struct dirent* de;
-    string name;
+  map< string, bool > alreadyChecked;
 
-    std::map<string, bool> alreadyChecked;
+  for ( const auto& [ path, pkgs ]: rootList )
+  {
+    if ( alreadyChecked[ path ] )
+      continue;
 
+    string pkgstr = stripWhiteSpace( pkgs );
 
-    for ( ; it != rootList.end(); ++it ) {
-
-        string path = it->first;
-        string pkgInput = stripWhiteSpace( it->second );
-
-        if ( alreadyChecked[path] ) {
-            continue;
-        }
-
-        bool filter = false;
-        if ( pkgInput.length() > 0 ) {
-            filter = true;
-            // create a proper input string
-            while ( pkgInput.find( " " ) != string::npos ) {
-                pkgInput = pkgInput.replace( pkgInput.find(" "), 1, "," );
-            }
-            while ( pkgInput.find( "\t" ) != string::npos ) {
-                pkgInput = pkgInput.replace( pkgInput.find("\t"), 1, "," );
-            }
-            while ( pkgInput.find( ",," ) != string::npos ) {
-                pkgInput = pkgInput.replace( pkgInput.find(",,"), 2, "," );
-            }
-        }
-
-        if (!filter) {
-            alreadyChecked[path] = true;
-        }
-
-        list<string> packages;
-        split( pkgInput, ',', packages );
-
-
-
-        // TODO: think about whether it would be faster (more
-        // efficient) to put all packages into a map, and the iterate
-        // over the list of allowed packages and copy them
-        // over. depending in the efficiency of find(), this might be
-        // faster
-        d = opendir( path.c_str() );
-        while ( ( de = readdir( d ) ) != NULL ) {
-            name = de->d_name;
-
-            // TODO: review this
-            struct stat buf;
-            if ( stat( (path + "/" + name + "/Pkgfile").c_str(), &buf )
-                 != 0 ) {
-                // no Pkgfile -> no port
-                continue;
-            }
-
-            if ( filter && find( packages.begin(),
-                                 packages.end(), name ) == packages.end() ) {
-                // not found -> ignore this port
-                continue;
-            }
-
-            if ( name != "." && name != ".." ) {
-
-                map<string, Package*>::iterator hidden;
-                hidden = m_packageMap.find( name );
-                Package* p = new Package( name, path );
-                if ( p ) {
-                    if ( hidden == m_packageMap.end() ) {
-                        // no such package found, add
-                        m_packageMap[name] = p;
-                    } else if ( listDuplicate ) {
-                        m_shadowedPackages.push_back(
-                                make_pair( p, hidden->second ));
-                    } else {
-                        delete p;
-                    }
-                }
-            }
-        }
-        closedir( d );
+    bool filter = false;
+    if ( pkgstr.size() )
+    {
+      filter = true;
+      replaceAll( pkgstr, " ",  "," );
+      replaceAll( pkgstr, "\t", "," );
+      replaceAll( pkgstr, ",,", "," );
     }
+    if ( ! filter )
+        alreadyChecked[ path ] = true;
 
-    m_shadowedPackages.sort(compareShadowPair);
+    list< string > pkglist;
+    split( pkgstr, ',', pkglist );
+
+    // TODO: think about whether it would be faster (more
+    // efficient) to put all packages into a map, and the iterate
+    // over the list of allowed packages and copy them
+    // over. depending in the efficiency of find(), this might be
+    // faster
+    for ( const auto& file: fs::directory_iterator( path ) )
+    {
+      // TODO: review this
+      fs::path pkgname = file.path().filename();
+      fs::path pkgfile = file.path() / "Pkgfile";
+
+      if ( std::error_code ec; ! fs::exists( pkgfile, ec ) )
+        continue; // no Pkgfile -> no port
+
+      if ( filter && ! contains( pkglist, pkgname.string() ) )
+        continue; // not found -> ignore this port
+
+      const auto& pkgobj = new Package( pkgname, path );
+      if ( ! pkgobj )
+        continue;
+
+      const auto& hidden = m_packageMap.find( pkgname );
+      if ( hidden == m_packageMap.end() )
+        m_packageMap[ pkgname ] = pkgobj; // no such package found, add
+      else if ( listDuplicate )
+        m_shadowedPackages.push_back(
+            make_pair( pkgobj, hidden->second ) );
+      else
+        delete pkgobj;
+    }
+  }
+
+  m_shadowedPackages.sort( compareShadowPair );
 }
 
-/*!
-  Init from a cache file
-  \param cacheFile the name of the cache file to be parser
-  \return true on success, false indicates file opening problems
-*/
-Repository::CacheReadResult
-Repository::initFromCache( const string& cacheFile )
-{
-    FILE* fp = fopen( cacheFile.c_str(), "r" );
-    if ( !fp ) {
-        return ACCESS_ERR;
-    }
-
-    const int length = BUFSIZ;
-    char input[length];
-    string line;
-
-    // read version
-    if ( fgets( input, length, fp ) ) {
-        line = stripWhiteSpace( input );
-        if ( line != CACHE_VERSION ) {
-            fclose( fp );
-            return FORMAT_ERR;
-        }
-    }
-
-    // FIELDS:
-    // name, path, version, release,
-    // description, dependencies, url,
-    // packager, maintainer, hasReadme;
-    // hasPreInstall, hasPostInstall
-    const int fieldCount = 12;
-    string fields[fieldCount];
-    int fieldPos = 0;
-
-    while ( fgets( input, length, fp ) ) {
-        line = StringHelper::stripWhiteSpace( input );
-
-        fields[fieldPos] = line;
-        ++fieldPos;
-        if ( fieldPos == fieldCount ) {
-            fieldPos = 0;
-            Package* p = new Package( fields[0], fields[1],
-                                      fields[2], fields[3],
-                                      fields[4], fields[5], fields[6],
-                                      fields[7], fields[8], fields[9],
-                                      fields[10], fields[11]);
-            m_packageMap[p->name()] = p;
-            fgets( input, length, fp ); // read empty line
-        }
-    }
-    fclose( fp );
-
-    return READ_OK;
-}
-
-/*!
-  Store repository data in a cache file
-  \param cacheFile the file where the data is stored
-  \return whether the operation was successfully
-*/
-Repository::WriteResult Repository::writeCache( const string& cacheFile )
-{
-    string path = cacheFile;
-    string::size_type pos = cacheFile.rfind( '/' );
-    if ( pos != string::npos ) {
-        path = path.erase( pos );
-    }
-    if ( !createOutputDir( path ) ) {
-        return DIR_ERR;
-    }
-
-    FILE* fp = fopen( cacheFile.c_str(), "w" );
-    if ( !fp ) {
-        return FILE_ERR;
-    }
-
-    map<string, Package*>::const_iterator it = m_packageMap.begin();
-
-    char yesStr[] = "yes";
-    char noStr[] = "no";
-    char* hasReadme;
-    char* hasPreInstall;
-    char* hasPostInstall;
-
-    // write version
-    fprintf( fp, "%s\n", CACHE_VERSION.c_str() );
-
-    for ( ; it != m_packageMap.end(); ++it ) {
-        const Package* p = it->second;
-
-        // TODO: encode
-        hasReadme = noStr;
-        if ( p->hasReadme() ) {
-            hasReadme = yesStr;
-        }
-
-        hasPreInstall = noStr;
-        if ( p->hasPreInstall() ) {
-            hasPreInstall = yesStr;
-        }
-
-        hasPostInstall = noStr;
-        if ( p->hasPostInstall() ) {
-            hasPostInstall = yesStr;
-        }
-
-        fprintf( fp, "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n\n",
-                 p->name().c_str(),
-                 p->path().c_str(),
-                 p->version().c_str(),
-
-                 p->release().c_str(),
-                 p->description().c_str(),
-                 p->dependencies().c_str(),
-                 p->url().c_str(),
-                 p->packager().c_str(),
-                 p->maintainer().c_str(),
-                 hasReadme, hasPreInstall, hasPostInstall );
-    }
-
-    fclose( fp );
-    return SUCCESS;
-}
-
-/*!
-  create all components of \path which don't exist
-  \param path the path to be created
-  \return true on success. false indicates permission problems
- */
 bool Repository::createOutputDir( const string& path )
 {
-    list<string> dirs;
-    split( path, '/', dirs, 1 );
-    string tmpPath;
+  list< string > dirs;
+  split( path, '/', dirs, 1 );
 
-    for ( list<string>::iterator it = dirs.begin(); it != dirs.end(); ++it ) {
-
-        tmpPath += *it + "/";
-        DIR* d;
-        if ( ( d = opendir( tmpPath.c_str() ) ) == NULL ) {
-            // doesn't exist
-            if ( mkdir( tmpPath.c_str(), 0755 ) == -1 ) {
-                cout << "- can't create output directory " << tmpPath
-                     << endl;
-                return false;
-            }
-        } else {
-            closedir( d );
-        }
-
+  fs::path tmpPath;
+  for ( const string& dir: dirs )
+  {
+    tmpPath /= dir;
+    if ( ! fs::exists( tmpPath ) )
+    {
+      if ( std::error_code ec; ! fs::create_directory( tmpPath, ec ) )
+        return false;
     }
-    return true;
+  }
+  return true;
 }
 
-
-/*!
-  Search packages for a match of \a pattern in name. The name can
-  contain shell wildcards.
-
-  \param pattern the pattern to be found
-  \return a list of matching packages
-*/
-
-void Repository::getMatchingPackages( const string& pattern,
-                                      list<Package*>& target ) const
+void Repository::getMatchingPackages( const string&      pattern,
+                                      list< Package* >&  target ) const
 {
-    map<string, Package*>::const_iterator it = m_packageMap.begin();
-    RegEx re(pattern);
+  if ( m_useRegex )
+  {
+    RegEx re( pattern );
 
-    if (m_useRegex) {
-        for ( ; it != m_packageMap.end(); ++it ) {
-            if (re.match(it->first)) {
-                target.push_back( it->second );
-            }
-        }
-    } else {
-        for ( ; it != m_packageMap.end(); ++it ) {
-            // I assume fnmatch will be quite fast for "match all" (*), so
-            // I didn't add a boolean to check for this explicitely
-            if ( fnmatch( pattern.c_str(), it->first.c_str(), 0  ) == 0 ) {
-                target.push_back( it->second );
-            }
-        }
+    for ( const auto& [ pkgname, pkgobj ]: m_packageMap )
+      if ( re.match( pkgname ) )
+        target.push_back( pkgobj );
+  }
+  else
+  {
+    for ( const auto& [ pkgname, pkgobj ]: m_packageMap )
+    {
+      // jw: I assume  fnmatch will be quite fast for "match all" (*),
+      // so I didn't add a boolean to check for this explicitely
+      if ( fnmatch( pattern.c_str(), pkgname.c_str(), 0 ) == 0 )
+        target.push_back( pkgobj );
     }
+  }
 }
 
-void Repository::addDependencies( std::map<string, string>& deps )
+void Repository::addDependencies( map< pkgname_t, pkgname_t >& deps )
 {
-    map<string, string>::iterator it = deps.begin();
-    for ( ; it != deps.end(); ++it ) {
-        map<string, Package*>::const_iterator pit =
-            m_packageMap.find( it->first );
-        if ( pit != m_packageMap.end() ) {
-            Package* p = pit->second;
-            if (p->dependencies().length() == 0) {
-                // only use if no dependencies in Pkgfile
-                p->setDependencies(it->second);
-            }
-        }
+  for ( const auto& [ first, second ]: deps )
+  {
+    const auto& it = m_packageMap.find( first );
+    if ( it == m_packageMap.end() )
+      continue;
+
+    Package* pkgobj = it->second;
+    if ( pkgobj->dependencies().empty() )
+    {
+      // only use if no dependencies in Pkgfile
+      pkgobj->setDependencies( second );
     }
+  }
 }
+
+// vim:sw=2:ts=2:sts=2:et:cc=72
+// End of file

@@ -1,0 +1,24 @@
+.\" \file       prt-cat.8.in
+.\" \brief      Man page for prt 'cat' command
+.\" \copyright  See LICENSE file for copyright and license detaicat.
+.TH PRT-cat 8 "prt-#VERSION# Manual"
+.SH NAME
+prt-cat \- Prints out the file.
+.SH SYNOPSIS
+.B prt cat
+.B [--path]
+.IR PKG
+.RI [ FILE ]
+.SH DESCRIPTION
+Prints out the port's file. If \fIFILE\fR is not specified,
+\'Pkgfile\' is used.
+.SH ENVIRONMENT
+.TP
+.B PAGER
+If the port has a \fIFILE\fR, then \fBprt\fR will try to open it using
+a \fBPAGER\fR. If \fBPAGER\fR is unset, then \fBprt(8)\fR prints the
+\fIFILE\fR to stdout.
+.SH SEE ALSO
+.B prt-ls(8), prt-edit(8)
+.\" vim:ft=nroff:sw=2:ts=2:sts=2:et:cc=72
+.\" End of file

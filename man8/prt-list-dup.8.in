@@ -1,0 +1,53 @@
+.\" \file       prt-list-dup.8.in
+.\" \brief      Man page for prt 'list-dup' command
+.\" \copyright  This file is a part of prt program.
+.\"             See LICENSE file for copyright and license details.
+.TH PRT-LIST-DUP 8 "prt-#VERSION# Manual"
+.SH NAME
+prt-list-dup \- Print list of duplicate ports in the repository
+.SH SYNOPSIS
+.B prt list-dup
+.BI [--prefer-higher|--strict-diff]
+.BI [ format ]
+.SH DESCRIPTION
+Print list of duplicate ports in the repository.
+It looks in all directories specified in \fC/etc/prt.conf\fR.
+.P
+The
+.I format
+string by default is \'%p1\ %v1\ %c\ %p2\ %v2\\n\'.
+.SH OPTIONS
+.TP
+.B --prefer-higher
+Prefer higher installed versions over lower ones in the ports tree.
+.TP
+.B --strict-diff
+Override \fBpreferhigher\fR configuration settings.
+.TP
+.I format
+The string that contain variables, which are replaced like this:
+.RS
+.TP
+%n
+port name
+.TP
+%p1
+full path (including name) to port that has priority
+.TP
+%p2
+full path (including name) to port being hidden
+.TP
+%v1
+the version of the port, that has priority
+.TP
+%v2
+the version of the hidden port
+.TP
+%c
+comparison sign of %p1 and %p2: < , > , == , !=
+.TP
+.RE
+Use \\n and \\t to format your output.
+No additional format specifier supported.
+.\" vim:ft=nroff:sw=2:ts=2:sts=2:et:cc=72
+.\" End of file

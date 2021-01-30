@@ -1,0 +1,38 @@
+.\" \file       prt-fsearch.8.in
+.\" \brief      Man page for prt 'fsearch' command
+.\" \copyright  See LICENSE file for copyright and license details.
+.TH PRT-FSEARCH 8 "prt-#VERSION# Manual"
+.SH NAME
+prt-fsearch \- Search the repository for a file in port's footprint
+.SH SYNOPSIS
+.B prt fsearch
+.B [-v|-vv] [--path]
+.B [--regex]
+.B [--full]
+.I EXPR
+.SH DESCRIPTION
+Search the ports tree for \fIEXPR\fR in their footprints.
+.br
+It looks in all directories specified in \fC/etc/prt.conf\fR.
+.SH OPTIONS
+.TP
+.B \-v
+Show version in the listing.
+.TP
+.B \-vv
+Show version and description in the listing.
+.TP
+.B \-\-path
+Show port path in the listing.
+.TP
+.B \-\-regex
+Interpret \fIEXPR\fR as regular expression.
+.TP
+.B \-\-full
+Full path search.
+.TP
+.I EXPR
+Can be a string, shell-like wildcard pattern
+(e.g prt-get fsearch "*.h") or regexps.
+.\" vim:ft=nroff:sw=2:ts=2:sts=2:et:cc=72
+.\" End of file

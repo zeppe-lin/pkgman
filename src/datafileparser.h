@@ -1,29 +1,29 @@
-////////////////////////////////////////////////////////////////////////
-// FILE:        datafileparser.h
-// AUTHOR:      Johannes Winkelmann, jw@tks6.net
-// COPYRIGHT:   (c) 2004 by Johannes Winkelmann
-// ---------------------------------------------------------------------
-//  This program is free software; you can redistribute it and/or modify  
-//  it under the terms of the GNU General Public License as published by  
-//  the Free Software Foundation; either version 2 of the License, or     
-//  (at your option) any later version.                                   
-////////////////////////////////////////////////////////////////////////
+//! \file      datafilepatser.h
+//! \brief     DataFileParser Definition
+//! \copyright See LICENSE file for copyright and license details.
 
-#ifndef _DATAFILEPARSER_H_
-#define _DATAFILEPARSER_H_
+#pragma once
 
 #include <map>
 #include <string>
 
-/**
- * Parser for files of the format
- * key : value1,value2
- */
+using namespace std;
+
+//! \class  DataFileParser
+//! \brief  Data \cFile Parser
+//
+//! Parser for files of the format "key:value1,value2"
 class DataFileParser
 {
 public:
-    static bool parse(const std::string& fileName, 
-                      std::map<std::string, std::string>& target);
+  //! \brief   Parse a file of the format "key:value1,value2" into std::map
+  //!
+  //! \param   filename  path to the file
+  //! \param   target    save key/value into target[key]=value
+  //!
+  //! \return  \a true if parsing is ok, \a false otherwise
+  bool parse( const string& filename, map< string, string >& target );
 };
 
-#endif /* _DATAFILEPARSER_H_ */
+// vim:sw=2:ts=2:sts=2:et:cc=80
+// End of file

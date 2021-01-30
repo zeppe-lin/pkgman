@@ -1,0 +1,33 @@
+.\" \file       prt-search.8.in
+.\" \brief      Man page for prt 'search' command
+.\" \copyright  See LICENSE file for copyright and license details.
+.TH PRT-SEARCH 8 "prt-#VERSION# Manual"
+.SH NAME
+prt-search \- Search the repository for port name
+.SH SYNOPSIS
+.B prt search
+.B [-v|-vv] [--path]
+.B [--regex]
+.I EXPR
+.SH DESCRIPTION
+Search the ports tree for \fIEXPR\fR in their name.
+.br
+It looks in all directories specified in \fC/etc/prt.conf\fR.
+.SH OPTIONS
+.TP
+.B \-v
+Show version in the listing.
+.TP
+.B \-vv
+Show version and description in the listing.
+.TP
+.B \-\-path
+Show port path in the listing.
+.TP
+.B \-\-regex
+Interpret \fIEXPR\fR as regular expression.
+.TP
+.I EXPR
+String or regular expression.
+.\" vim:ft=nroff:sw=2:ts=2:sts=2:et:cc=72
+.\" End of file

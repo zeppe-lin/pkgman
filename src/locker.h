@@ -1,53 +1,83 @@
-////////////////////////////////////////////////////////////////////////
-// FILE:        locker.h
-// AUTHOR:      Johannes Winkelmann, jw@tks6.net
-// COPYRIGHT:   (c) 2002 by Johannes Winkelmann
-// ---------------------------------------------------------------------
-//  This program is free software; you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation; either version 2 of the License, or
-//  (at your option) any later version.
-////////////////////////////////////////////////////////////////////////
+//! \file      locker.h
+//! \brief     Locker Definition
+//! \copyright See LICENSE file for copyright and license details.
 
-#ifndef _LOCKER_H_
-#define _LOCKER_H_
+#pragma once
 
 #include <string>
 #include <vector>
 
+#include "package.h"
+
 using namespace std;
 
-/**
- * prt-get can place packages in the locker, which are then not updated
- * anymore.
- * Locked packages are:
- * - marked in prt-get diff
- * - not shown in prt-get quickdiff
- * - not updated in prt-get sysup
- * 
- * remember to call store!
- */
+//! \class  Locker
+//! \brief  Lock the packages to skip updates while performing a system
+//!         update
+//!
+//! Then the locked packages will:
+//! - marked in 'prt diff \--all' as 'locked'
+//! - not shown without '\--all' in 'prt diff'
+//! - not updated in 'prt sysup'
+//!
+//! \warning REMEMBER TO CALL store!
 class Locker
 {
 public:
-    Locker();
+  //! The locker file path
+  static const string DB;
 
-    bool store();
+  //! \brief   Open a locker file and read the locked packages into
+  //!          \a m_packages 
+  Locker( const string& root );
 
-    bool lock( const string& package );
-    bool unlock( const string& package );
-    bool isLocked( const string& package ) const;
+  //! \brief   Check if opening failed
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool openFailed() const;
 
-    const vector<string>& lockedPackages() const;
+  //! \brief   Lock the package
+  //!
+  //! \param   package  the package name
+  //!
+  //! \return  \a true if locking worked, \a false if already locked
+  bool lock( const pkgname_t& package );
 
-    bool openFailed() const;
+  //! \brief   Unlock the package
+  //!
+  //! \param   package  the package name
+  //!
+  //! \return  \a true if it could be unlocked,
+  //!          \a false if it wasn't locked
+  bool unlock( const pkgname_t& package );
+
+  //! \brief   Write the changes to locker file
+  //!
+  //! \return  \a true if ok, \a false if locker file could not be
+  //!          opened for writing 
+  bool store();
+
+  //! \brief   Check if the \a package is locked
+  //!
+  //! \param   package  the package name
+  //!
+  //! \return  \a true if locked, \a false otherwise
+  bool isLocked( const pkgname_t& package ) const;
+
+  //! \brief   Get all locked packages
+  //!
+  //! \return  the vector of names of all locked packages 
+  const vector< pkgname_t >& lockedPackages() const;
+
 private:
+  //! The vector of names of all locked packages
+  vector< pkgname_t > m_packages;
 
-    vector<string> m_packages;
-    static const string LOCKER_FILE;
-    static const string LOCKER_FILE_PATH;
+  //! true if lock file opening error
+  bool m_openFailed;
 
-    bool m_openFailed;
+  string m_root;
 };
 
-#endif /* _LOCKER_H_ */
+// vim:sw=2:ts=2:sts=2:et:cc=72
+// End of file

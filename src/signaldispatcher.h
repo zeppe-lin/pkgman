@@ -1,58 +1,60 @@
-////////////////////////////////////////////////////////////////////////
-// FILE:        signaldispatcher.h
-// AUTHOR:      Johannes Winkelmann, jw@tks6.net
-// COPYRIGHT:   (c) 2002 by Johannes Winkelmann
-// ---------------------------------------------------------------------
-//  This program is free software; you can redistribute it and/or modify  
-//  it under the terms of the GNU General Public License as published by  
-//  the Free Software Foundation; either version 2 of the License, or     
-//  (at your option) any later version.                                   
-////////////////////////////////////////////////////////////////////////
+//! \file      signaldispatcher.h
+//! \brief     SignalHandler and SignalDispatcher classes definition
+//! \copyright See LICENSE file for copyright and license details.
 
-#ifndef _SIGNALDISPATCHER_H_
-#define _SIGNALDISPATCHER_H_
+#pragma once
 
 #include <map>
 
-/*!
-  signal handler for the SignalDispatcher class. Implement this class to 
-  receive signals
-  \brief SignalHandler for SignalDispatcher
-*/
+using namespace std;
+
+//! \class  SignalHandler
+//! \brief  Signal handler for the SignalDispatcher class.
+//!
+//! Implement this class to receive signals.
 class SignalHandler
 {
 public:
-    /*! Result of a handlSignal() call */
-    enum HandlerResult { 
-        SIGNAL_NOT_HANDLED, /*!< not handled */
-        EXIT,               /*!< signal handled, exit now */
-        CONTINUE            /*!< signal handled, don't exit */
-    }; 
-    virtual HandlerResult handleSignal( int signalNumber ) = 0;
+  //! Result of a \a handleSignal() call
+  enum HandlerResult
+  {
+    SIGNAL_NOT_HANDLED, //!<  Not handled
+    EXIT,               //!<  Signal handled, exit now
+    CONTINUE            //!<  Signal handled, don't exit
+  };
+
+  virtual HandlerResult handleSignal( int signalNumber ) = 0;
 };
 
-/*!
-  dispatches signals. Singleton, use the instance() method to access 
-  the instance of this class. Register your SignalHandler to handle signals
-
-  \brief Dispatch unix signals
-*/
+//! \class  SignalDispatcher
+//! \brief  Dispatch unix signals
+//!
+//! Dispatches signals.
+//! Singleton, use the instance() method to access the instance
+//! of this class.
+//!
+//! Register your SignalHandler to handle signals.
 class SignalDispatcher
 {
 public:
-    static SignalDispatcher* instance();
-    static void dispatch( int signalNumber );
-    
-    void registerHandler( SignalHandler* handler, int signalNumber );
-    void unregisterHandler( int signalNumber );    
-    
+  //! Create the Signal Dispatcher instance
+  static SignalDispatcher* instance();
+
+
+  static void dispatch( int signalNumber );
+
+  void registerHandler( SignalHandler* handler, int signalNumber );
+
+  void unregisterHandler( int signalNumber );
+
 protected:
-    SignalDispatcher();
-    
+  SignalDispatcher();
+
 private:
-    static SignalDispatcher* m_instance;
-    std::map<int, SignalHandler*> m_signalHandlers;
-    
+  static SignalDispatcher* m_instance;
+
+  map< int, SignalHandler* > m_signalHandlers;
 };
 
-#endif /* _SIGNALDISPATCHER_H_ */
+// vim:sw=2:ts=2:sts=2:et:cc=72
+// End of file

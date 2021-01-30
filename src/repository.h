@@ -1,80 +1,147 @@
-////////////////////////////////////////////////////////////////////////
-// FILE:        repository.h
-// AUTHOR:      Johannes Winkelmann, jw@tks6.net
-// COPYRIGHT:   (c) 2002 by Johannes Winkelmann
-// ---------------------------------------------------------------------
-//  This program is free software; you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation; either version 2 of the License, or
-//  (at your option) any later version.
-////////////////////////////////////////////////////////////////////////
+//! \file       repository.h
+//! \brief      Repository class definition
+//! \copyright  See LICENSE file for copyright and license details.
 
-#ifndef _REPOSITORY_H_
-#define _REPOSITORY_H_
+#pragma once
 
-#include <string>
 #include <list>
 #include <map>
+#include <string>
 #include <utility>
-using namespace std;
 
 #include "package.h"
 
-/*!
-  \class Repository
-  \brief Repository of available ports
+using namespace std;
 
-  The repository is an abstraction of the available ports in the ports tree
-*/
+// TODO
+typedef list< pair< string, string > > rootList_t;
+
+//! \class  Repository
+//! \brief  Repository of available ports
+//!
+//! The repository is an abstraction of the available ports
+//! in the ports tree
 class Repository
 {
 public:
-    Repository(bool useRegex);
-    ~Repository();
+  //! \brief   Create a repository
+  //!
+  //! \param   useRegex  interpret the search pattern in methods
+  //!                    \a searchMatchingPackages and
+  //!                    \a getMatchingPackages as regular expression
+  Repository( bool useRegex );
 
-    const Package* getPackage( const string& name ) const;
-    const map<string, Package*>& packages() const;
-    const list<pair<Package*, Package*> >& shadowedPackages() const;
+  //! Destroy a repository
+  ~Repository();
 
-    void searchMatchingPackages( const string& pattern,
-                                 list<Package*>& target,
-                                 bool searchDesc ) const;
+  //! \brief   Get the package
+  //!
+  //! \param   name the package name to be returned
+  //!
+  //! \return  a \a Package pointer for a package name or 0 if not found
+  const Package*
+  getPackage( const pkgname_t& name )
+  const;
 
-    void getMatchingPackages( const string& pattern,
-                              list<Package*>& target ) const;
+  //! \brief   Get all the packages available in the repository
+  //!
+  //! \return  a map of available packages, where
+  //!          pair.first   is the package name,
+  //!          pair.second  is \a Package pointer
+  const map< pkgname_t, Package* >&
+  packages()
+  const;
 
-    void initFromFS( const list< pair<string, string> >& rootList,
-                     bool listDuplicate );
+  //! \brief   Get the sorted list of duplicate packages
+  //!          in the repository
+  //!
+  //! \return  a list of duplicate packages in the repo,
+  //!          wherein the pairs
+  //!          .first   is the shadowed port and
+  //!          .second  is the port which precedes over first
+  const list< pair< Package*, Package* > >&
+  shadowedPackages()
+  const;
 
+  //! \brief   Search packages for a match of \a pattern in name, and
+  //!          description if \a searchDesc is \a true
+  //!
+  //! \note    The name can be interpreted as regex
+  //!          if \a m_useRegex is set
+  //!
+  //! \note    Name searches can often done without opening the
+  //!          Pkgfiles, but not description search.
+  //!          Therefore, the later is much slower.
+  //!
+  //! \param   pattern     the pattern to be found
+  //! \param   target      save matching packages into a \a target list
+  //! \param   searchDesc  whether descriptions should be searched
+  //!                      as well
+  void
+  searchMatchingPackages( const string&      pattern,
+                          list< Package* >&  target,
+                          bool               searchDesc )
+  const;
 
-     /*! Result of a cache write operation */
-    enum CacheReadResult {
-        ACCESS_ERR,     /*!< Error creating/accessing the file */
-        FORMAT_ERR,     /*!< bad/old format */
-        READ_OK    /*!< Success */
-    };
-    CacheReadResult initFromCache( const string& cacheFile );
+  //! \brief   Search packages for a match of \a pattern in name
+  //!
+  //! \note    The name can contain shell wildcards or be interpreted
+  //!          as regex if \a m_useRegex is set
+  //!
+  //! \param   pattern  the pattern to be found
+  //! \param   target   save matching packages into a \a target list
+  void
+  getMatchingPackages( const string&      pattern,
+                       list< Package* >&  target )
+  const;
 
-    /*! Result of a cache write operation */
-    enum WriteResult {
-        DIR_ERR,  /*!< Error creating/accessing the directory */
-        FILE_ERR, /*!< Error creating/accessing the file */
-        SUCCESS   /*!< Success */
-    };
-    WriteResult writeCache( const string& cacheFile );
+  //! \brief   Init repository by reading the directories passed
+  //!
+  //! \note    Doesn't search recursively, so if you want /dir and
+  //!          /dir/subdir checked, you have to specify both
+  //!
+  //! \param   rootList       a list of directories to look for ports in
+  //! \param   listDuplicate  whether duplicates should be registered
+  //!                         (slower)
+  void initFromFS( const rootList_t& rootList, bool listDuplicate );
 
-    static bool createOutputDir( const string& path );
-    void addDependencies( std::map<string, string>& deps );
+  //! \brief   Create all components of the \a path which don't exist
+  //!
+  //! \param   path  the path to be created
+  //!
+  //! \return  \a true on success,
+  //!          \a false mostly indicates permission problems
+  static
+  bool createOutputDir( const string& path );
+
+  //! \brief   Add custom dependency for a package
+  //!
+  //! XXX Add more description
+  void
+  addDependencies( map< string, string >& deps );
 
 private:
-    static int compareShadowPair(pair<Package*, Package*>& p1,
-                                 pair<Package*, Package*>& p2);
+  //! \brief   The helper function for sorting the shadowed packages
+  //!          by name
+  //!
+  //! \param   p1  the first pair of shadowed packages
+  //! \param   p2  the second pair of shadowed packages
+  //!
+  //! \return  the comparison result of \code \a p1 < \a p2 \endcode
+  static int
+  compareShadowPair( pair< Package*, Package* >&  p1,
+                     pair< Package*, Package* >&  p2 );
 
-    static const std::string CACHE_VERSION;
-    bool m_useRegex;
+  //! Whether interpret the matching \a pattern as a regular expression
+  //! \see \a searchMatchingPackages and \a getMatchingPackages
+  bool m_useRegex;
 
-    list<pair<Package*, Package*> > m_shadowedPackages;
-    map<string, Package*> m_packageMap;
+  //! The list of duplicated packages in the repo
+  list< pair< Package*, Package* > > m_shadowedPackages;
+
+  //! The repository of all available packages
+  map< pkgname_t, Package* > m_packageMap;
 };
 
-#endif /* _REPOSITORY_H_ */
+// vim:sw=2:ts=2:sts=2:et:cc=72
+// End of file

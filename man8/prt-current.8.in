@@ -1,0 +1,15 @@
+.\" \file       prt-current.8.in
+.\" \brief      Man page for prt 'current' command
+.\" \copyright  See LICENSE file for copyright and license details.
+.TH PRT-CURRENT 8 "prt-#VERSION# Manual"
+.SH NAME
+prt-current \- Print installed package version.
+.SH SYNOPSIS
+.B prt current
+.I package
+.SH DESCRIPTION
+Print the version of the currently installed package.
+.SH EXIT STATUS
+0 if success, 255 otherwise.
+.\" vim:ft=nroff:sw=2:ts=2:sts=2:et:cc=72
+.\" End of file

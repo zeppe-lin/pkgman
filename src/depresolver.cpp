@@ -1,102 +1,85 @@
-////////////////////////////////////////////////////////////////////////
-// FILE:        depresolver.cpp
-// AUTHOR:      Johannes Winkelmann, jw@tks6.net
-// COPYRIGHT:   (c) 2002 by Johannes Winkelmann
-// ---------------------------------------------------------------------
-//  This program is free software; you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation; either version 2 of the License, or
-//  (at your option) any later version.
-////////////////////////////////////////////////////////////////////////
+//! \file      depresolver.cpp
+//! \brief     DepResolver Implementation
+//! \copyright See LICENSE file for copyright and license details.
 
-#include <map>
 #include <cassert>
-using namespace std;
+#include <map>
 
 #include "depresolver.h"
 
+using namespace std;
 
-
-/*!
-  add a dependency
-  \param first the package with dependency
-  \param second the pacakge which \a first depends on
-*/
-void DepResolver::addDependency( int first, int second )
+void DepResolver::addDependency( ssize_t first, ssize_t second )
 {
-    m_dependencies.push_back( Pair( first, second ) );
+  m_dependencies.push_back( make_pair( first, second ) );
 }
 
-
-/*!
-  resolve the dependencies
-  \param result a list which will be filled with resulting indexes in 
-  the correct order
-  \return true on success, false otherwise (cyclic dependencies)
-*/
-bool DepResolver::resolve( list<int>& result )
+bool DepResolver::resolve( list< ssize_t >& result )
 {
-    return topSort( result );
+  return topSort( result );
 }
 
-
-/*!
-  sort the dependencies
-*/
-bool DepResolver::topSort( list<int>& result )
+bool DepResolver::topSort( list< ssize_t >& result )
 {
-    map<int, int > numPreds;   // elt -> number of predecessors
-    map<int, list<int> > successors; // elt -> number of successors
+  // elt -> number of predecessors
+  map< ssize_t, ssize_t > numPreds;
 
-    list<Pair>::iterator it = m_dependencies.begin();
-    for ( ; it != m_dependencies.end(); ++it ) {
+  // elt -> number of successors
+  map< ssize_t, list< ssize_t > > successors;
 
-        // make sure every elt is a key in numpreds
-        if ( numPreds.find( it->first ) == numPreds.end() ) {
-            numPreds[it->first] = 0;
-        }
-        if ( numPreds.find( it->second ) == numPreds.end() ) {
-            numPreds[it->second] = 0;
-        }
+  for ( const auto& [ pkg, dep ]: m_dependencies )
+  {
+    // make sure every elt is a key in numpreds
+    if ( numPreds.find( pkg ) == numPreds.end() )
+      numPreds[ pkg ] = 0;
 
-        // if they're the same, there's no real dependence
-        if ( it->first == it->second ) {
-            continue;
-        }
+    if ( numPreds.find( dep ) == numPreds.end() )
+      numPreds[ dep ] = 0;
 
-        // since first < second, second gains a pred
-        numPreds[it->second] = numPreds[it->second] + 1;
+    // if they're the same, there's no real dependence
+    if ( pkg == dep )
+      continue;
 
-        // ... and first gains a succ
-        successors[it->first].push_back( it->second );
+    // since pkg < dep, dep gains a pred
+    numPreds[ dep ] = numPreds[ dep ] + 1;
+
+    // ... and pkg gains a succ
+    successors[ pkg ].push_back( dep );
+  }
+
+  // suck up everything without a predecessor
+  result.clear();
+  for ( const auto& [ first, second ]: numPreds )
+  {
+    if ( second == 0 )
+      result.push_back( first );
+  }
+
+  // for everything in answer, knock down the pred count on its
+  // successors;
+  // note that answer grows *in* the loop
+
+  for ( const auto& elem: result )
+  {
+    assert( numPreds[ elem ] == 0 );
+
+    numPreds.erase( elem );
+
+    if ( successors.find( elem ) != successors.end() )
+    {
+      for ( const auto& succ: successors[ elem ] )
+      {
+        numPreds[ succ ] = numPreds[ succ ] - 1;
+
+        if ( numPreds[ succ ] == 0 )
+          result.push_back( succ );
+      }
+      successors.erase( elem );
     }
+  }
 
-    // suck up everything without a predecessor
-    result.clear();
-    map<int, int>::iterator mit = numPreds.begin();
-    for ( ; mit != numPreds.end(); ++mit ) {
-        if ( mit->second == 0 ) {
-            result.push_back( mit->first );
-        }
-    }
-
-    // for everything in answer, knock down the pred count on
-    // its successors; note that answer grows *in* the loop
-    list<int>::iterator lit = result.begin();
-    for ( ; lit != result.end(); ++lit ) {
-        assert( numPreds[*lit] == 0 );
-        numPreds.erase( *lit );
-        if ( successors.find( *lit ) != successors.end() ) {
-            list<int>::iterator succIt = successors[*lit].begin();
-            for ( ; succIt != successors[*lit].end(); ++succIt ) {
-                numPreds[*succIt] = numPreds[*succIt] - 1;
-                if ( numPreds[*succIt] == 0 ) {
-                    result.push_back( *succIt );
-                }
-            }
-            successors.erase( *lit );
-        }
-    }
-
-    return numPreds.size() == 0;
+  return numPreds.size() == 0;
 }
+
+// vim:sw=2:ts=2:sts=2:et:cc=72
+// End of file

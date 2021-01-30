@@ -1,231 +1,222 @@
-////////////////////////////////////////////////////////////////////////
-// FILE:        process.cpp
-// AUTHORS:     Johannes Winkelmann, jw@tks6.net
-//              Output redirection by Logan Ingalls, log@plutor.org
-// COPYRIGHT:   (c) 2002 by Johannes Winkelmann
-// ---------------------------------------------------------------------
-//  This program is free software; you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation; either version 2 of the License, or
-//  (at your option) any later version.
-////////////////////////////////////////////////////////////////////////
-
-#include <list>
-using namespace std;
-
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <sys/stat.h>
+//! \file       process.cpp
+//! \brief      Process Implementation
+//! \copyright  See LICENSE file for copyright and license details.
 
 #include <cassert>
 #include <cstddef>
-#include <cstdlib>
 #include <cstdio>
+#include <cstdlib>
+#include <list>
+
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
 
 #include "process.h"
+#include "helpers.h"
 
-#include "stringhelper.h"
+using namespace std;
 using namespace StringHelper;
 
-
-/*!
-  create a process
-  \param app the application to execute
-  \param arguments the arguments to be passed to \a app
-  \param fdlog file descriptor to a log file
-*/
-Process::Process( const string& app, const string& arguments, int fdlog )
-  : m_app( app ), m_arguments( arguments ), m_fdlog( fdlog )
+Process::Process( const string&  app,
+                  const string&  arguments,
+                  int            logfd,
+                  bool           log2stdout ):
+  m_app( app ),
+  m_arguments( arguments ),
+  m_logfd( logfd ),
+  m_log2stdout( log2stdout )
 {
 }
 
-/*!
-  execute the process
-  \return the exit status of the application
-*/
 int Process::execute()
 {
-    list<string> args;
-    split( m_arguments, ' ', args, 0, false );
+  list< string > args;
+  split( m_arguments, ' ', args, /*startPos*/ 0, /*useEmpty*/ false );
 
-    const int argc = 1 + args.size() + 1; // app, args, NULL
+  const size_t argc = 1 + args.size() + 1; // app, args, NULL
 
-    char** argv = new char*[argc];
-    list<string>::iterator it = args.begin();
+  char** argv = new char*[ argc ];
 
-    int i = 0;
-    argv[i] = const_cast<char*>( m_app.c_str() );
-    for ( ; it != args.end(); ++it ) {
-        ++i;
-        argv[i] = const_cast<char*>( it->c_str() );
-    }
-
+  size_t i = 0;
+  argv[ i ] = const_cast< char* >( m_app.c_str() );
+  for ( const auto& arg: args )
+  {
     ++i;
-    assert( i+1 == argc );
-    argv[i] = NULL;
-    int status = 0;
+    argv[ i ] = const_cast< char* >( arg.c_str() );
+  }
 
-    if ( m_fdlog > 0 ) {
-        status = execLog(argc, argv);
-    } else {
-        status = exec(argc, argv);
-    }
-    delete [] argv;
+  ++i;
+  assert( i + 1 == argc );
+  argv[ i ] = NULL;
 
-    return status;
+  int status = m_logfd > 0 ? execLog( argc, argv )
+                           : exec( argc, argv );
+
+  delete [] argv;
+
+  return status / 256;
 }
 
-
-int Process::execLog(const int argc, char** argv)
+int Process::executeShell( const char *shell )
 {
-    int status = 0;
-    int fdpipe[2];
-    pipe( fdpipe );
+  int status = m_logfd > 0 ? execShellLog( shell )
+                           : execShell( shell );
+  return status / 256;
+}
 
-    pid_t pid = fork();
-    if ( pid == 0 ) {
-        // child process
-        close( fdpipe[0] );
-	dup2( fdpipe[1], STDOUT_FILENO );
-	dup2( fdpipe[1], STDERR_FILENO );
+int Process::exec( const size_t argc, char** argv )
+{
+  int status = 0;
+  pid_t pid = fork();
 
-        execv( m_app.c_str(), argv );
-        _exit( EXIT_FAILURE );
-    } else if ( pid < 0 ) {
-        // fork failed
-        status = -1;
-    } else {
-        // parent process
-        close( fdpipe[1] );
+  if ( pid == 0 )     // child process
+  {
+    execv( m_app.c_str(), argv );
+    _exit( EXIT_FAILURE );
+  }
+  else if ( pid < 0 ) // fork failed
+    status = -1;
+  else                // parent process
+  {
+    if ( waitpid( pid, &status, 0 ) != pid )
+      status = -1;
+  }
 
-	char readbuf[1024];
-	int bytes, wpval;
+  return status;
+}
 
-	while ( (wpval = waitpid ( pid, &status, WNOHANG )) == 0 ) {
-	    while ( (bytes=read(fdpipe[0], readbuf, sizeof(readbuf)-1)) > 0 ) {
-	        readbuf[bytes] = 0;
-		printf("%s", readbuf);
-                fflush(stdout);
-                fflush(stderr);
-                write( m_fdlog, readbuf, bytes );
-	    }
-	}
-        close( fdpipe[0] );
+int Process::execLog( const size_t argc, char** argv )
+{
+  int status = 0;
+  int fdpipe[ 2 ];
 
-        if ( wpval != pid ) {
-            status = -1;
+  pipe( fdpipe );
+
+  pid_t pid = fork();
+  if ( pid == 0 )     // child process
+  {
+    close( fdpipe[ 0 ] );
+
+    dup2( fdpipe[ 1 ], STDOUT_FILENO );
+    dup2( fdpipe[ 1 ], STDERR_FILENO );
+
+    execv( m_app.c_str(), argv );
+    exit( EXIT_FAILURE );
+  }
+  else if ( pid < 0 ) // fork failed
+    status = -1;
+  else                // parent process
+  {
+    // parent process
+    close( fdpipe[ 1 ] );
+
+    char readbuf[ 1024 ];
+    int  wpval;
+
+    while ( ( wpval = waitpid( pid, &status, WNOHANG ) ) == 0 )
+    {
+      ssize_t bytes;
+      while ( ( bytes =
+                  read( fdpipe[ 0 ], readbuf, sizeof( readbuf ) - 1 ) )
+              > 0 )
+      {
+        readbuf[ bytes ] = 0;
+        if ( m_log2stdout )
+        {
+          printf( "%s", readbuf );
+          fflush( stdout );
+          fflush( stderr );
         }
+        write( m_logfd, readbuf, bytes );
+      }
     }
+    close( fdpipe[ 0 ] );
 
-    return status;
+    if ( wpval != pid )
+      status = -1;
+  }
+
+  return status;
 }
 
-
-int Process::exec(const int argc, char** argv)
+int Process::execShell( const char* shell )
 {
-    int status = 0;
-    pid_t pid = fork();
-    if ( pid == 0 ) {
-        // child process
-        execv( m_app.c_str(), argv );
-        _exit( EXIT_FAILURE );
-    } else if ( pid < 0 ) {
-        // fork failed
-        status = -1;
-    } else {
-        // parent process
-        if ( waitpid ( pid, &status, 0 ) != pid ) {
-            status = -1;
+  int status = 0;
+  pid_t pid = fork();
+
+  if ( pid == 0 )     // child process
+  {
+    execl( shell, shell, "-c",
+          ( m_app + " " + m_arguments ).c_str(), NULL );
+    _exit( EXIT_FAILURE );
+  }
+  else if ( pid < 0 ) // fork failed
+    status = -1;
+  else                // parent process
+  {
+    if ( waitpid( pid, &status, 0 ) != pid )
+      status = -1;
+  }
+
+  return status;
+}
+
+int Process::execShellLog( const char* shell )
+{
+  int status = 0;
+  int fdpipe[ 2 ];
+
+  pipe( fdpipe );
+
+  pid_t pid = fork();
+  if ( pid == 0 )     // child process
+  {
+    close( fdpipe[ 0 ] );
+
+    dup2( fdpipe[ 1 ], STDOUT_FILENO );
+    dup2( fdpipe[ 1 ], STDERR_FILENO );
+
+    execl( shell, shell, "-x", "-c",
+          ( m_app + " " + m_arguments ).c_str(), NULL );
+    _exit( EXIT_FAILURE );
+  }
+  else if ( pid < 0 ) // fork failed
+    status = -1;
+  else                // parent process
+  {
+    close( fdpipe[ 1 ] );
+
+    char readbuf[ 1024 ];
+    int  wpval;
+
+    while ( ( wpval = waitpid( pid, &status, WNOHANG ) ) == 0 )
+    {
+      ssize_t bytes;
+      while ( ( bytes =
+                  read( fdpipe[ 0 ], readbuf, sizeof( readbuf ) - 1 ) )
+              > 0 )
+      {
+        readbuf[ bytes ] = 0;
+        if ( m_log2stdout )
+        {
+          printf( "%s", readbuf );
+          fflush( stdout );
+          fflush( stderr );
         }
+        write( m_logfd, readbuf, bytes );
+      }
     }
-    return status;
+    close( fdpipe[ 0 ] );
+
+    if ( wpval != pid )
+      status = -1;
+  }
+
+  return status;
 }
 
-/*!
-  execute the process using the shell
-  \return the exit status of the application
-
-  \todo make shell exchangable
-*/
-int Process::executeShell()
-{
-    // TODO: make shell exchangable
-    static const char SHELL[] = "/bin/sh";
-    int status = 0;
-    if ( m_fdlog > 0 ) {
-        status = execShellLog(SHELL);
-    } else {
-        status = execShell(SHELL);
-    }
-
-    return status;
-}
-
-
-int Process::execShellLog(const char* SHELL)
-{
-    int status = 0;
-
-    int fdpipe[2];
-    pipe( fdpipe );
-
-    pid_t pid = fork();
-    if ( pid == 0 ) {
-        // child process
-        close( fdpipe[0] );
-	dup2( fdpipe[1], STDOUT_FILENO );
-	dup2( fdpipe[1], STDERR_FILENO );
-
-        execl( SHELL, SHELL, "-c", (m_app + " " + m_arguments).c_str(), NULL );
-        _exit( EXIT_FAILURE );
-    } else if ( pid < 0 ) {
-        // fork failed
-        status = -1;
-    } else {
-        // parent process
-        close( fdpipe[1] );
-
-	char readbuf[1024];
-	int bytes, wpval;
-
-	while ( (wpval = waitpid ( pid, &status, WNOHANG )) == 0 ) {
-	    while ( (bytes=read(fdpipe[0], readbuf, sizeof(readbuf)-1)) > 0 ) {
-	        readbuf[bytes] = 0;
-		printf("%s", readbuf);
-                fflush(stdout);
-                fflush(stderr);
-                write( m_fdlog, readbuf, bytes );
-	    }
-	}
-        close( fdpipe[0] );
-
-        if ( wpval != pid ) {
-            status = -1;
-        }
-    }
-
-    return status;
-}
-
-int Process::execShell(const char* SHELL)
-{
-    int status = 0;
-
-    pid_t pid = fork();
-    if ( pid == 0 ) {
-        execl( SHELL, SHELL, "-c", (m_app + " " + m_arguments).c_str(), NULL );
-        _exit( EXIT_FAILURE );
-    } else if ( pid < 0 ) {
-        // fork failed
-        status = -1;
-    } else {
-        // parent process
-        if ( waitpid ( pid, &status, 0 ) != pid ) {
-            status = -1;
-        }
-    }
-
-    return status;
-}
+// vim:sw=2:ts=2:sts=2:et:cc=72
+// End of file

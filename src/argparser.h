@@ -1,141 +1,319 @@
-////////////////////////////////////////////////////////////////////////
-// FILE:        argparser.h
-// AUTHOR:      Johannes Winkelmann, jw@tks6.net
-// COPYRIGHT:   (c) 2002 by Johannes Winkelmann
-// ---------------------------------------------------------------------
-//  This program is free software; you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation; either version 2 of the License, or
-//  (at your option) any later version.
-////////////////////////////////////////////////////////////////////////
+//! \file      argparser.h
+//! \brief     ArgParser class definition
+//! \copyright See LICENSE file for copyright and license details.
 
-#ifndef _ARGPARSER_H_
-#define _ARGPARSER_H_
+#pragma once
 
 #include <list>
 #include <string>
+
 using namespace std;
 
-/*!
-  \class ArgParser
-  \brief Argument Parser
-
-  This is the argument parser for prt-get.
-*/
+//! \class   ArgParser
+//! \brief   Argument Parser
+//!
+//! This is command-line argument parser for prt.
 class ArgParser
 {
 public:
-    ArgParser( int argc, char** argv );
 
-    bool parse();
+  //! \brief   Construct an ArgParser object
+  //!
+  //! \param   argc  argument count
+  //! \param   argv  argument vector
+  ArgParser( int argc, char** argv );
 
-    /*! Command type */
-    enum Type { HELP, LIST, SEARCH, DSEARCH, INSTALL, DEPINST,
-                INFO, DEPENDS, ISINST, DUP, UPDATE,
-                QUICKDEP, DIFF, GRPINST, GRPUPDATE,
-                QUICKDIFF, SHOW_VERSION, CREATE_CACHE, PATH,
-                LISTINST, PRINTF, README, DEPENDENT, SYSUP,
-                CURRENT, FSEARCH, LOCK, UNLOCK, LISTLOCKED,
-                CAT, LS, EDIT, REMOVE,
-                DEPTREE, DUMPCONFIG, LISTORPHANS };
+  //! \brief   Parse the arguments
+  void parse();
 
-    bool isCommandGiven() const;
-    bool isForced() const;
-    bool isTest() const;
-    bool isAlternateConfigGiven() const;
-    bool useCache() const;
-    bool wasCalledAsPrtCached() const;
-    bool writeLog() const;
-    bool hasFilter() const;
-    bool noStdConfig() const;
-    bool nodeps() const;
-    bool all() const;
-    bool printPath() const;
-    bool execPreInstall() const;
-    bool execPostInstall() const;
-    bool preferHigher() const;
-    bool strictDiff() const;
-    bool useRegex() const;
-    bool fullPath() const;
-    bool recursive() const;
-    bool printTree() const;
-    bool depSort() const;
+  //! \brief   Whether \--force command-line option is specified
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool isForced() const;
 
-    const string& alternateConfigFile() const;
-    const string& pkgmkArgs() const;
-    const string& pkgaddArgs() const;
-    const string& pkgrmArgs() const;
-    const string& sortArgs() const;
-    const string& filter() const;
-    const string& installRoot() const;
-    const string& ignore() const;
+  //! \brief   Whether \--test command-line option is specified
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool isTest() const;
 
+  //! \brief   Whether \--config="..." command-line option is specified
+  //!
+  //! \return  \a true if an alternate configuration file is given,
+  //!          \a false otherwise
+  bool isAlternateConfigGiven() const;
 
-    Type commandType() const;
+  //! \brief   Whether \--log command-line option has been specified
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool writeLog() const;
 
-    const string& commandName() const;
-    const string& unknownOption() const;
+  //! \brief   Whether \--filter="..." command-line option is specified
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool hasFilter() const;
 
-    const list<char*>& otherArgs() const;
+  //! \brief   Whether \--no-std-config command-line option is specified
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool noStdConfig() const;
 
-    int verbose() const;
+  //! \brief   Whether \--deps command-line option is specified
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool deps() const;
 
-    enum ConfigArgType { CONFIG_SET, CONFIG_APPEND, CONFIG_PREPEND };
+  //! \brief   Whether \--nodeps command-line option is specified
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool nodeps() const;
 
-    const list< pair<char*, ConfigArgType> > configData() const;
+  //! \brief   Whether \--all command-line option is specified
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool all() const;
 
+  //! \brief   Whether \--full command-line option is specified
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool full() const;
+
+  //! \brief   Whether \--path command-line option is specified
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool printPath() const;
+
+  //! \brief   Whether \--pre-install command-line option is specified
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool execPreInstall() const;
+
+  //! \brief   Whether \--post-install command-line option is specified
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool execPostInstall() const;
+
+  //! \brief   Whether \--pre-remove command-line option is specified
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool execPreRemove() const;
+
+  //! \brief   Whether \--post-remove command-line option is specified
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool execPostRemove() const;
+
+  //! \brief   Whether \--regex command-line option is specified
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool useRegex() const;
+
+  //! \brief   Whether \--recursive command-line option is specified
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool recursive() const;
+
+  //! \brief   Whether \--tree command-line option is specified
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool printTree() const;
+
+  //! \brief   Whether \--group command-line option is specified
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool group() const;
+
+  //! \brief   Whether \--depsort command-line option is specified
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool depSort() const;
+
+  //! \brief   The name of the alternative configuration file
+  //!
+  //! \return  the \--config="..." option argument
+  const string& alternateConfigFile() const;
+
+  //! \brief   Additional arguments to \b makecommand
+  //!
+  //! \return  the \--margs="..." option argument
+  const string& pkgmkArgs() const;
+
+  //! \brief   Additional arguments to \b addcommand
+  //!
+  //! \return  the \--aargs="..." option argument
+  const string& pkgaddArgs() const;
+
+  //! \brief   Additional arguments to \b removecommand
+  //!
+  //! \return  the \--rargs="..." option argument
+  const string& pkgrmArgs() const;
+
+  //! \brief   Sort by ...
+  //!
+  //! \return  the \--sort="..." option argument
+  const string& sortArgs() const;
+
+  //! \brief   Filter by ...
+  //!
+  //! \return  the \--filter="..." option argument
+  const string& filter() const;
+
+  //! \brief   Alternative root directory
+  //!
+  //! \return  the \--root="..." option argument
+  const string& root() const;
+
+  //! \brief   Ignore ports
+  //!
+  //! \return  the \--ignore="..." option argument
+  const string& ignore() const;
+
+  //! \brief   Command name
+  //!
+  //! \return  what command was given
+  const string& cmdName() const;
+
+  //! \brief   Unknown option
+  //!
+  //! \return  what exactly unknown option was given
+  const string& unknownOpt() const;
+
+  //! \brief   Unknown command option
+  //!
+  //! \return  what exactly unknown command option was given
+  const string& unknownCmdOpt() const;
+
+  //! \brief   Other command-line arguments
+  //!
+  //! \return  a list of arguments not processed by ArgParser
+  const list< char* >& cmdArgs() const;
+
+  //! \brief   Verbosity level
+  //!
+  //! \return  the level of verbose: \-v -> 1, \-vv -> 2
+  int verbose() const;
+
+  //! Config argument type
+  enum configArg_t
+  {
+    CONFIG_SET,       //!<  \--config-set="..."     argument type
+    CONFIG_APPEND,    //!<  \--config-append="..."  argument type
+    CONFIG_PREPEND    //!<  \--config-prepend="..." argument type
+  };
+
+  //! \brief   Config arguments
+  //!
+  //! \return  the list of given \--config-{set,append,prepend}="..."
+  //!          arguments with corresponding config argument type
+  const list< pair< char*, configArg_t > > configData() const;
 
 private:
 
-    bool m_isCommandGiven;
-    bool m_isForced;
-    bool m_isTest;
-    bool m_isAlternateConfigGiven;
-    bool m_useCache;
-    bool m_calledAsPrtCache;
-    bool m_hasFilter;
-    bool m_noStdConfig;
+  //! \--force option
+  bool m_isForced;
 
-    bool m_writeLog;
+  //! \--test option
+  bool m_isTest;
 
-    bool m_nodeps;
+  //! \--config="..." option
+  bool m_isAlternateConfigGiven;
 
-    bool m_all;
-    bool m_printPath;
+  //! \--filter="..." option
+  bool m_hasFilter;
 
-    bool m_execPreInstall;
-    bool m_execPostInstall;
-    bool m_preferHigher;
-    bool m_strictDiff;
-    bool m_useRegex;
-    bool m_fullPath;
+  //! \--no-std-config option
+  bool m_noStdConfig;
 
-    bool m_recursive;
-    bool m_printTree;
-    
-    bool m_depSort;
+  //! \--log option
+  bool m_writeLog;
 
-    string m_alternateConfigFile;
-    string m_pkgmkArgs;
-    string m_pkgaddArgs;
-    string m_pkgrmArgs;
-    string m_sortArgs;
-    string m_filter;
-    string m_commandName;
-    string m_unknownOption;
-    string m_installRoot;
-    string m_ignore;
+  //! \--deps option
+  bool m_deps;
 
-    Type m_commandType;
+  //! \--all option
+  bool m_all;
 
-    int m_argc;
-    char** m_argv;
+  //! \--full option
+  bool m_full;
 
-    int m_verbose;
+  //! \--path option
+  bool m_printPath;
 
-    list<char*> m_otherArgs;
+  //! \--pre-install option
+  bool m_execPreInstall;
 
-    list< pair<char*, ConfigArgType> > m_configData;
+  //! \--post-install option
+  bool m_execPostInstall;
+
+  //! \--pre-remove option
+  bool m_execPreRemove;
+
+  //! \--post-remove option
+  bool m_execPostRemove;
+
+  //! \--regex option
+  bool m_useRegex;
+
+  //! \--recursive option
+  bool m_recursive;
+
+  //! \--tree option
+  bool m_printTree;
+
+  //! \--group option
+  bool m_group;
+
+  //! \--depsort option
+  bool m_depSort;
+
+  //! \--config="..." option argument
+  string m_alternateConfigFile;
+
+  //! \--margs="..." option argument
+  string m_pkgmkArgs;
+
+  //! \--aargs="..." option argument
+  string m_pkgaddArgs;
+
+  //! \--rargs="..." option argument
+  string m_pkgrmArgs;
+
+  //! \--sort="..." option argument
+  string m_sortArgs;
+
+  //! \--filter="..." option argument
+  string m_filter;
+
+  //! Command argument
+  string m_cmdName;
+
+  //! Unknown option
+  string m_unknownOpt;
+
+  //! Unknown command option
+  string m_unknownCmdOpt;
+
+  //! \--root="..." option argument
+  string m_root;
+
+  //! \--ignore="..." option argument
+  string m_ignore;
+
+  //! argument count
+  int m_argc;
+
+  //! argument vector
+  char** m_argv;
+
+  //! verbose argument (0: no verbose, 1: -v , 2: -vv)
+  int m_verbose;
+
+  //! a list of arguments not processed by ArgParser
+  list< char* > m_cmdArgs;
+
+  //! a list of given --config-{set,append,prepend}="..."
+  //! arguments with corresponding config argument type
+  list< pair< char*, configArg_t > > m_configData;
 };
 
-#endif /* _ARGPARSER_H_ */
+// vim:sw=2:ts=2:sts=2:et:cc=72
+// End of file

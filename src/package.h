@@ -1,110 +1,256 @@
-////////////////////////////////////////////////////////////////////////
-// FILE:        package.h
-// AUTHOR:      Johannes Winkelmann, jw@tks6.net
-// COPYRIGHT:   (c) 2002 by Johannes Winkelmann
-// ---------------------------------------------------------------------
-//  This program is free software; you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation; either version 2 of the License, or
-//  (at your option) any later version.
-////////////////////////////////////////////////////////////////////////
+//! \file       package.h
+//! \brief      Package and PackageData Definition
+//! \copyright  See LICENSE file for copyright and license details.
 
-#ifndef _PACKAGE_H_
-#define _PACKAGE_H_
+#pragma once
 
 #include <string>
 
+using namespace std;
+
+// forward declaration
 struct PackageData;
 
-/*!
-  \class Package
-  \brief representation of a package
+// useful aliases
+typedef string pkgname_t;   //!<  Package name
+typedef string pkgver_t;    //!<  Package version-release
 
-  Representation of a package from the crux ports tree
-*/
+//! \class  Package
+//! \brief  The Representation of a Package from the CRUX Ports Tree
 class Package
 {
 public:
-    Package( const std::string& name,
-             const std::string& path );
+  //! \brief   Create a package, which is not yet fully initialized
+  //!
+  //! \param   name  the package name
+  //! \param   path  the package path
+  //!
+  //! \note    This is interesting in combination with the lazy
+  //!          initialization
+  Package( const string& name, const string& path );
 
-    Package( const std::string& name,
-             const std::string& path,
-             const std::string& version,
-             const std::string& release,
-             const std::string& description,
-             const std::string& dependencies,
-             const std::string& url,
-             const std::string& packager,
-             const std::string& maintainer,
-             const std::string& hasReadme,
-             const std::string& hasPreInstall,
-             const std::string& hasPostInstall );
+  //! \brief   Create a fully initialized package
+  //!
+  //! \param   name            the package name
+  //! \param   path            the package path
+  //! \param   version         the package version
+  //! \param   release         the package release number
+  //! \param   description     the package description
+  //! \param   dependencies    the package dependencies
+  //! \param   url             the sources' location used to build
+  //!                          this package
+  //! \param   packager        the packager of the package
+  //! \param   maintainer      the maintainer of the package
+  //! \param   hasReadme       whether package has a README file
+  //! \param   hasPreInstall   whether package has a pre-install script
+  //! \param   hasPostInstall  whether package has a post-install script 
+  //! \param   hasPreRemove    whether package has a pre-remove script
+  //! \param   hasPostRemove   whether package has a post-remove script
+  Package( const string&  name,
+           const string&  path,
+           const string&  version,
+           const string&  release,
+           const string&  description,
+           const string&  dependencies,
+           const string&  url,
+           const string&  packager,
+           const string&  maintainer,
+           const string&  hasReadme,
+           const string&  hasPreInstall,
+           const string&  hasPostInstall,
+           const string&  hasPreRemove,
+           const string&  hasPostRemove);
 
-    ~Package();
+  //! destroy the package
+  ~Package();
 
-    const std::string& name() const;
-    const std::string& path() const;
-    const std::string& version() const;
-    const std::string& release() const;
-    const std::string& description() const;
-    const std::string& dependencies() const;
-    const std::string& url() const;
-    const std::string& packager() const;
-    const std::string& maintainer() const;
-    const bool hasReadme() const;
-    const bool hasPreInstall() const;
-    const bool hasPostInstall() const;
-    
-    std::string versionReleaseString() const;
+  //! \brief   Get the package name
+  //!
+  //! \return  the name of this package
+  const string& name() const;
 
-    void setDependencies( const std::string& dependencies );
+  //! \brief   Get the package path in the ports tree
+  //!
+  //! \return  the path to this package
+  const string& path() const;
 
+  //! \brief   Get the full path to this package or this package's
+  //!          \a file in the ports tree
+  //!
+  //! \param   file  the optional file name to be added at the end of
+  //!          package path
+  //!
+  //! \return  the full path to this package or package file,
+  //!          in case of specified \a file argument
+  const string fullpath( const string& file="" ) const;
+
+  //! \brief   Get package version (without release number)
+  //!
+  //! \return  the version of this package
+  const string& version() const;
+
+  //! \brief   Get package release number
+  //!
+  //! \return  the release number of this package
+  const string& release() const;
+
+  //! \brief   Get package version-release
+  //!
+  //! \return  a typically formatted \b version-release string
+  string version_release() const;
+
+  //! \brief   Get package description
+  //!
+  //! \return  the description field of this package
+  const string& description() const;
+
+  //! \brief   Get package dependencies
+  //!
+  //! \return  the dependencies (comma-split line) of this package
+  const string& dependencies() const;
+
+  //! \brief   Get the sources' location used to build this package
+  //!
+  //! \return  the sources' location for this package
+  const string& url() const;
+
+  //! \brief   Get the packager of this package
+  //!
+  //! \return  the packager of this package
+  const string& packager() const;
+
+  //! \brief   Get the package maintainer
+  //!
+  //! \return  the maintainer of this package
+  const string& maintainer() const;
+
+  //! \brief   Whether or not this package has a readme file
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool hasReadme() const;
+
+  //! \brief   Whether or not this package has a pre-install script
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool hasPreInstall() const;
+
+  //! \brief   Whether or not this package has a post-install script
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool hasPostInstall() const;
+
+  //! \brief   Whether or not this package has a pre-remove script
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool hasPreRemove() const;
+
+  //! \brief   Whether or not this package has a post-remove script
+  //!
+  //! \return  \a true if so, \a false otherwise
+  bool hasPostRemove() const;
+
+  //! \brief   Set dependencies for this package
+  //!
+  //! \param   dependencies  a comma-split packages
+  void setDependencies( const string& dependencies );
 
 private:
-    void load() const;
+  //! The config file with custom specified package dependencies 
+  static const string CUSTOM_DEPS_FILE;
 
-    static void expandShellCommands(std::string& input,
-                                    const time_t& timeNow,
-                                    const struct utsname unameBuf);
+  //! Load necessary package data from Pkgfile and port's directory
+  void load() const;
 
-    mutable PackageData* m_data;
-    mutable bool m_loaded;
+  //! Rewrite Pkgfile's dependencies to ones written in the config file
+  void loadConfigDepends() const;
 
-  };
+  //! \brief   Expand shell commands
+  //!
+  //! \param   input     the string with shell commands that will be
+  //!                    modified
+  //! \param   timeNow   time_t structure
+  //! \param   unameBuf  utsname structure
+  //!
+  //! \note    Currently are supported only date and uname
+  static void expandShellCommands( string&               input,
+                                   const time_t&         timeNow,
+                                   const struct utsname  unameBuf );
 
+  //! this package data fields
+  mutable PackageData* m_data;
+
+  //! don't load() data twice
+  mutable bool m_loaded;
+}; // Package
+
+
+//! \struct  PackageData
+//! \brief   The package data fields
 struct PackageData
 {
-    PackageData( const std::string& name_,
-                 const std::string& path_,
-                 const std::string& version_="",
-                 const std::string& release_="",
-                 const std::string& description_="",
-                 const std::string& dependencies_="",
-                 const std::string& url_="",
-                 const std::string& packager="",
-                 const std::string& maintainer="",
-                 const std::string& hasReadme_="",
-                 const std::string& hasPreInstall_="",
-                 const std::string& hasPostInstall_="");
+  PackageData( const string&  name_,
+               const string&  path_,
+               const string&  version_="",
+               const string&  release_="",
+               const string&  description_="",
+               const string&  dependencies_="",
+               const string&  url_="",
+               const string&  packager="",
+               const string&  maintainer="",
+               const string&  hasReadme_="",
+               const string&  hasPreInstall_="",
+               const string&  hasPostInstall_="",
+               const string&  hasPreRemove_="",
+               const string&  hasPostRemove_="" );
 
-    std::string name;
-    std::string path;
-    std::string version;
-    std::string release;
-    std::string description;
-    std::string depends;
-    std::string url;
-    std::string packager;
-    std::string maintainer;
+  //! the name of this package
+  string name;
 
-    std::string versionReleaseString;
+  //! the path to this package
+  string path;
 
-    bool hasReadme;
-    bool hasPreInstall;
-    bool hasPostInstall;
-    
-    void generateVersionReleaseString();
+  //! the version of this package
+  string version;
+
+  //! the release number of this package
+  string release;
+
+  //! the typically formatted version-release string of this package
+  string version_release;
+
+  //! the description of this package
+  string description;
+
+  //! the dependencies of this package 
+  string depends;
+
+  //! the upstream URL location of this package
+  string url;
+
+  //! the packager of this package
+  string packager;
+
+  //! the maintainer of this package
+  string maintainer;
+
+  //! whether or not this package has a readme file
+  bool hasReadme;
+
+  //! whether or not this package has a pre-install script
+  bool hasPreInstall;
+
+  //! whether or not this package has a post-install script
+  bool hasPostInstall;
+
+  //! whether or not this package has a pre-remove script
+  bool hasPreRemove;
+
+  //! whether or not this package has a post-remove script
+  bool hasPostRemove;
+
+  //! generate the \a version_release string
+  void generateVersionReleaseString();
 };
 
-#endif /* _PACKAGE_H_ */
+// vim:sw=2:ts=2:sts=2:et:cc=72
+// End of file

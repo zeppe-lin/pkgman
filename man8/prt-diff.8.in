@@ -1,0 +1,42 @@
+.\" \file       prt-diff.8.in
+.\" \brief      Man page for prt 'diff' command
+.\" \copyright  See LICENSE file for copyright and license details.
+.TH PRT-DIFF 8 "prt-#VERSION# Manual"
+.SH NAME
+prt-diff \- Show differences between installed and available packages
+.SH SYNOPSIS
+.B prt diff
+.B [--all]
+.B [--deps]
+.B [--full]
+.B [--regex]
+.BI [--filter= NAME ]
+.SH DESCRIPTION
+Print an overview of packages that are installed and have a different
+version than they are in the repository.
+In version comparison using \fBpreferhigher\fR configuration settings.
+.P
+  prt --config-set='preferhigher yes' diff
+.SH OPTIONS
+.TP
+.B \-\-all
+Display locked ports too.
+.TP
+.B \-\-deps
+Calculate the new dependencies for available packages.
+.TP
+.B \-\-full
+Show full table.
+.TP
+.B \-\-prefer-higher=(yes|no)
+Prefer higher installed versions over lower ports.
+Overwriting \fBpreferhigher\fR configuration settings.
+.TP
+.B \-\-regex
+Interpret filter argument as a regular expression.
+.TP
+.BI --filter= NAME
+Filter listing packages by name. The filter argument may be the
+string, wildcard or regex.
+.\" vim:ft=nroff:sw=2:ts=2:sts=2:et:cc=72
+.\" End of file

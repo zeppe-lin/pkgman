@@ -1,39 +1,88 @@
-PRT-GET OVERVIEW:
-(Johannes Winkelmann, jw@tks6.net)
+prt - advanced package management tool for CRUX
+***********************************************
+
+Copyright (C) 2001-2001 Firm
+Copyright (C) 2001-2001 Name Surname <mail>
 
 
-Description:
-------------
-prt-get is a utility which is meant to be used with the pkgutils and
-ports from crux (http://crux.nu). It offers some simplification over
-pure pkgmk, but might hide some interesting details about the install
-process. 
+Compilation and installation
+============================
 
-Installing:
------------
-Just install the crux port from
-- http://www.hta-bi.bfh.ch/~winkj/files/crux/prt-get.prt.gz
+In order to compile prt you need following software packages:
+	- GCC compiler	>= 8.3
+	- CMake		>= ...
+	- Doxygen	>= ...	(optional)
 
-prt-get has to know where to look for ports. You can specify those in
-/etc/prt-get.conf, one directory per line. Note that the order
-matters, when the same port is in multiple direcories
-(e.g. /usr/ports/contrib/mutt and /usr/ports/local/mutt), the one
-found _first_ will be used.
+To configure run:
+	mkdir build
+	cd build
+	cmake .. -D ...
 
-Feel free to contact me in case of problems (jw@tks6.net)
+To compile and install run:
+	make && make install
 
 
-more information
-----------------
-See the man pages for prt-get(8), prt-get.conf(5) and prt-cache for more
-information. There is also a user manual in the doc directory (as a
-tex file). This document should also be available as PDF from
-http://www.hta-bi.bfh.ch/~winkj/files/crux/manual.pdf
+Information
+===========
 
-"it must be user error" (thinkgeek)
------------------------------------
+Mailing lists:
+	...
 
-port directories may only contain ports, or else prt-get can fail (which
-means that nothing is installed, your system takes no harm). The reason
-for this is because the additional checking slows down the application
-too much
+For additional information about the project visit prt web site:
+	https://prt.chinarulezzz.fun
+
+-----------------------------------------------
+
+## About
+
+*prt* is a package management tool which provides additional
+functionality to crux' package management system.
+
+It appeared in an attempt to rewrite the
+[prt-get](https://crux.nu/gitweb/?p=tools/prt-get.git;a=summary) tool
+which is used by CRUX Linux distribution.
+
+The main differences from *prt-get*:
+
+- most of the *prt* code has been ported to -std=c++17;
+- switch to cmake;
+- `prt-cache`, `aliases`, `deplist` functionality was removed;
+- added support of pre-/post-remove scripts;
+- added `sync` command (`ports -u` replacement);
+- added `depmiss` command to check for missing dependencies;
+- the code was simplified; (!)
+
+## Description
+
+*prt* offers the following features:
+
+- sync ports collections via various transports such as
+git(1)/rsync(8)/httpup(8);
+
+- abstract ports installation/update from file system;
+
+- install/update a list of ports with one command;
+
+- list dependencies for a list of ports and search a missing
+dependencies of installed ports;
+
+- show information about ports;
+
+- search within the ports;
+
+What *prt* basically does is installing and upgrading ports, using
+pkgmk(8) and pkgadd(8). Additionally, you don't have be in the 
+port's directory to call prt. It will search for the respective
+port itself in a list of directories specified in */etc/prt.conf*.
+This allows you to just install or update a port, without caring
+where it actually is located on your file system.
+
+*prt also offers some features like searching ports by name/description,
+showing information about ports (without installing them of course), and
+provide a complete dependency list for a port.
+
+See man page for more details.
+
+## Credits
+
+Johannes Winkelmann and all CRUX community.

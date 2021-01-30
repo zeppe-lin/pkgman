@@ -1,43 +1,43 @@
-////////////////////////////////////////////////////////////////////////
-// FILE:        depresolver.h
-// AUTHOR:      Johannes Winkelmann, jw@tks6.net
-// COPYRIGHT:   (c) 2002 by Johannes Winkelmann
-// ---------------------------------------------------------------------
-//  This program is free software; you can redistribute it and/or modify
-//  it under the terms of the GNU General Public License as published by
-//  the Free Software Foundation; either version 2 of the License, or
-//  (at your option) any later version.
-////////////////////////////////////////////////////////////////////////
+//! \file      depresolver.h
+//! \brief     DepResolver Definition
+//! \copyright See LICENSE file for copyright and license details.
 
-#ifndef _DEPRESOLVER_H_
-#define _DEPRESOLVER_H_
+#pragma once
 
+#include <iostream>
 #include <list>
+
 using namespace std;
 
-/*!
-  \class DepResolver
-  \brief a dependency resolver
-  
-  A dependency resolver
-*/
+//! \class  DepResolver
+//! \brief  A dependency resolver
 class DepResolver
 {
 public:
-    void addDependency( int, int );
-    bool resolve( list<int>& result );
+  //! \brief   Add a dependency
+  //!
+  //! \param   first   the package with dependency
+  //! \param   second  the package which \a first depends on
+  void addDependency( ssize_t first, ssize_t second );
+
+  //! \brief   Resolve the dependencies
+  //!
+  //! \param   result  a list which will be filled with resulting
+  //!                  indexes in the correct order
+  //!
+  //! \return  \a true on success, \a false otherwise
+  //!          (cyclic dependencies)
+  bool resolve( list< ssize_t >& result );
 
 private:
-    /*! simple int pair, so we don't have to use std::pair */
-    struct Pair {
-        Pair( int f, int s ) : first( f ), second( s ) {}
-        int first;
-        int second;
-    };
+  //! Sort the dependencies
+  bool topSort( list< ssize_t >& result );
 
-    bool topSort( list<int>& result );
-
-    list<Pair> m_dependencies;
+  //! The list of dependencies pairs, where
+  //!   first   the package with dependency
+  //!   second  the package which \a first depends on
+  list< pair< ssize_t /*first*/, ssize_t /*second*/ > > m_dependencies;
 };
 
-#endif /* _DEPRESOLVER_H_ */
+// vim:sw=2:ts=2:sts=2:et:cc=72
+// End of file
