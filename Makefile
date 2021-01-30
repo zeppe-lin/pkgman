@@ -8,7 +8,8 @@ BIN = prt
 
 all: $(BIN) $(MAN)
 
-man/%: man/%.in
+
+%: %.in
 	sed \
 		-e "s@#VERSION#@$(VERSION)@g" \
 		-e "s@#LOCALSTATEDIR#@$(LOCALSTATEDIR)@g" \
