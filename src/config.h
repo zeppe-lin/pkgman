@@ -68,12 +68,6 @@ public:
   //! \return  \a logMode_t mode
   logMode_t logMode() const;
 
-
-  //! \brief   Whether prt should overwrite log file or append
-  //!
-  //! \return  \a append or \a overwrite
-  string logMode() const;
-
   //! \brief   Whether prt should remove the log file on success build
   //!
   //! \return  \a true if so, \a false otherwise

@@ -7,6 +7,7 @@
 using namespace std;
 
 ArgParser::ArgParser( int argc, char** argv ):
+  m_Help( false ),
   m_isForced( false ),
   m_isTest( false ),
   m_isAlternateConfigGiven( false ),
@@ -108,6 +109,9 @@ void ArgParser::parse()
 
       else if ( opt == "-vv" )
         m_verbose += 2;
+
+      else if ( opt == "--help" )
+        m_Help = true;
 
       else if ( opt == "--force" )
         m_isForced = true;
@@ -238,6 +242,11 @@ void ArgParser::parse()
     else
       m_cmdArgs.push_back(m_argv[i]);
   } // for
+}
+
+bool ArgParser::isHelp() const
+{
+  return m_Help;
 }
 
 bool ArgParser::isForced() const

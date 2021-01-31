@@ -26,6 +26,9 @@ public:
   //! \brief   Parse the arguments
   void parse();
 
+  //! \brief   Whether \--help command-line option is specified
+  bool isHelp() const;
+
   //! \brief   Whether \--force command-line option is specified
   //!
   //! \return  \a true if so, \a false otherwise
@@ -207,6 +210,9 @@ public:
   const list< pair< char*, configArg_t > > configData() const;
 
 private:
+
+  //! \--help option
+  bool m_Help;
 
   //! \--force option
   bool m_isForced;

@@ -10,20 +10,20 @@
 #include "argparser.h"
 #include "prt.h"
 #include "signaldispatcher.h"
+#include "process.h"
 
 using namespace std;
 
-static void inline exit_fail( const string& message )
+static void inline die( const string& message, int rc=1 )
 {
-  cerr << "prt: " << message << endl
-       << "See 'man prt' for detailed usage information." << endl;
-  exit( EXIT_FAILURE );
+  cerr << "prt: " << message << endl;
+  exit( rc );
 }
 
-static void inline exit_succ( const string& message )
+static void inline dieman( const string& cmd )
 {
-  cerr << message << endl;
-  exit( EXIT_SUCCESS );
+  Process man( "/usr/bin/man", cmd, /*logfd*/ 0, /*log2stdout*/false );
+  exit( man.execute() );
 }
 
 int main( int argc, char** argv )
@@ -32,21 +32,23 @@ int main( int argc, char** argv )
   parser.parse();
 
   if ( parser.unknownOpt().size() )
-    exit_fail( "unknown option: " + parser.unknownOpt() );
+    die( "unknown option: " + parser.unknownOpt() );
 
   if ( parser.unknownCmdOpt().size() )
-    exit_fail( "unknown command option: " + parser.unknownCmdOpt() );
+    die( "unknown command option: " + parser.unknownCmdOpt() );
 
   if ( parser.verbose() > 2 )
-    exit_fail( "can't specify both -v and -vv" );
+    die( "can't specify both -v and -vv" );
 
   const string& cmd = parser.cmdName();
   if ( cmd.empty() )
-    exit_fail( "no command given" );
+    die( "no command given" );
   else if ( cmd == "version" )
-    exit_succ( VERSION );
-  else if ( cmd == "help" )
-    exit_succ( "See 'man 8 prt'" );
+    die( "v" VERSION, 0 );
+  else if ( cmd == "help" || cmd == "--help" )
+    dieman( "prt" );
+  else if ( parser.isHelp() )
+    dieman( "prt-" + cmd );
 
   if ( parser.isTest() )
     cout << "\n*** TEST MODE ***\n";
@@ -76,21 +78,21 @@ int main( int argc, char** argv )
   auto assertMinArgCount = [ &parser, &argify ]( size_t count )
   {
     if ( parser.cmdArgs().size() < count )
-      exit_fail( parser.cmdName() + " takes at least " +
+      die( parser.cmdName() + " takes at least " +
                  argify( count ) );
   };
 
   auto assertMaxArgCount = [ &parser, &argify ]( size_t count )
   {
     if ( parser.cmdArgs().size() > count )
-      exit_fail( parser.cmdName() + " takes at most "  +
+      die( parser.cmdName() + " takes at most "  +
                  argify( count ) );
   };
 
   auto assertExactArgCount = [ &parser, &argify ]( size_t count )
   {
     if ( parser.cmdArgs().size() != count )
-      exit_fail( parser.cmdName() + " takes exactly "  +
+      die( parser.cmdName() + " takes exactly "  +
                  argify( count ) );
   };
 
@@ -262,7 +264,7 @@ int main( int argc, char** argv )
 
   /////////////////////////////////////////////////////////////////////
   else
-    exit_fail( "unknown command " + cmd );
+    die( "unknown command " + cmd );
 
   if ( parser.isTest() )
     cout << "\n*** TEST MODE END ***\n";
