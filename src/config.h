@@ -55,10 +55,24 @@ public:
   //! \return  \a true if so, \a false otherwise
   bool writeLog() const;
 
-  //! \brief   Whether prt should overwrite log file or throw an error
+
+  //! Log modes
+  enum logMode_t
+  {
+    APPEND_MODE,      //!<  append the transaction log to log file
+    OVERWRITE_MODE,   //!<  overwrite the log file
+  };
+
+  //! \brief   Which Log mode should prt to use
   //!
-  //! \return  \a true if so, \a false otherwise
-  //bool isForced() const;
+  //! \return  \a logMode_t mode
+  logMode_t logMode() const;
+
+
+  //! \brief   Whether prt should overwrite log file or append
+  //!
+  //! \return  \a append or \a overwrite
+  string logMode() const;
 
   //! \brief   Whether prt should remove the log file on success build
   //!
@@ -149,6 +163,9 @@ private:
 
   //! whether write to a log file the build process
   bool m_writeLog;
+
+  //! Log mode
+  logMode_t m_logMode;
 
   //! whether remove the log file after success build
   bool m_removeLogOnSuccess;

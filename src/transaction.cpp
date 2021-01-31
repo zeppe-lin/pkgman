@@ -507,13 +507,16 @@ bool Transaction::logDirCreate( const string& logFilePath )
 
 bool Transaction::logFileCreate( const string& logFilePath )
 {
-  if ( m_parser->isForced() )
+  if ( m_config->logMode() == Config::OVERWRITE_MODE )
+  {
     m_logfd =
       open( logFilePath.c_str(), O_CREAT | O_WRONLY, 0666 );
+  }
   else
+  {
     m_logfd =
-      open( logFilePath.c_str(), O_CREAT | O_WRONLY | O_EXCL, 0666 );
-
+      open( logFilePath.c_str(), O_WRONLY | O_APPEND, 0666 );
+  }
   return m_logfd != -1;
 }
 
@@ -554,7 +557,8 @@ Transaction::Result_t Transaction::pkgadd( const Package* pkg ) const
   string pkgadd = m_config->addCommand();
   string pkgaddArgs;
 
-  if ( m_parser->root().size() ) {
+  if ( m_parser->root().size() )
+  {
     // custom defined install root directory
     pkgaddArgs += "-r " + m_parser->root() + " ";
   }

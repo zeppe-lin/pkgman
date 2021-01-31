@@ -21,6 +21,7 @@ Config::Config( const string& configFile, const ArgParser* parser ):
   m_rootList(),
   m_logFilePattern( "" ),
   m_writeLog( false ),
+  m_logMode( OVERWRITE_MODE ),
   m_removeLogOnSuccess( false ),
   m_readmeMode( VERBOSE_README ),
   m_preferHigher( false ),
@@ -65,6 +66,11 @@ void Config::addConfig( const string&  line,
 bool Config::writeLog() const
 {
   return m_writeLog;
+}
+
+Config::logMode_t Config::logMode() const
+{
+  return m_logMode;
 }
 
 bool Config::removeLogOnSuccess() const
@@ -157,16 +163,18 @@ void Config::parseLine( const string& line, bool prepend )
     }
   }
 
-  /* TODO
   else if ( startsWithNoCase( s, "logmode" ) )
   {
     s = stripWhiteSpace( s.replace( 0, 7, "" ) );
     if ( s == "overwrite" )
     {
-      m_isForced = true;
+      m_logMode = OVERWRITE_MODE;
+    }
+    else if ( s == "append" )
+    {
+      m_logMode = APPEND_MODE;
     }
   }
-  */
 
   else if ( startsWithNoCase( s, "logfile" ) )
   {
