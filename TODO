@@ -1,3 +1,9 @@
+---
+if package is already built with .footprint mismatch,
+pkgman will install it.
+
+Is it good?
+---
 - add --rebuild-set to dependent
 - allow dependency injection for sysup, with previews
 - prefer toolchain (patch in trac)

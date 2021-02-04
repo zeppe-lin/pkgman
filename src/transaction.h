@@ -82,10 +82,7 @@ public:
     PKGMK_E_FOOTPRINT =  7, //!< Footprint check failure
     PKGMK_E_BUILD     =  8, //!< Error while running 'build()'
 
-    PKGMK_E_INSTALL   =  9, //!< Error while installing the package via
-                            //!< 'pkgadd'
-
-    PKGMK_E_SIGNATURE = 10, //!< Error verifying the signature
+    PKGMK_E_INSTALL   =  9, //!< Error while executing 'addcommand'
   };
 
   //! \struct  pkgRunScriptsState_t

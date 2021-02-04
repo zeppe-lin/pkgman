@@ -190,7 +190,7 @@ const Transaction::Result_t&
       if ( m_parser->group() )
         return m_transactionResult = pkgmkResult;
 
-      cout << "pkgman: " << name << ": "
+      cout << "pkgman: makecommand: " << name << ": "
            << strerror( pkgmkResult ) << endl;
     }
 
@@ -199,7 +199,7 @@ const Transaction::Result_t&
       if ( m_parser->group() )
         return m_transactionResult = pkgaddResult;
 
-      cout << "pkgman: " << name << ": "
+      cout << "pkgman: addcommand: " << name << ": "
            << strerror( pkgaddResult ) << endl;
     }
   }
@@ -446,7 +446,7 @@ const string Transaction::strerror( const Result_t& result ) const
       ;
 
     case PKGMK_E_GENERAL:
-      return "couldn't execute pkgmk (or alternative command)";
+      return "error while executing 'makecommand'";
 
     case PKGMK_E_PKGFILE:
       return "invalid Pkgfile";
@@ -471,11 +471,7 @@ const string Transaction::strerror( const Result_t& result ) const
       return "error while running `build()'";
 
     case PKGMK_E_INSTALL:
-      return "error while installing the package via pkgadd "
-             "(or alternative command)";
-
-    case PKGMK_E_SIGNATURE:
-      return "error verifying the signature";
+      return "error while executing 'addcommand'";
 
     default:
       return "unknown error";
@@ -538,7 +534,7 @@ Transaction::Result_t Transaction::pkgmk( const Package* pkg ) const
 
   if ( chdir( pkg->fullpath().c_str() ) != 0 )
   {
-    message = "pkgman: Can't chdir into " + pkg->fullpath() + "\n";
+    message = "pkgman: can't chdir into " + pkg->fullpath() + "\n";
 
     if ( m_logfd )
       write( m_logfd, message.c_str(), message.length() );
