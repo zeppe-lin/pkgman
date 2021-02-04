@@ -1,0 +1,23 @@
+.TH PKGMAN-README 8 "PKGMAN-#VERSION# Manual"
+
+.SH NAME
+pkgman-readme \- print the package's README
+
+.SH SYNOPSIS
+.B pkgman readme \fIPKG\fR
+
+.SH DESCRIPTION
+Print the \fIPKG\fR's README file if it exists.
+
+.SH ENVIRONMENT
+.TP
+.B PAGER
+If the package source has a README file, then \fBpkgman\fR will try to
+open it using a \fBPAGER\fR. If \fBPAGER\fR is unset, then \fBpkgman\fR
+prints the README to stdout.
+
+.SH SEE ALSO
+pkgman-readme(5)
+
+.\" vim:ft=nroff:cc=72
+.\" End of file

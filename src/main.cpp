@@ -16,7 +16,7 @@ using namespace std;
 
 static void inline die( const string& message, int rc=1 )
 {
-  cerr << "prt: " << message << endl;
+  cerr << "pkgman: " << message << endl;
   exit( rc );
 }
 
@@ -31,7 +31,9 @@ int main( int argc, char** argv )
   ArgParser parser( argc, argv );
   parser.parse();
 
-  if ( parser.unknownOpt().size() )
+  if ( parser.unknownOpt() == "--help" )
+    dieman( "pkgman" );
+  else if ( parser.unknownOpt().size() )
     die( "unknown option: " + parser.unknownOpt() );
 
   if ( parser.unknownCmdOpt().size() )
@@ -46,9 +48,9 @@ int main( int argc, char** argv )
   else if ( cmd == "version" )
     die( "v" VERSION, 0 );
   else if ( cmd == "help" || cmd == "--help" )
-    dieman( "prt" );
+    dieman( "pkgman" );
   else if ( parser.isHelp() )
-    dieman( "prt-" + cmd );
+    dieman( "pkgman-" + cmd );
 
   if ( parser.isTest() )
     cout << "\n*** TEST MODE ***\n";
@@ -222,10 +224,11 @@ int main( int argc, char** argv )
   /////////////////////////////////////////////////////////////////////
   //                          System update                          //
   /////////////////////////////////////////////////////////////////////
+  /* deprecated
   else if ( cmd == "sync" )
   {
     prt.sync();
-  }
+  }*/
   else if ( cmd == "sysup" )
   {
     prt.sysup();

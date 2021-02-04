@@ -1,0 +1,13 @@
+.TH PKGMAN-MDEP 8 "PKGMAN-#VERSION# Manual"
+
+.SH NAME
+pkgman-mdep \- print the missing dependencies of installed packages
+
+.SH SYNOPSIS
+.B pkgman mdep
+
+.SH DESCRIPTION
+Print the missing dependencies of installed packages.
+
+.\" vim:ft=nroff:cc=72
+.\" End of file

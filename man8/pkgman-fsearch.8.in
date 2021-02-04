@@ -1,0 +1,40 @@
+.TH PKGMAN-FSEARCH 8 "PKGMAN-#VERSION# Manual"
+
+.SH NAME
+pkgman-fsearch \- search the repositories for a file in package footprint
+
+.SH SYNOPSIS
+.B pkgman fsearch
+.B [-v|-vv] [--path]
+.B [--regex]
+.B [--full]
+.I EXPR
+
+.SH DESCRIPTION
+Search the repositories for \fIEXPR\fR in packages' .footprint files.
+.br
+It looks in all directories specified in \fC/etc/pkgman.conf\fR.
+
+.SH OPTIONS
+.TP
+.B \-v
+Show version in the listing.
+.TP
+.B \-vv
+Show version and description in the listing.
+.TP
+.B \-\-path
+Show package source path in the listing.
+.TP
+.B \-\-regex
+Interpret \fIEXPR\fR as regular expression.
+.TP
+.B \-\-full
+Full path search (e.g pkgman fsearch --full /usr/bin/gcc).
+.TP
+.I EXPR
+Can be a string, shell-like wildcard pattern
+(e.g pkgman fsearch "*.h") or regexps.
+
+.\" vim:ft=nroff:cc=72
+.\" End of file

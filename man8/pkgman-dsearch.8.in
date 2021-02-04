@@ -1,0 +1,35 @@
+.TH PKGMAN-DSEARCH 8 "PKGMAN-#VERSION# Manual"
+
+.SH NAME
+pkgman-dsearch \- search the repositories for package name/description
+
+.SH SYNOPSIS
+.B pkgman dsearch
+.B [-v|-vv] [--path]
+.B [--regex]
+.I EXPR
+
+.SH DESCRIPTION
+Search the repositories for \fIEXPR\fR in packages' name/description.
+.br
+It looks in all directories specified in \fC/etc/pkgman.conf\fR.
+
+.SH OPTIONS
+.TP
+.B \-v
+Show version in the listing.
+.TP
+.B \-vv
+Show version and description in the listing.
+.TP
+.B \-\-path
+Show package source path in the listing.
+.TP
+.B \-\-regex
+Interpret \fIEXPR\fR as regular expression.
+.TP
+.I EXPR
+String or regular expression.
+
+.\" vim:ft=nroff:cc=72
+.\" End of file

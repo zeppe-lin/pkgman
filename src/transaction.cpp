@@ -99,8 +99,8 @@ const Transaction::Result_t&
           return m_transactionResult = LOG_FILE_FAILURE;
 
         // The log file already exists, skip building this package.
-        // It's not a critical error: maybe another `prt' instance uses
-        // this log file or the previous transaction process was
+        // It's not a critical error: maybe another `pkgman' instance
+        // uses this log file or the previous transaction process was
         // interrupted.
         m_ignoredPackages.push_back( name );
 
@@ -109,9 +109,9 @@ const Transaction::Result_t&
           return m_transactionResult = LOG_FILE_EEXIST;
 
         // warn the user about skipping...
-        cout << "prt: " << name << ": "
+        cout << "pkgman: " << name << ": "
           << strerror( LOG_FILE_EEXIST ) << endl
-          << "prt: " << name << ": skip\n";
+          << "pkgman: " << name << ": skip\n";
 
         continue;
       }
@@ -173,7 +173,7 @@ const Transaction::Result_t&
 
     if ( ! m_parser->isTest() && m_config->writeLog() )
     {
-      // Remove the log file if `prt' is configured to remove a log
+      // Remove the log file if `pkgman' is configured to remove a log
       // after successful operation.
       if (     m_config->removeLogOnSuccess()
           &&   pkgmkResult  == SUCCESS
@@ -188,7 +188,7 @@ const Transaction::Result_t&
       if ( m_parser->group() )
         return m_transactionResult = pkgmkResult;
 
-      cout << "prt: " << name << ": "
+      cout << "pkgman: " << name << ": "
            << strerror( pkgmkResult ) << endl;
     }
 
@@ -197,7 +197,7 @@ const Transaction::Result_t&
       if ( m_parser->group() )
         return m_transactionResult = pkgaddResult;
 
-      cout << "prt: " << name << ": "
+      cout << "pkgman: " << name << ": "
            << strerror( pkgaddResult ) << endl;
     }
   }
@@ -527,7 +527,7 @@ Transaction::Result_t Transaction::pkgmk( const Package* pkg ) const
     m_parser->pkgmkArgs().size() ? m_parser->pkgmkArgs() : "-d";
 
   // inform the user about what's happening
-  string message = "prt: preparing ";
+  string message = "pkgman: preparing ";
   message += pkg->name() + " " + pkg->version_release() + "\n";
 
   cout << message;
@@ -536,7 +536,7 @@ Transaction::Result_t Transaction::pkgmk( const Package* pkg ) const
 
   if ( chdir( pkg->fullpath().c_str() ) != 0 )
   {
-    message = "prt: Can't chdir into " + pkg->fullpath() + "\n";
+    message = "pkgman: Can't chdir into " + pkg->fullpath() + "\n";
 
     if ( m_logfd )
       write( m_logfd, message.c_str(), message.length() );
@@ -578,7 +578,7 @@ Transaction::Result_t Transaction::pkgadd( const Package* pkg ) const
              +  getPkgmkCompressionMode();
 
   // inform the user about what's happening
-  string message = "prt: ";
+  string message = "pkgman: ";
   {
     string name = pkg->name();
     string from = m_pkgDB->getVersionRelease( pkg->name() );

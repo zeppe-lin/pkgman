@@ -1,0 +1,16 @@
+.TH PKGMAN-ISINST 8 "PKGMAN-#VERSION# Manual"
+
+.SH NAME
+pkgman-isinst \- print whether packages are installed or not
+
+.SH SYNOPSIS
+.B pkgman isinst \fIPKG1\fB [\fIPKG2\fR...\fB]
+
+.SH DESCRIPTION
+Print whether packages are installed or not.
+
+.SH EXIT STATUS
+0 if installed, 255 otherwise.
+
+.\" vim:ft=nroff:cc=72
+.\" End of file

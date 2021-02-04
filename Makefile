@@ -4,7 +4,7 @@ BINSRC = $(wildcard src/*.cpp)
 MANSRC = $(wildcard man5/*.in man8/*.in)
 OBJ = $(BINSRC:.cpp=.o)
 MAN = $(MANSRC:.in=)
-BIN = prt
+BIN = pkgman
 
 all: $(BIN) $(MAN)
 
@@ -28,7 +28,7 @@ clean:
 
 install: all
 	install -Dm0755 $(BIN) $(DESTDIR)$(PREFIX)/bin/$(BIN)
-	install -Dm0644 conf/prt.conf $(DESTDIR)$(PREFIX)/etc/prt.conf
+	install -Dm0644 conf/pkgman.conf $(DESTDIR)$(PREFIX)/etc/pkgman.conf
 	for m in man8/*.8; do \
 		install -Dm0644 $$m -t $(DESTDIR)$(MANPREFIX)/man8/; \
 	done
@@ -38,7 +38,7 @@ install: all
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/$(BIN)
-	rm -f $(DESTDIR)$(PREFIX)/etc/prt.conf
+	rm -f $(DESTDIR)$(PREFIX)/etc/pkgman.conf
 	cd $(DESTDIR)$(MANPREFIX)/ && rm -f $(MAN)
 
 .PHONY: all install uninstall clean

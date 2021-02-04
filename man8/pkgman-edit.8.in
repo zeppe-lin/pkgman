@@ -1,0 +1,27 @@
+.TH PKGMAN-EDIT 8 "PKGMAN-#VERSION# Manual"
+
+.SH NAME
+pkgman-edit \- edit the package's file
+
+.SH SYNOPSIS
+.B pkgman edit
+.IR PKG
+.RI [ FILE ]
+
+.SH DESCRIPTION
+Edit the package \fIFILE\fR from the package source directory
+using the editor specified in the $EDITOR environment variable.
+If \fIFILE\fR is not specified, 'Pkgfile' is used.
+
+.SH ENVIRONMENT
+.TP
+.B EDITOR
+If the package' source directory has a \fIFILE\fR, then \fBpkgman\fR
+will try to open it using a \fBEDITOR\fR. If \fBPAGER\fR is unset,
+then \fBpkgman(8)\fR will fail.
+
+.SH SEE ALSO
+.B pkgman-ls(8), pkgman-cat(8)
+
+.\" vim:ft=nroff:cc=72
+.\" End of file

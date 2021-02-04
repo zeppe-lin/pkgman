@@ -1,11 +1,10 @@
-.\" \file       prt-update.8.in
-.\" \brief      Man page for prt 'update' command
-.\" \copyright  See LICENSE file for copyright and license details.
-.TH PRT-UPDATE 8 "prt-#VERSION# Manual"
+.TH PKGMAN-INSTALL 8 "PKGMAN-#VERSION# Manual"
+
 .SH NAME
-prt-update \- Update packages in the listed order
+pkgman-install \- install package(s)
+
 .SH SYNOPSIS
-.B prt update
+.B pkgman install
 .B [-v|-vv]
 .B [--test]
 .B [--log]
@@ -13,36 +12,39 @@ prt-update \- Update packages in the listed order
 .B [--group]
 .BI [--margs=' PKGMK_ARGS '| PKGMK_ALIASES ]
 .BI [--aargs=' PKGADD_ARGS '| PKGADD_ALIASES ]
-.BI [--ignore= PORT1,PORT2,... ]
+.BI [--ignore= PKG1,PKG2,... ]
 .B [--install-scripts|[--pre-install][--post-install]]
-.I PORT1 PORT2 ...
+.I PKG1 PKG2 ...
+
 .SH DESCRIPTION
-Update all packages in the listed order.
+Install all packages in the listed order.
 .br
-Note that you can do this from any directory.
-It looks in all directories specified in \fC/etc/prt.conf\fR.
+It looks in all directories specified in \fC/etc/pkgman.conf\fR.
+
 .SH OPTIONS
 .TP
 .B \-v
 Be more verbose.
 .TP
 .B \-vv
-Log to stdout the updating process.
+Log to stdout the installation process.
 .TP
 .B \-\-test
-Dry run, don't actually update anything.
+Dry run, don't actually install anything.
 .TP
 .B \-\-log
 Create a transaction log file. It can be set globally for all
-transactions (see "writelog" in prt.conf(5)).
+transactions (see "writelog" in pkgman.conf(5)).
 .TP
 .B \-\-deps
-Update all packages in the listed order including their new dependencies.
+Install all packages in the listed order including their dependencies.
 .TP
 .B \-\-group
-Update all packages in the listed order, but stop if updating of
-one package fails. This can be used to update packages where package2
-depends on package1.
+Install all packages in the listed order, but stop if installation of
+one package fails. This can be used to install packages where
+.I PKG2
+depends on
+.IR PKG1 .
 .TP
 .BI \-\-margs=' PKGMK_ARGS '
 Arguments to be passed to pkgmk(8).
@@ -56,12 +58,6 @@ Update md5sum, implies 'pkgmk -um'; same as --margs=-um
 .br
 .I \-im
 Ignore md5sum, implies 'pkgmk -im'; same as --margs=-im
-.br
-.I \-us
-Update signature, implies 'pkgmk -us'; same as --margs=-us
-.br
-.I \-is
-Ignore signature, implies 'pkgmk -is'; same as --margs=-is
 .br
 .I \-uf
 Update footprint, implies 'pkgmk -uf'; same as --margs=-uf
@@ -80,11 +76,10 @@ Arguments to be passed to pkgadd(8).
 .TP
 .BI PKGADD_ALIASES
 .I \-f, \-i
-Force install. Implies 'pkgadd --f'; same as --aargs=-f
+Force install, implies 'pkgadd -f'; same as --aargs=-f
 .TP
-.BI \-\-ignore=' PORT1,PORT2,... '
-Don't install/update those packages, even if they're listed as
-dependency.
+.BI \-\-ignore=' PKG1,PKG2,... '
+Don't install those packages, even if they're listed as dependency.
 .TP
 .B \-\-install\-scripts
 Execute pre-install and post-install script if they're there.
@@ -94,5 +89,6 @@ Execute pre-install script if it's there.
 .TP
 .B \-\-post\-install
 Execute post-install scripts if it's there.
-.\" vim:ft=nroff:sw=2:ts=2:sts=2:et:cc=72
+
+.\" vim:ft=nroff:cc=72
 .\" End of file

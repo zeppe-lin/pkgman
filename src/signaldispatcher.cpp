@@ -29,7 +29,7 @@ void SignalDispatcher::dispatch( int signalNumber )
   if ( it != instance()->m_signalHandlers.end() )
     it->second->handleSignal( signalNumber );
   else
-    cerr << "prt: caught signal " << signalNumber << endl;
+    cerr << "pkgman: caught signal " << signalNumber << endl;
 
   exit( signalNumber );
 }

@@ -1,0 +1,264 @@
+.TH PKGMAN.CONF 5 "PKGMAN-#VERSION# Manual"
+
+.SH NAME
+pkgman.conf \- configuration file for pkgman(8)
+
+.SH DESCRIPTION
+This file, by default #SYSCONFDIR#/etc/pkgman.conf, is read by
+pkgman(8).
+
+.SH CONFIGURATION
+Every line can contain one configuration option. The format of the
+lines is <key>  <value>.
+
+The valid keys are:
+
+.TP
+pkgsrcdir \fIpath\fR:[:\fIpkg1\fR,\fIpkg2\fR,...]
+
+The location where to look for the packages. The order of the pkgsrcdir
+options is important as if a package is in multiple directories,
+pkgman(8) will use the one found first (directories listed first have
+precedence),
+
+If you want to restrict the packages used from one pkgsrcdir, you can
+append a comma-separated list of packages to be used after the path,
+using a colon ":" character to separate the two components.
+
+.I path
+The directory.
+
+.IR pkg1 , pkg2
+The final directory in the path.
+
+Example:
+.br
+pkgsrcdir /usr/pkgsrc/core
+.br
+pkgsrcdir /usr/pkgsrc/contrib:mpv,ffmpeg
+
+.TP
+runscripts (yes|no)
+
+Run pre/post-install and pre/post-remove scripts.
+
+default: no.
+
+.TP
+preferhigher (yes|no)
+
+If set to yes, \fBpkgman\fR(8) will parse version strings and prefer
+the higher one, even if the one found in the package source
+repositories is lower.
+
+Will influence diff, sysup, ...
+
+default: no.
+
+.TP
+useregex (yes|no)
+
+If set to yes, pkgman(8) will interpret expr and filter patterns in
+list, listinst, printf, search, dsearch and fsearch as regular
+expressions.
+
+default: no.
+
+.TP
+readme (verbose|compact|disabled)
+
+If the readme option is set to something different that disabled,
+pkgman(8) will notify the user if she/he installs a package with a
+README file.
+
+.I verbose
+Print separate information about README files.
+
+.I compact
+Integrate in result output.
+
+.I disabled
+No information about README files.
+
+See pkgman(8) and especially the readme command how to read those
+README files.
+
+default: \fIverbose\fR.
+
+.TP
+writelog (enabled|disabled)
+
+Write the log.
+
+default: disabled.
+
+.TP
+logmode (append|overwrite)
+
+Write log mode.
+
+default: overwrite.
+
+.TP
+rmlog_on_success (yes|no)
+
+When set to yes, log files of successful builds will be removed.
+
+default: no.
+
+.TP
+logfile \fIformat\fR
+
+The string that contains a path to the log file, where all occurrences
+of next characters will be replaced by corresponding items:
+
+%n -> package name
+.br
+%p -> package path
+.br
+%v -> package version
+.br
+%r -> package release
+
+This allows you to have separate log files per package.
+
+Example:
+/var/log/pkgbuild/%n.log
+
+default: ''
+
+.TP
+makecommand \fIcommand\fR
+
+Use an alternative command instead of "pkgmk" for the command which is
+used to build the package.
+
+default: pkgmk.
+
+.TP
+addcommand \fIcommand\fR
+
+Use an alternative command instead of "pkgadd" for the command which is
+used to install the package.
+
+default: pkgadd.
+
+.TP
+removecommand command
+
+Use an alternative command instead of "pkgrm" for the command which is
+used to remove the package.
+
+default: pkgrm.
+
+.TP
+runscriptcommand command
+
+Use an alternative command instead of "sh" for the command which is
+used to run the pre/post-install and pre/post-remove scripts.
+
+default: sh.
+
+.SH EXAMPLES
+.nf
+#
+# /etc/pkgman.conf: configuration file for pkgman(8)
+#
+
+## use local directory first
+#pkgsrcdir /usr/pkgsrc/unofficial
+
+# zeppelin official
+pkgsrcdir /usr/pkgsrc/core
+pkgsrcdir /usr/pkgsrc/opt
+pkgsrcdir /usr/pkgsrc/xorg
+pkgsrcdir /usr/pkgsrc/contrib
+
+# log options
+writelog enabled
+logmode overwrite
+rmlog_on_success yes
+logfile /var/log/pkgbuild/%n.log
+
+# notify the user about README files
+readme verbose
+
+# don't prefer higher versions in sysup / diff
+preferhigher no
+
+# don't use regex search
+useregex no
+
+# run pre/post-install and pre/post-remove scripts
+runscripts yes
+
+# End of file.
+.ne
+
+.SH TIPS
+
+.SS Build packages as ann unprivileged user
+
+1. add new user
+.br
+useradd -m -s /bin/false pkgmk
+
+2. add permissions to write in the PKGMK_SOURCE_DIR, PKGMK_PACKAGE_DIR,
+and PKGMK_WORK_DIR. Note: you need to set up dedicated directories in
+/etc/pkgmk.conf.
+.br
+chown pkgmk:pkgmk /home/pkgmk/{distfiles,packages,work}
+
+3. set up the \fImakecommand\fR in the /etc/pkgman.conf:
+.br
+makecommand sudo -H -u pkgmk fakeroot pkgmk
+
+.SS Renice pkgmk's child process
+
+If you keep using your computer while compiling packages you will
+notice that your box is much less responsive as usual. This is caused
+by having two "groups" of processes with the same nice priority:
+your usual running tasks on one side, and pkgman(8)
+(and its child processes) on the other. Now, if you could renice pkgman
+and its children to a higher nice (i.e. lower priority!)  value
+(default is 0), compiling would inevitably take somewhat longer, but
+you could use your workstation without noticing much difference to its
+usual performance.
+
+Just set up the makecommand in the /etc/pkgman.conf to something like
+this:
+
+makecommand sudo -H -u pkgmk nice -n10 ionice -c2 -n6 pkgmk
+
+or like this (to use fakeroot(1)):
+
+makecommand sudo -H -u pkgmk nice -n10 ionice -c2 -n6 fakeroot pkgmk
+
+.SS Build in RAM
+
+1. Find your used id for pkgmk:
+.br
+id pkgmk
+
+2. Edit /etc/fstab and add this line. Setting your preferred size size=...
+in M for megabytes or G for gigabytes and user id of the previous
+command uid=...
+
+pkgmk /home/pkgmk/work tmpfs size=${size}G,uid=${uid},defaults 0 0
+
+3. Mount the tmpfs:
+
+mount pkgmk
+
+4. Edit /etc/pkgmk.conf and set where you put your ram file system from
+your /etc/fstab file:
+
+PKGMK_WORK_DIR="/home/pkgmk/work/$name"
+
+5. Edit /etc/pkgmk.conf and remove -pipe from all your *FLAGS=.
+
+.SH SEE ALSO
+.BR pkgman(8) , \ pkgmk(8) , \ pkgmk.conf(8)
+
+.\" vim:ft=nroff:cc=72
+.\" End of file

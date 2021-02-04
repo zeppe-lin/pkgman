@@ -1,22 +1,23 @@
-.\" \file       prt-remove.8.in
-.\" \brief      Man page for prt 'remove' command
-.\" \copyright  See LICENSE file for copyright and license details.
-.TH PRT-REMOVE 8 "prt-#VERSION# Manual"
+.TH PKGMAN-REMOVE 8 "PKGMAN-#VERSION# Manual"
+
 .SH NAME
-prt-remove \- Remove installed packages in the listed order
+pkgman-remove \- remove installed packages
+
 .SH SYNOPSIS
-.B prt remove
+.B pkgman remove
 .B [-v|-vv]
 .B [--test]
 .B [--log]
 .B [--deps]
 .B [--group]
 .BI [--rargs=' PKGRM_ARGS ']
-.BI [--ignore= PORT1,PORT2,... ]
+.BI [--ignore= PKG1,PKG2,... ]
 .B [--remove-scripts|[--pre-remove][--post-remove]]
 .I PKG1 PKG2 ...
+
 .SH DESCRIPTION
 Remove all installed packages in the listed order.
+
 .SH OPTIONS
 .TP
 .B \-v
@@ -30,7 +31,7 @@ Dry run, don't actually remove anything.
 .TP
 .B \-\-log
 Create a transaction log file. It can be set globally for all
-transactions (see "writelog" in prt.conf(5)).
+transactions (see "writelog" in pkgman.conf(5)).
 .TP
 .B \-\-deps
 Remove all packages in the listed order including their new dependencies.
@@ -53,5 +54,6 @@ Execute pre-remove script if it's there.
 .TP
 .B \-\-post\-remove
 Execute post-remove scripts if it's there.
-.\" vim:ft=nroff:sw=2:ts=2:sts=2:et:cc=72
+
+.\" vim:ft=nroff:cc=72
 .\" End of file

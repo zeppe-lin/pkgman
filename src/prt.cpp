@@ -48,7 +48,7 @@ using VersionComparator::LESS;
 using VersionComparator::EQUAL;
 using VersionComparator::UNDEFINED;
 
-const string Prt::CONF_FILE = SYSCONFDIR"/prt.conf";
+const string Prt::CONF_FILE = SYSCONFDIR"/pkgman.conf";
 
 Prt::Prt( const ArgParser* parser ):
   m_parser( parser ),
@@ -856,6 +856,7 @@ void Prt::remove()
   }
 }
 
+/* XXX deprecated
 void Prt::sync()
 {
   for ( auto& driver:
@@ -863,7 +864,6 @@ void Prt::sync()
   {
     string driver_path = fs::path( driver );
     string driver_name = fs::path( driver ).filename();
-    /*
     struct stat st;
     if (   stat( driver_path.c_str(), &st ) < 0
         || ( st.st_mode & S_IEXEC ) == 0 )
@@ -871,7 +871,6 @@ void Prt::sync()
       errx( driver + " is not executable", PG_PARTIAL_INSTALL_ERROR );
       continue;
     }
-    */
     for ( auto& port: fs::directory_iterator( SYSCONFDIR"/ports" ) )
     {
       string port_path      = fs::path( port );
@@ -889,6 +888,7 @@ void Prt::sync()
     }
   }
 }
+*/
 
 void Prt::sysup()
 {
@@ -1030,7 +1030,7 @@ Prt::handleSignal( int __attribute__((unused)) signal )
   // TODO: second argument could also be true:
   // TODO: kill installtransaction
 
-  cout << "prt: interrupted" << endl;
+  cout << "pkgman: interrupted" << endl;
   if ( m_currentTransaction )
     evaluateResult( *m_currentTransaction, /*interrupted*/ true );
   return EXIT;
@@ -1047,7 +1047,7 @@ int Prt::returnValue() const
 
 inline void Prt::errx( const string& error_message, int ret )
 {
-  cerr << "prt: " << error_message << ".\n";
+  cerr << "pkgman: " << error_message << ".\n";
   m_returnValue = ret;
 }
 

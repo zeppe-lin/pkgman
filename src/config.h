@@ -81,7 +81,7 @@ public:
   //! \brief   A path and packages
   //!
   //! \return  the list of pair with path and packages specified by
-  //!          "prtdir"
+  //!          "pkgsrcdir"
   const list< pair< string, string > >& rootList() const;
 
   //! README modes

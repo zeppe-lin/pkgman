@@ -57,7 +57,7 @@ void Config::addConfig( const string&  line,
                         bool           configSet,
                         bool           configPrepend )
 {
-  if ( configSet && startsWithNoCase( line, "prtdir" ) )
+  if ( configSet && startsWithNoCase( line, "pkgsrcdir" ) )
     m_rootList.clear();
 
   parseLine( line, configPrepend );
@@ -135,7 +135,7 @@ void Config::parseLine( const string& line, bool prepend )
 
   string s = line;
 
-  if ( startsWithNoCase( s, "prtdir" ) )
+  if ( startsWithNoCase( s, "pkgsrcdir" ) )
   {
     s = stripWhiteSpace( s.replace( 0, 6, "" ) );
     string path = stripWhiteSpace( getValueBefore( s, ':' ) );
@@ -149,7 +149,7 @@ void Config::parseLine( const string& line, bool prepend )
         m_rootList.push_back(  make_pair( path, packages ) );
     }
     else
-      cerr << "prt: [config error]: can't access " << path << endl;
+      cerr << "pkgman: [config error]: can't access " << path << endl;
   }
 
   else if ( startsWithNoCase( s, "writelog" ) )
@@ -232,7 +232,7 @@ void Config::parseLine( const string& line, bool prepend )
     m_runscriptCommand = stripWhiteSpace( s.replace( 0, 16, "" ) );
 
   else
-    cerr << "prt: [config error]: unknown key/value: " << s << endl;
+    cerr << "pkgman: [config error]: unknown key/value: " << s << endl;
 }
 
 // vim:sw=2:ts=2:sts=2:et:cc=72

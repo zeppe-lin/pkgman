@@ -139,8 +139,10 @@ public:
   //                          System update                          //
   /////////////////////////////////////////////////////////////////////
 
+  /* deprecated
   //! Synchronize local and remote ports collections
   void sync();
+  */
 
   //! Update all outdated packages
   void sysup();

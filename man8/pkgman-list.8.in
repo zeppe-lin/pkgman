@@ -1,16 +1,17 @@
-.\" \file       prt-list.8.in
-.\" \brief      Man page for prt 'list' command
-.\" \copyright  This file is a part of prt program.
-.\"             See LICENSE file for copyright and license details.
-.TH PRT-LIST 8 "prt-#VERSION# Manual"
+.TH PKGMAN-LIST 8 "PKGMAN-#VERSION# Manual"
+
 .SH NAME
-prt-list \- Print list of available packages
+pkgman-list \- print list of available packages
+
 .SH SYNOPSIS
-.B prt list [-v|-vv] [--path] [--all] [--depsort] [--regex]
+.B pkgman list [-v|-vv] [--path] [--all] [--depsort] [--regex]
 .BI [--filter= NAME ]
+
 .SH DESCRIPTION
 Print list of available packages.
-It looks in all directories specified in \fC/etc/prt.conf\fR.
+.br
+It looks in all directories specified in \fC/etc/pkgman.conf\fR.
+
 .SH OPTIONS
 .TP
 .B \-v
@@ -20,7 +21,7 @@ Show version in the listing.
 Show version and description in the listing.
 .TP
 .B \-\-path
-Show port path in the listing.
+Show package' source path in the listing.
 .TP
 .B \-\-all
 List all packages, not only installed.
@@ -34,5 +35,6 @@ Interpret filter argument as a regular expression.
 .BI \-\-filter= NAME
 Filter listing packages by name. The filter option argument may be the
 string, wildcard or regex.
-.\" vim:ft=nroff:sw=2:ts=2:sts=2:et:cc=72
+
+.\" vim:ft=nroff:cc=72
 .\" End of file

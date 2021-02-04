@@ -1,0 +1,26 @@
+.TH PKGMAN-LIST-LOCKED 8 "PKGMAN-VERSION Manual"
+
+.SH NAME
+pkgman-list-locked \- print list of locked packages
+
+.SH SYNOPSIS
+.B pkgman list-locked [-v|-vv] [--path]
+
+.SH DESCRIPTION
+Print list of locked packages.
+"Locked" are packages that will not update while performing a system
+update.
+
+.SH OPTIONS
+.TP
+.B \-v
+Show version in the listing.
+.TP
+.B \-vv
+Show version and description in the listing.
+.TP
+.B \-\-path
+Show package' source path in the listing.
+
+.\" vim:ft=nroff:cc=72
+.\" End of file
