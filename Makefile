@@ -28,7 +28,7 @@ clean:
 
 install: all
 	install -Dm0755 $(BIN) $(DESTDIR)$(PREFIX)/bin/$(BIN)
-	install -Dm0644 conf/pkgman.conf $(DESTDIR)$(PREFIX)/etc/pkgman.conf
+	install -Dm0644 conf/pkgman.conf $(DESTDIR)$(SYSCONFDIR)/pkgman.conf
 	for m in man8/*.8; do \
 		install -Dm0644 $$m -t $(DESTDIR)$(MANPREFIX)/man8/; \
 	done
@@ -38,7 +38,7 @@ install: all
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/$(BIN)
-	rm -f $(DESTDIR)$(PREFIX)/etc/pkgman.conf
+	rm -f $(DESTDIR)$(SYSCONFDIR)/pkgman.conf
 	cd $(DESTDIR)$(MANPREFIX)/ && rm -f $(MAN)
 
 .PHONY: all install uninstall clean
