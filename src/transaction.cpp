@@ -97,6 +97,8 @@ const Transaction::Result_t&
         // that it already exists -- this is a critical error.
         if ( errno != EEXIST )
           return m_transactionResult = LOG_FILE_FAILURE;
+        else
+          cerr << "pkgman: [warning]: log file already exists" << endl;
 
         // The log file already exists, skip building this package.
         // It's not a critical error: maybe another `pkgman' instance
@@ -510,7 +512,7 @@ bool Transaction::logFileCreate( const string& logFilePath )
   if ( m_config->logMode() == Config::OVERWRITE_MODE )
   {
     m_logfd =
-      open( logFilePath.c_str(), O_CREAT | O_WRONLY, 0666 );
+      open( logFilePath.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0666 );
   }
   else
   {
