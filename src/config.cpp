@@ -137,7 +137,7 @@ void Config::parseLine( const string& line, bool prepend )
 
   if ( startsWithNoCase( s, "pkgsrcdir" ) )
   {
-    s = stripWhiteSpace( s.replace( 0, 6, "" ) );
+    s = stripWhiteSpace( s.replace( 0, 9, "" ) );
     string path = stripWhiteSpace( getValueBefore( s, ':' ) );
     string packages = getValue( s, ':' );
 
