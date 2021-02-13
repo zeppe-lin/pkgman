@@ -75,9 +75,9 @@ const string& Package::path() const
 const string Package::fullpath( const string& file ) const
 {
   if ( file.empty() )
-    return m_data->path + '/' + m_data->name;
+    return m_data->path + m_data->name;
 
-  return m_data->path + '/' + m_data->name + '/' + file;
+  return m_data->path + m_data->name + '/' + file;
 }
 
 const string& Package::version() const
