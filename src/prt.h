@@ -391,7 +391,7 @@ protected:
         if ( const auto& version = m_pkgDB->getVersionRelease( pkg );
              version.size() && m_parser->verbose() > 0 )
           cout << " " << version;
-        cout << " (not found in ports tree)";
+        cout << " (not found in pkgsrc tree)";
       }
       else
       {
