@@ -27,14 +27,12 @@ clean:
 	rm -f $(BIN) $(MAN) $(OBJ)
 
 install: all
-	install -Dm0755 $(BIN) $(DESTDIR)$(PREFIX)/bin/$(BIN)
-	install -Dm0644 conf/pkgman.conf $(DESTDIR)$(SYSCONFDIR)/pkgman.conf
+	install -m 0755 -D $(BIN) $(DESTDIR)$(PREFIX)/bin/$(BIN)
+	install -m 0644 -D conf/pkgman.conf $(DESTDIR)$(SYSCONFDIR)/pkgman.conf
 	for m in man8/*.8; do \
-		install -Dm0644 $$m -t $(DESTDIR)$(MANPREFIX)/man8/; \
-	done
+		install -m 0644 -D -t $(DESTDIR)$(MANPREFIX)/man8 $$m; done
 	for m in man5/*.5; do \
-		install -Dm0644 $$m -t $(DESTDIR)$(MANPREFIX)/man5/; \
-	done
+		install -m 0644 -D -t $(DESTDIR)$(MANPREFIX)/man5 $$m; done
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/$(BIN)
