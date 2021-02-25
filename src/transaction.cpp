@@ -684,12 +684,12 @@ void Transaction::checkDependecies( const Package*  pkg,
 
 string Transaction::getPkgmkSetting( const string& setting )
 {
-  string value = getPkgmkSettingFromFile( setting, "/etc/pkgmk.conf" );
+  string value = getPkgmkSettingFromFile( setting, SYSCONFDIR"/pkgmk.conf" );
 
   if ( value.size() )
     return value;
 
-  return getPkgmkSettingFromFile(setting, "/usr/bin/pkgmk");
+  return getPkgmkSettingFromFile(setting, PREFIX"/bin/pkgmk");
 }
 
 string Transaction::getPkgmkSettingFromFile( const string& setting,

@@ -28,9 +28,9 @@ Config::Config( const string& configFile, const ArgParser* parser ):
   m_useRegex( false ),
   m_runScripts( false ),
   m_runscriptCommand( "sh" ),
-  m_makeCommand( "/usr/bin/pkgmk" ),
-  m_addCommand( "/usr/bin/pkgadd" ),
-  m_removeCommand( "/usr/bin/pkgrm" )
+  m_makeCommand( PREFIX"/sbin/pkgmk" ),
+  m_addCommand( PREFIX"/sbin/pkgadd" ),
+  m_removeCommand( PREFIX"/sbin/pkgrm" )
 {
 }
 

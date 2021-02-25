@@ -136,8 +136,8 @@ void Prt::dumpConfig() const
                Transaction::getPkgmkCompressionMode().c_str() );
 
   std::printf( "%-20s: %lu\n", m_config->rootList().size() == 1
-                              ? "Port directory"
-                              : "Port directories",
+                              ? "pkgsrc directory"
+                              : "pkgsrc directories",
                m_config->rootList().size() );
 
   for ( const auto& [ path, packages ]: m_config->rootList() )
@@ -549,9 +549,9 @@ void Prt::printDiff()
   if ( m_greaterVersionComp.size() )
   {
     cout <<
-      "\n-- Differences between installed packages and ports tree\n";
+      "\n-- Differences between installed packages and pkgsrc tree\n";
 
-    printFormattedDiffLine( "Port", "Installed", "Available", false );
+    printFormattedDiffLine( "Package", "Installed", "Available", false );
     
     cout << endl;
  
@@ -573,7 +573,7 @@ void Prt::printDiff()
     cout <<
       "\n-- Undecidable version differences (use --strict-diff)\n";
 
-    printFormattedDiffLine( "Port", "Installed", "Available", false );
+    printFormattedDiffLine( "Package", "Installed", "Available", false );
     
     cout << endl;
 
@@ -587,8 +587,8 @@ void Prt::printDiff()
 
   if ( m_missingRepoPackages.size() )
   {
-    cout << "\n-- Ports which was not found in the ports tree\n";
-    printFormattedDiffLine( "Port", "Installed", "Required by", false );
+    cout << "\n-- Packages which was not found in the pkgsrc tree\n";
+    printFormattedDiffLine( "Package", "Installed", "Required by", false );
     cout << endl;
  
     for ( const auto& [ pkg1, pkg2 ]: m_missingRepoPackages )
@@ -856,40 +856,6 @@ void Prt::remove()
   }
 }
 
-/* XXX deprecated
-void Prt::sync()
-{
-  for ( auto& driver:
-          fs::directory_iterator( SYSCONFDIR"/ports/drivers" ) )
-  {
-    string driver_path = fs::path( driver );
-    string driver_name = fs::path( driver ).filename();
-    struct stat st;
-    if (   stat( driver_path.c_str(), &st ) < 0
-        || ( st.st_mode & S_IEXEC ) == 0 )
-    {
-      errx( driver + " is not executable", PG_PARTIAL_INSTALL_ERROR );
-      continue;
-    }
-    for ( auto& port: fs::directory_iterator( SYSCONFDIR"/ports" ) )
-    {
-      string port_path      = fs::path( port );
-      string port_extension = fs::path( port ).extension();
-
-      if ( '.' + driver_name != port_extension )
-        continue;
-
-      Process proc( driver_path, port_path );
-      if ( proc.executeShell() == 0 )
-        continue;
-
-      // critical error: partially synced repos may break the update
-      return errx( "sync error: " + driver_path + " " + port_path );
-    }
-  }
-}
-*/
-
 void Prt::sysup()
 {
   initRepo();
@@ -996,7 +962,7 @@ void Prt::cat()
 
   const auto& pkg = m_repo->getPackage( name );
   if ( ! pkg )
-    return errx( "not found '" + name + "' in the ports tree" );
+    return errx( "not found '" + name + "' in the pkgsrc tree" );
 
   if ( ! printFile( pkg->fullpath( file ) ) )
     errx( "file '" + file + "' not found" );
