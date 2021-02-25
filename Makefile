@@ -27,7 +27,7 @@ clean:
 	rm -f $(BIN) $(MAN) $(OBJ)
 
 install: all
-	install -m 0755 -D $(BIN) $(DESTDIR)$(PREFIX)/bin/$(BIN)
+	install -m 0755 -D $(BIN) $(DESTDIR)$(PREFIX)/sbin/$(BIN)
 	install -m 0644 -D conf/pkgman.conf $(DESTDIR)$(SYSCONFDIR)/pkgman.conf
 	for m in man8/*.8; do \
 		install -m 0644 -D -t $(DESTDIR)$(MANPREFIX)/man8 $$m; done
