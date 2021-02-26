@@ -11,6 +11,7 @@ CXXFLAGS += -Wall -Wextra -Wconversion -Wcast-align -Wunused -Wshadow \
 CPPFLAGS += -DVERSION=\"${VERSION}\" \
 	    -DLOCALSTATEDIR=\"${LOCALSTATEDIR}\" \
 	    -DSYSCONFDIR=\"${SYSCONFDIR}\" \
-	    -DPREFIX=\"${PREFIX}\"
+	    -DPREFIX=\"${PREFIX}\" \
+	    -DNDEBUG
 
 LDFLAGS   = -lstdc++fs
