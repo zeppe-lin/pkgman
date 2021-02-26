@@ -5,6 +5,7 @@ MANSRC = $(wildcard man5/*.in man8/*.in)
 OBJ = $(BINSRC:.cpp=.o)
 MAN = $(MANSRC:.in=)
 BIN = pkgman
+CFG = pkgman.conf
 
 all: $(BIN) $(MAN)
 
@@ -28,7 +29,7 @@ clean:
 
 install: all
 	install -m 0755 -D $(BIN) $(DESTDIR)$(PREFIX)/sbin/$(BIN)
-	install -m 0644 -D conf/pkgman.conf $(DESTDIR)$(SYSCONFDIR)/pkgman.conf
+	install -m 0644 -D $(CFG) $(DESTDIR)$(SYSCONFDIR)/$(CFG)
 	for m in man8/*.8; do \
 		install -m 0644 -D -t $(DESTDIR)$(MANPREFIX)/man8 $$m; done
 	for m in man5/*.5; do \
@@ -36,7 +37,7 @@ install: all
 
 uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/$(BIN)
-	rm -f $(DESTDIR)$(SYSCONFDIR)/pkgman.conf
+	rm -f $(DESTDIR)$(SYSCONFDIR)/$(CFG)
 	cd $(DESTDIR)$(MANPREFIX)/ && rm -f $(MAN)
 
 .PHONY: all install uninstall clean
