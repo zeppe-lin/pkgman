@@ -8,9 +8,9 @@
 #include <signal.h>
 
 #include "argparser.h"
+#include "process.h"
 #include "prt.h"
 #include "signaldispatcher.h"
-#include "process.h"
 
 using namespace std;
 

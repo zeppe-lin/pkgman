@@ -32,6 +32,7 @@
 #include "process.h"
 #include "prt.h"
 #include "p_regex.h"
+#include "pkgmksetting.h"
 #include "repository.h"
 #include "versioncomparator.h"
 #include "helpers.h"
@@ -80,6 +81,8 @@ Prt::~Prt()
 
 void Prt::dumpConfig() const
 {
+  PkgmkSetting pkgmkConf( m_parser );
+
   if ( ! m_parser->noStdConfig() )
   {
     string configFile = m_parser->root() + CONF_FILE;
@@ -131,9 +134,9 @@ void Prt::dumpConfig() const
 
   std::printf( "%-20s:\n", "Pkgmk settings" );
   std::printf( "%-20s: %s\n", "  Package dir",
-               Transaction::getPkgmkPackageDir().c_str() );
+               pkgmkConf.get( "PKGMK_PACKAGE_DIR" ).c_str() );
   std::printf( "%-20s: %s\n", "  Compression mode",
-               Transaction::getPkgmkCompressionMode().c_str() );
+               pkgmkConf.get( "PKGMK_COMPRESSION_MODE" ).c_str() );
 
   std::printf( "%-20s: %lu\n", m_config->rootList().size() == 1
                               ? "pkgsrc directory"

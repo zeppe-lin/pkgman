@@ -16,6 +16,7 @@
 #include "config.h"
 #include "helpers.h"
 #include "pkgdb.h"
+#include "pkgmksetting.h"
 #include "process.h"
 #include "transaction.h"
 
@@ -387,17 +388,6 @@ Transaction::removeFailed() const
   return m_removeFailedPackages;
 }
 
-string Transaction::getPkgmkPackageDir()
-{
-  return getPkgmkSetting( "PKGMK_PACKAGE_DIR" );
-}
-
-string Transaction::getPkgmkCompressionMode()
-{
-  string value = getPkgmkSetting( "PKGMK_COMPRESSION_MODE" );
-  return value.size() ? value : "gz";
-}
-
 const string Transaction::strerror( const Result_t& result ) const
 {
   switch ( result ? result : m_transactionResult )
@@ -552,6 +542,7 @@ Transaction::Result_t Transaction::pkgmk( const Package* pkg ) const
 
 Transaction::Result_t Transaction::pkgadd( const Package* pkg ) const
 {
+  PkgmkSetting pkgmkConf( m_parser );
   string pkgadd = m_config->addCommand();
   string pkgaddArgs;
 
@@ -567,13 +558,13 @@ Transaction::Result_t Transaction::pkgadd( const Package* pkg ) const
   if ( m_transactionType == UPDATE )
     pkgaddArgs += "-u ";
 
-  pkgaddArgs += getPkgmkPackageDir()
+  pkgaddArgs += pkgmkConf.get( "PKGMK_PACKAGE_DIR" )
              +  "/"
              +  pkg->name()
              +  "#"
              +  pkg->version_release()
              +  ".pkg.tar."
-             +  getPkgmkCompressionMode();
+             +  pkgmkConf.get( "PKGMK_COMPRESSION_MODE" );
 
   // inform the user about what's happening
   string message = "pkgman: ";
@@ -680,50 +671,6 @@ void Transaction::checkDependecies( const Package*  pkg,
     else
       m_missingPackages.push_back( make_pair( dep, pkg->name() ) );
   }
-}
-
-string Transaction::getPkgmkSetting( const string& setting )
-{
-  string value = getPkgmkSettingFromFile( setting, SYSCONFDIR"/pkgmk.conf" );
-
-  if ( value.size() )
-    return value;
-
-  return getPkgmkSettingFromFile(setting, PREFIX"/bin/pkgmk");
-}
-
-string Transaction::getPkgmkSettingFromFile( const string& setting,
-                                             const string& filename )
-{
-  ifstream file( filename );
-  if ( ! file.is_open() )
-    return "";
-
-  string candidate;
-  string line;
-  while ( getline( file, line ) )
-  {
-    line = stripWhiteSpace( line );
-    if ( startsWith( line, setting + "=" ) )
-      candidate = line;
-  }
-  file.close();
-
-  if ( candidate.empty() )
-    return "";
-
-  string cmd = "eval " + candidate + " && echo $" + setting;
-
-  FILE* p = popen( cmd.c_str(), "r" );
-  if ( ! p )
-    return "";
-
-  // XXX fix the limit of 256 chars?
-  char outline[ 256 ];
-  fgets( outline, 256, p );
-  fclose( p );
-
-  return stripWhiteSpace( outline );
 }
 
 // vim:sw=2:ts=2:sts=2:et:cc=72

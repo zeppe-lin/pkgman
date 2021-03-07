@@ -462,29 +462,6 @@ private:
   //! \param   depends  index if the package \a pkg depends on,
   //!                   -1 for none
   void checkDependecies( const Package* pkg, ssize_t depends=-1 );
-
-  //! \brief   Get setting from pkgmk(8)
-  //!
-  //! Get setting from \b /etc/pkgmk.conf file if it exists, or from
-  //! \b /usr/bin/pkgmk otherwise
-  //!
-  //! \note    This is a helper around \a getPkgmkSettingFromFile()
-  //!
-  //! \param   setting  any string defined as "setting=value"
-  //!                   in pkgmk(8)
-  //!
-  //! \return  the setting's value
-  static string getPkgmkSetting( const string& setting );
-
-  //! \brief   Get setting from the specified file
-  //!
-  //! \param   setting   any string defined as "setting=value"
-  //!                    in \a filename
-  //! \param   filename  path to the settings file
-  //!
-  //! \return  the key's value
-  static string getPkgmkSettingFromFile( const string& setting,
-                                         const string& filename );
 };
 
 // vim:sw=2:ts=2:sts=2:et:cc=72
