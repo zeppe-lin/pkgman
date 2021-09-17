@@ -8,11 +8,18 @@ It appeared in an attempt to rewrite the prt-get tool, which is used
 by CRUX: https://crux.nu/gitweb/?p=tools/prt-get.git;a=summary.
 
 
+Dependencies
+------------
+
+- gcc8+
+- make
+- scdoc
+
 Copyright and License
 ---------------------
 
 Copyright (c) Johannes Winkelmann
 Copyright (c) CRUX team (http://crux.nu)
 
-pkgman is licensed through the GNU General Public License v2.
-Read the COPYING file for the complete license.
+pkgman is licensed through the GNU General Public License v2,
+read the COPYING file for the complete license.

@@ -1,21 +1,21 @@
 include config.mk
 
 BINSRC = $(wildcard src/*.cpp)
-MANSRC = $(wildcard man5/*.in man8/*.in)
+MANSRC = $(wildcard man5/*.scd man8/*.scd)
 OBJ = $(BINSRC:.cpp=.o)
-MAN = $(MANSRC:.in=)
+MAN = $(MANSRC:.scd=)
 BIN = pkgman
 CFG = pkgman.conf
 
 all: $(BIN) $(MAN)
 
 
-%: %.in
+%: %.scd
 	sed \
 		-e "s@#VERSION#@$(VERSION)@g" \
 		-e "s@#LOCALSTATEDIR#@$(LOCALSTATEDIR)@g" \
 		-e "s@#SYSCONFDIR#@$(SYSCONFDIR)@g" \
-		$< > $@
+		$< | scdoc > $@
 
 .cpp.o:
 	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) $< -o $@
