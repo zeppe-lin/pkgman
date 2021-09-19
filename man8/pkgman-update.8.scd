@@ -6,17 +6,12 @@ pkgman-update - update installed package(s)
 
 # SYNOPSIS
 
-*pkgman* update [-v|-vv] [--test] [--log] [--deps] [--group]++
-			[--margs=PKGMK-ARGS|PKGMK-ALIASES]++
-			[--aargs=PKGADD-ARGS|PKGADD-ALIASES]++
-			[--ignore=_PKGNAME_,...]++
-			[--install-scripts|[--pre-install][--post-install]]++
-			_PKGNAME_,...
+*pkgman update* [*-v*|*-vv*] [*--test*] [*--log*] [*--deps*] [*--group*] [*--margs*=_PKGMK-ARGS_|_PKGMK-ALIASES_] [*--aargs*=_PKGADD-ARGS_|_PKGADD-ALIASES_] [*--ignore*=_PKGNAME_,...] [*--install-scripts*|[*--pre-install*][*--post-install*]] _PKGNAME_,...
 
 # DESCRIPTION
 
-Update all packages in the listed order.  It looks in all directories
-specified in _/etc/pkgman.conf_(5).
+Update all packages in the listed order.++
+It looks in all directories specified in _/etc/pkgman.conf_(5).
 
 # OPTIONS
 
@@ -41,7 +36,7 @@ specified in _/etc/pkgman.conf_(5).
 	one package fails.  This can be used to install packages where
 	_PKGNAME1_ depends on _PKGNAME2_.
 
-*--margs=PKGMK-ARGS*
+*--margs*=_PKGMK-ARGS_
 	Arguments to be passed to *pkgmk*(8).
 
 *-fr*
@@ -65,13 +60,13 @@ specified in _/etc/pkgman.conf_(5).
 *-kw*
 	Keep working directory, implies 'pkgmk -kw'.  The same as *--margs=-kw*.
 
-*--aargs=PKGADD-ARGS*
+*--aargs*=_PKGADD-ARGS_
 	Arguments to be passed to *pkgadd*(8).
 
 *-f, -i*
 	Force install, implies 'pkgadd -f'.  The same as *--aargs=-f*.
 
-*--ignore=*_PKGNAME_,...
+*--ignore*=_PKGNAME_,...
 	Don't install those packages, even if they are listed as dependency.
 
 *--install-scripts*
@@ -83,4 +78,5 @@ specified in _/etc/pkgman.conf_(5).
 *--post-install*
 	Execute post-install script if it is there.
 
+; vim:ft=scdoc:cc=80
 ; End of file.

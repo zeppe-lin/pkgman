@@ -6,16 +6,16 @@ pkgman-unlock - unlock the package(s)
 
 # SYNOPSIS
 
-*pkgman* unlock _PKGNAME_,...
+*pkgman unlock* _PKGNAME_,...
 
 # DESCRIPTION
 
-Remove lock from these packages.  They will be available for updating in
-*pkgman-sysup*(8) operation.
+Remove lock from these packages.++
+They will be available for updating in *pkgman-sysup*(8) operation.
 
 # FILES
 
-#LOCALSTATEDIR#/lib/pkg/locked
+\#LOCALSTATEDIR#/lib/pkg/locked
 	Database of locked packages.
 
 # SEE ALSO

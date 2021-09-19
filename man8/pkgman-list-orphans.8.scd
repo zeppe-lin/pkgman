@@ -6,20 +6,23 @@ pkgman-list-orphans - print list of orphan packages
 
 # SYNOPSIS
 
-*pkgman* list-orphans [-v|-vv] [--path]
+*pkgman list-orphans* [*-v*|*-vv*] [*--path*]
 
 # DESCRIPTION
 
-Print list of orphan packages. "Orphans" are packages without packages depending
-on them.
+Print list of orphan packages. "Orphans" are packages without packages
+depending on them.
 
 # OPTIONS
 
-[[ *-v*
-:< Show version in the listing.
-|  *-vv*
-:  Show version and description in the listing.
-|  *--path*
-:  Show package' source path in the listing.
+*-v*
+	Show version in the listing.
 
+*-vv*
+	Show version and description in the listing.
+
+*--path*
+	Show package' source path in the listing.
+
+; vim:ft=scdoc:cc=80
 ; End of file.

@@ -6,7 +6,7 @@ pkgman-isinst - print whether packages are installed or not
 
 # SYNOPSIS
 
-*pkgman* isinst _PKGNAME_,...
+*pkgman isinst* _PKGNAME_,...
 
 # DESCRIPTION
 
@@ -16,4 +16,5 @@ Print whether packages are installed or not.
 
 0 if installed, 255 otherwise.
 
+; vim:ft=scdoc:cc=80
 ; End of file.

@@ -6,7 +6,7 @@ pkgman-dumpconfig - dump the configuration
 
 # SYNOPSIS
 
-*pkgman* dumpconfig
+*pkgman dumpconfig*
 
 # DESCRIPTION
 
@@ -16,4 +16,5 @@ Dump the configuration to the current terminal.
 
 *pkgman*(8), *pkgman.conf*(5)
 
+; vim:ft=scdoc:cc=80
 ; End of file.

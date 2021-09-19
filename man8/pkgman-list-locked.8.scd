@@ -6,7 +6,7 @@ pkgman-list-locked - print list of locked packages
 
 # SYNOPSIS
 
-*pkgman* list-locked [-v|-vv] [--path]
+*pkgman list-locked* [*-v*|*-vv*] [*--path*]
 
 # DESCRIPTION
 
@@ -24,7 +24,7 @@ performing a system update.
 
 # FILES
 
-#LOCALSTATEDIR#/lib/pkg/locked
+\#LOCALSTATEDIR#/lib/pkg/locked
 	Database of locked packages.
 
 ; End of file.

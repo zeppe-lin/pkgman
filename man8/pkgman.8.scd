@@ -6,9 +6,7 @@ pkgman - advanced package management tool
 
 # SYNOPSIS
 
-*pkgman* [--no-std-config|--config=_FILE_] [--config-set=_STRING_]++
-		[--config-append=_STRING_] [--config-prepend=_STRING_]++
-		[--root=_PATH_] _COMMAND_ [_COMMAND-ARGS_]
+*pkgman* [*--no-std-config*|*--config*=_FILE_] [*--config-set*=_STRING_] [*--config-append*=_STRING_] [*--config-prepend*=_STRING_] [*--root*=_PATH_] _COMMAND_ [_COMMAND-ARGS_]
 
 # DESCRIPTION
 
@@ -21,19 +19,19 @@ basic package management utilities, like *pkgmk*(8), *pkgadd*(8), *pkgrm*(8) and
 *--no-std-config*
 	Ignore _#SYSCONFDIR#/pkgman.conf_.
 
-*--config=*_FILE_
+*--config*=_FILE_
 	Use alternative configuration file.
 
-*--config-set=*_STRING_
+*--config-set*=_STRING_
 	Set _STRING_ in configuration, overriding configuration file.
 
-*--config-append=*_STRING_
+*--config-append*=_STRING_
 	Append _STRING_ to configuration.
 
-*--config-prepend=*_STRING
+*--config-prepend*=_STRING
 	Prepend _STRING_ to configuration.
 
-*--root=*_PATH_
+*--root*=_PATH_
 	Use _PATH_ as root directory.
 
 # COMMANDS
@@ -144,14 +142,14 @@ See *pkgman.conf*(5) manual page.
 
 # FILES
 
-#SYSCONFDIR#/pkgman.conf
+\#SYSCONFDIR#/pkgman.conf
 	Configuration file.
 
-#LOCALSTATEDIR#/lib/pkg/db
+\#LOCALSTATEDIR#/lib/pkg/db
 	Database of currently installed packages.
 	Used by *pkgadd*(8), *pkgrm*(8), *pkginfo*(8), and therefore by pkgman.
 
-#LOCALSTATEDIR#/lib/pkg/locked
+\#LOCALSTATEDIR#/lib/pkg/locked
 	Database of currently locked packages.
 	Used in *pkgman-lock*(8), *pkgman-unlock*(8) and *pkgman-list-locked*(8)
 	operations.
@@ -163,5 +161,5 @@ changes to _PATH#LOCALSTATEDIR#/lib/pkg/..._.
 
 *pkgman.conf*(5)
 
-; vim:cc=80
+; vim:ft=scdoc:cc=80
 ; End of file.

@@ -6,7 +6,7 @@ pkgman-list-dup - print list of duplicate packages
 
 # SYNOPSIS
 
-*pkgman* list-dup [--prefer-higher|--strict-diff] [_FORMAT_]
+*pkgman list-dup* [*--prefer-higher*|*--strict-diff*] [_FORMAT_]
 
 # DESCRIPTION
 
@@ -17,30 +17,40 @@ The _FORMAT_ string by default is '%p1 %v1 %c %p2 %v2\\n'.
 
 # OPTIONS
 
-[[ *--prefer-higher*
-:< Prefer higher installed versions over lower ones in the pkgsrc repositories.
-|  *--strict-diff*
-:  Override *preferhigher* configuration settings.
+*--prefer-higher*
+	Prefer higher installed versions over lower ones in the pkgsrc
+	repositories.
 
-[[ _FORMAT_
-:< The string that contain variables, which are replaced by:
+*--strict-diff*
+	Override *preferhigher* configuration settings.
+
+_FORMAT_
+	The string that contain variables, which are replaced by the text.
+
+	See _FORMAT SPECIFIERS_.
+
+# FORMAT SPECIFIERS
+
+[[ *Specifier*
+:< *Replacement*
 |] %n
-:  package name
+:[ package name
 |] %p1
-:  full path (including name) to package' source that has priority
+:[ full path (including name) to package' source that has priority
 |] %p2
-:  full path (including name) to package' source being hidden
+:[ full path (including name) to package' source being hidden
 |] %v1
-:  the version of the package, that has priority
+:[ the version of the package, that has priority
 |] %v2
-:  the version of the hidden package
+:[ the version of the hidden package
 |] %c
-:  comparison sign of %p1 and %p2: <, >, ==, !=
+:[ comparison sign of %p1 and %p2: <, >, ==, !=
 |] \\n
-:  newline
+:[ newline
 |] \\t
-:  tab
+:[ tab
 
 No additional format specifier supported.
 
+; vim:ft=scdoc:cc=80
 ; End of file.

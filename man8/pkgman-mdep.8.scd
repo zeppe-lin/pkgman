@@ -6,10 +6,11 @@ pkgman-mdep - print the missing dependencies of installed packages
 
 # SYNOPSIS
 
-*pkgman* mdep
+*pkgman mdep*
 
 # DESCRIPTION
 
 Print the missing dependencies of installed packages.
 
+; vim:ft=scdoc:cc=80
 ; End of file.

@@ -6,7 +6,7 @@ pkgman-info - print package source info
 
 # SYNOPSIS
 
-*pkgman* info [-v|-vv] _PKGNAME_
+*pkgman info* [*-v*|*-vv*] _PKGNAME_
 
 # DESCRIPTION
 
@@ -14,17 +14,17 @@ Print available info for a source package.
 
 # OPTIONS
 
-[[ *-v*, *-vv*
-:< Print also the README file if exists.
-
+*-v*, *-vv*
+	Print also the README file if exists.
 
 # ENVIRONMENT
 
 ## PAGER
-	If the package' source directory has a README file, and the *-v* or
-	*-vv* option is set to print it, then *pkgman* will try to open it using
-	a *PAGER*. If *PAGER* is unset, then *pkgman* prints the README to
-	_stdout_.
+
+If the package' source directory has a README file, and the *-v* or *-vv*
+option is set to print it, then *pkgman* will try to open it using a *PAGER*.
+
+If *PAGER* is unset, then *pkgman* prints the README to _stdout_.
 
 # EXIT STATUS
 
@@ -34,4 +34,5 @@ Print available info for a source package.
 
 *pkgman-readme*(8), *pkgman-readme*(5)
 
+; vim:ft=scdoc:cc=80
 ; End of file.

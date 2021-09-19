@@ -6,7 +6,7 @@ pkgman-diff - show differences between installed and available packages
 
 # SYNOPSIS
 
-*pkgman* diff [--all] [--deps] [--full] [--regex] [--filter=_NAME_]
+*pkgman diff* [*--all*] [*--deps*] [*--full*] [*--regex*] [*--filter*=_NAME_]
 
 # DESCRIPTION
 
@@ -21,19 +21,25 @@ pkgman --config-set='preferhigher yes' diff
 
 # OPTIONS
 
-[[ *--all*
-:< Display locked packages too.
-|  *--deps*
-:  Calculate the new dependencies for available packages.
-|  *--full*
-:  Show full table.
-|  *--prefer-higher=(yes|no)*
-:  Prefer higher installed versions over lower packages.
-   Overwriting *preferhigher* configuration expression.
-|  *--regex*
-:  Interpret *--filter* argument as a regular expression.
-|  *--filter=*_NAME_
-:  Filter listing packages by name. The filter argument may be the string,
-   wildcard or regex.
+*--all*
+	Display locked packages too.
 
+*--deps*
+	Calculate the new dependencies for available packages.
+
+*--full*
+	Show full table.
+
+*--prefer-higher*=(yes|no)
+	Prefer higher installed versions over lower packages.
+	Overwriting *preferhigher* configuration expression.
+
+*--regex*
+	Interpret *--filter* argument as a regular expression.
+
+*--filter*=_NAME_
+	Filter listing packages by name. The filter argument may be the string,
+	wildcard or regex.
+
+; vim:ft=scdoc:cc=80
 ; End of file.
