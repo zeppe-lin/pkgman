@@ -785,8 +785,12 @@ void Prt::install( Transaction::Transaction_t transaction_t )
     bool isInstalled = m_pkgDB->isInstalled( pkg );
 
     if ( ! update && isInstalled )
-      return errx( "package " + pkg + " is installed",
-          P_INSTALL_ERROR );
+    {
+      if ( ! m_parser->isForced() )
+        return errx( "package " + pkg + " is installed",
+            P_INSTALL_ERROR );
+      // else just ignored.
+    }
     else if ( update && ! isInstalled )
       return errx( "package " + pkg + " is not installed",
           P_INSTALL_ERROR );
