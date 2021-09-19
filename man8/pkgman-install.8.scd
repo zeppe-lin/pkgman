@@ -6,7 +6,7 @@ pkgman-install - install package(s)
 
 # SYNOPSIS
 
-*pkgman install* [*-v*|*-vv*] [*--test*] [*--log*] [*--deps*] [*--group*] [*--margs*=_PKGMK-ARGS_|_PKGMK-ALIASES_] [*--aargs*=_PKGADD-ARGS_|_PKGADD-ALIASES_] [*--ignore*=_PKGNAME_,...] [*--install-scripts*|[*--pre-install*][*--post-install*]] _PKGNAME_,...
+*pkgman install* [*-v*|*-vv*] [*--test*] [*--log*] [*--deps*] [*--force*] [*--group*] [*--margs*=_PKGMK-ARGS_|_PKGMK-ALIASES_] [*--aargs*=_PKGADD-ARGS_|_PKGADD-ALIASES_] [*--ignore*=_PKGNAME_,...] [*--install-scripts*|[*--pre-install*][*--post-install*]] _PKGNAME_,...
 
 # DESCRIPTION
 
@@ -32,6 +32,11 @@ It looks in all directories specified in _/etc/pkgman.conf_(5).
 
 *--deps*
 	Install all packages in the listed order including their dependencies.
+
+*--force*
+	Skip installation of already installed package. Just ignore the package
+	and install next in the listed order. At the end of installation
+	procedure, all skipped packages will be in the report.
 
 *--group*
 	Install all packages in the listed order, but stop if installation of
