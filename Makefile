@@ -1,7 +1,7 @@
 include config.mk
 
 OBJSRC := $(wildcard *.cpp)
-MANSRC := $(wildcard *.?.pod)
+MANSRC := $(wildcard *.pod)
 
 OBJS   := $(OBJSRC:.cpp=.o)
 MANS   := $(MANSRC:.pod=)
