@@ -1,43 +1,39 @@
 include config.mk
 
-BINSRC = $(wildcard src/*.cpp)
-MANSRC = $(wildcard man5/*.scd man8/*.scd)
-OBJ = $(BINSRC:.cpp=.o)
-MAN = $(MANSRC:.scd=)
-BIN = pkgman
-CFG = pkgman.conf
+OBJSRC := $(wildcard *.cpp)
+MANSRC := $(wildcard *.?.pod)
 
-all: $(BIN) $(MAN)
+OBJS   := $(OBJSRC:.cpp=.o)
+MANS   := $(MANSRC:.pod=)
 
+all: pkgman $(MANS)
 
-%: %.scd
-	sed \
-		-e "s@#VERSION#@$(VERSION)@g" \
-		-e "s@#LOCALSTATEDIR#@$(LOCALSTATEDIR)@g" \
-		-e "s@#SYSCONFDIR#@$(SYSCONFDIR)@g" \
-		$< | scdoc > $@
+%: %.pod
+	pod2man --nourls -r $(VERSION) -c ' ' -n $(basename $@) \
+		-s $(subst .,,$(suffix $@)) $< > $@
 
 .cpp.o:
 	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) $< -o $@
 
-$(OBJ):	config.mk
-$(BIN): $(OBJ)
-	$(CXX) -o $@ $(OBJ) $(LDFLAGS)
-
-clean:
-	rm -f $(BIN) $(MAN) $(OBJ)
+pkgman: $(OBJS)
+	$(CXX) -o $@ $^ $(LDFLAGS)
 
 install: all
-	install -m 0755 -D $(BIN) $(DESTDIR)$(PREFIX)/sbin/$(BIN)
-	install -m 0644 -D $(CFG) $(DESTDIR)$(SYSCONFDIR)/$(CFG)
-	for m in man8/*.8; do \
-		install -m 0644 -D -t $(DESTDIR)$(MANPREFIX)/man8 $$m; done
-	for m in man5/*.5; do \
-		install -m 0644 -D -t $(DESTDIR)$(MANPREFIX)/man5 $$m; done
+	install -m 755 -D -t $(DESTDIR)$(BINDIR)/       pkgman
+	install -m 644 -D -t $(DESTDIR)$(MANDIR)/man1/  *.1
+	install -m 644 -D -t $(DESTDIR)$(MANDIR)/man5/  *.5
+	install -m 644 -D -t $(DESTDIR)$(MANDIR)/man8/  *.8
+	ln -sf pkgman-install.8 $(DESTDIR)$(MANDIR)/man8/pkgman-update.8
+	ln -sf pkgman-dep.1     $(DESTDIR)$(MANDIR)/man1/pkgman-rdep.1
 
 uninstall:
-	rm -f $(DESTDIR)$(PREFIX)/bin/$(BIN)
-	rm -f $(DESTDIR)$(SYSCONFDIR)/$(CFG)
-	cd $(DESTDIR)$(MANPREFIX)/ && rm -f $(MAN)
+	rm -f $(DESTDIR)$(BINDIR)/pkgman
+	for d in 1 5 8; do \
+		cd $(DESTDIR)$(MANDIR)/man$$d && \
+		rm -f $(MANS) pkgman-update.8 pkgman-rdep.1; \
+	done
+
+clean:
+	rm -f pkgman $(MANS) $(OBJS)
 
 .PHONY: all install uninstall clean
