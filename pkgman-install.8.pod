@@ -36,7 +36,7 @@ Dry run, do not actually (install|update) anything.
 
 Create a transaction log file. It can be set globally for all transactions
 (see C<writelog> in
-L<pkgman.conf(5)|https://github.com/zeppe-lin/zeppe-lin/blob/master/pkgman/pkgman.conf.5.pod>
+L<pkgman.conf(5)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman.conf.5.pod>
 ).
 
 =item B<--deps>
@@ -58,7 +58,7 @@ all skipped packages will be in the report.
 =item B<--margs>=I<PKGMK_ARGS>
 
 Arguments to be passed to
-L<pkgmk(8)|https://github.com/zeppe-lin/zeppe-lin/blob/master/pkgmk/pkgmk.8.pod>
+L<pkgmk(8)|https://github.com/zeppe-lin/pkgmk/blob/master/pkgmk.8.pod>
 .
 
 =item I<PKGMK_ALIASES>
@@ -98,7 +98,7 @@ Keep working directory, implies "pkgmk -kw" (same as B<--margs>=-kw).
 =item B<--aargs>=I<PKGADD_ARGS>
 
 Arguments to be passed to
-L<pkgadd(8)|https://github.com/zeppe-lin/zeppe-lin/blob/master/pkgutils/pkgadd.8.pod>
+L<pkgadd(8)|https://github.com/zeppe-lin/pkgutils/blob/master/pkgadd.8.pod>
 .
 
 =item I<PKGADD_ALIASES>

@@ -13,7 +13,7 @@ B<pkgman> lock I<PKGNAME>...
 =head1 DESCRIPTION
 
 Lock the packages and do not update them in a
-L<pkgman-sysup(8)|https://github.com/zeppe-lin/zeppe-lin/blob/master/pkgman/pkgman-sysup.8.pod>
+L<pkgman-sysup(8)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-sysup.8.pod>
 operation.
 
 =head1 FILES

@@ -13,7 +13,7 @@ B</etc/pkgman.conf>
 =head1 DESCRIPTION
 
 This file is read by
-L<pkgman(1)|https://github.com/zeppe-lin/zeppe-lin/blob/master/pkgman/pkgman.1.pod>.
+L<pkgman(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman.1.pod>.
 
 =head1 CONFIGURATION
 
@@ -28,7 +28,7 @@ The valid keys are:
 
 The location where to look for the packages sources. The order of the
 C<pkgsrcdir> options is important as if a package is in multiple directories,
-L<pkgman(1)|https://github.com/zeppe-lin/zeppe-lin/blob/master/pkgman/pkgman.1.pod>
+L<pkgman(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman.1.pod>
 will use the one found first (directories listed first have precedence).
 
 If you want to restrict the packages used from one C<pkgsrcdir>, you can
@@ -53,7 +53,7 @@ Default: I<no>.
 =item B<preferhigher> (I<yes>|I<no>)
 
 If set to I<yes>,
-L<pkgman(1)|https://github.com/zeppe-lin/zeppe-lin/blob/master/pkgman/pkgman.1.pod>
+L<pkgman(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman.1.pod>
 will parse version strings and prefer the higher one, even if the one found
 in the packages sources directories is lower. Influences C<diff>, C<sysup>
 operations.
@@ -63,7 +63,7 @@ Default: I<no>.
 =item B<useregex> (I<yes>|I<no>)
 
 If set to I<yes>,
-L<pkgman(1)|https://github.com/zeppe-lin/zeppe-lin/blob/master/pkgman/pkgman.1.pod>
+L<pkgman(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman.1.pod>
 will interpret C<expr> and C<filter> patterns in list, printf, dsearch and
 fsearch operations as regular expression.
 
@@ -72,7 +72,7 @@ Default: I<no>.
 =item B<readme> (I<verbose>|I<compat>|I<disabled>)
 
 If the readme option is set to something different that I<disabled>,
-L<pkgman(1)|https://github.com/zeppe-lin/zeppe-lin/blob/master/pkgman/pkgman.1.pod>
+L<pkgman(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman.1.pod>
 will notify the user if installed package has a README file.
 
 =over 8
@@ -92,7 +92,7 @@ No information about README files.
 =back
 
 See
-L<pkgman-readme(1)|https://github.com/zeppe-lin/zeppe-lin/blob/master/pkgman/pkgman-readme.1.pod>
+L<pkgman-readme(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-readme.1.pod>
 for information how to read those README files.
 
 Default: I<verbose>.
@@ -159,7 +159,7 @@ Default: none.
 =item B<makecommand> I<command>
 
 Use an alternate I<command> instead of
-L<pkgmk(8)|https://github.com/zeppe-lin/zeppe-lin/blob/master/pkgmk/pkgmk.8.pod>
+L<pkgmk(8)|https://github.com/zeppe-lin/pkgmk/blob/master/pkgmk.8.pod>
 for the command which is used to build the package.
 
 Default: I<pkgmk>.
@@ -167,7 +167,7 @@ Default: I<pkgmk>.
 =item B<addcommand> I<command>
 
 Use an alternate I<command> instead of
-L<pkgadd(8)|https://github.com/zeppe-lin/zeppe-lin/blob/master/pkgutils/pkgadd.8.pod>
+L<pkgadd(8)|https://github.com/zeppe-lin/pkgutils/blob/master/pkgadd.8.pod>
 for the command which is used to install the package.
 
 Default: I<pkgadd>.
@@ -175,7 +175,7 @@ Default: I<pkgadd>.
 =item B<removecommand> I<command>
 
 Use an alternate I<command> instead of
-L<pkgrm(8)|https://github.com/zeppe-lin/zeppe-lin/blob/master/pkgutils/pkgrm.8.pod>
+L<pkgrm(8)|https://github.com/zeppe-lin/pkgutils/blob/master/pkgrm.8.pod>
 for the command which is used to remove the package.
 
 Default: I<pkgrm>.
@@ -224,6 +224,6 @@ Default: I</bin/sh>.
 
 =head1 SEE ALSO
 
-L<pkgman(1)|https://github.com/zeppe-lin/zeppe-lin/blob/master/pkgman/pkgman.1.pod>
+L<pkgman(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman.1.pod>
 
 =cut

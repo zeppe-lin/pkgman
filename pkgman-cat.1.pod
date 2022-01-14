@@ -22,9 +22,9 @@ not specified, C<Pkgfile> is used.
 =item I<PAGER>
 
 If the package's source directory has a I<FILE>, then
-L<pkgman(1)|https://github.com/zeppe-lin/zeppe-lin/blob/master/pkgman/pkgman.1.pod>
+L<pkgman(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman.1.pod>
 will try to open it using a I<PAGER>. If I<PAGER> is unset, then
-L<pkgman(1)|https://github.com/zeppe-lin/zeppe-lin/blob/master/pkgman/pkgman.1.pod>
+L<pkgman(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman.1.pod>
 prints the I<FILE> to stdout.
 
 =back
