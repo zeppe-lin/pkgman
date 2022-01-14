@@ -1,0 +1,21 @@
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+pkgman-isinst - print whether packages are installed or not
+
+=head1 SYNOPSIS
+
+B<pkgman> isinst I<PKGNAME>...
+
+=head1 DESCRIPTION
+
+Print whether packages are installed or not.
+
+=head1 EXIT STATUS
+
+0 if installed, 255 otherwise.
+
+=cut

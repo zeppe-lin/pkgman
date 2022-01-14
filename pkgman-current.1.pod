@@ -1,0 +1,21 @@
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+pkgman-current - print installed package version
+
+=head1 SYNOPSIS
+
+B<pkgman> current I<PKGNAME>
+
+=head1 DESCRIPTION
+
+Print the version of the currently installed package.
+
+=head1 EXIT STATUS
+
+0 if success, 255 otherwise.
+
+=cut

@@ -1,0 +1,17 @@
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+pkgman-dumpconfig - dump the configuration
+
+=head1 SYNOPSIS
+
+B<pkgman> dumpconfig
+
+=head1 DESCRIPTION
+
+Dump the configuration to the current terminal.
+
+=cut
