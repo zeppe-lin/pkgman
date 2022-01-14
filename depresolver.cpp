@@ -1,6 +1,5 @@
 //! \file      depresolver.cpp
 //! \brief     DepResolver Implementation
-//! \copyright See LICENSE file for copyright and license details.
 
 #include <cassert>
 #include <map>
@@ -81,5 +80,5 @@ bool DepResolver::topSort( list< ssize_t >& result )
   return numPreds.size() == 0;
 }
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
-// End of file
+// vim:sw=2:ts=2:sts=2:et:cc=79
+// End of file.

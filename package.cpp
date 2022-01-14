@@ -1,6 +1,5 @@
 //! \file       package.cpp
 //! \brief      Package and PackageData Implementation
-//! \copyright  See LICENSE file for copyright and license details.
 
 #include <cstdio>
 #include <iostream>
@@ -237,7 +236,7 @@ void Package::load() const
 
   m_data->generateVersionReleaseString();
 
-  if ( fs::exists( fullpath( "README" ) ) )
+  if ( fs::exists( fullpath( "README.pkg" ) ) )
     m_data->hasReadme = true;
 
   if ( fs::exists( fullpath( "pre-install" ) ) )
@@ -344,5 +343,5 @@ void PackageData::generateVersionReleaseString()
   version_release = version + "-" + release;
 }
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
-// End of file
+// vim:sw=2:ts=2:sts=2:et:cc=79
+// End of file.

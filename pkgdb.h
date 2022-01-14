@@ -1,6 +1,5 @@
 //! \file      pkgdb.h
 //! \brief     PkgDB Definition
-//! \copyright See LICENSE file for copyright and license details.
 
 #pragma once
 
@@ -10,11 +9,12 @@
 #include <vector>
 
 #include "package.h"
+#include "pathnames.h"
 
 using namespace std;
 
 //! \class  PkgDB
-//! \brief  The Representation of CRUX' package database of installed
+//! \brief  The Representation of zeppelin's package database of installed
 //!         packages
 class PkgDB
 {
@@ -61,9 +61,6 @@ public:
     const;
 
 private:
-  //! The package db location
-  static const string PKGDB;
-
   //! Load the package db
   bool load() const;
 
@@ -77,5 +74,5 @@ private:
   string m_root;
 };
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
-// End of file
+// vim:sw=2:ts=2:sts=2:et:cc=79
+// End of file.

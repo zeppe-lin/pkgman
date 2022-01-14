@@ -1,6 +1,5 @@
 //! \file      signaldispatcher.cpp
 //! \brief     SignalDispatcher class implementation
-//! \copyright See LICENSE file for copyright and license details.
 
 #include <cstdlib>
 #include <iostream>
@@ -45,5 +44,5 @@ void SignalDispatcher::unregisterHandler( int signalNumber )
   m_signalHandlers.erase( signalNumber );
 }
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
-// End of file
+// vim:sw=2:ts=2:sts=2:et:cc=79
+// End of file.

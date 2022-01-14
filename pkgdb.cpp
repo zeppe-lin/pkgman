@@ -1,6 +1,5 @@
 //! \file      pkgdb.cpp
 //! \brief     PkgDB Implementation
-//! \copyright See LICENSE file for copyright and license details.
 
 #include <algorithm>
 #include <cstdio>
@@ -15,8 +14,6 @@
 #include "p_regex.h"
 #include "pkgdb.h"
 #include "helpers.h"
-
-const string PkgDB::PKGDB = "/var/lib/pkg/db";
 
 using namespace std;
 using namespace StringHelper;
@@ -91,7 +88,7 @@ bool PkgDB::load() const
   bool emptyLine = true;
   bool nameRead = false;
 
-  ifstream db( m_root + PKGDB );
+  ifstream db( m_root + _PATH_PKGDB );
   if ( ! db.is_open() )
     return false;
 
@@ -119,5 +116,5 @@ bool PkgDB::load() const
   return m_isLoaded = true;
 }
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
-// End of file
+// vim:sw=2:ts=2:sts=2:et:cc=79
+// End of file.

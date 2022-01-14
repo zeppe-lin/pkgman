@@ -1,6 +1,5 @@
 //! \file      depresolver.h
 //! \brief     DepResolver Definition
-//! \copyright See LICENSE file for copyright and license details.
 
 #pragma once
 
@@ -39,5 +38,5 @@ private:
   list< pair< ssize_t /*first*/, ssize_t /*second*/ > > m_dependencies;
 };
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
-// End of file
+// vim:sw=2:ts=2:sts=2:et:cc=79
+// End of file.

@@ -1,6 +1,5 @@
 //! \file      argparser.h
 //! \brief     ArgParser class definition
-//! \copyright See LICENSE file for copyright and license details.
 
 #pragma once
 
@@ -12,10 +11,49 @@ using namespace std;
 //! \class   ArgParser
 //! \brief   Argument Parser
 //!
-//! This is command-line argument parser for prt.
+//! This is command-line argument parser for pkgman.
 class ArgParser
 {
 public:
+
+  //! TODO
+  enum Command_ID {
+    // Informational
+    DUMPCONFIG,
+    LIST,
+    LIST_DUP,
+    LIST_NODEPENDENTS,
+    LIST_ORPHANS,
+    LIST_LOCKED,
+    PRINTF,
+    INFO,
+    README,
+    PATH,
+    ISINST,
+    CURRENT,
+    // Differences / Check for updates
+    DIFF,
+    // Dependencies
+    MDEP,
+    DEP,
+    RDEP,
+    // Searching
+    SEARCH,
+    DSEARCH,
+    FSEARCH,
+    // Install / Update / Remove
+    INSTALL,
+    UPDATE,
+    REMOVE,
+    // System update
+    SYSUP,
+    LOCK,
+    UNLOCK,
+    // File operations
+    LS,
+    CAT,
+    EDIT,
+  };
 
   //! \brief   Construct an ArgParser object
   //!
@@ -24,7 +62,16 @@ public:
   ArgParser( int argc, char** argv );
 
   //! \brief   Parse the arguments
-  void parse();
+  bool parse();
+
+  //! \brief   Whether command is specified
+  bool isCommandGiven() const;
+
+  //! TODO
+  size_t commandID() const;
+
+  //! \brief   Whether \-V or \--version command-line option is specified
+  bool isVersion() const;
 
   //! \brief   Whether \--help command-line option is specified
   bool isHelp() const;
@@ -165,7 +212,7 @@ public:
   //! \return  the \--root="..." option argument
   const string& root() const;
 
-  //! \brief   Ignore ports
+  //! \brief   Ignore packages sources
   //!
   //! \return  the \--ignore="..." option argument
   const string& ignore() const;
@@ -173,17 +220,12 @@ public:
   //! \brief   Command name
   //!
   //! \return  what command was given
-  const string& cmdName() const;
+  const string& commandName() const;
 
   //! \brief   Unknown option
   //!
   //! \return  what exactly unknown option was given
-  const string& unknownOpt() const;
-
-  //! \brief   Unknown command option
-  //!
-  //! \return  what exactly unknown command option was given
-  const string& unknownCmdOpt() const;
+  const string& unknownOption() const;
 
   //! \brief   Other command-line arguments
   //!
@@ -211,8 +253,23 @@ public:
 
 private:
 
-  //! \--help option
+  //! TODO
+  bool m_isCommandGiven;
+
+  //! TODO
+  size_t m_commandID;
+
+  //! Command argument
+  string m_commandName;
+
+  //! Unknown option
+  string m_unknownOption;
+
+  //! \-h, \--help options
   bool m_Help;
+
+  //! \-v, \--version
+  bool m_Version;
 
   //! \--force option
   bool m_isForced;
@@ -289,15 +346,6 @@ private:
   //! \--filter="..." option argument
   string m_filter;
 
-  //! Command argument
-  string m_cmdName;
-
-  //! Unknown option
-  string m_unknownOpt;
-
-  //! Unknown command option
-  string m_unknownCmdOpt;
-
   //! \--root="..." option argument
   string m_root;
 
@@ -321,5 +369,5 @@ private:
   list< pair< char*, configArg_t > > m_configData;
 };
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
-// End of file
+// vim:sw=2:ts=2:sts=2:et:cc=79
+// End of file.

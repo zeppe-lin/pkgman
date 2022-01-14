@@ -1,6 +1,5 @@
 //! \file      helpers.h
 //! \brief     Helper Functions Definition
-//! \copyright See LICENSE file for copyright and license details.
 
 #pragma once
 
@@ -185,11 +184,11 @@ namespace ListHelper
     {
       if constexpr ( is_same< T1, T2 >::value )
         return target.find( element ) != string::npos;
-      
+
       string s( element );
       return target.find( s ) != string::npos;
     }
 }; // namespace ListHelper
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
-// End of file
+// vim:sw=2:ts=2:sts=2:et:cc=79
+// End of file.

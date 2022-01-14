@@ -1,6 +1,5 @@
 //! \file      signaldispatcher.h
 //! \brief     SignalHandler and SignalDispatcher classes definition
-//! \copyright See LICENSE file for copyright and license details.
 
 #pragma once
 
@@ -56,5 +55,5 @@ private:
   map< int, SignalHandler* > m_signalHandlers;
 };
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
-// End of file
+// vim:sw=2:ts=2:sts=2:et:cc=79
+// End of file.

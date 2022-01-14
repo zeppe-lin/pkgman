@@ -1,6 +1,5 @@
 //! \file       repository.cpp
 //! \brief      Repository class implementation
-//! \copyright  See LICENSE file for copyright and license details.
 
 #include <algorithm>
 #include <cstdio>
@@ -136,10 +135,10 @@ void Repository::initFromFS( const rootList_t& rootList,
       fs::path pkgfile = file.path() / "Pkgfile";
 
       if ( std::error_code ec; ! fs::exists( pkgfile, ec ) )
-        continue; // no Pkgfile -> no port
+        continue; // no Pkgfile -> no package source
 
       if ( filter && ! contains( pkglist, pkgname.string() ) )
-        continue; // not found -> ignore this port
+        continue; // not found -> ignore this package source
 
       const auto& pkgobj = new Package( pkgname, path );
       if ( ! pkgobj )
@@ -217,5 +216,5 @@ void Repository::addDependencies( map< pkgname_t, pkgname_t >& deps )
   }
 }
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
-// End of file
+// vim:sw=2:ts=2:sts=2:et:cc=79
+// End of file.

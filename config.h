@@ -1,12 +1,12 @@
 //! \file      config.h
 //! \brief     Configuration Parser Definition
-//! \copyright See LICENSE file for copyright and license details.
 
 #pragma once
 
 #include <list>
 #include <string>
 
+#include "pathnames.h"
 #include "repository.h"
 
 using namespace std;
@@ -16,7 +16,7 @@ class ArgParser;
 //! \class   Config
 //! \brief   Configuration Parser
 //!
-//! This is configuration file parser for prt
+//! This is configuration file parser for pkgman
 class Config
 {
 public:
@@ -34,7 +34,7 @@ public:
 
   //! \brief   Add configuration setting
   //!
-  //! This is a helper function to modify prt's configuration from the
+  //! This is a helper function to modify pkgman's configuration from the
   //! command-line arguments, such as:
   //!   - \--config-set="..."
   //!   - \--config-append="..."
@@ -50,7 +50,7 @@ public:
                   bool          configSet,
                   bool          configPrepend );
 
-  //! \brief   Whether prt should write to a log file
+  //! \brief   Whether pkgman should write to a log file
   //!
   //! \return  \a true if so, \a false otherwise
   bool writeLog() const;
@@ -63,12 +63,12 @@ public:
     OVERWRITE_MODE,   //!<  overwrite the log file
   };
 
-  //! \brief   Which Log mode should prt to use
+  //! \brief   Which Log mode should pkgman to use
   //!
   //! \return  \a logMode_t mode
   logMode_t logMode() const;
 
-  //! \brief   Whether prt should remove the log file on success build
+  //! \brief   Whether pkgman should remove the log file on success build
   //!
   //! \return  \a true if so, \a false otherwise
   bool removeLogOnSuccess() const;
@@ -88,30 +88,30 @@ public:
   enum readmeMode_t
   {
     VERBOSE_README,   //!<  Separate information about README files
-    COMPACT_README,   //!<  Integrate in result output 
+    COMPACT_README,   //!<  Integrate in result output
     WITHOUT_README,   //!<  No information about README files
   };
 
-  //! \brief   Which README mode should prt to use
+  //! \brief   Which README mode should pkgman to use
   //!
   //! \return  \a readmeMode_t mode
   readmeMode_t readmeMode() const;
 
-  //! \brief   Whether prt should parse version strings and prefer the
-  //!          higher one, even if the one found in the ports tree
-  //!          is lower
+  //! \brief   Whether pkgman should parse version strings and prefer the
+  //!          higher one, even if the one found in the packages sources
+  //!          tree is lower
   //!
   //! \return  \a true if so, \a false otherwise
   bool preferHigher() const;
 
-  //! \brief   Whether prt should interpret \b list, \b printf,
+  //! \brief   Whether pkgman should interpret \b list, \b printf,
   //!          \b search
   //!          arguments as regular expressions
   //!
   //! \return  \a true if so, \a false otherwise
   bool useRegex() const;
 
-  //! \brief   Whether prt should run pre/post- scripts
+  //! \brief   Whether pkgman should run pre/post- scripts
   //!
   //! The following scripts assumed:
   //!   - pre-install
@@ -129,7 +129,7 @@ public:
 
   //! \brief   A path to the package builder script
   //!
-  //! \return  the command to build the package 
+  //! \return  the command to build the package
   string makeCommand() const;
 
   //! \brief   A path to the package installer script
@@ -143,7 +143,7 @@ public:
   string removeCommand() const;
 
 private:
-  //! path to the prt's configuration file
+  //! path to the pkgman's configuration file
   string m_configFile;
 
   //! argument parser
@@ -168,7 +168,7 @@ private:
   readmeMode_t m_readmeMode;
 
   //! whether parse version strings and prefer the higher one even if
-  //! the one found in the ports tree is lower
+  //! the one found in the packages sources tree is lower
   bool m_preferHigher;
 
   //! whether interpret search strings and wildcard patterns as regex
@@ -180,13 +180,13 @@ private:
   //! the command to run the pre/post-install and pre/post-remove scripts
   string m_runscriptCommand;
 
-  //! the command to build the package 
+  //! the command to build the package
   string m_makeCommand;
 
-  //! the command to install the package 
+  //! the command to install the package
   string m_addCommand;
 
-  //! the command to remove the package 
+  //! the command to remove the package
   string m_removeCommand;
 
   //! \brief   Parse the config file line
@@ -200,5 +200,5 @@ private:
   void parseLine( const string& line, bool prepend=false );
 };
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
-// End of file
+// vim:sw=2:ts=2:sts=2:et:cc=79
+// End of file.

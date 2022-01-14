@@ -1,9 +1,5 @@
-//!
 //! \file   versioncomparator.h
 //! \brief  VersionComparator namespace definition
-//!
-// This file is a part of prt program.
-// See LICENSE file for copyright and license details.
 
 #pragma once
 
@@ -84,5 +80,5 @@ namespace VersionComparator
                              vector< string >&  tokens );
 }
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
-// End of file
+// vim:sw=2:ts=2:sts=2:et:cc=79
+// End of file.

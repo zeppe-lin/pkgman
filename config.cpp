@@ -1,6 +1,5 @@
 //! \file       config.cpp
 //! \brief      Configuration Parser Implementation
-//! \copyright  See LICENSE file for copyright and license details.
 
 #include <filesystem>
 #include <fstream>
@@ -28,9 +27,9 @@ Config::Config( const string& configFile, const ArgParser* parser ):
   m_useRegex( false ),
   m_runScripts( false ),
   m_runscriptCommand( "sh" ),
-  m_makeCommand( PREFIX"/sbin/pkgmk" ),
-  m_addCommand( PREFIX"/sbin/pkgadd" ),
-  m_removeCommand( PREFIX"/sbin/pkgrm" )
+  m_makeCommand( _PATH_PKGMK_BIN ),
+  m_addCommand( _PATH_PKGADD_BIN ),
+  m_removeCommand( _PATH_PKGRM_BIN )
 {
 }
 
@@ -45,7 +44,7 @@ bool Config::parse()
     parseLine( stripWhiteSpace( getValueBefore( line, '#' ) ) );
 
   file.close();
-  
+
   //! \note Command line argument \a writeLog overrides config
   if ( m_parser->writeLog() )
     m_writeLog = true;
@@ -235,5 +234,5 @@ void Config::parseLine( const string& line, bool prepend )
     cerr << "pkgman: [config error]: unknown key/value: " << s << endl;
 }
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
-// End of file
+// vim:sw=2:ts=2:sts=2:et:cc=79
+// End of file.

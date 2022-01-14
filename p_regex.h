@@ -1,6 +1,5 @@
 //! \file      p_regex.h
 //! \brief     RegEx Definition
-//! \copyright See LICENSE file for copyright and license details.
 
 #pragma once
 
@@ -11,7 +10,7 @@
 using namespace std;
 
 //! \class  RegEx
-//! \brief  Regular Expression Matcher 
+//! \brief  Regular Expression Matcher
 class RegEx
 {
 public:
@@ -51,5 +50,5 @@ private:
   bool m_validPattern;
 };
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
-// End of file
+// vim:sw=2:ts=2:sts=2:et:cc=79
+// End of file.

@@ -1,6 +1,5 @@
 //! \file      datafileparser.cpp
 //! \brief     DataFileParser Implementation
-//! \copyright See LICENSE file for copyright and license details.
 
 #include <fstream>
 
@@ -40,5 +39,5 @@ bool DataFileParser::parse( const string&           filename,
   return true;
 }
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
-// End of file
+// vim:sw=2:ts=2:sts=2:et:cc=79
+// End of file.

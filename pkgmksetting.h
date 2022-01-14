@@ -1,10 +1,11 @@
 //! \file      pkgmksetting.h
 //! \brief     Get settings from pkgmk configuration
-//! \copyright See LICENSE file for copyright and license details.
 
 #pragma once
 
 #include <string>
+
+#include "pathnames.h"
 
 class ArgParser;
 
@@ -46,5 +47,5 @@ private:
                              const string& filename );
 };
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
+// vim:sw=2:ts=2:sts=2:et:cc=79
 // End of file.

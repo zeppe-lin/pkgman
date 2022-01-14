@@ -1,6 +1,5 @@
 //! \file      pkgmksetting.cpp
 //! \brief     Get settings from pkgmk configuration
-//! \copyright See LICENSE file for copyright and license details.
 
 #include <fstream>
 
@@ -29,15 +28,15 @@ const string PkgmkSetting::get( const string& setting )
     configFile =
       getValueBefore( m_parser->pkgmkArgs().substr( npos + 4 ), ' ' );
   else
-    configFile = SYSCONFDIR"/pkgmk.conf";
+    configFile = _PATH_CONF;
 
-  string value = getSettingFromFile( setting, configFile );
+  string value = getSettingFromFile( setting, _PATH_PKGMK_CONF );
   if ( value.size() )
     return value;
 
   // makeCommand can be overridden by pkgman.conf, so rely on
   // the default pkgmk location.
-  return getSettingFromFile( setting, PREFIX"/sbin/pkgmk" );
+  return getSettingFromFile( setting, _PATH_PKGMK_BIN );
 }
 
 string PkgmkSetting::getSettingFromFile( const string& setting,
@@ -75,5 +74,5 @@ string PkgmkSetting::getSettingFromFile( const string& setting,
   return stripWhiteSpace( outline );
 }
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
+// vim:sw=2:ts=2:sts=2:et:cc=79
 // End of file.

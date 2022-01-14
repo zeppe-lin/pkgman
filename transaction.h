@@ -1,6 +1,5 @@
 //! \file      transaction.h
 //! \brief     Transaction class definition
-//! \copyright See LICENSE file for copyright and license details.
 
 #pragma once
 
@@ -115,11 +114,11 @@ public:
 
   //! \brief   Construct a Transaction object
   //!
-  //! \tparam  names   the port name or a list of port names
-  //!                  to be processed
+  //! \tparam  names   the package source name or a list of packages
+  //!                  sources names to be processed
   //! \tparam  repo    the repository to look for packages
   //! \tparam  pkgDB   the package database of installed packages
-  //! \tparam  parser  the argument parser 
+  //! \tparam  parser  the argument parser
   //! \tparam  config  the configuration file parser
   //! \tparam  locker  the package locker
   template< typename T >
@@ -264,10 +263,12 @@ public:
   const list< pkgname_t >& ignored() const;
 
   //! \brief   Get the list of packages that cannot be installed
-  //!          because they could not be found in the ports tree
+  //!          because they could not be found in the packages sources
+  //!          tree
   //!
   //! \return  the list of pairs, where
-  //!          - pair.first   is the package missing in the ports tree
+  //!          - pair.first   is the package missing in the packages
+  //!                         sources tree
   //!          - pair.second  is the package requiring \a pair.first
   const list< pair< pkgname_t, pkgname_t > >& missing() const;
 
@@ -288,7 +289,7 @@ public:
   //! \return  the list of pairs, where
   //!          - pair.first   is the package name
   //!          - pair.second  is the package pre/post-install scripts
-  //!                         execution info 
+  //!                         execution info
   const
     list< pair< pkgname_t, pkgRunScriptsState_t > >& installFailed()
     const;
@@ -321,14 +322,14 @@ public:
   //!          get the last transaction result stored in class member
   //!          \a m_transactionResult and describes it.
   //!
-  //! \param   result  optional transaction \a Result_t value 
+  //! \param   result  optional transaction \a Result_t value
   //!
   //! \return  a string that describes the transaction error code, end
   //!          empty string if there is no error
   const string strerror( const Result_t& result=SUCCESS ) const;
 
 private:
-  //! Repository to look for packages 
+  //! Repository to look for packages
   const Repository* m_repo;
 
   //! Package database of installed packages
@@ -385,7 +386,7 @@ private:
   list< pkgname_t > m_ignoredPackages;
 
   //! Packages that cannot be installed because they could not be found
-  //! in the ports tree
+  //! in the packages sources tree
   list< pair< pkgname_t, pkgname_t > > m_missingPackages;
 
   //! Packages whose source(s) could not be downloaded
@@ -464,5 +465,5 @@ private:
   void checkDependecies( const Package* pkg, ssize_t depends=-1 );
 };
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
-// End of file
+// vim:sw=2:ts=2:sts=2:et:cc=79
+// End of file.

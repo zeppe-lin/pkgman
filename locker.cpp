@@ -1,19 +1,16 @@
 //! \file      locker.cpp
 //! \brief     Locker Implementation
-//! \copyright See LICENSE file for copyright and license details.
 
 #include <algorithm>
 #include <fstream>
 
 #include "locker.h"
 
-const string Locker::DB = LOCALSTATEDIR"/lib/pkg/locked";
-
 Locker::Locker( const string& root ):
   m_openFailed( false ),
   m_root( root )
 {
-  ifstream file( m_root + Locker::DB );
+  ifstream file( m_root + _PATH_LOCKDB );
   if ( ! file.is_open() )
   {
     m_openFailed = true;
@@ -56,7 +53,7 @@ bool Locker::unlock( const pkgname_t& package )
 
 bool Locker::store()
 {
-  ofstream file( m_root + Locker::DB );
+  ofstream file( m_root + _PATH_LOCKDB );
   if ( ! file.is_open() )
     return false;
 
@@ -81,5 +78,5 @@ const vector< pkgname_t >& Locker::lockedPackages() const
   return m_packages;
 }
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
-// End of file
+// vim:sw=2:ts=2:sts=2:et:cc=79
+// End of file.

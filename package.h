@@ -1,6 +1,5 @@
 //! \file       package.h
 //! \brief      Package and PackageData Definition
-//! \copyright  See LICENSE file for copyright and license details.
 
 #pragma once
 
@@ -16,7 +15,8 @@ typedef string pkgname_t;   //!<  Package name
 typedef string pkgver_t;    //!<  Package version-release
 
 //! \class  Package
-//! \brief  The Representation of a Package from the CRUX Ports Tree
+//! \brief  The Representation of a Package from the GNU/Zeppe-Lin
+//!         packages sources tree
 class Package
 {
 public:
@@ -43,7 +43,7 @@ public:
   //! \param   maintainer      the maintainer of the package
   //! \param   hasReadme       whether package has a README file
   //! \param   hasPreInstall   whether package has a pre-install script
-  //! \param   hasPostInstall  whether package has a post-install script 
+  //! \param   hasPostInstall  whether package has a post-install script
   //! \param   hasPreRemove    whether package has a pre-remove script
   //! \param   hasPostRemove   whether package has a post-remove script
   Package( const string&  name,
@@ -69,13 +69,13 @@ public:
   //! \return  the name of this package
   const string& name() const;
 
-  //! \brief   Get the package path in the ports tree
+  //! \brief   Get the package path in the packages sources tree
   //!
   //! \return  the path to this package
   const string& path() const;
 
   //! \brief   Get the full path to this package or this package's
-  //!          \a file in the ports tree
+  //!          \a file in the packages sources tree
   //!
   //! \param   file  the optional file name to be added at the end of
   //!          package path
@@ -155,10 +155,11 @@ public:
   void setDependencies( const string& dependencies );
 
 private:
-  //! The config file with custom specified package dependencies 
+  //! The config file with custom specified package dependencies
   static const string CUSTOM_DEPS_FILE;
 
-  //! Load necessary package data from Pkgfile and port's directory
+  //! Load necessary package data from Pkgfile and package source's
+  //! directory
   void load() const;
 
   //! Rewrite Pkgfile's dependencies to ones written in the config file
@@ -221,7 +222,7 @@ struct PackageData
   //! the description of this package
   string description;
 
-  //! the dependencies of this package 
+  //! the dependencies of this package
   string depends;
 
   //! the upstream URL location of this package
@@ -252,5 +253,5 @@ struct PackageData
   void generateVersionReleaseString();
 };
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
-// End of file
+// vim:sw=2:ts=2:sts=2:et:cc=79
+// End of file.

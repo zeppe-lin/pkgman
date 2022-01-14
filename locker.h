@@ -1,6 +1,5 @@
 //! \file      locker.h
 //! \brief     Locker Definition
-//! \copyright See LICENSE file for copyright and license details.
 
 #pragma once
 
@@ -8,6 +7,7 @@
 #include <vector>
 
 #include "package.h"
+#include "pathnames.h"
 
 using namespace std;
 
@@ -16,19 +16,16 @@ using namespace std;
 //!         update
 //!
 //! Then the locked packages will:
-//! - marked in 'prt diff \--all' as 'locked'
-//! - not shown without '\--all' in 'prt diff'
-//! - not updated in 'prt sysup'
+//! - marked in 'pkgman diff \--all' as 'locked'
+//! - not shown without '\--all' in 'pkgman diff'
+//! - not updated in 'pkgman sysup'
 //!
 //! \warning REMEMBER TO CALL store!
 class Locker
 {
 public:
-  //! The locker file path
-  static const string DB;
-
   //! \brief   Open a locker file and read the locked packages into
-  //!          \a m_packages 
+  //!          \a m_packages
   Locker( const string& root );
 
   //! \brief   Check if opening failed
@@ -54,7 +51,7 @@ public:
   //! \brief   Write the changes to locker file
   //!
   //! \return  \a true if ok, \a false if locker file could not be
-  //!          opened for writing 
+  //!          opened for writing
   bool store();
 
   //! \brief   Check if the \a package is locked
@@ -66,7 +63,7 @@ public:
 
   //! \brief   Get all locked packages
   //!
-  //! \return  the vector of names of all locked packages 
+  //! \return  the vector of names of all locked packages
   const vector< pkgname_t >& lockedPackages() const;
 
 private:
@@ -79,5 +76,5 @@ private:
   string m_root;
 };
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
-// End of file
+// vim:sw=2:ts=2:sts=2:et:cc=79
+// End of file.

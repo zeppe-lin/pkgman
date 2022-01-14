@@ -1,6 +1,5 @@
 //! \file       repository.h
 //! \brief      Repository class definition
-//! \copyright  See LICENSE file for copyright and license details.
 
 #pragma once
 
@@ -17,10 +16,10 @@ using namespace std;
 typedef list< pair< string, string > > rootList_t;
 
 //! \class  Repository
-//! \brief  Repository of available ports
+//! \brief  Repository of available packages sources
 //!
-//! The repository is an abstraction of the available ports
-//! in the ports tree
+//! The repository is an abstraction of the available packages sources
+//! in the packages sources tree
 class Repository
 {
 public:
@@ -57,8 +56,8 @@ public:
   //!
   //! \return  a list of duplicate packages in the repo,
   //!          wherein the pairs
-  //!          .first   is the shadowed port and
-  //!          .second  is the port which precedes over first
+  //!          .first   is the shadowed package source and
+  //!          .second  is the package source which precedes over first
   const list< pair< Package*, Package* > >&
   shadowedPackages()
   const;
@@ -100,7 +99,8 @@ public:
   //! \note    Doesn't search recursively, so if you want /dir and
   //!          /dir/subdir checked, you have to specify both
   //!
-  //! \param   rootList       a list of directories to look for ports in
+  //! \param   rootList       a list of directories to look for
+  //!                         packages sources in
   //! \param   listDuplicate  whether duplicates should be registered
   //!                         (slower)
   void initFromFS( const rootList_t& rootList, bool listDuplicate );
@@ -143,5 +143,5 @@ private:
   map< pkgname_t, Package* > m_packageMap;
 };
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
-// End of file
+// vim:sw=2:ts=2:sts=2:et:cc=79
+// End of file.

@@ -1,6 +1,5 @@
 //! \file      datafilepatser.h
 //! \brief     DataFileParser Definition
-//! \copyright See LICENSE file for copyright and license details.
 
 #pragma once
 
@@ -25,5 +24,5 @@ public:
   bool parse( const string& filename, map< string, string >& target );
 };
 
-// vim:sw=2:ts=2:sts=2:et:cc=80
-// End of file
+// vim:sw=2:ts=2:sts=2:et:cc=79
+// End of file.

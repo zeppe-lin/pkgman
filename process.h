@@ -1,6 +1,5 @@
 //! \file      process.h
 //! \brief     Process Definition
-//! \copyright See LICENSE file for copyright and license details.
 
 #pragma once
 
@@ -41,7 +40,7 @@ private:
   //! \param   argc  argument count
   //! \param   argv  argument vector
   //!
-  //! \return  the exit status of the application 
+  //! \return  the exit status of the application
   int exec( const size_t argc, char** argv );
 
   //! \brief   Execute the process and log the output to a file
@@ -87,5 +86,5 @@ private:
   bool m_log2stdout;
 };
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
-// End of file
+// vim:sw=2:ts=2:sts=2:et:cc=79
+// End of file.

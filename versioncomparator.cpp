@@ -4,7 +4,6 @@
 //! \note      Get a test application with the following command:
 //!            g++ -o vcomp -DTEST helpers.cpp versioncomparator.cpp
 //!
-//! \copyright See LICENSE file for copyright and license details.
 
 #include <cctype>
 #include <cstring>
@@ -267,5 +266,5 @@ main( int  argc, char**  argv )
 
 #endif // Test
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
-// End of file
+// vim:sw=2:ts=2:sts=2:et:cc=79
+// End of file.

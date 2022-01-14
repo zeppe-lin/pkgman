@@ -1,6 +1,5 @@
 //! \file       transaction.cpp
 //! \brief      Transaction class implementation
-//! \copyright  See LICENSE file for copyright and license details.
 
 #include <algorithm>
 #include <fstream>
@@ -60,7 +59,7 @@ const Transaction::Result_t&
 
     // skip or return an error (depends on `--group' command-line
     // argument) if trying to install/update the package that is
-    // missing in the ports tree
+    // missing in the packages sources tree
     if ( ! pkg )
     {
       m_missingPackages.push_back( make_pair( name, "" ) );
@@ -71,7 +70,7 @@ const Transaction::Result_t&
       continue;
     }
 
-    // skip if trying to install already installed package 
+    // skip if trying to install already installed package
     if ( transactionType == INSTALL && m_pkgDB->isInstalled( name ) )
     {
       m_alreadyInstalledPackages.push_back( name );
@@ -91,7 +90,7 @@ const Transaction::Result_t&
 
       if ( ! logDirCreate( logFilePath ) )
         return m_transactionResult = LOG_DIR_FAILURE;
-      
+
       if ( ! logFileCreate( logFilePath ) )
       {
         // If the log file can't be created, but the reason _is not_
@@ -128,7 +127,7 @@ const Transaction::Result_t&
     // build the package unless `--test' command-line option is set
     pkgmkResult = m_parser->isTest() ? SUCCESS : pkgmk( pkg );
 
-    if ( ! isDownloadOnly && pkgmkResult == SUCCESS ) 
+    if ( ! isDownloadOnly && pkgmkResult == SUCCESS )
     {
       // `pre-install` script execution
       if ( ( m_parser->execPreInstall() || m_config->runScripts() )
@@ -236,7 +235,7 @@ Transaction::remove()
     }
 
     // also, skip if the package isn't installed or missing
-    // in the ports tree
+    // in the packages sources tree
     if ( ! m_pkgDB->isInstalled( name ) || ! pkg )
     {
       m_missingPackages.push_back( make_pair( name, "" ) );
@@ -248,7 +247,7 @@ Transaction::remove()
     }
 
     pkgRunScriptsState_t scriptsInfo;
-   
+
     // `pre-remove' script execution
     Process pre( m_config->runscriptCommand(),
                  pkg->fullpath( "pre-remove" ),
@@ -278,7 +277,7 @@ Transaction::remove()
           pkg->fullpath( "post-remove" ),
           -1 /* no log file descriptor */,
           m_parser->verbose() > 1 /* log to stdout if true */ );
- 
+
       scriptsInfo.post =
         m_parser->isTest() ? SUCCESS : post.executeShell();
     }
@@ -299,7 +298,7 @@ Transaction::remove()
         return m_transactionResult = PKGRM_E_GENERAL;
     }
   }
-  
+
   m_locker->store();
 
   return m_transactionResult = SUCCESS;
@@ -420,7 +419,7 @@ const string Transaction::strerror( const Result_t& result ) const
       return "no log file specified, but logging enabled";
 
     case LOG_DIR_FAILURE:
-      return "can't create the log file directory for " + 
+      return "can't create the log file directory for " +
              m_packages.begin()->first;
 
     case LOG_FILE_FAILURE:
@@ -554,7 +553,7 @@ Transaction::Result_t Transaction::pkgadd( const Package* pkg ) const
 
   if ( m_parser->pkgaddArgs().size() )
     pkgaddArgs += m_parser->pkgaddArgs() + " ";
-  
+
   if ( m_transactionType == UPDATE )
     pkgaddArgs += "-u ";
 
@@ -673,5 +672,5 @@ void Transaction::checkDependecies( const Package*  pkg,
   }
 }
 
-// vim:sw=2:ts=2:sts=2:et:cc=72
-// End of file
+// vim:sw=2:ts=2:sts=2:et:cc=79
+// End of file.
