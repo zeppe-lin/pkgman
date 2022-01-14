@@ -249,14 +249,6 @@ L<pkgman-list-locked(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-l
 B<NOTE!> When the B<--root>=I<PATH> option is specified, both databases
 location changes to I<PATH/var/lib/pkg/...>
 
-=head1 COPYRIGHT
-
-Copyright (c) Johannes Winkelmann L<mailto:jw@tks6.net>.
-
-Copyright (c) Alexandr Savca L<https://github.com/zeppe-lin>.
-
-License GPLv3+: GNU GPL version 3 or later L<https://gnu.org/licenses/gpl.html>.
-
 =head1 SEE ALSO
 
 L<pkgman.conf(5)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman.conf.5.pod>
