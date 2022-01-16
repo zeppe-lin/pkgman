@@ -473,9 +473,9 @@ void Pkgman::printReadme()
     return errx( "package '" + arg + "' not found" );
 
   if ( ! pkg->hasReadme() )
-    return errx( "package '" + arg + "' has no README.pkg file" );
+    return errx( "package '" + arg + "' has no README file" );
 
-  printFile( pkg->fullpath( "README.pkg" ) );
+  printFile( pkg->fullpath( "README" ) );
 }
 
 void Pkgman::printPath()
