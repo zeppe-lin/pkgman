@@ -752,6 +752,7 @@ void Pkgman::fsearch()
 void Pkgman::install( Transaction::Transaction_t transaction_t )
 {
   const auto& args = m_parser->cmdArgs();
+  list< pkgname_t > sortedList;
 
   // this can be done without initRepo()
   bool update = transaction_t == Transaction::UPDATE;
@@ -783,8 +784,17 @@ void Pkgman::install( Transaction::Transaction_t transaction_t )
       return errx( depcalc.strerror(), depcalc.result() );
 
     for ( const auto& dep: depcalc.deps() )
+    {
+      if ( m_parser->depSort() )
+      {
+        const auto& it = std::find( args.begin(), args.end(), dep );
+        if ( it != args.end() )
+          sortedList.push_back( dep );
+      }
+
       if ( ! m_pkgDB->isInstalled( dep ) )
         deps.push_back( dep );
+    }
 
     // install missing dependencies
     if ( deps.size() )
@@ -800,10 +810,19 @@ void Pkgman::install( Transaction::Transaction_t transaction_t )
       return;
   }
 
-  // install or update the rest of arguments
-  Transaction transact( args, m_repo, m_pkgDB, m_parser,
-                        m_config, m_locker );
-  executeTransaction( transact, transaction_t );
+  if ( m_parser->deps() && m_parser->depSort() && sortedList.size() )
+  {
+    Transaction tran( sortedList, m_repo, m_pkgDB, m_parser, m_config,
+                      m_locker );
+    executeTransaction( tran, transaction_t );
+  }
+  else
+  {
+    // install or update the rest of arguments
+    Transaction transact( args, m_repo, m_pkgDB, m_parser,
+                          m_config, m_locker );
+    executeTransaction( transact, transaction_t );
+  }
 }
 
 void Pkgman::remove()

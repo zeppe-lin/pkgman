@@ -8,7 +8,13 @@ pkgman-(install|update) - (install|update) packages
 
 =head1 SYNOPSIS
 
-B<pkgman> (install|update) [B<-v>|B<-vv>] [B<--test>] [B<--log>] [B<--deps>] [B<--force>] [B<--group>] [B<--margs>=I<PKGMK_ARGS>|I<PKGMK_ALIASES>] [B<--aargs>=I<PKGADD_ARGS>|I<PKGADD_ALIASES>] [B<--ignore>=I<PKGNAME,PKGNAME,...>] [B<--install-scripts>|[B<--pre-install>][B<--post-install>]] I<PKGNAME>...
+B<pkgman> (install|update) [B<-v>|B<-vv>] [B<--test>] [B<--log>]
+[B<--deps>] [B<--depsort>] [B<--force>] [B<--group>]
+[B<--margs>=I<PKGMK_ARGS>|I<PKGMK_ALIASES>]
+[B<--aargs>=I<PKGADD_ARGS>|I<PKGADD_ALIASES>]
+[B<--ignore>=I<PKGNAME,PKGNAME,...>]
+[B<--install-scripts>|[B<--pre-install>][B<--post-install>]]
+I<PKGNAME>...
 
 =head1 DESCRIPTION
 
@@ -42,6 +48,10 @@ L<pkgman.conf(5)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman.conf.5.p
 =item B<--deps>
 
 (Install|Update) all packages in the listed order including their dependencies.
+
+=item B<--depsort>
+
+Sort updating by dependencies.
 
 =item B<--force>
 
