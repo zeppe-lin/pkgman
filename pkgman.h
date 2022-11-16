@@ -96,9 +96,6 @@ public:
   //                          Dependencies                           //
   /////////////////////////////////////////////////////////////////////
 
-  //! Print the missing dependencies of installed packages
-  void printMissingDep();
-
   //! Print dependencies for a package
   void printDep();
 

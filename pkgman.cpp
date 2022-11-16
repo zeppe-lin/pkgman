@@ -642,39 +642,6 @@ void Pkgman::printDiff()
     cout << new_packages << ( new_packages > 1 ? " installs\n" : " install\n" );
 }
 
-void Pkgman::printMissingDep()
-{
-  map< pkgname_t, pkgver_t > packages;
-  m_pkgDB->getMatchingPackages( "*", packages, m_useRegex );
-
-  if ( packages.empty() )
-    return errx( "no packages found" );
-
-  initRepo();
-
-  for ( const auto& pkg: packages )
-  {
-    Transaction depcalc( pkg.first, m_repo, m_pkgDB, m_parser,
-                         m_config, m_locker );
-
-    if ( depcalc.calcDeps() != Transaction::SUCCESS )
-      errx( depcalc.strerror(), depcalc.result() );
-
-    list< pkgname_t > missing;
-
-    for ( const auto& dep: depcalc.deps() )
-      if ( ! m_pkgDB->isInstalled( dep ) )
-        missing.push_back( dep );
-
-    if ( missing.size() )
-    {
-      cout << pkg.first << endl;
-      for ( const auto& dep: missing )
-        cout << "  " << dep << endl;
-    }
-  }
-}
-
 void Pkgman::printDep()
 {
   string arg = m_parser->cmdArgs().front();

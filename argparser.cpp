@@ -57,7 +57,7 @@ bool ArgParser::parse()
     // Differences / Check for updates
     "diff",
     // Dependencies
-    "mdep", "dep", "rdep",
+    "dep", "rdep",
     // Searching
     "search", "dsearch", "fsearch",
     // Install / Update / Remove

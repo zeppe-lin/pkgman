@@ -176,10 +176,6 @@ int main( int argc, char** argv )
     // Dependencies
     //
 
-    case ArgParser::MDEP:
-      pkgman.printMissingDep();
-      break;
-
     case ArgParser::DEP:
       assertExactArgCount( 1 );
       pkgman.printDep();
