@@ -1,3 +1,6 @@
+# This file is a part of pkgman.
+# See COPYING and COPYRIGHT for corresponding information.
+
 =pod
 
 =encoding UTF-8
@@ -12,21 +15,14 @@ B<pkgman> [I<COMMAND>] [I<OPTION>]... [I<ARGS>]
 
 =head1 DESCRIPTION
 
-B<pkgman> is a package management tool that provides additional functionality
-to basic package management utilities, like
-L<pkgmk(8)|https://github.com/zeppe-lin/pkgmk/blob/master/pkgmk.8.pod>
-,
-L<pkgadd(8)|https://github.com/zeppe-lin/pkgutils/blob/master/pkgadd.8.pod>
-,
-L<pkgrm(8)|https://github.com/zeppe-lin/pkgutils/blob/master/pkgrm.8.pod>
-and
-L<pkginfo(8)|https://github.com/zeppe-lin/pkgutils/blob/master/pkginfo.8.pod>
-.
+B<pkgman> is a package management tool that provides additional
+functionality to basic package management utilities, like L<pkgmk(8)>,
+L<pkgadd(8)>, L<pkgrm(8)> and L<pkginfo(8)>.
 
 =head1 OPTIONS
 
-The following options are common to all commands. Note that each command has
-its own set of specific options and arguments.
+The following options are common to all commands.  Note that each
+command has its own set of specific options and arguments.
 
 =over 8
 
@@ -60,71 +56,71 @@ Print program version and exit.
 
 =item B<-h>, B<--help>
 
-Print the I<COMMAND> synopsis and exit. If the I<COMMAND> is not specified
-and B<-h> or B<--help> is specified as a I<COMMAND>, then print this manual
-page.
+Print the I<COMMAND> synopsis and exit.  If the I<COMMAND> is not
+specified and B<-h> or B<--help> is specified as a I<COMMAND>, then
+print this manual page.
 
 =back
 
 =head1 COMMANDS
 
 B<pkgman> uses so-called commands, which always have to be the first
-non-option argument passed. The commands can be divided into the following
-self-explanatory categories.
+non-option argument passed.  The commands can be divided into the
+following self-explanatory categories.
 
 =head2 INFORMATIONAL
 
 =over 8
 
-=item L<pkgman-dumpconfig(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-dumpconfig.1.pod>
+=item L<pkgman-dumpconfig(1)>
 
 dump the configuration
 
-=item L<pkgman-list(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-list.1.pod>
+=item L<pkgman-list(1)>
 
 print list of available packages
 
-=item L<pkgman-list-dup(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-list-dup.1.pod>
+=item L<pkgman-list-dup(1)>
 
 print list of duplicate packages
 
-=item L<pkgman-list-nodependents(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-list-nodependents.1.pod>
+=item L<pkgman-list-nodependents(1)>
 
 print list of packages that no other depends on them
 
-=item L<pkgman-list-locked(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-list-locked.1.pod>
+=item L<pkgman-list-locked(1)>
 
 print list of locked packages
 
-=item L<pkgman-list-orphans(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-list-orphans.1.pod>
+=item L<pkgman-list-orphans(1)>
 
 print list of orphaned packages
 
-=item L<pkgman-printf(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-printf.1.pod>
+=item L<pkgman-printf(1)>
 
 print formatted list of available packages
 
-=item L<pkgman-info(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-info.1.pod>
+=item L<pkgman-info(1)>
 
 print package info
 
-=item L<pkgman-readme(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-readme.1.pod>
+=item L<pkgman-readme(1)>
 
 print the package's README
 
-=item L<pkgman-path(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-path.1.pod>
+=item L<pkgman-path(1)>
 
 print path to package source
 
-=item L<pkgman-isinst(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-isinst.1.pod>
+=item L<pkgman-isinst(1)>
 
 print whether packages are installed or not
 
-=item L<pkgman-current(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-current.1.pod>
+=item L<pkgman-current(1)>
 
 print installed package version
 
-=item L<pkgman-diff(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-diff.1.pod>
+=item L<pkgman-diff(1)>
 
 print the differences between installed and available packages
 
@@ -134,11 +130,11 @@ print the differences between installed and available packages
 
 =over 8
 
-=item L<pkgman-dep(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-dep.1.pod>
+=item L<pkgman-dep(1)>
 
 print dependencies for a package
 
-=item L<pkgman-rdep(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-rdep.1.pod>
+=item L<pkgman-rdep(1)>
 
 print reverse dependencies for a package
 
@@ -148,15 +144,15 @@ print reverse dependencies for a package
 
 =over 8
 
-=item L<pkgman-search(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-search.1.pod>
+=item L<pkgman-search(1)>
 
 search the packages sources directories for package name
 
-=item L<pkgman-dsearch(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-dsearch.1.pod>
+=item L<pkgman-dsearch(1)>
 
 search the packages sources directories for package name/description
 
-=item L<pkgman-fsearch(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-fsearch.1.pod>
+=item L<pkgman-fsearch(1)>
 
 search the packages sources directories for a file in package footprint
 
@@ -166,15 +162,15 @@ search the packages sources directories for a file in package footprint
 
 =over 8
 
-=item L<pkgman-install(8)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-install.8.pod>
+=item L<pkgman-install(8)>
 
 install package(s)
 
-=item L<pkgman-update(8)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-update.8.pod>
+=item L<pkgman-update(8)>
 
 update installed package(s)
 
-=item L<pkgman-remove(8)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-remove.8.pod>
+=item L<pkgman-remove(8)>
 
 remove installed package(s)
 
@@ -184,15 +180,15 @@ remove installed package(s)
 
 =over 8
 
-=item L<pkgman-sysup(8)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-sysup.8.pod>
+=item L<pkgman-sysup(8)>
 
 update all outdated packages
 
-=item L<pkgman-lock(8)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-lock.8.pod>
+=item L<pkgman-lock(8)>
 
 lock the package(s)
 
-=item L<pkgman-unlock(8)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-unlock.8.pod>
+=item L<pkgman-unlock(8)>
 
 unlock the package(s)
 
@@ -202,15 +198,15 @@ unlock the package(s)
 
 =over 8
 
-=item L<pkgman-ls(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-ls.1.pod>
+=item L<pkgman-ls(1)>
 
 print out a listing of the package's directory
 
-=item L<pkgman-cat(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-cat.1.pod>
+=item L<pkgman-cat(1)>
 
 print out the package's file
 
-=item L<pkgman-edit(8)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-edit.8.pod>
+=item L<pkgman-edit(8)>
 
 edit the package's file
 
@@ -222,9 +218,7 @@ edit the package's file
 
 =item F</etc/pkgman.conf>
 
-Configuration file. See
-L<pkgman.conf(5)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman.conf.5.pod>
-manual page for more information.
+Configuration file.  See L<pkgman.conf(5)> for more information.
 
 =item F</var/lib/pkg/db>
 
@@ -232,13 +226,8 @@ Database of currently installed packages.
 
 =item F</var/lib/pkg/locked>
 
-Database of currently locked packages. Used by
-L<pkgman-lock(8)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-lock.8.pod>
-,
-L<pkgman-unlock(8)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-unlock.8.pod>
-and 
-L<pkgman-list-locked(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-list-locked.1.pod>
-.
+Database of currently locked packages.  Used by L<pkgman-lock(8)>,
+L<pkgman-unlock(8)> and L<pkgman-list-locked(1)>.
 
 =back
 
@@ -247,6 +236,9 @@ location changes to I<PATH/var/lib/pkg/...>
 
 =head1 SEE ALSO
 
-L<pkgman.conf(5)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman.conf.5.pod>
+L<pkgman.conf(5)>
 
 =cut
+
+# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+# End of file.
