@@ -134,10 +134,6 @@ print the differences between installed and available packages
 
 =over 8
 
-=item L<pkgman-mdep(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-mdep.1.pod>
-
-print the missing dependencies of installed packages
-
 =item L<pkgman-dep(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-dep.1.pod>
 
 print dependencies for a package
