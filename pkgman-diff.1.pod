@@ -1,3 +1,6 @@
+# This file is a part of pkgman.
+# See COPYING and COPYRIGHT files for corresponding information.
+
 =pod
 
 =encoding UTF-8
@@ -8,14 +11,16 @@ pkgman-diff - show differences between installed and available packages
 
 =head1 SYNOPSIS
 
-B<pkgman> diff [B<--all>] [B<--deps>] [B<--full>] [B<--regex>] [B<--filter>=I<EXPR>]
+B<pkgman> diff [B<--all>] [B<--deps>] [B<--full>] [B<--regex>]
+[B<--filter>=I<EXPR>]
 
 =head1 DESCRIPTION
 
-Print an overview of packages that are installed and have a different version
-than they are in the packages sources directories. If you would like to
-compare the packages using version comparison and show only packages with
-higher version, then use B<preferhigher> configuration settings:
+Print an overview of packages that are installed and have a different
+version than they are in the packages sources directories.  If you
+would like to compare the packages using version comparison and show
+only packages with higher version, then use B<preferhigher>
+configuration settings:
 
   pkgman --config-set="preferhigher yes" diff
 
@@ -37,7 +42,7 @@ Show full table.
 
 =begin comment
 
-TODO: Check if available and add to SYNOPSIS
+TODO: --prefer-higher=yes|no: Check if available and add to SYNOPSIS
 
 =item B<--prefer-higher>=(yes|no)
 
@@ -52,9 +57,12 @@ Interpret filter argument as a regular expression.
 
 =item B<--filter>=I<EXPR>
 
-Filter listing packages by I<EXPR>. The filter argument may be the string,
-wildcard or regex.
+Filter listing packages by I<EXPR>.  The filter argument may be the
+string, wildcard or regex.
 
 =back
 
 =cut
+
+# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+# End of file.

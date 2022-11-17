@@ -231,8 +231,8 @@ L<pkgman-unlock(8)> and L<pkgman-list-locked(1)>.
 
 =back
 
-B<NOTE!> When the B<--root>=I<PATH> option is specified, both databases
-location changes to I<PATH/var/lib/pkg/...>
+B<NOTE!> When the B<--root>=I<PATH> option is specified, both
+databases location changes to I<PATH/var/lib/pkg/...>.
 
 =head1 SEE ALSO
 

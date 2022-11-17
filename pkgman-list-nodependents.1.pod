@@ -1,10 +1,14 @@
+# This file is a part of pkgman.
+# See COPYING and COPYRIGHT files for corresponding information.
+
 =pod
 
 =encoding UTF-8
 
 =head1 NAME
 
-pkgman-list-nodependents - print list of packages that no other depends on them
+pkgman-list-nodependents - print list of packages that no other
+depends on them
 
 =head1 SYNOPSIS
 
@@ -12,8 +16,8 @@ B<pkgman> list-nodependents [B<-v>|B<-vv>] [B<--path>]
 
 =head1 DESCRIPTION
 
-Print list of packages without dependents. "Nodependent" are packages without
-packages depending on them.
+Print list of packages without dependents.  "Nodependent" are packages
+without packages depending on them.
 
 =head1 OPTIONS
 
@@ -34,3 +38,6 @@ Show package' source path in the listing.
 =back
 
 =cut
+
+# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+# End of file.

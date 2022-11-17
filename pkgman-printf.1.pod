@@ -1,3 +1,6 @@
+# This file is a part of pkgman.
+# See COPYING and COPYRIGHT files for corresponding information.
+
 =pod
 
 =encoding UTF-8
@@ -8,12 +11,14 @@ pkgman-printf - print formatted list of available packages
 
 =head1 SYNOPSIS
 
-B<pkgman> printf [B<--sort>=I<FORMAT>] [B<--regex>] [B<--filter>=I<PKGNAME>] I<FORMAT>
+B<pkgman> printf [B<--sort>=I<FORMAT>] [B<--regex>]
+[B<--filter>=I<PKGNAME>] I<FORMAT>
 
 =head1 DESCRIPTION
 
-Print formatted list of available packages. It looks in all packages sources
-directories specified in F</etc/pkgman.conf> as C<pkgsrcdir> directories.
+Print formatted list of available packages.  It looks in all packages
+sources directories specified in F</etc/pkgman.conf> as C<pkgsrcdir>
+directories.
 
 =head1 OPTIONS
 
@@ -29,8 +34,8 @@ Interpret filter argument as a regular expression.
 
 =item B<--filter>=I<PKGNAME>
 
-Filter listing packages by name. The filter option argument may be the string,
-wildcard or regex.
+Filter listing packages by name.  The filter option argument may be
+the string, wildcard or regex.
 
 =item I<FORMAT>
 
@@ -109,3 +114,6 @@ directories.
 =back
 
 =cut
+
+# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+# End of file.

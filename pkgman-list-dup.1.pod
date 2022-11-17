@@ -1,3 +1,6 @@
+# This file is a part of pkgman.
+# See COPYING and COPYRIGHT files for corresponding information.
+
 =pod
 
 =encoding UTF-8
@@ -12,8 +15,9 @@ B<pkgman> list-dup [B<--prefer-higher>|B<--strict-diff>] [I<FORMAT>]
 
 =head1 DESCRIPTION
 
-Print list of duplicate packages in the packages sources directories. It
-looks in all directories specified in F</etc/pkgman.conf> as C<pkgsrcdir>.
+Print list of duplicate packages in the packages sources directories.
+It looks in all directories specified in F</etc/pkgman.conf> as
+C<pkgsrcdir>.
 
 The default I<FORMAT> string is C<%p1 %v1 %c %p2 %v2\n>.
 
@@ -23,8 +27,8 @@ The default I<FORMAT> string is C<%p1 %v1 %c %p2 %v2\n>.
 
 =item B<--prefer-higher>
 
-Prefer higher installed versions over lower ones in the packages sources
-directories.
+Prefer higher installed versions over lower ones in the packages
+sources directories.
 
 =item B<--strict-diff>
 
@@ -62,9 +66,12 @@ comparison sign of C<%p1> and C<%p2>: C<E<lt>>, C<E<gt>>, C<==>, C<!=>
 
 =back
 
-Use C<\n> and C<\t> to format your output. No additional format specifier is
-supported.
+Use C<\n> and C<\t> to format your output.  No additional format
+specifier is supported.
 
 =back
 
 =cut
+
+# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+# End of file.

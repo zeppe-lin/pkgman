@@ -1,3 +1,6 @@
+# This file is a part of pkgman.
+# See COPYING and COPYRIGHT files for corresponding information.
+
 =pod
 
 =encoding UTF-8
@@ -12,13 +15,12 @@ B</etc/pkgman.conf>
 
 =head1 DESCRIPTION
 
-This file is read by
-L<pkgman(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman.1.pod>.
+This file is read by L<pkgman(1)>.
 
 =head1 CONFIGURATION
 
-Every line can contain one configuration option. The format of the lines is
-C<key value>.
+Every line can contain one configuration option.  The format of the
+lines is C<key value>.
 
 The valid keys are:
 
@@ -26,14 +28,14 @@ The valid keys are:
 
 =item B<pkgsrcdir> I<path>[:I<pkg1>,I<pkg2>,...]
 
-The location where to look for the packages sources. The order of the
-C<pkgsrcdir> options is important as if a package is in multiple directories,
-L<pkgman(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman.1.pod>
-will use the one found first (directories listed first have precedence).
+The location where to look for the packages sources.  The order of the
+C<pkgsrcdir> options is important as if a package is in multiple
+directories, L<pkgman(1)> will use the one found first (directories
+listed first have precedence).
 
-If you want to restrict the packages used from one C<pkgsrcdir>, you can
-append a comma-separated list of packages to be used after the path, using
-a colon C<:> character to separate the two components.
+If you want to restrict the packages used from one C<pkgsrcdir>, you
+can append a comma-separated list of packages to be used after the
+path, using a colon C<:> character to separate the two components.
 
 I<path> The directory.
 
@@ -52,28 +54,25 @@ Default: I<no>.
 
 =item B<preferhigher> (I<yes>|I<no>)
 
-If set to I<yes>,
-L<pkgman(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman.1.pod>
-will parse version strings and prefer the higher one, even if the one found
-in the packages sources directories is lower. Influences C<diff>, C<sysup>
-operations.
+If set to I<yes>, L<pkgman(1)> will parse version strings and prefer
+the higher one, even if the one found in the packages sources
+directories is lower.  Influences C<diff>, C<sysup> operations.
 
 Default: I<no>.
 
 =item B<useregex> (I<yes>|I<no>)
 
-If set to I<yes>,
-L<pkgman(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman.1.pod>
-will interpret C<expr> and C<filter> patterns in list, printf, dsearch and
-fsearch operations as regular expression.
+If set to I<yes>, L<pkgman(1)> will interpret C<expr> and C<filter>
+patterns in list, printf, dsearch and fsearch operations as regular
+expression.
 
 Default: I<no>.
 
 =item B<readme> (I<verbose>|I<compat>|I<disabled>)
 
 If the readme option is set to something different that I<disabled>,
-L<pkgman(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman.1.pod>
-will notify the user if installed package has a README file.
+L<pkgman(1)> will notify the user if installed package has a README
+file.
 
 =over 8
 
@@ -91,9 +90,8 @@ No information about README files.
 
 =back
 
-See
-L<pkgman-readme(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-readme.1.pod>
-for information how to read those README files.
+See L<pkgman-readme(1)> for information how to read those README
+files.
 
 Default: I<verbose>.
 
@@ -115,8 +113,8 @@ When set to I<yes>, log files of successful build will be removed.
 
 =item B<logfile> I<format>
 
-The string that contains a path to the log file, where all occurrences of next
-characters will be replaced by corresponding items:
+The string that contains a path to the log file, where all occurrences
+of next characters will be replaced by corresponding items:
 
 =begin man
 
@@ -132,22 +130,13 @@ l | l.
 
 =end man
 
-=begin text
-
-            %n -> package name
-            %p -> package path
-            %v -> package version
-            %r -> package release
-            
-=end text
-
 =begin html
 
   <table>
-  <tr><td>%n</td><td>package name</td><tr>
-  <tr><td>%p</td><td>package path</td></tr>
-  <tr><td>%v</td><td>package version</td></tr>
-  <tr><td>%r</td><td>package release</td></tr>
+    <tr><td>%n</td><td>package name</td><tr>
+    <tr><td>%p</td><td>package path</td></tr>
+    <tr><td>%v</td><td>package version</td></tr>
+    <tr><td>%r</td><td>package release</td></tr>
   </table>
 
 =end html
@@ -158,32 +147,29 @@ Default: none.
 
 =item B<makecommand> I<command>
 
-Use an alternate I<command> instead of
-L<pkgmk(8)|https://github.com/zeppe-lin/pkgmk/blob/master/pkgmk.8.pod>
-for the command which is used to build the package.
+Use an alternate I<command> instead of L<pkgmk(8)> for the command
+which is used to build the package.
 
 Default: I<pkgmk>.
 
 =item B<addcommand> I<command>
 
-Use an alternate I<command> instead of
-L<pkgadd(8)|https://github.com/zeppe-lin/pkgutils/blob/master/pkgadd.8.pod>
-for the command which is used to install the package.
+Use an alternate I<command> instead of L<pkgadd(8)> for the command
+which is used to install the package.
 
 Default: I<pkgadd>.
 
 =item B<removecommand> I<command>
 
-Use an alternate I<command> instead of
-L<pkgrm(8)|https://github.com/zeppe-lin/pkgutils/blob/master/pkgrm.8.pod>
-for the command which is used to remove the package.
+Use an alternate I<command> instead of L<pkgrm(8)> for the command
+which is used to remove the package.
 
 Default: I<pkgrm>.
 
 =item B<runscriptcommand> I<command>
 
-Use an alternate command instead of L<sh(1)> for the command which is used
-to run the pre/post-install and pre/post-remove scripts.
+Use an alternate command instead of L<sh(1)> for the command which is
+used to run the pre/post-install and pre/post-remove scripts.
 
 Default: I</bin/sh>.
 
@@ -194,36 +180,41 @@ Default: I</bin/sh>.
   #
   # /etc/pkgman.conf: pkgman(1) configuration
   #
+  # See pkgman.conf(5) for more information.
+  #
 
-  # use local directory first
+  # Use local directory first.
   #pkgsrcdir /path/to/unofficial/pkgsrcs/
 
-  # zeppe-lin official
+  # Zeppe-Lin official.
   pkgsrcdir /usr/src/zeppe-lin/core
   pkgsrcdir /usr/src/zeppe-lin/extra
 
-  # log options
+  # Log options.
   writelog enabled
   logmode overwrite
   rmlog_on_success yes
   logfile /var/log/pkgbuild/%n.log
 
-  # notify the user about README files
+  # Notify the user about README files.
   readme verbose
 
-  # do not prefer higher versions in sysup / diff
+  # Do not prefer higher versions in sysup / diff.
   preferhigher no
 
-  # do not use regex search
+  # Do not use regex search.
   useregex no
 
-  # run pre/post-install and pre/post-remove scripts
+  # Run pre/post-install and pre/post-remove scripts.
   runscripts yes
 
   # End of file.
 
 =head1 SEE ALSO
 
-L<pkgman(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman.1.pod>
+L<pkgman(1)>
 
 =cut
+
+# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+# End of file.

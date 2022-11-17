@@ -1,3 +1,6 @@
+# This file is a part of pkgman.
+# See COPYING and COPYRIGHT files for corresponding information.
+
 =pod
 
 =encoding UTF-8
@@ -12,9 +15,9 @@ B<pkgman> edit I<PKGNAME> [I<FILE>]
 
 =head1 DESCRIPTION
 
-Edit the package I<FILE> from the package source directory using the editor
-specified in the C<$EDITOR> environment variable. If I<FILE> is not
-specified, C<Pkgfile> is used.
+Edit the package I<FILE> from the package source directory using the
+editor specified in the C<$EDITOR> environment variable.  If I<FILE>
+is not specified, C<Pkgfile> is used.
 
 =head1 ENVIRONMENT
 
@@ -22,11 +25,9 @@ specified, C<Pkgfile> is used.
 
 =item I<EDITOR>
 
-If the package's source directory has a I<FILE>, then
-L<pkgman(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman.1.pod>
-will try to open it using a I<EDITOR>. If I<EDITOR> is unset, then
-L<pkgman(1)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman.1.pod>
-will fail.
+If the package's source directory has a I<FILE>, then L<pkgman(1)>
+will try to open it using a I<EDITOR>.  If I<EDITOR> is unset, then
+L<pkgman(1)> will fail.
 
 =back
 
@@ -53,3 +54,6 @@ I<EDITOR> execution exit status
 =back
 
 =cut
+
+# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+# End of file.

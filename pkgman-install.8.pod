@@ -1,3 +1,6 @@
+# This file is a part of pkgman.
+# See COPYING and COPYRIGHT files for corresponding information.
+
 =pod
 
 =encoding UTF-8
@@ -18,9 +21,9 @@ I<PKGNAME>...
 
 =head1 DESCRIPTION
 
-(Install|Update) all packages in the listed order. It looks in all packages
-sources directories specified in F</etc/pkgman.conf> as C<pkgsrcdir>
-directories.
+(Install|Update) all packages in the listed order.  It looks in all
+packages sources directories specified in F</etc/pkgman.conf> as
+C<pkgsrcdir> directories.
 
 =head1 OPTIONS
 
@@ -40,14 +43,13 @@ Dry run, do not actually (install|update) anything.
 
 =item B<--log>
 
-Create a transaction log file. It can be set globally for all transactions
-(see C<writelog> in
-L<pkgman.conf(5)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman.conf.5.pod>
-).
+Create a transaction log file.  It can be set globally for all
+transactions (see C<writelog> in L<pkgman.conf(5)>).
 
 =item B<--deps>
 
-(Install|Update) all packages in the listed order including their dependencies.
+(Install|Update) all packages in the listed order including their
+dependencies.
 
 =item B<--depsort>
 
@@ -55,21 +57,19 @@ Sort updating by dependencies.
 
 =item B<--force>
 
-Skip installation of already installed package(s). Just ignore the package
-and install next in the listed order. At the end of installation procedure,
-all skipped packages will be in the report.
+Skip installation of already installed package(s).  Just ignore the
+package and install next in the listed order.  At the end of
+installation procedure, all skipped packages will be in the report.
 
 =item B<--group>
 
 (Install|Update) all packages in the listed order, but stop if
-(installation|updating) of one package fails. This can be used to
+(installation|updating) of one package fails.  This can be used to
 (install|update) packages where I<package2> depends on I<package1>.
 
 =item B<--margs>=I<PKGMK_ARGS>
 
-Arguments to be passed to
-L<pkgmk(8)|https://github.com/zeppe-lin/pkgmk/blob/master/pkgmk.8.pod>
-.
+Arguments to be passed to L<pkgmk(8)>.
 
 =item I<PKGMK_ALIASES>
 
@@ -107,9 +107,7 @@ Keep working directory, implies "pkgmk -kw" (same as B<--margs>=-kw).
 
 =item B<--aargs>=I<PKGADD_ARGS>
 
-Arguments to be passed to
-L<pkgadd(8)|https://github.com/zeppe-lin/pkgutils/blob/master/pkgadd.8.pod>
-.
+Arguments to be passed to L<pkgadd(8)>.
 
 =item I<PKGADD_ALIASES>
 
@@ -140,3 +138,6 @@ Execute post-install scripts if it is there.
 =back
 
 =cut
+
+# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+# End of file.

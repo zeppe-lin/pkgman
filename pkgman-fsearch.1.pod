@@ -1,20 +1,25 @@
+# This file is a part of pkgman.
+# See COPYING and COPYRIGHT files for corresponding information.
+
 =pod
 
 =encoding UTF-8
 
 =head1 NAME
 
-pkgman-fsearch - search the packages sources directories for a file in footprint
+pkgman-fsearch - search the packages sources directories for a file in
+footprint
 
 =head1 SYNOPSIS
 
-B<pkgman> fsearch [B<-v>|B<-vv>] [B<--path>] [B<--regex>] [B<--full>] I<EXPR>
+B<pkgman> fsearch [B<-v>|B<-vv>] [B<--path>] [B<--regex>] [B<--full>]
+I<EXPR>
 
 =head1 DESCRIPTION
 
-Search the packages sources directories for I<EXPR> in packages' F<.footprint>
-files. It looks in all directories specified in F</etc/pkgman.conf> as
-C<pkgsrcdir> directories.
+Search the packages sources directories for I<EXPR> in packages'
+F<.footprint> files.  It looks in all directories specified in
+F</etc/pkgman.conf> as C<pkgsrcdir> directories.
 
 =head1 OPTIONS
 
@@ -47,3 +52,6 @@ String, wildcard or regular expression.
 =back
 
 =cut
+
+# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+# End of file.

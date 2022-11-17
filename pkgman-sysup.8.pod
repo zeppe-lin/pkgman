@@ -1,3 +1,6 @@
+# This file is a part of pkgman.
+# See COPYING and COPYRIGHT files for corresponding information.
+
 =pod
 
 =encoding UTF-8
@@ -8,22 +11,25 @@ pkgman-sysup - update all outdated packages
 
 =head1 SYNOPSIS
 
-B<pkgman> sysup [B<-v>|B<-vv>] [B<--test>] [B<--log>] [B<--deps>] [B<--depsort>] [B<--group>] [B<--margs>=I<PKGMK_ARGS>|I<PKGMK_ALIASES>] [B<--aargs>=I<PKGADD_ARGS>|I<PKGADD_ALIASES>] [B<--ignore>=I<PKGNAME,PKGNAME,...>] [B<--install-scripts>|[B<--pre-install>][B<--post-install>]] I<PKGNAME>...
+B<pkgman> sysup [B<-v>|B<-vv>] [B<--test>] [B<--log>] [B<--deps>]
+[B<--depsort>] [B<--group>]
+[B<--margs>=I<PKGMK_ARGS>|I<PKGMK_ALIASES>]
+[B<--aargs>=I<PKGADD_ARGS>|I<PKGADD_ALIASES>]
+[B<--ignore>=I<PKGNAME,PKGNAME,...>]
+[B<--install-scripts>|[B<--pre-install>][B<--post-install>]]
+I<PKGNAME>...
 
 =head1 DESCRIPTION
 
 Update all installed packages which are outdated.
 
-Also see the
-L<pkgman-lock(8)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-lock.8.pod>
-and
-L<pkgman-unlock(8)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman-unlock.8.pod>
-commands to keep the currently installed versions, even if there are changes
-in the packages sources directories.
+Also see the L<pkgman-lock(8)> and L<pkgman-unlock(8)> commands to
+keep the currently installed versions, even if there are changes in
+the packages sources directories.
 
-If you want to update only diffs which have a lower version installed than
-the one in the packages sources directories, use the B<--prefer-higher>
-option.
+If you want to update only diffs which have a lower version installed
+than the one in the packages sources directories, use the
+B<--prefer-higher> option.
 
 =head1 OPTIONS
 
@@ -43,10 +49,8 @@ Dry run, do not actually install/update anything.
 
 =item B<--log>
 
-Create a transaction log file. It can be set globally for all transactions
-(see C<writelog> in
-L<pkgman.conf(5)|https://github.com/zeppe-lin/pkgman/blob/master/pkgman.conf.5.pod>
-).
+Create a transaction log file.  It can be set globally for all
+transactions (see C<writelog> in L<pkgman.conf(5)>).
 
 =item B<--deps>
 
@@ -62,9 +66,7 @@ Update all packages, but stop if updating of one package fails.
 
 =item B<--margs>=I<PKGMK_ARGS>
 
-Arguments to be passed to
-L<pkgmk(8)|https://github.com/zeppe-lin/pkgutils/blob/master/pkgmk.8.pod>
-.
+Arguments to be passed to L<pkgmk(8)>.
 
 =item I<PKGMK_ALIASES>
 
@@ -102,9 +104,7 @@ Keep working directory, implies "pkgmk -kw" (same as B<--margs>=-kw).
 
 =item B<--aargs>=I<PKGADD_ARGS>
 
-Arguments to be passed to
-L<pkgadd(8)|https://github.com/zeppe-lin/pkgutils/blob/master/pkgadd.8.pod>
-.
+Arguments to be passed to L<pkgadd(8)>.
 
 =item I<PKGADD_ALIASES>
 
@@ -118,7 +118,8 @@ Force install, implies "pkgadd -f" (same as B<--aargs>=-f).
 
 =item B<--ignore>=I<PKGNAME,PKGNAME,...>
 
-Do not install/update those packages, even if they are listed as dependency.
+Do not install/update those packages, even if they are listed as
+dependency.
 
 =item B<--install-scripts>
 
@@ -135,3 +136,6 @@ Execute post-install scripts if it is there.
 =back
 
 =cut
+
+# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+# End of file.
