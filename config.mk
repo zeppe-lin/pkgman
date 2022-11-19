@@ -1,6 +1,3 @@
-# This file is a part of pkgman.
-# See COPYING and COPYRIGHT files for corresponding information.
-
 # pkgman version
 VERSION = 6.0
 
@@ -18,6 +15,3 @@ LDFLAGS  = -lstdc++fs
 # compiler and linker
 CXX = g++
 LD  = ${CXX}
-
-# vim:cc=72:tw=70
-# End of file.
