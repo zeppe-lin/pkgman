@@ -13,5 +13,5 @@ CPPFLAGS = -DVERSION=\"${VERSION}\" -DNDEBUG
 LDFLAGS  = -lstdc++fs
 
 # compiler and linker
-CXX = g++
+CXX = c++
 LD  = ${CXX}
