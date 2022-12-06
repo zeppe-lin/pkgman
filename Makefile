@@ -2,13 +2,10 @@
 
 include config.mk
 
-OBJSRC := $(wildcard *.cpp)
-MANSRC := $(wildcard *.pod)
-
-OBJS   := $(OBJSRC:.cpp=.o)
-MAN1   := $(MANSRC:.1.pod=.1)
-MAN5   := $(MANSRC:.5.pod=.5)
-MAN8   := $(MANSRC:.8.pod=.8)
+OBJS   = $(subst   .cpp,.o,$(wildcard *.cpp))
+MAN1   = $(subst .1.pod,.1,$(wildcard *.1.pod))
+MAN5   = $(subst .5.pod,.5,$(wildcard *.5.pod))
+MAN8   = $(subst .8.pod,.8,$(wildcard *.8.pod))
 
 all: pkgman ${MAN1} ${MAN5} ${MAN8}
 
