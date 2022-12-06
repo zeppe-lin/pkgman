@@ -16,7 +16,7 @@ as well as build files were rewritten too.
 The original sources can be downloaded from:
 
   1.
-    git clone git://crix.nu/tools/prt-get.git
+    git clone git://crux.nu/tools/prt-get.git
     git checkout da6bfb0
 
   2. https://crux.nu/gitweb/?p=tools/prt-get.git;a=summary
