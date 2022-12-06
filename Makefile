@@ -17,7 +17,7 @@ all: pkgman ${MAN1} ${MAN5} ${MAN8}
 	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) $< -o $@
 
 pkgman: $(OBJS)
-	$(CXX) $^ $(LDFLAGS) -o $@
+	$(LD) $^ $(LDFLAGS) -o $@
 
 install: all
 	mkdir -p ${DESTDIR}${BINDIR}
