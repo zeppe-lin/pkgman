@@ -43,8 +43,8 @@ I<pkg1,pkg2> The final directory in the path.
 
 Example:
 
-  pkgsrcdir /usr/src/zeppe-lin/core
-  pkgsrcdir /usr/src/zeppe-lin/extra:mpv,ffmpeg
+  pkgsrcdir /usr/src/pkgsrc/core
+  pkgsrcdir /usr/src/pkgsrc/desktop:mpv,ffmpeg
 
 =item B<runscripts> (I<yes>|I<no>)
 
@@ -183,29 +183,32 @@ Default: I</bin/sh>.
   # See pkgman.conf(5) for more information.
   #
 
-  # Use local directory first.
+  # use local directory first
   #pkgsrcdir /path/to/unofficial/pkgsrcs/
 
-  # Zeppe-Lin official.
-  pkgsrcdir /usr/src/zeppe-lin/core
-  pkgsrcdir /usr/src/zeppe-lin/extra
+  # zeppe-lin official
+  pkgsrcdir /usr/src/pkgsrc/core
+  pkgsrcdir /usr/src/pkgsrc/system
+  pkgsrcdir /usr/src/pkgsrc/xorg
+  pkgsrcdir /usr/src/pkgsrc/desktop
+  pkgsrcdir /usr/src/pkgsrc/stuff
 
-  # Log options.
+  # log options
   writelog enabled
   logmode overwrite
   rmlog_on_success yes
   logfile /var/log/pkgbuild/%n.log
 
-  # Notify the user about README files.
+  # notify the user about README files
   readme verbose
 
-  # Do not prefer higher versions in sysup / diff.
+  # do not prefer higher versions in sysup / diff
   preferhigher no
 
-  # Do not use regex search.
+  # do not use regex search
   useregex no
 
-  # Run pre/post-install and pre/post-remove scripts.
+  # run pre/post-install and pre/post-remove scripts
   runscripts yes
 
   # End of file.
