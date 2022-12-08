@@ -1,4 +1,6 @@
 ---
+pkgman --config-append="runscripts no" doesn't working.
+
 if package is already built with .footprint mismatch,
 pkgman will install it.
 
