@@ -19,6 +19,9 @@ all: pkgman ${MAN1} ${MAN5} ${MAN8}
 pkgman: $(OBJS)
 	$(LD) $^ $(LDFLAGS) -o $@
 
+check:
+	@podchecker *.pod
+	@grep -Eiho "https?://[^\"\\'> ]+" *.* | httpx -silent -fc 200 -sc
 install: all
 	mkdir -p ${DESTDIR}${BINDIR}
 	mkdir -p ${DESTDIR}${MANDIR}/man1
