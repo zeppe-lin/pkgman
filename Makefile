@@ -2,26 +2,27 @@
 
 include config.mk
 
-OBJS   = $(subst   .cpp,.o,$(wildcard *.cpp))
-MAN1   = $(subst .1.pod,.1,$(wildcard *.1.pod))
-MAN5   = $(subst .5.pod,.5,$(wildcard *.5.pod))
-MAN8   = $(subst .8.pod,.8,$(wildcard *.8.pod))
+OBJS = $(subst   .cpp,.o,$(wildcard *.cpp))
+MAN1 = $(subst .1.pod,.1,$(wildcard *.1.pod))
+MAN5 = $(subst .5.pod,.5,$(wildcard *.5.pod))
+MAN8 = $(subst .8.pod,.8,$(wildcard *.8.pod))
 
 all: pkgman ${MAN1} ${MAN5} ${MAN8}
 
 %: %.pod
 	pod2man --nourls -r ${VERSION} -c ' ' -n $(basename $@) \
-		-s $(subst .,,$(suffix $@)) $< > $@
+		-s $(subst .,,$(suffix $@)) $<  >  $@
 
 .cpp.o:
-	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) $< -o $@
+	${CXX} -c ${CXXFLAGS} ${CPPFLAGS} $<
 
-pkgman: $(OBJS)
-	$(LD) $^ $(LDFLAGS) -o $@
+pkgman: ${OBJS}
+	${LD} $^ ${LDFLAGS} -o $@
 
 check:
 	@podchecker *.pod
 	@grep -Eiho "https?://[^\"\\'> ]+" *.* | httpx -silent -fc 200 -sc
+
 install: all
 	mkdir -p ${DESTDIR}${BINDIR}
 	mkdir -p ${DESTDIR}${MANDIR}/man1
@@ -31,14 +32,12 @@ install: all
 	cp -f ${MAN1} ${DESTDIR}${MANDIR}/man1/
 	cp -f ${MAN5} ${DESTDIR}${MANDIR}/man5/
 	cp -f ${MAN8} ${DESTDIR}${MANDIR}/man8/
-	ln -sf pkgman-install.8 ${DESTDIR}${MANDIR}/man8/pkgman-update.8
-	ln -sf pkgman-dep.1     ${DESTDIR}${MANDIR}/man1/pkgman-rdep.1
 
 uninstall:
 	rm -f ${DESTDIR}${BINDIR}/pkgman
-	(cd ${DESTDIR}${MANDIR}/man1 && rm -f ${MAN1} pkgman-rdep.1)
-	(cd ${DESTDIR}${MANDIR}/man5 && rm -f ${MAN5})
-	(cd ${DESTDIR}${MANDIR}/man8 && rm -f ${MAN8} pkgman-update.8)
+	cd ${DESTDIR}${MANDIR}/man1 && rm -f ${MAN1}
+	cd ${DESTDIR}${MANDIR}/man5 && rm -f ${MAN5}
+	cd ${DESTDIR}${MANDIR}/man8 && rm -f ${MAN8}
 
 clean:
 	rm -f pkgman ${OBJS} ${MAN1} ${MAN5} ${MAN8}
