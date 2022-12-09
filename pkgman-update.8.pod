@@ -4,12 +4,12 @@
 
 =head1 NAME
 
-pkgman-install - install packages
+pkgman-update - update packages
 
 =head1 SYNOPSIS
 
-B<pkgman> install [B<-v>|B<-vv>] [B<--test>] [B<--log>]
-[B<--deps>] [B<--force>] [B<--group>]
+B<pkgman> update [B<-v>|B<-vv>] [B<--test>] [B<--log>]
+[B<--deps>] [B<--depsort>] [B<--force>] [B<--group>]
 [B<--margs>=I<PKGMK_ARGS>|I<PKGMK_ALIASES>]
 [B<--aargs>=I<PKGADD_ARGS>|I<PKGADD_ALIASES>]
 [B<--ignore>=I<PKGNAME,PKGNAME,...>]
@@ -18,7 +18,7 @@ I<PKGNAME>...
 
 =head1 DESCRIPTION
 
-Install all packages in the listed order.  It looks in all
+Update all packages in the listed order.  It looks in all
 packages sources directories specified in F</etc/pkgman.conf> as
 C<pkgsrcdir> directories.
 
@@ -32,11 +32,11 @@ Be more verbose.
 
 =item B<-vv>
 
-Log to stdout the installation process.
+Log to stdout the updating process.
 
 =item B<--test>
 
-Dry run, do not actually install anything.
+Dry run, do not actually update anything.
 
 =item B<--log>
 
@@ -46,8 +46,12 @@ L<pkgman.conf(5)|https://zeppe-lin.github.io/pkgman.conf.5.html>).
 
 =item B<--deps>
 
-Install all packages in the listed order including their
+Update all packages in the listed order including their
 dependencies.
+
+=item B<--depsort>
+
+Sort updating by dependencies.
 
 =item B<--force>
 
@@ -57,9 +61,9 @@ installation procedure, all skipped packages will be in the report.
 
 =item B<--group>
 
-Install all packages in the listed order, but stop if
-installation of one package fails.  This can be used to
-install packages where I<package2> depends on I<package1>.
+Update all packages in the listed order, but stop if
+updating of one package fails.  This can be used to
+update packages where I<package2> depends on I<package1>.
 
 =item B<--margs>=I<PKGMK_ARGS>
 
