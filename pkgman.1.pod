@@ -1,6 +1,3 @@
-# This file is a part of pkgman.
-# See COPYING and COPYRIGHT for corresponding information.
-
 =pod
 
 =encoding UTF-8
@@ -16,8 +13,11 @@ B<pkgman> [I<COMMAND>] [I<OPTION>]... [I<ARGS>]
 =head1 DESCRIPTION
 
 B<pkgman> is a package management tool that provides additional
-functionality to basic package management utilities, like L<pkgmk(8)>,
-L<pkgadd(8)>, L<pkgrm(8)> and L<pkginfo(8)>.
+functionality to basic package management utilities, like
+L<pkgmk(8)|https://zeppe-lin.github.io/pkgmk.8.html>,
+L<pkgadd(8)|https://zeppe-lin.github.io/pkgadd.8.html>,
+L<pkgrm(8)|https://zeppe-lin.github.io/pkgrm.8.html>, and
+L<pkginfo(8)|https://zeppe-lin.github.io/pkginfo.8.html>.
 
 =head1 OPTIONS
 
@@ -72,55 +72,55 @@ following self-explanatory categories.
 
 =over 8
 
-=item L<pkgman-dumpconfig(1)>
+=item L<pkgman-dumpconfig(1)|https://zeppe-lin.github.io/pkgman-dumpconfig.1.html>
 
 dump the configuration
 
-=item L<pkgman-list(1)>
+=item L<pkgman-list(1)|https://zeppe-lin.github.io/pkgman-list.1.html>
 
 print list of available packages
 
-=item L<pkgman-list-dup(1)>
+=item L<pkgman-list-dup(1)|https://zeppe-lin.github.io/pkgman-list-dup.1.html>
 
 print list of duplicate packages
 
-=item L<pkgman-list-nodependents(1)>
+=item L<pkgman-list-nodependents(1)|https://zeppe-lin.github.io/pkgman-list-nodependents.1.html>
 
 print list of packages that no other depends on them
 
-=item L<pkgman-list-locked(1)>
+=item L<pkgman-list-locked(1)|https://zeppe-lin.github.io/pkgman-list-locked.1.html>
 
 print list of locked packages
 
-=item L<pkgman-list-orphans(1)>
+=item L<pkgman-list-orphans(1)|https://zeppe-lin.github.io/pkgman-list-orphans.1.html>
 
 print list of orphaned packages
 
-=item L<pkgman-printf(1)>
+=item L<pkgman-printf(1)|https://zeppe-lin.github.io/pkgman-printf.1.html>
 
 print formatted list of available packages
 
-=item L<pkgman-info(1)>
+=item L<pkgman-info(1)|https://zeppe-lin.github.io/pkgman-info.1.html>
 
 print package info
 
-=item L<pkgman-readme(1)>
+=item L<pkgman-readme(1)|https://zeppe-lin.github.io/pkgman-readme.1.html>
 
 print the package's README
 
-=item L<pkgman-path(1)>
+=item L<pkgman-path(1)|https://zeppe-lin.github.io/pkgman-path.1.html>
 
 print path to package source
 
-=item L<pkgman-isinst(1)>
+=item L<pkgman-isinst(1)|https://zeppe-lin.github.io/pkgman-isinst.1.html>
 
 print whether packages are installed or not
 
-=item L<pkgman-current(1)>
+=item L<pkgman-current(1)|https://zeppe-lin.github.io/pkgman-current.1.html>
 
 print installed package version
 
-=item L<pkgman-diff(1)>
+=item L<pkgman-diff(1)|https://zeppe-lin.github.io/pkgman-diff.1.html>
 
 print the differences between installed and available packages
 
@@ -130,11 +130,11 @@ print the differences between installed and available packages
 
 =over 8
 
-=item L<pkgman-dep(1)>
+=item L<pkgman-dep(1)|https://zeppe-lin.github.io/pkgman-dep.1.html>
 
 print dependencies for a package
 
-=item L<pkgman-rdep(1)>
+=item L<pkgman-rdep(1)|https://zeppe-lin.github.io/pkgman-rdep.1.html>
 
 print reverse dependencies for a package
 
@@ -144,15 +144,15 @@ print reverse dependencies for a package
 
 =over 8
 
-=item L<pkgman-search(1)>
+=item L<pkgman-search(1)|https://zeppe-lin.github.io/pkgman-search.1.html>
 
 search the packages sources directories for package name
 
-=item L<pkgman-dsearch(1)>
+=item L<pkgman-dsearch(1)|https://zeppe-lin.github.io/pkgman-dsearch.1.html>
 
 search the packages sources directories for package name/description
 
-=item L<pkgman-fsearch(1)>
+=item L<pkgman-fsearch(1)|https://zeppe-lin.github.io/pkgman-fsearch.1.html>
 
 search the packages sources directories for a file in package footprint
 
@@ -162,15 +162,15 @@ search the packages sources directories for a file in package footprint
 
 =over 8
 
-=item L<pkgman-install(8)>
+=item L<pkgman-install(8)|https://zeppe-lin.github.io/pkgman-install.8.html>
 
 install package(s)
 
-=item L<pkgman-update(8)>
+=item L<pkgman-update(8)|https://zeppe-lin.github.io/pkgman-update.8.html>
 
 update installed package(s)
 
-=item L<pkgman-remove(8)>
+=item L<pkgman-remove(8)|https://zeppe-lin.github.io/pkgman-remove.8.html>
 
 remove installed package(s)
 
@@ -180,15 +180,15 @@ remove installed package(s)
 
 =over 8
 
-=item L<pkgman-sysup(8)>
+=item L<pkgman-sysup(8)|https://zeppe-lin.github.io/pkgman-sysup.8.html>
 
 update all outdated packages
 
-=item L<pkgman-lock(8)>
+=item L<pkgman-lock(8)|https://zeppe-lin.github.io/pkgman-lock.8.html>
 
 lock the package(s)
 
-=item L<pkgman-unlock(8)>
+=item L<pkgman-unlock(8)|https://zeppe-lin.github.io/pkgman-unlock.8.html>
 
 unlock the package(s)
 
@@ -198,15 +198,15 @@ unlock the package(s)
 
 =over 8
 
-=item L<pkgman-ls(1)>
+=item L<pkgman-ls(1)|https://zeppe-lin.github.io/pkgman-ls.1.html>
 
 print out a listing of the package's directory
 
-=item L<pkgman-cat(1)>
+=item L<pkgman-cat(1)|https://zeppe-lin.github.io/pkgman-cat.1.html>
 
 print out the package's file
 
-=item L<pkgman-edit(8)>
+=item L<pkgman-edit(8)|https://zeppe-lin.github.io/pkgman-edit.8.html>
 
 edit the package's file
 
@@ -218,7 +218,9 @@ edit the package's file
 
 =item F</etc/pkgman.conf>
 
-Configuration file.  See L<pkgman.conf(5)> for more information.
+Configuration file.  See
+L<pkgman.conf(5)|https://zeppe-lin.github.io/pkgman.conf.5.html> for
+more information.
 
 =item F</var/lib/pkg/db>
 
@@ -226,8 +228,10 @@ Database of currently installed packages.
 
 =item F</var/lib/pkg/locked>
 
-Database of currently locked packages.  Used by L<pkgman-lock(8)>,
-L<pkgman-unlock(8)> and L<pkgman-list-locked(1)>.
+Database of currently locked packages.  Used by
+L<pkgman-lock(8)|https://zeppe-lin.github.io/pkgman-lock.8.html>,
+L<pkgman-unlock(8)|https://zeppe-lin.github.io/pkgman-unlock.8.html>
+and L<pkgman-list-locked(1)|https://zeppe-lin.github.io/pkgman-list-locked.1.html>.
 
 =back
 
@@ -236,9 +240,6 @@ databases location changes to I<PATH/var/lib/pkg/...>.
 
 =head1 SEE ALSO
 
-L<pkgman.conf(5)>
+L<pkgman.conf(5)|https://zeppe-lin.github.io/pkgman.conf.5.html>
 
 =cut
-
-# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
-# End of file.

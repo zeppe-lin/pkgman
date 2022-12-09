@@ -1,6 +1,3 @@
-# This file is a part of pkgman.
-# See COPYING and COPYRIGHT files for corresponding information.
-
 =pod
 
 =encoding UTF-8
@@ -16,7 +13,8 @@ B<pkgman> unlock I<PKGNAME>...
 =head1 DESCRIPTION
 
 Remove lock from these packages.  They will be available for updating
-in L<pkgman-sysup(8)> operation.
+in L<pkgman-sysup(8)|https://zeppe-lin.github.io/pkgman-sysup.8.html>
+operation.
 
 =head1 FILES
 
@@ -29,6 +27,3 @@ Database of locked packages.
 =back
 
 =cut
-
-# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
-# End of file.

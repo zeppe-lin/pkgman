@@ -1,6 +1,3 @@
-# This file is a part of pkgman.
-# See COPYING and COPYRIGHT for corresponding information.
-
 =pod
 
 =encoding UTF-8
@@ -24,9 +21,11 @@ I<FILE> is not specified, C<Pkgfile> is used.
 
 =item I<PAGER>
 
-If the package's source directory has a I<FILE>, then L<pkgman(1)>
+If the package's source directory has a I<FILE>, then
+L<pkgman(1)|https://zeppe-lin.github.io/pkgman.1.html>
 will try to open it using a I<PAGER>.  If I<PAGER> is unset, then
-L<pkgman(1)> prints the I<FILE> to stdout.
+L<pkgman(1)|https://zeppe-lin.github.io/pkgman.1.html> prints the
+I<FILE> to stdout.
 
 =back
 
@@ -36,6 +35,3 @@ L<pkgman(1)> prints the I<FILE> to stdout.
 is not found
 
 =cut
-
-# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
-# End of file.
