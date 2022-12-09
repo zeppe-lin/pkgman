@@ -23,9 +23,9 @@ is not specified, C<Pkgfile> is used.
 =item I<EDITOR>
 
 If the package's source directory has a I<FILE>, then
-L<pkgman(1)|https://zeppe-lin.github.io/pkgman.1.pod>
+L<pkgman(1)|https://zeppe-lin.github.io/pkgman.1.html>
 will try to open it using a I<EDITOR>.  If I<EDITOR> is unset, then
-L<pkgman(1)|https://zeppe-lin.github.io/pkgman.1.pod>
+L<pkgman(1)|https://zeppe-lin.github.io/pkgman.1.html>
 will fail.
 
 =back
