@@ -4,16 +4,16 @@
 
 =head1 NAME
 
-pkgman-dep - print dependencies for a package
+pkgman-rdep - print reverse dependencies for a package
 
 =head1 SYNOPSIS
 
-B<pkgman> (r)dep [B<-v>|B<-vv>] [B<--path>] [B<--all>] [B<--tree>]
+B<pkgman> rdep [B<-v>|B<-vv>] [B<--path>] [B<--all>] [B<--tree>]
 [B<--recursive>] [B<--full>] I<PKGNAME>
 
 =head1 DESCRIPTION
 
-Print dependencies for a package.  It looks in all packages
+Print reverse dependencies for a package.  It looks in all packages
 sources directories specified in F</etc/pkgman.conf> as C<pkgsrcdir>
 directories.
 
@@ -39,13 +39,13 @@ List all packages, not only installed.
 
 =item B<--tree>
 
-Print a nicely indented tree of the package dependencies.
+Print a nicely indented tree of the package reverse dependencies.
 
 =item B<--recursive>
 
-Print a recursive list of dependencies.  In case B<--tree>
+Print a recursive list of reverse dependencies.  In case B<--tree>
 was specified, subtrees already shown are marked with C<--E<gt>> to
-save some space.  If B<--tree> option wasn't specified,
+save some space.  If B<--tree> option wasn't specified, reverse
 dependencies already shown are not displayed.  In order to show them
 all, add the B<--full> option.
 
