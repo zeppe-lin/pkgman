@@ -9,9 +9,9 @@ ABOUT pkgman
     rewritten from a "C-like" coding standard to high-level c++17
     primitives.  This enabled aggressive optimization (-O3 and above).
     So-called "prt-cache" functionality have been removed since there
-    is no need for "prt-cache" when there is Linux' "PageCache" + NVMe.
-    The man pages have been rewritten in POD format. Build system have
-    been switched from autotools to make(1p).  A command-line
+    is no need for prt-cache when there is Linux's PageCache+NVMe.
+    The man pages have been rewritten in POD format.  Build system
+    have been switched from autotools to make(1p).  A command-line
     interface also was rewritten.
 
     The original sources can be downloaded from:
