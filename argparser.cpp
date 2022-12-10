@@ -68,16 +68,23 @@ bool ArgParser::parse()
     "ls", "cat", "edit",
   };
 
+  bool endofopts = false;
   constexpr size_t commands_size = std::end(commands) - std::begin(commands);
 
   // parse options
   for ( int i = 1; i < m_argc; ++i )
   {
-    if ( m_argv[ i ][ 0 ] == '-' )
+    if ( !endofopts && m_argv[ i ][ 0 ] == '-' )
     {
       string arg = m_argv[ i ];
 
-      if ( arg == "--no-std-config" )
+      if ( arg == "--" )
+      {
+        endofopts = true;
+        continue;
+      }
+
+      else if ( arg == "--no-std-config" )
         m_noStdConfig = true;
 
       else if ( arg.substr( 0, 9 ) == "--config=" )
