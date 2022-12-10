@@ -56,9 +56,8 @@ Print program version and exit.
 
 =item B<-h>, B<--help>
 
-Print the I<COMMAND> synopsis and exit.  If the I<COMMAND> is not
-specified and B<-h> or B<--help> is specified as a I<COMMAND>, then
-print this manual page.
+Print the I<COMMAND>'s help if I<COMMAND> specified.  Otherwise,
+print this help message.
 
 =back
 
