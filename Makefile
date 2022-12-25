@@ -24,20 +24,20 @@ check:
 	@grep -Eiho "https?://[^\"\\'> ]+" *.* | httpx -silent -fc 200 -sc
 
 install: all
-	mkdir -p ${DESTDIR}${BINDIR}
-	mkdir -p ${DESTDIR}${MANDIR}/man1
-	mkdir -p ${DESTDIR}${MANDIR}/man5
-	mkdir -p ${DESTDIR}${MANDIR}/man8
-	cp -f pkgman  ${DESTDIR}${BINDIR}/
-	cp -f ${MAN1} ${DESTDIR}${MANDIR}/man1/
-	cp -f ${MAN5} ${DESTDIR}${MANDIR}/man5/
-	cp -f ${MAN8} ${DESTDIR}${MANDIR}/man8/
+	mkdir -p ${DESTDIR}/usr/bin
+	mkdir -p ${DESTDIR}/usr/share/man/man1
+	mkdir -p ${DESTDIR}/usr/share/man/man5
+	mkdir -p ${DESTDIR}/usr/share/man/man8
+	cp -f pkgman  ${DESTDIR}/usr/bin/
+	cp -f ${MAN1} ${DESTDIR}/usr/share/man/man1/
+	cp -f ${MAN5} ${DESTDIR}/usr/share/man/man5/
+	cp -f ${MAN8} ${DESTDIR}/usr/share/man/man8/
 
 uninstall:
-	rm -f ${DESTDIR}${BINDIR}/pkgman
-	cd ${DESTDIR}${MANDIR}/man1 && rm -f ${MAN1}
-	cd ${DESTDIR}${MANDIR}/man5 && rm -f ${MAN5}
-	cd ${DESTDIR}${MANDIR}/man8 && rm -f ${MAN8}
+	rm -f ${DESTDIR}/usr/bin/pkgman
+	cd ${DESTDIR}/usr/share/man/man1 && rm -f ${MAN1}
+	cd ${DESTDIR}/usr/share/man/man5 && rm -f ${MAN5}
+	cd ${DESTDIR}/usr/share/man/man8 && rm -f ${MAN8}
 
 clean:
 	rm -f pkgman ${OBJS} ${MAN1} ${MAN5} ${MAN8}
