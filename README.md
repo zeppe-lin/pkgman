@@ -37,7 +37,7 @@ REQUIREMENTS
 INSTALL
 -------
 The shell command `make install` should build and install this
-package.  See `config.mk` file for configuration parameters.
+package.
 
 The shell command `make check` should start some tests like
 checking PODs for errors, checking URLs for non-200 response code,
