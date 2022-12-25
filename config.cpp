@@ -234,5 +234,5 @@ void Config::parseLine( const string& line, bool prepend )
     cerr << "pkgman: [config error]: unknown key/value: " << s << endl;
 }
 
-// vim:sw=2:ts=2:sts=2:et:cc=79
+// vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
 // End of file.

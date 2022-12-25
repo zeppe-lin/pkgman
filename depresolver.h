@@ -38,5 +38,5 @@ private:
   list< pair< ssize_t /*first*/, ssize_t /*second*/ > > m_dependencies;
 };
 
-// vim:sw=2:ts=2:sts=2:et:cc=79
+// vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
 // End of file.
