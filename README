@@ -23,7 +23,7 @@ REQUIREMENTS
     Build time:
     * c++17 compiler (gcc8+)
     * POSIX sh(1p), make(1p) and "mandatory utilities"
-    * pod2man(1pm)
+    * pod2man(1pm) from perl distribution
 
     Runtime:
     * POSIX sh(1p)
