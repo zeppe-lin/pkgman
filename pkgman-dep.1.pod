@@ -8,7 +8,7 @@ pkgman-dep - print dependencies for a package
 
 =head1 SYNOPSIS
 
-B<pkgman> (r)dep [B<-v>|B<-vv>] [B<--path>] [B<--all>] [B<--tree>]
+B<pkgman> dep [B<-v>|B<-vv>] [B<--path>] [B<--all>] [B<--tree>]
 [B<--recursive>] [B<--full>] I<PKGNAME>
 
 =head1 DESCRIPTION
