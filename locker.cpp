@@ -10,7 +10,7 @@ Locker::Locker( const string& root ):
   m_openFailed( false ),
   m_root( root )
 {
-  ifstream file( m_root + _PATH_LOCKDB );
+  ifstream file( m_root + PATH_LOCK_DB );
   if ( ! file.is_open() )
   {
     m_openFailed = true;
@@ -53,7 +53,7 @@ bool Locker::unlock( const pkgname_t& package )
 
 bool Locker::store()
 {
-  ofstream file( m_root + _PATH_LOCKDB );
+  ofstream file( m_root + PATH_LOCK_DB );
   if ( ! file.is_open() )
     return false;
 

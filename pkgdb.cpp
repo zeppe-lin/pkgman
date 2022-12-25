@@ -88,7 +88,7 @@ bool PkgDB::load() const
   bool emptyLine = true;
   bool nameRead = false;
 
-  ifstream db( m_root + _PATH_PKGDB );
+  ifstream db( m_root + PATH_PKG_DB );
   if ( ! db.is_open() )
     return false;
 

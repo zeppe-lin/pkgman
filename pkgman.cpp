@@ -82,7 +82,7 @@ void Pkgman::dumpConfig() const
 
   if ( ! m_parser->noStdConfig() )
   {
-    string configFile = m_parser->root() + _PATH_CONF;
+    string configFile = m_parser->root() + PATH_CONFIG;
     if ( m_parser->isAlternateConfigGiven() )
       configFile = m_parser->alternateConfigFile();
 
@@ -276,7 +276,7 @@ void Pkgman::listLocked()
 {
   if ( m_locker->openFailed() )
     return errx( "failed to open locker data file: " +
-                 m_parser->root() + _PATH_LOCKDB );
+                 m_parser->root() + PATH_LOCK_DB );
 
   if ( m_locker->lockedPackages().empty() )
     return;
@@ -928,7 +928,7 @@ void Pkgman::setLock( bool lock )
 
   if ( ! m_locker->store() )
     errx( "failed to write lock data into " +
-          m_parser->root() + _PATH_LOCKDB );
+          m_parser->root() + PATH_LOCK_DB );
 }
 
 void Pkgman::ls()
@@ -1021,7 +1021,7 @@ void Pkgman::readConfig()
   if ( m_config )
     return; // don't initialize twice
 
-  string configFile = _PATH_CONF;
+  string configFile = PATH_CONFIG;
   if ( m_parser->isAlternateConfigGiven() )
     configFile = m_parser->alternateConfigFile();
 

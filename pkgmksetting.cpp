@@ -28,15 +28,15 @@ const string PkgmkSetting::get( const string& setting )
     configFile =
       getValueBefore( m_parser->pkgmkArgs().substr( npos + 4 ), ' ' );
   else
-    configFile = _PATH_CONF;
+    configFile = PATH_CONFIG;
 
-  string value = getSettingFromFile( setting, _PATH_PKGMK_CONF );
+  string value = getSettingFromFile( setting, PATH_PKGMK_CONFIG );
   if ( value.size() )
     return value;
 
   // makeCommand can be overridden by pkgman.conf, so rely on
   // the default pkgmk location.
-  return getSettingFromFile( setting, _PATH_PKGMK_BIN );
+  return getSettingFromFile( setting, PATH_PKGMK_BIN );
 }
 
 string PkgmkSetting::getSettingFromFile( const string& setting,

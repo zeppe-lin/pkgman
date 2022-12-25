@@ -27,9 +27,9 @@ Config::Config( const string& configFile, const ArgParser* parser ):
   m_useRegex( false ),
   m_runScripts( false ),
   m_runscriptCommand( "sh" ),
-  m_makeCommand( _PATH_PKGMK_BIN ),
-  m_addCommand( _PATH_PKGADD_BIN ),
-  m_removeCommand( _PATH_PKGRM_BIN )
+  m_makeCommand( PATH_PKGMK_BIN ),
+  m_addCommand( PATH_PKGADD_BIN ),
+  m_removeCommand( PATH_PKGRM_BIN )
 {
 }
 
