@@ -8,7 +8,7 @@ pkgman-list-orphans - list orphaned packages on your system
 
 =head1 SYNOPSIS
 
-B<pkgman> list-nodependents [B<-v>]
+B<pkgman> list-orphans [B<-v>]
 
 =head1 DESCRIPTION
 
@@ -28,3 +28,6 @@ missing) packages.
 =back
 
 =cut
+
+# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+# End of file.

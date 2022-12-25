@@ -56,3 +56,6 @@ If B<--recursive> option was set, show all dependencies.
 =back
 
 =cut
+
+# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+# End of file.

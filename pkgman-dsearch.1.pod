@@ -4,7 +4,8 @@
 
 =head1 NAME
 
-pkgman-dsearch - search the packages sources directories for package name/desc
+pkgman-dsearch - search the packages sources directories for package
+name/desccription
 
 =head1 SYNOPSIS
 
@@ -43,3 +44,6 @@ String or regular expression.
 =back
 
 =cut
+
+# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+# End of file.
