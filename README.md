@@ -5,11 +5,11 @@ provides additional functionality to basic package management
 utilities like [pkgutils](https://github.com/zeppe-lin/pkgutils).
 
 This *pkgman* distribution is a fork of CRUX' *prt-get* tool as of
-commit da6bfb0 (Fri Oct 16 2020).  It was almost completely
-rewritten from a "C-like" coding standard to high-level c++17
-primitives.  This enabled aggressive optimization (-O3 and above).
-So-called *prt-cache* functionality have been removed since there
-is no fundamental advantage in *prt-cache* when PageCache+NVMe are
+commit da6bfb0 (Fri Oct 16 2020).  It was almost completely rewritten
+from a "C-like" coding standard to high-level c++17 primitives.  This
+enabled aggressive optimization (-O3 and above).  So-called
+*prt-cache* functionality have been removed since there is no
+fundamental advantage in *prt-cache* when PageCache+NVMe are
 available.  The man pages have been rewritten in POD format.  Build
 system have been switched from autotools to POSIX make(1p).  A
 command-line interface also have been rewritten.
