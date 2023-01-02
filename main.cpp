@@ -1,6 +1,10 @@
 //! \file       main.cpp
 //! \brief      Command-line utility of \a pkgman
 
+#if __cplusplus < 201412L
+# error expecting c++17 standard
+#endif
+
 #include <cstdlib>
 #include <iostream>
 
