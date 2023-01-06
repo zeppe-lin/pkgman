@@ -33,7 +33,7 @@ Runtime:
 
 Tests:
   - podchecker(1pm) from perl distribution to check PODs for errors
-  - httpx(1) to check URLs for non-200 response code
+  - curl(1) to check URLs for response code
 
 INSTALL
 -------
