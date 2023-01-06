@@ -22,8 +22,8 @@ pkgman: ${OBJS}
 check:
 	@echo "=======> Check PODs for errors"
 	@podchecker *.pod
-	@echo "=======> Check URLs for non-200 response code"
-	@grep -Eiho "https?://[^\"\\'> ]+" *.* | httpx -silent -fc 200 -sc
+	@grep -Eiho "https?://[^\"\\'> ]+" *.* | xargs -P10 -I{} \
+		curl -o /dev/null -sw "%{url} [%{http_code}]\n" '{}'
 
 install: all
 	mkdir -p ${DESTDIR}/usr/bin
