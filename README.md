@@ -2,7 +2,7 @@ ABOUT
 -----
 This directory contains *pkgman*, a package management tool that
 provides additional functionality to basic package management
-utilities like [pkgutils](https://github.com/zeppe-lin/pkgutils).
+utilities like [pkgutils][1].
 
 This *pkgman* distribution is a fork of CRUX' *prt-get* tool as of
 commit da6bfb0 (Fri Oct 16 2020).  It was almost completely rewritten
@@ -23,16 +23,15 @@ REQUIREMENTS
 Build time:
   * c++17 compiler (gcc8+)
   * POSIX sh(1p), make(1p) and "mandatory utilities"
-  * pod2man(1pm) from perl distribution to build man pages
+  * pod2man(1pm) to build man pages
 
 Runtime:
   * POSIX sh(1p) to execute pre/post scripts
-  * pkgmk(8) from pkgmk distribution to build packages
-  * pkgadd(8) and pkgrm(8) from pkgutils distribution to
-    add/update/remove packages
+  * [pkgmk][2] to build packages
+  * [pkgutils][1] to add/update/remove packages
 
 Tests:
-  - podchecker(1pm) from perl distribution to check PODs for errors
+  - podchecker(1pm) to check PODs for errors
   - curl(1) to check URLs for response code
 
 INSTALL
@@ -49,6 +48,10 @@ later <https://gnu.org/licenses/gpl.html>.
 Read the *COPYING* file for copying conditions.
 Read the *COPYRIGHT* file for copyright notices.
 
+<!------------------------------------------------------------------->
+[1]: https://github.com/zeppe-lin/pkgutils
+[2]: https://github.com/zeppe-lin/pkgmk
+<!------------------------------------------------------------------->
 
 <!-- vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
 End of file. -->
