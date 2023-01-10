@@ -28,8 +28,9 @@ public:
   //! \note    the \--log command-line option overrides config
   Config( const string& configFile, const ArgParser* parser );
 
-  //! \brief Parse the configuration file
-  //! \return \a true on success, \a false otherwise
+  //! \brief   Parse the configuration file
+  //!
+  //! \return  \a true on success, \a false otherwise
   bool parse();
 
   //! \brief   Add configuration setting
