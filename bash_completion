@@ -10,19 +10,19 @@ _pkgman()
   prev=${COMP_WORDS[COMP_CWORD-1]}
 
   case "$prev" in
-    -h|--help)
-      return 0
-      ;;
-    -V | --version )
-      return 0
-      ;;
+  -h|--help)
+    return 0
+    ;;
+  -V | --version )
+    return 0
+    ;;
   esac
 
   if [ $COMP_CWORD -eq 1 ]; then
     COMPREPLY=($(compgen -W '-h --help -V --version dumpconfig list \
-      list-dup list-nodependents list-locked list-orphans printf \
-      info readme path isinst current diff dep rdep search dsearch \
-      fsearch install update remove sysup lock unlock ls cat edit' \
+      list-dup list-nodependents list-locked list-orphans printf    \
+      info readme path isinst current diff dep rdep search dsearch  \
+      fsearch install update remove sysup lock unlock ls cat edit'  \
       -- $cur))
   fi
 
