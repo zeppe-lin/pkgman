@@ -48,10 +48,8 @@ later <https://gnu.org/licenses/gpl.html>.
 Read the *COPYING* file for copying conditions.
 Read the *COPYRIGHT* file for copyright notices.
 
-<!------------------------------------------------------------------->
 [1]: https://github.com/zeppe-lin/pkgmk
 [2]: https://github.com/zeppe-lin/pkgutils
-<!------------------------------------------------------------------->
 
 <!-- vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
 End of file. -->
