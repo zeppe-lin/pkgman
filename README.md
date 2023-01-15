@@ -31,8 +31,8 @@ Runtime:
   * [pkgutils][2] to add/update/remove packages
 
 Tests:
-  - podchecker(1pm) to check PODs for errors
-  - curl(1) to check URLs for response code
+  * podchecker(1pm) to check PODs for errors
+  * curl(1) to check URLs for response code
 
 INSTALL
 -------
