@@ -18,6 +18,7 @@ commit da6bfb0 (Fri Oct 16 2020) with the following differences:
   * Build system have been switched from autotools to POSIX make(1p).
   * The command-line interface have been rewritten.
   * The commands output have been unified and improved.
+  * Added new commands.
 
 See git log for complete/further differences.
 
