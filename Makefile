@@ -32,7 +32,7 @@ install: all
 	mkdir -p ${DESTDIR}/usr/share/man/man5
 	mkdir -p ${DESTDIR}/usr/share/man/man8
 	cp -f pkgman  ${DESTDIR}/usr/bin/
-	chmod +x ${DESTDIR}/usr/bin/pkgman
+	chmod 0755    ${DESTDIR}/usr/bin/pkgman
 	cp -f ${MAN1} ${DESTDIR}/usr/share/man/man1/
 	cp -f ${MAN5} ${DESTDIR}/usr/share/man/man5/
 	cp -f ${MAN8} ${DESTDIR}/usr/share/man/man8/
