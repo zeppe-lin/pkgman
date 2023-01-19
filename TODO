@@ -1,5 +1,7 @@
 TODO pkgman
 
+	[ ] grep 'XXX\|FIXME\|TODO' --exclude-dir=.git  -R .
+
 	[ ] issue: pkgman --config-append="runscripts no" doesn't
 	    working?
 
