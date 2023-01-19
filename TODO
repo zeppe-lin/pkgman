@@ -1,45 +1,44 @@
 TODO pkgman
 
-    * issue: pkgman --config-append="runscripts no" doesn't working?
+	[ ] issue: pkgman --config-append="runscripts no" doesn't
+	    working?
 
-    * issue: if package is already built with .footprint mismatch,
-      pkgman will install it
+	[ ] issue: if package is already built with .footprint
+	    mismatch, pkgman will install it
 
-    * issue: investigate:
+	[ ] issue: investigate the following behaviour:
 
-        pkgman sysup --depsort --deps --group
-        pkgman: preparing libcap-ng 0.8.3-1
-        pkgman: md5sum verification failed.
+		pkgman sysup --depsort --deps --group
+		pkgman: preparing libcap-ng 0.8.3-1
+		pkgman: md5sum verification failed.
 
-        -- Packages where build failed
-        libcap-ng
+		-- Packages where build failed
+		libcap-ng
 
-        pkgman: preparing alsa-lib 1.2.7.1-1
-        ^Cpkgman: interrupted
+		pkgman: preparing alsa-lib 1.2.7.1-1
+		^Cpkgman: interrupted
 
-    * issue:
+	[ ] issue: investigate the following behaviour:
 
-        pkgrm: could not remove /usr/share/icons/Mint-X-Teal/:
-        Directory not empty
-        pkgrm: package libsass not installed
-        pkgrm: could not remove /usr/share/icons/Raleigh/: Directory
-        not empty
+		pkgrm: could not remove /usr/share/icons/Mint-X-Teal/:
+		Directory not empty
+		pkgrm: package libsass not installed
+		pkgrm: could not remove /usr/share/icons/Raleigh/:
+		Directory not empty
 
-        -- Packages where removal failed
-        libsass
+		-- Packages where removal failed
+		libsass
 
-        -- Packages removed
-        sassc
-        libsass
-        mint-x-icons
-        mint-y-icons
-        mint-themes
-        gtk-theme-raleigh
+		-- Packages removed
+		sassc
+		libsass
+		mint-x-icons
+		mint-y-icons
+		mint-themes
+		gtk-theme-raleigh
 
-    * idea:  ansi colors?
+	[ ] idea: ansi colors?
 
-    * idea:  add "ignore" directive to pkgman.conf?
+	[ ] idea: add "ignore" directive to pkgman.conf?
 
-
-vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
 End of file.
