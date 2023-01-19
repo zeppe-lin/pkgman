@@ -1,6 +1,7 @@
 //! \file       pkgman.cpp
 //! \brief      Pkgman main commands implementation
 
+// XXX FIXME remove this block?
 #ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif
