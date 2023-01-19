@@ -17,7 +17,7 @@ functionality to basic package management utilities, like
 L<pkgmk(8)|https://zeppe-lin.github.io/pkgmk.8.html>,
 L<pkgadd(8)|https://zeppe-lin.github.io/pkgadd.8.html>,
 L<pkgrm(8)|https://zeppe-lin.github.io/pkgrm.8.html>, and
-L<pkginfo(8)|https://zeppe-lin.github.io/pkginfo.8.html>.
+L<pkginfo(1)|https://zeppe-lin.github.io/pkginfo.1.html>.
 
 =head1 OPTIONS
 
