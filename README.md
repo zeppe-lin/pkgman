@@ -1,18 +1,25 @@
 ABOUT
 -----
-This directory contains *pkgman*, a package management tool that
+This directory contains _pkgman_, a package management tool that
 provides additional functionality to basic package management
 utilities like [pkgmk][1] and [pkgutils][2].
 
-This *pkgman* distribution is a fork of CRUX' *prt-get* tool as of
-commit da6bfb0 (Fri Oct 16 2020).  It was almost completely rewritten
-from a "C-like" coding standard to high-level c++17 primitives.  This
-enabled aggressive optimization (-O3 and above).  So-called
-*prt-cache* functionality have been removed since there is no
-fundamental advantage in *prt-cache* when PageCache+NVMe are
-available.  The man pages have been rewritten in POD format.  Build
-system have been switched from autotools to POSIX make(1p).  A
-command-line interface also have been rewritten.
+This _pkgman_ distribution is a fork of CRUX' _prt-get_ tool as of
+commit da6bfb0 (Fri Oct 16 2020) with the following differences:
+  * The code has been rewritten from "C-like" coding standard to
+    high-level C++17 primitives.  This enabled aggressive optimization
+    (`-O3` and above).
+  * Doxygen documentation has been improved and covers (almost?) all
+    code.
+  * So-called _prt-cache_ functionality have been removed since there
+    is no fundamental advantage while _PageCache_+_NVMe_ are
+    available.
+  * The man pages have been rewritten in POD format.
+  * Build system have been switched from autotools to POSIX make(1p).
+  * The command-line interface have been rewritten.
+  * The commands output have been unified and improved.
+
+See git log for complete/further differences.
 
 The original sources can be downloaded from:
   1. git://crux.nu/tools/prt-get.git                        (git)
@@ -21,7 +28,7 @@ The original sources can be downloaded from:
 REQUIREMENTS
 ------------
 Build time:
-  * c++17 compiler (gcc8+)
+  * C++17 compiler (gcc8+)
   * POSIX sh(1p), make(1p) and "mandatory utilities"
   * pod2man(1pm) to build man pages
 
@@ -37,16 +44,16 @@ Tests:
 INSTALL
 -------
 The shell commands `make && make install` should build and install
-this package.  See *config.mk* file for configuration parameters.
+this package.  See _config.mk_ file for configuration parameters.
 
 The shell command `make check` should start some tests.
 
 LICENSE
 -------
-*pkgman* is licensed through the GNU General Public License v2 or
+_pkgman_ is licensed through the GNU General Public License v2 or
 later <https://gnu.org/licenses/gpl.html>.
-Read the *COPYING* file for copying conditions.
-Read the *COPYRIGHT* file for copyright notices.
+Read the _COPYING_ file for copying conditions.
+Read the _COPYRIGHT_ file for copyright notices.
 
 [1]: https://github.com/zeppe-lin/pkgmk
 [2]: https://github.com/zeppe-lin/pkgutils
