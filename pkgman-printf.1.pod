@@ -44,7 +44,7 @@ The string that contains variables, which are replaced like this:
 center, box, expand, tab (|) ;
 l | l | l
 l | l | l.
-Format | Description | Replacement
+Variable | Description | Replacement
 _
 .SP
 %n | name
@@ -71,7 +71,7 @@ _
 
   <table>
     <tr>
-      <th>Format</th>
+      <th>Variable</th>
       <th>Description</th>
       <th>Replacement</th>
     </tr>
@@ -159,7 +159,7 @@ _
 
 =end html
 
-"diff" for "%i" (is installed) format means the package is installed
+"diff" for "%i" (is installed) variable means the package is installed
 and different package version is available in the packages sources
 directories.
 
