@@ -38,75 +38,130 @@ the string, wildcard or regex.
 
 The string that contains variables, which are replaced like this:
 
-=over
+=begin man
 
-=item C<%n>
+.TS
+center, box, expand, tab (|) ;
+l | l | l
+l | l | l.
+Format | Description | Replacement
+_
+.SP
+%n | name
+%p | path
+%v | version
+%r | release number
+%d | description
+%e | dependencies
+%u | url
+%P | packager
+%M | maintainer
+%R | has readme               | yes/no
+%A | has pre-install script   | yes/no
+%B | has post-install script  | yes/no
+%C | has pre-remove script    | yes/no
+%D | has post-remove script   | yes/no
+%l | is locked                | yes/no
+%i | is installed             | yes/no/diff
+.TE
 
-name
+=end man
 
-=item C<%p>
+=begin html
 
-path
+  <table>
+    <tr>
+      <th>Format</th>
+      <th>Description</th>
+      <th>Replacement</th>
+    </tr>
+    <tr>
+      <td>&percnt;n</td>
+      <td>name</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>&percnt;p</td>
+      <td>path</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>&percnt;v</td>
+      <td>version</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>&percnt;r</td>
+      <td>release number</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>&percnt;d</td>
+      <td>description</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>&percnt;e</td>
+      <td>dependencies</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>&percnt;u</td>
+      <td>url</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>&percnt;P</td>
+      <td>packager</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>&percnt;M</td>
+      <td>maintainer</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>&percnt;R</td>
+      <td>has readme</td>
+      <td>yes/no</td>
+    </tr>
+    <tr>
+      <td>&percnt;A</td>
+      <td>has pre-install script</td>
+      <td>yes/no</td>
+    </tr>
+    <tr>
+      <td>&percnt;B</td>
+      <td>has post-install script</td>
+      <td>yes/no</td>
+    </tr>
+    <tr>
+      <td>&percnt;C</td>
+      <td>has pre-remove script</td>
+      <td>yes/no</td>
+    </tr>
+    <tr>
+      <td>&percnt;D</td>
+      <td>has post-remove script</td>
+      <td>yes/no</td>
+    </tr>
+    <tr>
+      <td>&percnt;l</td>
+      <td>is locked</td>
+      <td>yes/no</td>
+    </tr>
+    <tr>
+      <td>&percnt;i</td>
+      <td>is installed</td>
+      <td>yes/no/diff</td>
+    </tr>
+  </table>
 
-=item C<%v>
+=end html
 
-version
-
-=item C<%r>
-
-release number
-
-=item C<%d>
-
-description
-
-=item C<%e>
-
-dependencies
-
-=item C<%u>
-
-url
-
-=item C<%P>
-
-packager
-
-=item C<%M>
-
-maintainer
-
-=item C<%R>
-
-has readme (yes/no)
-
-=item C<%A>
-
-has pre-install script (yes/no)
-
-=item C<%B>
-
-has post-install script (yes/no)
-
-=item C<%C>
-
-has pre-remove script (yes/no)
-
-=item C<%D>
-
-has post-remove script (yes/no)
-
-=item C<%l>
-
-is locked (yes/no)
-
-=item C<%i>
-
-is installed (yes/no/diff); "diff" means the package is installed and
-different package version is available in the packages sources
+"diff" for "%i" (is installed) format means the package is installed
+and different package version is available in the packages sources
 directories.
-
-=back
 
 =back
 
