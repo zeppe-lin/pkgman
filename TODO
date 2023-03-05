@@ -1,5 +1,8 @@
 TODO pkgman
 
+	[ ] rename config.{cpp,h} -> configparser.{cpp,h}
+		[ ] rename "Config" class and fix the impacted code
+
 	[ ] grep 'XXX\|FIXME\|TODO' --exclude-dir=.git  -R .
 
 	[ ] issue: pkgman --config-append="runscripts no" doesn't
