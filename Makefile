@@ -51,4 +51,4 @@ uninstall:
 clean:
 	rm -f pkgman vcomp ${OBJS} ${MAN1} ${MAN5} ${MAN8}
 
-.PHONY: all install uninstall clean
+.PHONY: all check install uninstall clean
