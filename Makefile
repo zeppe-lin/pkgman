@@ -31,23 +31,23 @@ check:
 	@./vcomp
 
 install-dirs:
-	mkdir -p ${DESTDIR}/usr/bin
-	mkdir -p ${DESTDIR}/usr/share/man/man1
-	mkdir -p ${DESTDIR}/usr/share/man/man5
-	mkdir -p ${DESTDIR}/usr/share/man/man8
+	mkdir -p ${DESTDIR}${PREFIX}/bin
+	mkdir -p ${DESTDIR}${MANPREFIX}/man1
+	mkdir -p ${DESTDIR}${MANPREFIX}/man5
+	mkdir -p ${DESTDIR}${MANPREFIX}/man8
 
 install: all install-dirs
-	cp -f pkgman  ${DESTDIR}/usr/bin/
-	chmod 0755    ${DESTDIR}/usr/bin/pkgman
-	cp -f ${MAN1} ${DESTDIR}/usr/share/man/man1/
-	cp -f ${MAN5} ${DESTDIR}/usr/share/man/man5/
-	cp -f ${MAN8} ${DESTDIR}/usr/share/man/man8/
+	cp -f pkgman  ${DESTDIR}${PREFIX}/bin/
+	chmod 0755    ${DESTDIR}${PREFIX}/bin/pkgman
+	cp -f ${MAN1} ${DESTDIR}${MANPREFIX}/man1/
+	cp -f ${MAN5} ${DESTDIR}${MANPREFIX}/man5/
+	cp -f ${MAN8} ${DESTDIR}${MANPREFIX}/man8/
 
 uninstall:
-	rm -f ${DESTDIR}/usr/bin/pkgman
-	cd ${DESTDIR}/usr/share/man/man1 && rm -f ${MAN1}
-	cd ${DESTDIR}/usr/share/man/man5 && rm -f ${MAN5}
-	cd ${DESTDIR}/usr/share/man/man8 && rm -f ${MAN8}
+	rm -f ${DESTDIR}${PREFIX}/bin/pkgman
+	cd ${DESTDIR}${MANPREFIX}/man1 && rm -f ${MAN1}
+	cd ${DESTDIR}${MANPREFIX}/man5 && rm -f ${MAN5}
+	cd ${DESTDIR}${MANPREFIX}/man8 && rm -f ${MAN8}
 
 clean:
 	rm -f pkgman vcomp ${OBJS} ${MAN1} ${MAN5} ${MAN8}
