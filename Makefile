@@ -26,6 +26,10 @@ check:
 	@grep -Eiho "https?://[^\"\\'> ]+" *.* \
 		| xargs -P10 -I{} curl -o /dev/null -sw "[%{http_code}] %{url}\n" '{}' \
 		| sort -u
+	@echo "=======> Check version comparator"
+	@${CXX} -o vcomp -DTEST helpers.cpp versioncomparator.cpp
+	@./vcomp
+
 
 install: all
 	mkdir -p ${DESTDIR}/usr/bin
@@ -45,6 +49,6 @@ uninstall:
 	cd ${DESTDIR}/usr/share/man/man8 && rm -f ${MAN8}
 
 clean:
-	rm -f pkgman ${OBJS} ${MAN1} ${MAN5} ${MAN8}
+	rm -f pkgman vcomp ${OBJS} ${MAN1} ${MAN5} ${MAN8}
 
 .PHONY: all install uninstall clean
