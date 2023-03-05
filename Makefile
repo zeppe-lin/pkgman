@@ -30,12 +30,13 @@ check:
 	@${CXX} -o vcomp -DTEST helpers.cpp versioncomparator.cpp
 	@./vcomp
 
-
-install: all
+install-dirs:
 	mkdir -p ${DESTDIR}/usr/bin
 	mkdir -p ${DESTDIR}/usr/share/man/man1
 	mkdir -p ${DESTDIR}/usr/share/man/man5
 	mkdir -p ${DESTDIR}/usr/share/man/man8
+
+install: all install-dirs
 	cp -f pkgman  ${DESTDIR}/usr/bin/
 	chmod 0755    ${DESTDIR}/usr/bin/pkgman
 	cp -f ${MAN1} ${DESTDIR}/usr/share/man/man1/
