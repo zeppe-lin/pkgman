@@ -43,7 +43,7 @@ TODO: --prefer-higher=yes|no: Check if available and add to SYNOPSIS
 
 =item B<--prefer-higher>=(yes|no)
 
-Prefer higher installed versions over lower packages. Overriding
+Prefer higher installed versions over lower packages.  Overriding
 B<preferhigher> configuration settings.
 
 =end comment
