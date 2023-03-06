@@ -17,6 +17,9 @@ I<FILE> is not specified, C<Pkgfile> is used.
 
 =head1 ENVIRONMENT
 
+If the following environment variable exists it will be utilized by
+B<pkgman>:
+
 =over 8
 
 =item I<PAGER>
