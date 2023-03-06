@@ -26,6 +26,9 @@ Print also the README file if exists.
 
 =head1 ENVIRONMENT
 
+If the following environment variable exists it will be utilized by
+B<pkgman>:
+
 =over 8
 
 =item I<PAGER>
