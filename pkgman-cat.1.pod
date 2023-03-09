@@ -35,7 +35,7 @@ I<FILE> to stdout.
 =head1 EXIT STATUS
 
 0 if success, 255 if package's source directory (or package's file)
-is not found
+is not found.
 
 =cut
 
