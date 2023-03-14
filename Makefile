@@ -23,8 +23,9 @@ check:
 	@echo "=======> Check PODs for errors"
 	@podchecker *.pod
 	@echo "=======> Check URLs for response code"
-	@grep -Eiho "https?://[^\"\\'> ]+" *.* \
-		| xargs -P10 -I{} curl -o /dev/null -sw "[%{http_code}] %{url}\n" '{}' \
+	@grep -Eiho "https?://[^\"\\'> ]+" *.*       \
+		| xargs -P10 -I{} curl -o /dev/null  \
+		  -sw "[%{http_code}] %{url}\n" '{}' \
 		| sort -u
 	@echo "=======> Check version comparator"
 	@${CXX} -o vcomp -DTEST helpers.cpp versioncomparator.cpp
