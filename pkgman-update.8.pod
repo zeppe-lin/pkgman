@@ -76,31 +76,31 @@ L<pkgmk(8)|https://zeppe-lin.github.io/pkgmk.8.html>.
 
 =item B<-fr>
 
-Force build, implies "pkgmk -f" (same as B<--margs>=-f).
+Force build, implies C<pkgmk -f> (same as B<--margs>=-f).
 
 =item B<-um>
 
-Update md5sum, implies "pkgmk -um" (same as B<--margs>=-um).
+Update md5sum, implies C<pkgmk -um> (same as B<--margs>=-um).
 
 =item B<-im>
 
-Ignore md5sum, implies "pkgmk -im" (same as B<--margs>=-im).
+Ignore md5sum, implies C<pkgmk -im> (same as B<--margs>=-im).
 
 =item B<-uf>
 
-Update footprint, implies "pkgmk -uf" (same as B<--margs>=-uf).
+Update footprint, implies C<pkgmk -uf> (same as B<--margs>=-uf).
 
 =item B<-if>
 
-Ignore footprint, implies "pkgmk -if" (same as B<--margs>=-if).
+Ignore footprint, implies C<pkgmk -if> (same as B<--margs>=-if).
 
 =item B<-ns>
 
-No stripping, implies "pkgmk -ns" (same as B<--margs>=-ns).
+No stripping, implies C<pkgmk -ns> (same as B<--margs>=-ns).
 
 =item B<-kw>
 
-Keep working directory, implies "pkgmk -kw" (same as B<--margs>=-kw).
+Keep working directory, implies C<pkgmk -kw> (same as B<--margs>=-kw).
 
 =back
 
@@ -115,7 +115,7 @@ L<pkgadd(8)|https://zeppe-lin.github.io/pkgadd.8.html>.
 
 =item B<-f>, B<-i>
 
-Force install, implies "pkgadd -f" (same as B<--aargs>=-f).
+Force install, implies C<pkgadd -f> (same as B<--aargs>=-f).
 
 =back
 
