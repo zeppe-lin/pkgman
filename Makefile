@@ -11,7 +11,7 @@ all: pkgman ${MAN1} ${MAN5} ${MAN8}
 
 %: %.pod
 	pod2man --nourls -r "${NAME} ${VERSION}" -c ' ' \
-		-n $(basename $@) -s $(subst .,,$(suffix $@)) $<  >  $@
+		-n $(basename $@) -s $(subst .,,$(suffix $@)) $< > $@
 
 .cpp.o:
 	${CXX} -c ${CXXFLAGS} ${CPPFLAGS} $<
@@ -26,13 +26,11 @@ check: versioncomparator
 	@echo "=======> Check version comparator"
 	@./versioncomparator
 
-install-dirs:
-	mkdir -p ${DESTDIR}${PREFIX}/bin
-	mkdir -p ${DESTDIR}${MANPREFIX}/man1
-	mkdir -p ${DESTDIR}${MANPREFIX}/man5
-	mkdir -p ${DESTDIR}${MANPREFIX}/man8
-
-install: all install-dirs
+install: all
+	mkdir -p      ${DESTDIR}${PREFIX}/bin
+	mkdir -p      ${DESTDIR}${MANPREFIX}/man1
+	mkdir -p      ${DESTDIR}${MANPREFIX}/man5
+	mkdir -p      ${DESTDIR}${MANPREFIX}/man8
 	cp -f pkgman  ${DESTDIR}${PREFIX}/bin/
 	chmod 0755    ${DESTDIR}${PREFIX}/bin/pkgman
 	cp -f ${MAN1} ${DESTDIR}${MANPREFIX}/man1/
