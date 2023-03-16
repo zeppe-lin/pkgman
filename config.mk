@@ -1,4 +1,5 @@
-# pkgman version
+# project metadata
+NAME = pkgman
 VERSION = 6.0
 
 # paths
