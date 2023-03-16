@@ -9,7 +9,7 @@
 #include <utility>
 
 class ArgParser;
-class Config;
+class ConfigParser;
 class Repository;
 
 #include "transaction.h"
@@ -182,7 +182,7 @@ protected:
   Repository* m_repo;
 
   //! Configuration file parser
-  Config* m_config;
+  ConfigParser* m_config;
 
   //! Package locker
   Locker* m_locker;
@@ -196,7 +196,7 @@ protected:
   //! Package database of installed packages
   PkgDB* m_pkgDB;
 
-  //! Whether \a Config::useRegex() or \a ArgParser::useRegex() is set
+  //! Whether \a ConfigParser::useRegex() or \a ArgParser::useRegex() is set
   bool m_useRegex;
 
   //! Packages that have a greater version in the packages sources tree

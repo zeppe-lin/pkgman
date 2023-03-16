@@ -494,7 +494,7 @@ bool Transaction::logDirCreate( const string& logFilePath )
 
 bool Transaction::logFileCreate( const string& logFilePath )
 {
-  if ( m_config->logMode() == Config::OVERWRITE_MODE )
+  if ( m_config->logMode() == ConfigParser::OVERWRITE_MODE )
   {
     m_logfd =
       open( logFilePath.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0666 );

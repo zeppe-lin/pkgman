@@ -13,20 +13,20 @@ using namespace std;
 
 class ArgParser;
 
-//! \class   Config
+//! \class   ConfigParser
 //! \brief   Configuration Parser
 //!
 //! This is configuration file parser for pkgman
-class Config
+class ConfigParser
 {
 public:
-  //! \brief   Construct a Config object
+  //! \brief   Construct a ConfigParser object
   //!
   //! \param   configFile  path to the configuration file
   //! \param   parser      the argument parser
   //!
   //! \note    the \--log command-line option overrides config
-  Config( const string& configFile, const ArgParser* parser );
+  ConfigParser( const string& configFile, const ArgParser* parser );
 
   //! \brief   Parse the configuration file
   //!

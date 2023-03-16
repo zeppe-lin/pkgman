@@ -14,7 +14,8 @@ namespace fs = std::filesystem;
 using namespace std;
 using namespace StringHelper;
 
-Config::Config( const string& configFile, const ArgParser* parser ):
+ConfigParser::ConfigParser( const string&    configFile,
+                            const ArgParser* parser ):
   m_configFile( configFile ),
   m_parser( parser ),
   m_rootList(),
@@ -33,7 +34,7 @@ Config::Config( const string& configFile, const ArgParser* parser ):
 {
 }
 
-bool Config::parse()
+bool ConfigParser::parse()
 {
   ifstream file( m_configFile );
   if ( ! file.is_open() )
@@ -52,9 +53,9 @@ bool Config::parse()
   return true;
 }
 
-void Config::addConfig( const string&  line,
-                        bool           configSet,
-                        bool           configPrepend )
+void ConfigParser::addConfig( const string&  line,
+                              bool           configSet,
+                              bool           configPrepend )
 {
   if ( configSet && startsWithNoCase( line, "pkgsrcdir" ) )
     m_rootList.clear();
@@ -62,72 +63,72 @@ void Config::addConfig( const string&  line,
   parseLine( line, configPrepend );
 }
 
-bool Config::writeLog() const
+bool ConfigParser::writeLog() const
 {
   return m_writeLog;
 }
 
-Config::logMode_t Config::logMode() const
+ConfigParser::logMode_t ConfigParser::logMode() const
 {
   return m_logMode;
 }
 
-bool Config::removeLogOnSuccess() const
+bool ConfigParser::removeLogOnSuccess() const
 {
   return m_removeLogOnSuccess;
 }
 
-string Config::logFilePattern() const
+string ConfigParser::logFilePattern() const
 {
   return m_logFilePattern;
 }
 
-const rootList_t& Config::rootList() const
+const rootList_t& ConfigParser::rootList() const
 {
   return m_rootList;
 }
 
-Config::readmeMode_t Config::readmeMode() const
+ConfigParser::readmeMode_t ConfigParser::readmeMode() const
 {
   return m_readmeMode;
 }
 
-bool Config::preferHigher() const
+bool ConfigParser::preferHigher() const
 {
   return m_preferHigher;
 }
 
-bool Config::useRegex() const
+bool ConfigParser::useRegex() const
 {
   return m_useRegex;
 }
 
-bool Config::runScripts() const
+bool ConfigParser::runScripts() const
 {
   return m_runScripts;
 }
 
-string Config::runscriptCommand() const
+string ConfigParser::runscriptCommand() const
 {
   return m_runscriptCommand;
 }
 
-string Config::makeCommand() const
+string ConfigParser::makeCommand() const
 {
   return m_makeCommand;
 }
 
-string Config::addCommand() const
+string ConfigParser::addCommand() const
 {
   return m_addCommand;
 }
 
-string Config::removeCommand() const
+string ConfigParser::removeCommand() const
 {
   return m_removeCommand;
 }
 
-void Config::parseLine( const string& line, bool prepend )
+void ConfigParser::parseLine( const string& line, bool prepend )
 {
   if ( line.empty() )
     return;

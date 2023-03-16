@@ -114,10 +114,10 @@ void Pkgman::dumpConfig() const
                m_config->preferHigher() ? "yes" : "no" );
 
   std::printf( "%-20s: %s\n", "Readme mode",
-    m_config->readmeMode() == Config::VERBOSE_README ? "verbose" :
-    m_config->readmeMode() == Config::COMPACT_README ? "compact" :
-    m_config->readmeMode() == Config::WITHOUT_README ? "off"     :
-                                                       ""       );
+    m_config->readmeMode() == ConfigParser::VERBOSE_README ? "verbose" :
+    m_config->readmeMode() == ConfigParser::COMPACT_README ? "compact" :
+    m_config->readmeMode() == ConfigParser::WITHOUT_README ? "off"     :
+                                                             ""       );
 
   if ( m_config->writeLog() )
   {
@@ -1026,7 +1026,7 @@ void Pkgman::readConfig()
   if ( m_parser->isAlternateConfigGiven() )
     configFile = m_parser->alternateConfigFile();
 
-  m_config = new Config( configFile, m_parser );
+  m_config = new ConfigParser( configFile, m_parser );
 
   // warn instead of errx?
   if ( ! m_parser->noStdConfig() && ! m_config->parse() )
@@ -1587,7 +1587,7 @@ void Pkgman::evaluateResult( const Transaction&  transaction,
 
       if ( pkgobj->hasReadme() )
       {
-        if ( m_config->readmeMode() == Config::COMPACT_README )
+        if ( m_config->readmeMode() == ConfigParser::COMPACT_README )
           cout << " (README)";
         atLeastOnePackageHasReadme = true;
       }
@@ -1597,7 +1597,7 @@ void Pkgman::evaluateResult( const Transaction&  transaction,
 
     // readme's
     if (   atLeastOnePackageHasReadme
-        && m_config->readmeMode() == Config::VERBOSE_README )
+        && m_config->readmeMode() == ConfigParser::VERBOSE_README )
     {
       if ( transaction.type() == Transaction::UPDATE )
         cout << "\n-- Updated packages with README files:\n";

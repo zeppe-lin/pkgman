@@ -17,7 +17,7 @@
 using namespace std;
 
 class ArgParser;
-class Config;
+class ConfigParser;
 class Locker;
 class Package;
 class PkgDB;
@@ -122,12 +122,12 @@ public:
   //! \tparam  config  the configuration file parser
   //! \tparam  locker  the package locker
   template< typename T >
-    Transaction( const T&           names,
-                 const Repository*  repo,
-                 PkgDB*             pkgDB,
-                 const ArgParser*   parser,
-                 const Config*      config,
-                 Locker*            locker )
+    Transaction( const T&            names,
+                 const Repository*   repo,
+                 PkgDB*              pkgDB,
+                 const ArgParser*    parser,
+                 const ConfigParser* config,
+                 Locker*             locker )
       : m_repo( repo ),
         m_pkgDB( pkgDB ),
         m_parser( parser ),
@@ -339,7 +339,7 @@ private:
   const ArgParser* m_parser;
 
   //! Configuration file parser
-  const Config* m_config;
+  const ConfigParser* m_config;
 
   //! Package locker
   Locker* m_locker;
@@ -410,7 +410,7 @@ private:
   //!
   //! \return  the file path to the \a pkg package log
   //!
-  //! \see     Config::logFilePattern()
+  //! \see     ConfigParser::logFilePattern()
   inline string logPathFromPattern( const Package* pkg );
 
   //! \brief   Create the necessary directories for the log file
