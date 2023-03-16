@@ -41,8 +41,7 @@ Dry run, do not actually install anything.
 =item B<--log>
 
 Create a transaction log file.  It can be set globally for all
-transactions (see C<writelog> in
-L<pkgman.conf(5)|https://zeppe-lin.github.io/pkgman.conf.5.html>).
+transactions (see C<writelog> in L<pkgman.conf(5)>).
 
 =item B<--deps>
 
@@ -63,8 +62,7 @@ install packages where I<package2> depends on I<package1>.
 
 =item B<--margs>=I<PKGMK_ARGS>
 
-Arguments to be passed to
-L<pkgmk(8)|https://zeppe-lin.github.io/pkgmk.8.html>.
+Arguments to be passed to L<pkgmk(8)>.
 
 =item I<PKGMK_ALIASES>
 
@@ -102,8 +100,7 @@ Keep working directory, implies C<pkgmk -kw> (same as B<--margs>=-kw).
 
 =item B<--aargs>=I<PKGADD_ARGS>
 
-Arguments to be passed to
-L<pkgadd(8)|https://zeppe-lin.github.io/pkgadd.8.html>.
+Arguments to be passed to L<pkgadd(8)>.
 
 =item I<PKGADD_ALIASES>
 

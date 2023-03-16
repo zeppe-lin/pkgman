@@ -24,11 +24,9 @@ B<pkgman>:
 
 =item I<PAGER>
 
-If the package's source directory has a I<FILE>, then
-L<pkgman(1)|https://zeppe-lin.github.io/pkgman.1.html>
+If the package's source directory has a I<FILE>, then L<pkgman(1)>
 will try to open it using a I<PAGER>.  If I<PAGER> is unset, then
-L<pkgman(1)|https://zeppe-lin.github.io/pkgman.1.html> prints the
-I<FILE> to stdout.
+L<pkgman(1)> prints the I<FILE> to stdout.
 
 =back
 

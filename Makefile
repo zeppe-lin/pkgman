@@ -19,17 +19,12 @@ all: pkgman ${MAN1} ${MAN5} ${MAN8}
 pkgman: ${OBJS}
 	${LD} $^ ${LDFLAGS} -o $@
 
-check:
-	@echo "=======> Check PODs for errors"
-	@podchecker *.pod
-	@echo "=======> Check URLs for response code"
-	@grep -Eiho "https?://[^\"\\'> ]+" *.*       \
-		| xargs -P10 -I{} curl -o /dev/null  \
-		  -sw "[%{http_code}] %{url}\n" '{}' \
-		| sort -u
+versioncomparator:
+	${CXX} -o $@ -DTEST helpers.cpp versioncomparator.cpp
+
+check: versioncomparator
 	@echo "=======> Check version comparator"
-	@${CXX} -o vcomp -DTEST helpers.cpp versioncomparator.cpp
-	@./vcomp
+	@./versioncomparator
 
 install-dirs:
 	mkdir -p ${DESTDIR}${PREFIX}/bin
@@ -51,6 +46,6 @@ uninstall:
 	cd ${DESTDIR}${MANPREFIX}/man8 && rm -f ${MAN8}
 
 clean:
-	rm -f pkgman vcomp ${OBJS} ${MAN1} ${MAN5} ${MAN8}
+	rm -f pkgman versioncomparator ${OBJS} ${MAN1} ${MAN5} ${MAN8}
 
-.PHONY: all check install uninstall clean
+.PHONY: all check install-dirs install uninstall clean

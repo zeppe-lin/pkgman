@@ -13,8 +13,7 @@ B<pkgman> unlock I<PKGNAME>...
 =head1 DESCRIPTION
 
 Remove lock from these packages.  They will be available for updating
-in L<pkgman-sysup(8)|https://zeppe-lin.github.io/pkgman-sysup.8.html>
-operation.
+in L<pkgman-sysup(8)> operation.
 
 =head1 FILES
 
