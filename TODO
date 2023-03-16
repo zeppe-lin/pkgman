@@ -1,7 +1,8 @@
 TODO pkgman
 
-	[ ] rename config.{cpp,h} -> configparser.{cpp,h}
-		[ ] rename "Config" class and fix the impacted code
+	[X] rename config.{cpp,h} -> configparser.{cpp,h}
+	[X] rename "Config" class and fix the impacted code
+	Done: Thu Mar 16 10:31:04 AM EET 2023
 
 	[ ] grep 'XXX\|FIXME\|TODO' --exclude-dir=.git  -R .
 
