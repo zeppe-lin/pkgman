@@ -1,4 +1,4 @@
-//! \file       config.cpp
+//! \file       configparser.cpp
 //! \brief      Configuration Parser Implementation
 
 #include <filesystem>
@@ -6,7 +6,7 @@
 #include <iostream>
 
 #include "argparser.h"
-#include "config.h"
+#include "configparser.h"
 #include "helpers.h"
 
 namespace fs = std::filesystem;

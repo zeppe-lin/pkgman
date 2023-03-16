@@ -12,7 +12,7 @@
 #include <unistd.h>
 
 #include "argparser.h"
-#include "config.h"
+#include "configparser.h"
 #include "helpers.h"
 #include "pkgdb.h"
 #include "pkgmksetting.h"

@@ -24,7 +24,7 @@
 #include <fnmatch.h>
 
 #include "argparser.h"
-#include "config.h"
+#include "configparser.h"
 #include "datafileparser.h"
 #include "helpers.h"
 #include "transaction.h"

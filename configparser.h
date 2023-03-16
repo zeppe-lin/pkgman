@@ -1,4 +1,4 @@
-//! \file      config.h
+//! \file      configparser.h
 //! \brief     Configuration Parser Definition
 
 #pragma once
