@@ -4,6 +4,8 @@ TODO pkgman
 	[X] rename "Config" class and fix the impacted code
 	Done: Thu Mar 16 10:31:04 AM EET 2023
 
+	[ ] rework bash_completion.
+
 	[ ] grep 'XXX\|FIXME\|TODO' --exclude-dir=.git  -R .
 
 	[ ] issue: pkgman --config-append="runscripts no" doesn't
