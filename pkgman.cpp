@@ -331,6 +331,12 @@ void Pkgman::printf()
   list< Package* > pkglist;
   m_repo->getMatchingPackages( filter, pkglist );
 
+  if ( pkglist.empty() )
+  {
+    m_returnValue = P_GENERAL_ERROR;
+    return;
+  }
+
   for ( const auto& pkg: pkglist )
   {
     string output = formatString;
