@@ -1,6 +1,6 @@
 # project metadata
 NAME = pkgman
-VERSION = 6.0
+VERSION = 6.0.1
 
 # paths
 PREFIX = /usr
