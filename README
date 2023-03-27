@@ -15,6 +15,7 @@ OVERVIEW
 		* so-called prt-cache functionality have been removed since
 		  there is no fundamental advantage while PageCache+NVMe are
 		  available
+		* prt.aliases functionality have been removed too
 		* the man pages have been rewritten in POD format
 		* build system have been switched from autotools to POSIX
 		  make(1p)
