@@ -54,7 +54,7 @@ _
 %r | release number
 %d | description
 %e | dependencies
-%u | url
+%u | URL
 %P | packager
 %M | maintainer
 %R | has readme               | yes/no
