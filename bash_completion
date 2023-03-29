@@ -1,6 +1,5 @@
 # Bash programmable completion for pkgman(8).
-# This file is a part of pkgman.
-# See files COPYRIGHT and COPYING for corresponding information.
+# See COPYING and COPYRIGHT files for corresponding information.
 
 _pkgman()
 {
