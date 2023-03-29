@@ -31,8 +31,9 @@ Interpret filter argument as a regular expression.
 
 =item B<--filter>=I<PKGNAME>
 
-Filter listing packages by name.  The filter option argument may be
-the string, wildcard or regex.
+Filter listing packages by name.  The filter argument may be the
+string, wildcard in L<fnmatch(3)> format, or regex in L<regex(3)>
+format.
 
 =item I<FORMAT>
 
