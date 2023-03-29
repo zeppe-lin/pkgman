@@ -244,6 +244,13 @@ L<pkgman-unlock(8)> and L<pkgman-list-locked(1)>.
 B<NOTE!> When the B<--root>=I<PATH> option is specified, both
 databases location changes to I<PATH/var/lib/pkg/...>.
 
+=head1 AUTHORS
+
+The B<pkgman> was mostly written by Johannes Winkelmann
+<L<jw@tks6.net>> as B<prt-get> tool for L<CRUX|https://crux.nu>.  This
+distribution was highly modified and adjusted for L<Zeppe-Lin> by
+Alexandr Savca <L<alexandr.savca89@gmail.com>>.
+
 =head1 SEE ALSO
 
 L<pkgman.conf(5)>
