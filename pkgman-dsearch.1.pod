@@ -5,7 +5,7 @@
 =head1 NAME
 
 pkgman-dsearch - search the packages sources directories for package
-name/desccription
+name/description
 
 =head1 SYNOPSIS
 
