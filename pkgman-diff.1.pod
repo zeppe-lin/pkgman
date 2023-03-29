@@ -55,7 +55,8 @@ Interpret filter argument as a regular expression.
 =item B<--filter>=I<EXPR>
 
 Filter listing packages by I<EXPR>.  The filter argument may be the
-string, wildcard or regex.
+string, wildcard in L<fnmatch(3)> format, or regex in L<regex(3)>
+format.
 
 =back
 
