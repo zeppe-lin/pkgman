@@ -1,5 +1,6 @@
-//! \file      argparser.h
-//! \brief     ArgParser class definition
+//! \file   argparser.h
+//! \brief  ArgParser class definition.
+//!         See COPYING and COPYRIGHT files for corresponding information.
 
 #pragma once
 

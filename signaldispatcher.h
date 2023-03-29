@@ -1,5 +1,6 @@
-//! \file      signaldispatcher.h
-//! \brief     SignalHandler and SignalDispatcher classes definition
+//! \file   signaldispatcher.h
+//! \brief  SignalHandler and SignalDispatcher classes definition.
+//!         See COPYING and COPYRIGHT files for corresponding information.
 
 #pragma once
 

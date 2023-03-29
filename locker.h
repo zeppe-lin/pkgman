@@ -1,5 +1,6 @@
-//! \file      locker.h
-//! \brief     Locker Definition
+//! \file   locker.h
+//! \brief  Locker Definition.
+//!         See COPYING and COPYRIGHT files for corresponding information.
 
 #pragma once
 

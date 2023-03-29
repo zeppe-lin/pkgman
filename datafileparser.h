@@ -1,5 +1,6 @@
-//! \file      datafilepatser.h
-//! \brief     DataFileParser Definition
+//! \file   datafilepatser.h
+//! \brief  DataFileParser Definition.
+//!         See COPYING and COPYRIGHT files for corresponding information.
 
 #pragma once
 

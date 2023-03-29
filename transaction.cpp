@@ -1,5 +1,6 @@
-//! \file       transaction.cpp
-//! \brief      Transaction class implementation
+//! \file   transaction.cpp
+//! \brief  Transaction class implementation.
+//!         See COPYING and COPYRIGHT files for corresponding information.
 
 #include <algorithm>
 #include <fstream>

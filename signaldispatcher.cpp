@@ -1,5 +1,6 @@
-//! \file      signaldispatcher.cpp
-//! \brief     SignalDispatcher class implementation
+//! \file   signaldispatcher.cpp
+//! \brief  SignalDispatcher class implementation.
+//!         See COPYING and COPYRIGHT files for corresponding information.
 
 #include <cstdlib>
 #include <iostream>

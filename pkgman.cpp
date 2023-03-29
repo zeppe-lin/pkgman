@@ -1,5 +1,6 @@
-//! \file       pkgman.cpp
-//! \brief      Pkgman main commands implementation
+//! \file   pkgman.cpp
+//! \brief  Pkgman main commands implementation.
+//!         See COPYING and COPYRIGHT files for corresponding information.
 
 // XXX FIXME remove this block?
 #ifdef HAVE_CONFIG_H

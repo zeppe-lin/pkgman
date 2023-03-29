@@ -1,5 +1,6 @@
-//! \file      pkgmksetting.cpp
-//! \brief     Get settings from pkgmk configuration
+//! \file   pkgmksetting.cpp
+//! \brief  Get settings from pkgmk configuration.
+//!         See COPYING and COPYRIGHT files for corresponding information.
 
 #include <fstream>
 

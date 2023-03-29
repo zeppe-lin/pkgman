@@ -1,5 +1,6 @@
-//! \file       repository.cpp
-//! \brief      Repository class implementation
+//! \file   repository.cpp
+//! \brief  Repository class implementation.
+//!         See COPYING and COPYRIGHT files for corresponding information.
 
 #include <algorithm>
 #include <cstdio>

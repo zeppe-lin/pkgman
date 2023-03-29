@@ -1,5 +1,6 @@
-//! \file      pathnames.h
-//! \brief     Pathnames local to the pkgman
+//! \file   pathnames.h
+//! \brief  Pathnames local to the pkgman.
+//!         See COPYING and COPYRIGHT files for corresponding information.
 
 //!< Default location for pkgman configuration.
 #define PATH_CONFIG         "/etc/pkgman.conf"

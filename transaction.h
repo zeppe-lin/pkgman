@@ -1,5 +1,6 @@
-//! \file      transaction.h
-//! \brief     Transaction class definition
+//! \file   transaction.h
+//! \brief  Transaction class definition.
+//!         See COPYING and COPYRIGHT files for corresponding information.
 
 #pragma once
 

@@ -1,5 +1,6 @@
-//! \file      pkgdb.h
-//! \brief     PkgDB Definition
+//! \file   pkgdb.h
+//! \brief  PkgDB Definition.
+//!         See COPYING and COPYRIGHT files for corresponding information.
 
 #pragma once
 

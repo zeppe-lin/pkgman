@@ -1,5 +1,6 @@
-//! \file       main.cpp
-//! \brief      Command-line utility of \a pkgman
+//! \file   main.cpp
+//! \brief  Command-line utility of \a pkgman.
+//!         See COPYING and COPYRIGHT files for corresponding information.
 
 #if __cplusplus < 201412L
 # error expecting c++17 standard

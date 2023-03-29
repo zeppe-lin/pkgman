@@ -1,5 +1,6 @@
 //! \file   versioncomparator.h
-//! \brief  VersionComparator namespace definition
+//! \brief  VersionComparator namespace definition.
+//!         See COPYING and COPYRIGHT files for corresponding information.
 
 #pragma once
 
