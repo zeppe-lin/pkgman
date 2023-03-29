@@ -39,7 +39,8 @@ Interpret I<EXPR> as regular expression.
 
 =item I<EXPR>
 
-String or regular expression.
+Search names for I<EXPR>, where the expression may be the string or
+regex in L<regex(3)> format.
 
 =back
 
