@@ -2,11 +2,6 @@
 //! \brief  Pkgman main commands implementation.
 //!         See COPYING and COPYRIGHT files for corresponding information.
 
-// XXX FIXME remove this block?
-#ifdef HAVE_CONFIG_H
-# include <config.h>
-#endif
-
 #include <algorithm>
 #include <cassert>
 #include <cstdio>
