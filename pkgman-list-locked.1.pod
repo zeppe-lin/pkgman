@@ -39,7 +39,7 @@ Show package' source path in the listing.
 
 =item F</var/lib/pkg/locked>
 
-Database of currently locked packages.
+Database of locked packages.
 
 =cut
 
