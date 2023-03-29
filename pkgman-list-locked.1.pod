@@ -33,6 +33,14 @@ Show package' source path in the listing.
 
 =back
 
+=head1 FILES
+
+=over 8
+
+=item F</var/lib/pkg/locked>
+
+Database of currently locked packages.
+
 =cut
 
 # vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
