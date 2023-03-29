@@ -44,7 +44,8 @@ Full path search (e.g. C<pkgman fsearch --full /usr/bin/gcc>).
 
 =item I<EXPR>
 
-String, wildcard or regular expression.
+Search footprints for I<EXPR>, where the expression may be the string,
+wildcard in L<fnmatch(3)> format, or regex in L<regex(3)> format.
 
 =back
 
