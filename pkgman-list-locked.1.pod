@@ -41,6 +41,8 @@ Show package' source path in the listing.
 
 Database of locked packages.
 
+=back
+
 =cut
 
 # vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
