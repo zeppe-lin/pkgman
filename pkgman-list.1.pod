@@ -30,7 +30,7 @@ Show version and description in the listing.
 
 =item B<--path>
 
-Show package' source path in the listing.
+Show package source path in the listing.
 
 =item B<--all>
 
