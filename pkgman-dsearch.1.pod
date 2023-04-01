@@ -5,7 +5,7 @@
 =head1 NAME
 
 pkgman-dsearch - search the packages sources directories for package
-name/description
+name and description
 
 =head1 SYNOPSIS
 
@@ -14,7 +14,7 @@ B<pkgman> dsearch [B<-v>|B<-vv>] [B<--path>] [B<--regex>] I<EXPR>
 =head1 DESCRIPTION
 
 Search the packages sources directories for I<EXPR> in packages'
-name/description.  It looks in all directories specified in
+name B<and> description.  It looks in all directories specified in
 F</etc/pkgman.conf> as C<pkgsrcdir> directories.
 
 =head1 OPTIONS
@@ -39,8 +39,8 @@ Interpret I<EXPR> as regular expression.
 
 =item I<EXPR>
 
-Search names/descriptions for I<EXPR>, where the expression may be the
-string or regex in L<regex(3)> format.
+Search names and descriptions for I<EXPR>, where the expression may be
+the string or regex in L<regex(3)> format.
 
 =back
 
