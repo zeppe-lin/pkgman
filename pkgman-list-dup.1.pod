@@ -43,7 +43,7 @@ package name
 
 =item C<%p1>
 
-full path (including name) to package' source that has priority
+full path (including name) to package source that has priority
 
 =item C<%p2>
 
