@@ -23,11 +23,11 @@ directories.
 
 =item B<-v>
 
-Show version in the listing.
+Show package version in the listing.
 
 =item B<-vv>
 
-Show version and description in the listing.
+Show package version and description in the listing.
 
 =item B<--path>
 
