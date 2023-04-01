@@ -16,7 +16,7 @@ Dump the configuration to the current terminal.
 
 =head1 EXIT STATUS
 
-0 if success, 255 otherwise.
+0 if success, 255 otherwise (e.g: missing B<pkgsrc> directories).
 
 =cut
 
