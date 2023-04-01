@@ -99,12 +99,12 @@ void Pkgman::dumpConfig() const
     std::printf( "%-20s: %s\n", "Remove command",
                  m_config->removeCommand().c_str() );
 
+  std::printf( "%-20s: %s\n", "Run scripts",
+               m_config->runScripts() ? "yes" : "no" );
+
   if ( m_config->runscriptCommand().size() )
     std::printf( "%-20s: %s\n", "Runscript command",
                  m_config->runscriptCommand().c_str() );
-
-  std::printf( "%-20s: %s\n", "Run scripts",
-               m_config->runScripts() ? "yes" : "no" );
 
   std::printf( "%-20s: %s\n", "Keep higher version",
                m_config->preferHigher() ? "yes" : "no" );
