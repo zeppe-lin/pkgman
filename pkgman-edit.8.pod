@@ -41,11 +41,8 @@ if success
 
 =item C<255>
 
-if environment variable I<EDITOR> is unset
-
-=item C<255>
-
-if package source is not found
+if environment variable I<EDITOR> is unset or package source is not
+found
 
 =item E<gt>0
 
