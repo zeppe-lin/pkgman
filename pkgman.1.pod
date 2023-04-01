@@ -25,7 +25,7 @@ command has its own set of specific options and arguments.
 
 =item B<--no-std-config>
 
-Ignore F</etc/pkgman.conf>.
+Ignore default (F</etc/pkgman.conf>) configuration file.
 
 =item B<--config>="I<FILE>"
 
