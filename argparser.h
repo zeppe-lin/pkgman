@@ -17,7 +17,7 @@ class ArgParser
 {
 public:
 
-  //! TODO
+  //! Command identifiers
   enum Command_ID {
     // Informational
     DUMPCONFIG,
@@ -67,7 +67,7 @@ public:
   //! \brief   Whether command is specified
   bool isCommandGiven() const;
 
-  //! TODO
+  //! \brief   Command identifier
   size_t commandID() const;
 
   //! \brief   Whether \-V or \--version command-line option is specified
@@ -253,13 +253,13 @@ public:
 
 private:
 
-  //! TODO
+  //! Whether command is specified
   bool m_isCommandGiven;
 
-  //! TODO
+  //! Command identifier
   size_t m_commandID;
 
-  //! Command argument
+  //! Command name
   string m_commandName;
 
   //! Unknown option
