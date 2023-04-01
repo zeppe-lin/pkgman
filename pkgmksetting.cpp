@@ -70,7 +70,7 @@ string PkgmkSetting::getSettingFromFile( const string& setting,
   // XXX fix the limit of 256 chars?
   char outline[ 256 ];
   fgets( outline, 256, p );
-  fclose( p );
+  pclose( p );
 
   return stripWhiteSpace( outline );
 }
