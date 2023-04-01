@@ -13,7 +13,7 @@
 
 using namespace std;
 
-// TODO
+//! A list of pair with path and packages specified by "pkgsrcdir"
 typedef list< pair< string, string > > rootList_t;
 
 //! \class  Repository
