@@ -16,7 +16,8 @@ This manual page describes the format of the F<pkgman.conf> file, that
 contains information for L<pkgman(1)>.
 
 Every line can contain one configuration option.  The format of the
-lines is C<key value>.
+lines is C<key value>.  Any line B<beginning> with a hash (B<#>) is
+ignored, as are lines containing only whitespace.
 
 The valid keys are:
 
