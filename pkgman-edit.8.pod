@@ -19,15 +19,15 @@ is not specified, C<Pkgfile> is used.
 =head1 ENVIRONMENT
 
 If the following environment variable exists it will be utilized by
-B<pkgman>:
+L<pkgman(1)>:
 
 =over 8
 
 =item I<EDITOR>
 
-If the package's source directory has a I<FILE>, then L<pkgman(1)>
-will try to open it using a I<EDITOR>.  If I<EDITOR> is unset, then
-L<pkgman(1)> will fail.
+If the package's source directory has a I<FILE>, then B<pkgman> will
+try to open it using a I<EDITOR>.  If I<EDITOR> is unset, then
+B<pkgman> will fail.
 
 =back
 
