@@ -19,6 +19,7 @@ public:
 
   //! Command identifiers
   enum Command_ID {
+
     // Informational
     DUMPCONFIG,
     LIST,
@@ -32,23 +33,29 @@ public:
     PATH,
     ISINST,
     CURRENT,
+
     // Differences / Check for updates
     DIFF,
+
     // Dependencies
     DEP,
     RDEP,
+
     // Searching
     SEARCH,
     DSEARCH,
     FSEARCH,
+
     // Install / Update / Remove
     INSTALL,
     UPDATE,
     REMOVE,
+
     // System update
     SYSUP,
     LOCK,
     UNLOCK,
+
     // File operations
     LS,
     CAT,
