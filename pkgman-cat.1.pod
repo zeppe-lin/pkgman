@@ -18,15 +18,15 @@ I<FILE> is not specified, C<Pkgfile> is used.
 =head1 ENVIRONMENT
 
 If the following environment variable exists it will be utilized by
-B<pkgman>:
+L<pkgman(1)>:
 
 =over 8
 
 =item I<PAGER>
 
-If the package's source directory has a I<FILE>, then L<pkgman(1)>
-will try to open it using a I<PAGER>.  If I<PAGER> is unset, then
-L<pkgman(1)> prints the I<FILE> to stdout.
+If the package's source directory has a I<FILE>, then B<pkgman> will
+try to open it using a I<PAGER>.  If I<PAGER> is unset, then B<pkgman>
+prints the I<FILE> to stdout.
 
 =back
 
