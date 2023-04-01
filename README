@@ -33,7 +33,7 @@ REQUIREMENTS
 
 	Build time:
 
-		* c++17 compiler (gcc8+)
+		* c++17 compiler (gcc 8 and later, clang 5 and later)
 		* POSIX sh(1p), make(1p) and "mandatory utilities"
 		* pod2man(1pm) to build man pages
 
