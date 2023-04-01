@@ -34,7 +34,7 @@ B<--prefer-higher> option.
 
 =item B<-v>
 
-Be more verbose.
+Unused.
 
 =item B<-vv>
 
