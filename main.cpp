@@ -170,7 +170,7 @@ int main( int argc, char** argv )
       break;
 
     //
-    // Differences, Check for updates
+    // Differences (check for updates)
     //
 
     case ArgParser::DIFF:
@@ -192,7 +192,7 @@ int main( int argc, char** argv )
       break;
 
     //
-    // Searching
+    // Search
     //
 
     case ArgParser::SEARCH:
@@ -211,7 +211,7 @@ int main( int argc, char** argv )
       break;
 
     //
-    // Install, Update, Remove
+    // Install, update, remove
     //
 
     case ArgParser::INSTALL:
