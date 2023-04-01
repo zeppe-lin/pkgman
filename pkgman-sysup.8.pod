@@ -10,10 +10,10 @@ pkgman-sysup - update all outdated packages
 
 B<pkgman> sysup [B<-v>|B<-vv>] [B<--test>] [B<--log>] [B<--deps>]
 [B<--depsort>] [B<--group>]
-[B<--margs>=I<PKGMK_ARGS>|I<PKGMK_ALIASES>]
-[B<--aargs>=I<PKGADD_ARGS>|I<PKGADD_ALIASES>]
+[B<--margs>=I<PKGMK_ARGS> | I<PKGMK_ALIASES>]
+[B<--aargs>=I<PKGADD_ARGS> | I<PKGADD_ALIASES>]
 [B<--ignore>=I<PKGNAME,PKGNAME,...>]
-[B<--install-scripts>|[B<--pre-install>][B<--post-install>]]
+[B<--install-scripts> | [B<--pre-install>][B<--post-install>]]
 I<PKGNAME>...
 
 =head1 DESCRIPTION

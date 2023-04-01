@@ -11,7 +11,7 @@ pkgman-remove - remove installed packages
 B<pkgman> remove [B<-v>|B<-vv>] [B<--test>] [B<--log>] [B<--deps>]
 [B<--force>] [B<--group>] [B<--rargs>=I<PKGRM_ARGS>]
 [B<--ignore>=I<PKGNAME,PKGNAME,...>]
-[B<--remove-scripts>|[B<--pre-remove>][B<--post-remove>]]
+[B<--remove-scripts> | [B<--pre-remove>][B<--post-remove>]]
 I<PKGNAME>...
 
 =head1 DESCRIPTION
