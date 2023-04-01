@@ -28,7 +28,7 @@ C<pkgsrcdir> directories.
 
 =item B<-v>
 
-Be more verbose.
+Unused.
 
 =item B<-vv>
 
