@@ -24,7 +24,7 @@ Remove all installed packages in the listed order.
 
 =item B<-v>
 
-Be more verbose.
+Unused.
 
 =item B<-vv>
 
