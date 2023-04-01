@@ -34,9 +34,17 @@ If you want to restrict the packages used from one C<pkgsrcdir>, you
 can append a comma-separated list of packages to be used after the
 path, using a colon C<:> character to separate the two components.
 
-I<path> The directory.
+=over 12
 
-I<pkg1,pkg2> The final directory in the path.
+=item I<path>
+
+The directory.
+
+=item I<pkg1,pkg2>
+
+The final directory in the path.
+
+=back
 
 Example:
 
@@ -71,7 +79,7 @@ If the readme option is set to something different that I<disabled>,
 L<pkgman(1)> will notify the user if installed package has a README
 file.
 
-=over 8
+=over 12
 
 =item I<verbose>
 
