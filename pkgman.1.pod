@@ -160,7 +160,8 @@ search the packages sources directories for package name
 
 =item L<pkgman-dsearch(1)>
 
-search the packages sources directories for package name/description
+search the packages sources directories for package name B<and>
+description
 
 =item L<pkgman-fsearch(1)>
 
