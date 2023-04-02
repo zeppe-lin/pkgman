@@ -18,9 +18,9 @@ public:
   //! Result of a \a handleSignal() call
   enum HandlerResult
   {
-    SIGNAL_NOT_HANDLED, //!<  Not handled
-    EXIT,               //!<  Signal handled, exit now
-    CONTINUE            //!<  Signal handled, don't exit
+    SIGNAL_NOT_HANDLED, //!< Not handled
+    EXIT,               //!< Signal handled, exit now
+    CONTINUE            //!< Signal handled, don't exit
   };
 
   virtual HandlerResult handleSignal( int signalNumber ) = 0;
