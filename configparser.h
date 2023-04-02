@@ -61,8 +61,8 @@ public:
   //! Log modes
   enum logMode_t
   {
-    APPEND_MODE,      //!<  append the transaction log to log file
-    OVERWRITE_MODE,   //!<  overwrite the log file
+    APPEND_MODE,      //!< Append the transaction log to log file
+    OVERWRITE_MODE,   //!< Overwrite the log file
   };
 
   //! \brief   Which Log mode should pkgman to use
@@ -89,9 +89,9 @@ public:
   //! README modes
   enum readmeMode_t
   {
-    VERBOSE_README,   //!<  Separate information about README files
-    COMPACT_README,   //!<  Integrate in result output
-    WITHOUT_README,   //!<  No information about README files
+    VERBOSE_README,   //!< Separate information about README files
+    COMPACT_README,   //!< Integrate in result output
+    WITHOUT_README,   //!< No information about README files
   };
 
   //! \brief   Which README mode should pkgman to use
