@@ -247,9 +247,9 @@ public:
   //! Config argument type
   enum configArg_t
   {
-    CONFIG_SET,       //!<  \--config-set="..."     argument type
-    CONFIG_APPEND,    //!<  \--config-append="..."  argument type
-    CONFIG_PREPEND    //!<  \--config-prepend="..." argument type
+    CONFIG_SET,       //!< \--config-set="..."     argument type
+    CONFIG_APPEND,    //!< \--config-append="..."  argument type
+    CONFIG_PREPEND    //!< \--config-prepend="..." argument type
   };
 
   //! \brief   Config arguments
