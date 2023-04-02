@@ -44,7 +44,7 @@ private:
   //! \param  filename  path to the settings file
   //!
   //! \return the setting's value
-	string getSettingFromFile( const string& setting,
+  string getSettingFromFile( const string& setting,
                              const string& filename );
 };
 
