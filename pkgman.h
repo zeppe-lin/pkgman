@@ -37,12 +37,12 @@ public:
   //! Pkgman return states
   enum PReturnStates
   {
-    P_GENERAL_ERROR          = -1,  //!<  Error
-    P_OK                     =  0,  //!<  Success
-    P_ARG_ERROR,                    //!<  Command-line argument error
-    P_INSTALL_ERROR,                //!<  Installation fails
-    P_PARTIAL_INSTALL_ERROR,        //!<  Group installation fails
-    P_DEPENDENCY_CALC_ERROR,        //!<  Dependency calculation fails
+    P_GENERAL_ERROR          = -1,  //!< Error
+    P_OK                     =  0,  //!< Success
+    P_ARG_ERROR,                    //!< Command-line argument error
+    P_INSTALL_ERROR,                //!< Installation fails
+    P_PARTIAL_INSTALL_ERROR,        //!< Group installation fails
+    P_DEPENDENCY_CALC_ERROR,        //!< Dependency calculation fails
   };
 
   /////////////////////////////////////////////////////////////////////
