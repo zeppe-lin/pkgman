@@ -33,11 +33,11 @@ public:
   //! Transaction type
   enum Transaction_t
   {
-    NONE,     //!<  None transaction of the following:
-    DEPCALC,  //!<  Calculate the package(s) dependencies
-    INSTALL,  //!<  Install the package(s)
-    UPDATE,   //!<  Update the package(s)
-    REMOVE    //!<  Remove the package(s)
+    NONE,     //!< None transaction of the following:
+    DEPCALC,  //!< Calculate the package(s) dependencies
+    INSTALL,  //!< Install the package(s)
+    UPDATE,   //!< Update the package(s)
+    REMOVE    //!< Remove the package(s)
   };
 
   //! Result of transaction execution
@@ -45,7 +45,7 @@ public:
   {
     // Generic
 
-    SUCCESS           =  0, //!<  Success
+    SUCCESS           =  0, //!< Success
 
     // Related to transaction arguments
 
