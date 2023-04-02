@@ -20,7 +20,8 @@ pkgman: ${OBJS}
 	${LD} $^ ${LDFLAGS} -o $@
 
 vcomp:
-	${CXX} -o $@ -DTEST helpers.cpp versioncomparator.cpp
+	${CXX} -o $@ -DTEST ${CXXFLAGS} ${CPPFLAGS} \
+		helpers.cpp versioncomparator.cpp
 
 check: vcomp
 	@echo "=======> Check version comparator"
