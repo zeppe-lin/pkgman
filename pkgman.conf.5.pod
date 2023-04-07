@@ -48,8 +48,8 @@ The final directory in the path.
 
 Example:
 
-  pkgsrcdir /usr/src/pkgsrc/core
-  pkgsrcdir /usr/src/pkgsrc/desktop:mpv,ffmpeg
+  pkgsrcdir /usr/src/pkgsrc-core
+  pkgsrcdir /usr/src/pkgsrc-desktop:mpv,ffmpeg
 
 =item B<runscripts> (I<yes>|I<no>)
 
@@ -192,11 +192,11 @@ Default: I</bin/sh>.
   #pkgsrcdir /path/to/unofficial/pkgsrcs/
 
   # zeppe-lin official
-  pkgsrcdir /usr/src/pkgsrc/core
-  pkgsrcdir /usr/src/pkgsrc/system
-  pkgsrcdir /usr/src/pkgsrc/xorg
-  pkgsrcdir /usr/src/pkgsrc/desktop
-  pkgsrcdir /usr/src/pkgsrc/stuff
+  pkgsrcdir /usr/src/pkgsrc-core
+  pkgsrcdir /usr/src/pkgsrc-system
+  pkgsrcdir /usr/src/pkgsrc-xorg
+  pkgsrcdir /usr/src/pkgsrc-desktop
+  pkgsrcdir /usr/src/pkgsrc-stuff
 
   # log options
   writelog enabled
