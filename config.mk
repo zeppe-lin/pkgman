@@ -1,6 +1,6 @@
 # project metadata
 NAME = pkgman
-VERSION = 6.0.1
+VERSION = 6.0.2
 DIST = ${NAME}-${VERSION}
 
 # paths
