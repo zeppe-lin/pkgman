@@ -49,5 +49,9 @@ uninstall:
 
 clean:
 	rm -f pkgman vcomp ${OBJS} ${MAN1} ${MAN5} ${MAN8}
+	rm -f ${DIST}.tar.gz
 
-.PHONY: all check install uninstall clean
+dist: clean
+	git archive --format=tar.gz -o ${DIST}.tar.gz --prefix=${DIST}/ HEAD
+
+.PHONY: all check install uninstall clean dist

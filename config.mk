@@ -1,6 +1,7 @@
 # project metadata
 NAME = pkgman
 VERSION = 6.0.1
+DIST = ${NAME}-${VERSION}
 
 # paths
 PREFIX = /usr
