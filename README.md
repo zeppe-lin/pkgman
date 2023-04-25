@@ -1,19 +1,21 @@
 OVERVIEW
 --------
-This directory contains pkgman, a package management tool that provides
-additional functionality to basic package management utilities like pkgmk and
-pkgutils.
+This directory contains pkgman, a package management tool that
+provides additional functionality to basic package management
+utilities like pkgmk and pkgutils.
 
-This distribution is a fork of CRUX' prt-get tool as of commit da6bfb0 (Fri Oct
-16 2020) with the following differences:
+This distribution is a fork of CRUX' prt-get tool as of commit da6bfb0
+(Fri Oct 16 2020) with the following differences:
 
-- the code has been rewritten from "C-like" coding standard to high-level C++17
-  primitives; this enabled aggressive optimization (-O3 and above), look at
+- the code has been rewritten from "C-like" coding standard to
+  high-level C++17 primitives; this enabled aggressive optimization
+  (-O3 and above), look at
   https://crux.nu/ports/crux-3.7/core/prt-get/README vs
   https://github.com/zeppe-lin/pkgsrc/blob/master/core/pkgman/Pkgfile#L14
-- doxygen documentation has been improved and covers (almost?) all code
-- so-called prt-cache functionality have been removed since there is no
-  fundamental advantage while PageCache+NVMe are available
+- doxygen documentation has been improved and covers (almost?) all
+  code
+- so-called prt-cache functionality have been removed since there is
+  no fundamental advantage while PageCache+NVMe are available
 - prt.aliases functionality have been removed too
 - the man pages have been rewritten in POD format
 - build system have been switched from autotools to POSIX make(1p)
@@ -34,7 +36,7 @@ The original sources can be downloaded from:
 REQUIREMENTS
 ------------
 **Build time**:
-- c++17 compiler (gcc 8 and later, clang 5 and later)
+- C++17 compiler (GCC 8 and later, Clang 5 and later)
 - POSIX sh(1p), make(1p) and "mandatory utilities"
 - pod2man(1pm) to build man pages
 
@@ -46,8 +48,8 @@ REQUIREMENTS
 
 INSTALL
 -------
-The shell commands `make && make install` should build and install this
-package.  See `config.mk` file for configuration parameters.
+The shell commands `make && make install` should build and install
+this package.  See `config.mk` file for configuration parameters.
 
 
 LICENSE
