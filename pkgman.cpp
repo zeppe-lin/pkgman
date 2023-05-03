@@ -639,10 +639,17 @@ void Pkgman::printDiff()
   cout << "--" << endl;
 
   if ( diff_packages )
-    cout << diff_packages << ( diff_packages > 1 ? " updates\n" : " update\n" );
+    cout << diff_packages <<
+      ( diff_packages > 1 ? " updates" : " update" );
 
   if ( new_packages )
-    cout << new_packages << ( new_packages > 1 ? " installs\n" : " install\n" );
+  {
+    if ( diff_packages )
+      cout << ", ";
+
+    cout << new_packages  <<
+      ( new_packages  > 1 ? " installs\n" : " install\n" );
+  }
 }
 
 void Pkgman::printDep()
