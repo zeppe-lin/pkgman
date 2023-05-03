@@ -1176,11 +1176,10 @@ void Pkgman::diffCalc( const map< pkgname_t, pkgver_t >& packages )
 }
 
 void Pkgman::printFormattedDiffLine( const string&  name,
-                                  const string&  versionInstalled,
-                                  const string&  versionAvailable,
-                                  bool           isLocked )
+                                     const string&  versionInstalled,
+                                     const string&  versionAvailable,
+                                     bool           isLocked )
 {
-
   cout.setf( ios::left, ios::adjustfield );
   cout.width( 32 );
   cout.fill( ' ' );
