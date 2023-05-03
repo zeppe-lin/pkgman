@@ -1052,7 +1052,7 @@ void Pkgman::initRepo( bool listDuplicate )
 }
 
 void Pkgman::expandWildcardsPkgDB( const list< char* >&         in,
-                                map< pkgname_t, pkgver_t >&  target )
+                                   map< pkgname_t, pkgver_t >&  target )
 {
   for ( const auto& pattern: in )
   {
@@ -1065,7 +1065,7 @@ void Pkgman::expandWildcardsPkgDB( const list< char* >&         in,
 }
 
 void Pkgman::expandWildcardsRepo( const list< char* >&  in,
-                               list< pkgname_t >&    target )
+                                  list< pkgname_t >&    target )
 {
   for ( const auto& pattern: in )
   {
@@ -1385,7 +1385,7 @@ void Pkgman::printRevDepTree( const pkgname_t& arg, int level )
 }
 
 void Pkgman::getRemovableDeps( const string&    name,
-                            list< string >&  removable )
+                               list< string >&  removable )
 {
   const auto& pkg = m_repo->getPackage( name );
   if ( ! pkg || ! m_pkgDB->isInstalled( name ) )
@@ -1421,10 +1421,10 @@ void Pkgman::getRemovableDeps( const string&    name,
 }
 
 bool Pkgman::footprintGrep( const string&    filename,
-                         const string&    pattern,
-                         list< string >&  result,
-                         bool             fullPath,
-                         bool             useRegex )
+                            const string&    pattern,
+                            list< string >&  result,
+                            bool             fullPath,
+                            bool             useRegex )
 {
   ifstream file( filename );
   if ( ! file.is_open() )
@@ -1464,7 +1464,7 @@ bool Pkgman::footprintGrep( const string&    filename,
 
 void
 Pkgman::executeTransaction( Transaction&                transaction,
-                         Transaction::Transaction_t  transactionType )
+                            Transaction::Transaction_t  transactionType )
 {
   m_currentTransaction = &transaction;
 
@@ -1490,7 +1490,7 @@ Pkgman::executeTransaction( Transaction&                transaction,
 }
 
 void Pkgman::evaluateResult( const Transaction&  transaction,
-                          bool                interrupted )
+                             bool                interrupted )
 {
   int errors = 0;
   const auto& ignored          = transaction.ignored();
