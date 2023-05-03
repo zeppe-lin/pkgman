@@ -1180,10 +1180,11 @@ void Pkgman::printFormattedDiffLine( const string&  name,
                                   const string&  versionAvailable,
                                   bool           isLocked )
 {
+
   cout.setf( ios::left, ios::adjustfield );
   cout.width( 32 );
   cout.fill( ' ' );
-  cout <<  name;
+  cout << ( ( name.size() > 32 ) ? ( name + ' ' ) : name );
 
   cout.width( 20 );
   cout.fill( ' ' );
