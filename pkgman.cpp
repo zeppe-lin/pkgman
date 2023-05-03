@@ -1183,6 +1183,8 @@ void Pkgman::printFormattedDiffLine( const string&  name,
   cout.setf( ios::left, ios::adjustfield );
   cout.width( 32 );
   cout.fill( ' ' );
+  // There should be at list one space after names longer than 32
+  // chars for normal parsing.
   cout << ( ( name.size() > 32 ) ? ( name + ' ' ) : name );
 
   cout.width( 20 );
