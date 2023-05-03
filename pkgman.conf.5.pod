@@ -102,7 +102,7 @@ Default: I<verbose>.
 
 =item B<writelog> (I<enabled>|I<disabled>)
 
-Write the log for install, update and remove operations.
+Write the log for sysup, install, update and remove operations.
 
 Default: I<disabled>.
 
