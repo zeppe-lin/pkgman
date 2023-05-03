@@ -35,7 +35,7 @@ void SignalDispatcher::dispatch( int signalNumber )
 }
 
 void SignalDispatcher::registerHandler( SignalHandler*  handler,
-                                        int        signalNumber )
+                                        int             signalNumber )
 {
   m_signalHandlers[ signalNumber ] = handler;
 }

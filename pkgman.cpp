@@ -739,7 +739,8 @@ void Pkgman::fsearch()
     list< string > matches;
 
     bool search = footprintGrep( pkg.second->fullpath( ".footprint" ),
-                                 arg, matches, m_parser->full(), m_useRegex );
+                                 arg, matches, m_parser->full(),
+                                 m_useRegex );
 
     if ( ! search || matches.empty() )
       continue;

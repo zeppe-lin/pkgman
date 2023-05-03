@@ -53,8 +53,9 @@ bool ArgParser::parse()
 
   string commands[] = {
     // Informational
-    "dumpconfig", "list", "list-dup", "list-nodependents", "list-orphans",
-    "list-locked", "printf", "info", "readme", "path", "isinst", "current",
+    "dumpconfig", "list", "list-dup", "list-nodependents",
+    "list-orphans", "list-locked", "printf", "info", "readme", "path",
+    "isinst", "current",
     // Differences / Check for updates
     "diff",
     // Dependencies
@@ -70,7 +71,8 @@ bool ArgParser::parse()
   };
 
   bool endofopts = false;
-  constexpr size_t commands_size = std::end(commands) - std::begin(commands);
+  constexpr size_t commands_size =
+    std::end(commands) - std::begin(commands);
 
   // parse options
   for ( int i = 1; i < m_argc; ++i )
@@ -95,13 +97,16 @@ bool ArgParser::parse()
       }
 
       else if ( arg.substr( 0, 16 ) == "--config-append=" )
-        m_configData.push_back( make_pair( m_argv[ i ] + 16, CONFIG_APPEND  ) );
+        m_configData.push_back( make_pair( m_argv[ i ] + 16,
+                                           CONFIG_APPEND  ) );
 
       else if ( arg.substr( 0, 17 ) == "--config-prepend=" )
-        m_configData.push_back( make_pair( m_argv[ i ] + 17, CONFIG_PREPEND ) );
+        m_configData.push_back( make_pair( m_argv[ i ] + 17,
+                                           CONFIG_PREPEND ) );
 
       else if ( arg.substr( 0, 13 ) == "--config-set=" )
-        m_configData.push_back( make_pair( m_argv[ i ] + 13, CONFIG_SET     ) );
+        m_configData.push_back( make_pair( m_argv[ i ] + 13,
+                                           CONFIG_SET     ) );
 
       else if ( arg.substr( 0, 7 ) == "--root=" )
         m_root = arg.substr( 7 );
@@ -448,8 +453,8 @@ int ArgParser::verbose() const
   return m_verbose;
 }
 
-const
-list< pair< char*, ArgParser::configArg_t > > ArgParser::configData()
+const list< pair< char*, ArgParser::configArg_t > >
+ArgParser::configData()
   const
 {
   return m_configData;

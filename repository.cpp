@@ -99,7 +99,7 @@ int Repository::compareShadowPair( pair< Package*, Package* >&  p1,
 }
 
 void Repository::initFromFS( const rootList_t& rootList,
-                             bool         listDuplicate )
+                             bool              listDuplicate )
 {
   map< string, bool > alreadyChecked;
 
