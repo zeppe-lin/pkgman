@@ -22,6 +22,11 @@ namespace VersionComparator
     UNDEFINED   //!< Undefined comparation
   };
 
+#ifdef TEST
+  //! Comparation result as character representation for printing out
+  static char COMP_RESULT_CHAR[] = { '<', '>', '=', '?' };
+#endif
+
   //! \brief   Compare versions
   //!
   //! \param   v1  version string

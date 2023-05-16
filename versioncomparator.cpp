@@ -194,33 +194,24 @@ namespace VersionComparator
 
 using namespace VersionComparator;
 
+static int have_failed = 0;
+
 void check( const string&  v1,
             const string&  v2,
-            COMP_RESULT    expected,
-            bool           compare=true )
+            COMP_RESULT    expected )
 {
   auto result = compareVersions( v1, v2 );
+  auto output = v1 + ' ' + COMP_RESULT_CHAR[result] + ' ' + v2;
 
-  if ( compare )
-    cout << ( result == expected ? "OK   " : "FAIL " );
-
-  cout << v1 << " ";
-  switch ( result )
+  if ( result == expected )
+    cout << "OK   " << output;
+  else
   {
-    case LESS:
-      cout << "<";
-      break;
-    case GREATER:
-      cout << ">";
-      break;
-    case EQUAL:
-      cout << "=";
-      break;
-    case UNDEFINED:
-      cout << "?";
-      break;
+    cout << "FAIL " << output
+         << " (expected " << COMP_RESULT_CHAR[expected] << ")";
+    have_failed++;
   }
-  cout << " " << v2 << endl;
+  cout << endl;
 }
 
 int
@@ -261,10 +252,16 @@ main( int  argc, char**  argv )
     check( "27",            "28e",          LESS      );
   }
   else
-    check( argv[ 1 ],       argv[ 2 ],      UNDEFINED, false );
+    check( argv[ 1 ],       argv[ 2 ],      UNDEFINED );
+
+  if (have_failed)
+  {
+    cout << have_failed << " tests failed!" << endl;
+    exit(1);
+  }
 }
 
-#endif // Test
+#endif // TEST
 
 // vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
 // End of file.
