@@ -1,5 +1,5 @@
 //! \file   pathnames.h
-//! \brief  Pathnames local to the pkgman.
+//! \brief  Absolute filenames that pkgman wants for various defaults.
 //!         See COPYING and COPYRIGHT files for corresponding information.
 
 //!< Default location for pkgman configuration.
