@@ -190,15 +190,16 @@ namespace VersionComparator
   }
 } // namespace VersionComparator
 
+//////////////////////////////////////////////////////////////////////
+
 #ifdef TEST
 
 using namespace VersionComparator;
 
 static int have_failed = 0;
 
-void check( const string&  v1,
-            const string&  v2,
-            COMP_RESULT    expected )
+void
+check( const string& v1, const string& v2, COMP_RESULT expected )
 {
   auto result = compareVersions( v1, v2 );
   auto output = v1 + ' ' + COMP_RESULT_CHAR[result] + ' ' + v2;
@@ -215,7 +216,7 @@ void check( const string&  v1,
 }
 
 int
-main( int  argc, char**  argv )
+main( int argc, char** argv )
 {
   if ( argc < 3 )
   {
