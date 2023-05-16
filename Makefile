@@ -25,7 +25,7 @@ vcomp:
 
 check: vcomp
 	@echo "=======> Check version comparator"
-	@./vcomp
+	@./vcomp ${VCOMP}
 
 install: all
 	mkdir -p      ${DESTDIR}${PREFIX}/bin
