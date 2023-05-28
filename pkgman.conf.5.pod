@@ -69,7 +69,7 @@ Default: I<no>.
 
 If set to I<yes>, L<pkgman(1)> will interpret C<expr> and C<filter>
 patterns in I<list>, I<printf>, I<dsearch> and I<fsearch> operations
-as regular expression.
+as regular expression in L<regex(3)> format.
 
 Default: I<no>.
 
