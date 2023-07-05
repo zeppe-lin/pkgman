@@ -2,6 +2,8 @@
 //! \brief  Absolute filenames that pkgman wants for various defaults.
 //!         See COPYING and COPYRIGHT files for corresponding information.
 
+#pragma once
+
 //!< Default location for pkgman configuration.
 #define PATH_CONFIG         "/etc/pkgman.conf"
 
