@@ -11,7 +11,7 @@ This distribution is a fork of CRUX' prt-get tool as of commit da6bfb0
   high-level C++17 primitives; this enabled aggressive optimization
   (-O3 and above), look at
   https://crux.nu/ports/crux-3.7/core/prt-get/README vs
-  https://github.com/zeppe-lin/pkgsrc/blob/master/core/pkgman/Pkgfile#L14
+  https://github.com/zeppe-lin/pkgsrc-core/blob/master/core/pkgman/Pkgfile#L14
 - doxygen documentation has been improved and covers (almost?) all
   code
 - so-called prt-cache functionality have been removed since there is
