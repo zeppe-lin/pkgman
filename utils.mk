@@ -7,6 +7,7 @@ urlcodes:
 	@grep -Eiho "https?://[^\"\\'> ]+" ${GREPOPT}  \
 		| xargs -P10 -I{} curl -o /dev/null    \
 		 -sw "[%{http_code}] %{url}\n" '{}'    \
+		| grep -v '^\[200\]'                   \
 		| sort -u
 
 podchecker:
