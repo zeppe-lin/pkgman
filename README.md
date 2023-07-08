@@ -9,9 +9,7 @@ This distribution is a fork of CRUX' prt-get tool as of commit da6bfb0
 
 - the code has been rewritten from "C-like" coding standard to
   high-level C++17 primitives; this enabled aggressive optimization
-  (-O3 and above), look at
-  https://crux.nu/ports/crux-3.7/core/prt-get/README vs
-  https://github.com/zeppe-lin/pkgsrc-core/blob/master/core/pkgman/Pkgfile#L14
+  (-O3 and above), look at [prt-get][1] vs [pkgman][2]
 - doxygen documentation has been improved and covers (almost?) all
   code
 - so-called prt-cache functionality have been removed since there is
@@ -26,6 +24,9 @@ This distribution is a fork of CRUX' prt-get tool as of commit da6bfb0
 - quiet mode
 - and so on, and so on...
 
+[prt-get]: https://crux.nu/ports/crux-3.7/core/prt-get/README
+[pkgman]:  https://github.com/zeppe-lin/pkgsrc-core/blob/master/pkgman/Pkgfile#L14
+
 See git log for complete/further differences and
 [COMPLEXITY](README.md#complexity) section for source code stats'
 differences.
@@ -37,7 +38,7 @@ The original sources can be downloaded from:
 COMPLEXITY
 ----------
 In general, the number of changes and their impact reflects well
-[scc](https://github.com/boyter/scc) report:
+[scc]( https://github.com/boyter/scc ) report:
 
 **prt-get**:
 ```
