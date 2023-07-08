@@ -15,4 +15,9 @@ shellcheck:
 		 --exclude-dir=.git --exclude-dir=.github \
 		| xargs -L10 shellcheck -s sh
 
-.PHONY: urlcodes podchecker shellcheck
+cppcheck:
+	@echo "=======> Static C/C++ code analysis"
+	@cppcheck --enable=all --check-level=exhaustive   \
+		--suppress=missingIncludeSystem ${CURDIR}
+
+.PHONY: urlcodes podchecker shellcheck cppcheck
