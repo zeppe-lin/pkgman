@@ -2,26 +2,28 @@
 
 include config.mk
 
-OBJS = $(subst   .cpp,.o,$(wildcard *.cpp))
-MAN1 = $(subst .1.pod,.1,$(wildcard *.1.pod))
-MAN5 = $(subst .5.pod,.5,$(wildcard *.5.pod))
-MAN8 = $(subst .8.pod,.8,$(wildcard *.8.pod))
+OBJS = $(subst   .cpp,.o,$(wildcard src/*.cpp))
+MAN1 = $(subst .1.pod,.1,$(wildcard pod/*.1.pod))
+MAN5 = $(subst .5.pod,.5,$(wildcard pod/*.5.pod))
+MAN8 = $(subst .8.pod,.8,$(wildcard pod/*.8.pod))
 
-all: pkgman ${MAN1} ${MAN5} ${MAN8}
+all: pkgman manpages
 
 %: %.pod
 	pod2man -r "${NAME} ${VERSION}" -c ' ' -n $(basename $@) \
 		-s $(subst .,,$(suffix $@)) $< > $@
 
 .cpp.o:
-	${CXX} -c ${CXXFLAGS} ${CPPFLAGS} $<
+	${CXX} -c ${CXXFLAGS} ${CPPFLAGS} $< -o $@
+
+manpages: ${MAN1} ${MAN5} ${MAN8}
 
 pkgman: ${OBJS}
 	${LD} $^ ${LDFLAGS} -o $@
 
 vcomp:
 	${CXX} -o $@ -DTEST ${CXXFLAGS} ${CPPFLAGS} \
-		helpers.cpp versioncomparator.cpp
+		src/helpers.cpp src/versioncomparator.cpp
 
 check: vcomp
 	@echo "=======> Check version comparator"
@@ -37,9 +39,9 @@ install: all
 	cp -f ${MAN5} ${DESTDIR}${MANPREFIX}/man5/
 	cp -f ${MAN8} ${DESTDIR}${MANPREFIX}/man8/
 	cd ${DESTDIR}${PREFIX}/bin     && chmod 0755 pkgman
-	cd ${DESTDIR}${MANPREFIX}/man1 && chmod 0644 ${MAN1}
-	cd ${DESTDIR}${MANPREFIX}/man5 && chmod 0644 ${MAN5}
-	cd ${DESTDIR}${MANPREFIX}/man8 && chmod 0644 ${MAN8}
+	cd ${DESTDIR}${MANPREFIX}/man1 && chmod 0644 ${MAN1:pod/%=%}
+	cd ${DESTDIR}${MANPREFIX}/man5 && chmod 0644 ${MAN5:pod/%=%}
+	cd ${DESTDIR}${MANPREFIX}/man8 && chmod 0644 ${MAN8:pod/%=%}
 
 install-bashcomp:
 	mkdir -p ${DESTDIR}${BASHCOMPDIR}
@@ -47,9 +49,9 @@ install-bashcomp:
 
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/pkgman
-	cd ${DESTDIR}${MANPREFIX}/man1 && rm -f ${MAN1}
-	cd ${DESTDIR}${MANPREFIX}/man5 && rm -f ${MAN5}
-	cd ${DESTDIR}${MANPREFIX}/man8 && rm -f ${MAN8}
+	cd ${DESTDIR}${MANPREFIX}/man1 && rm -f ${MAN1:pod/%=%}
+	cd ${DESTDIR}${MANPREFIX}/man5 && rm -f ${MAN5:pod/%=%}
+	cd ${DESTDIR}${MANPREFIX}/man8 && rm -f ${MAN8:pod/%=%}
 
 uninstall-bashcomp:
 	rm -f ${DESTDIR}${BASHCOMPDIR}/pkgman
