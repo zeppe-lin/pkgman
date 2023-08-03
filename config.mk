@@ -1,19 +1,19 @@
 # project metadata
-NAME = pkgman
-VERSION = 6.0.2
-DIST = ${NAME}-${VERSION}
+NAME        = pkgman
+VERSION     = 6.0.2
+DIST        = ${NAME}-${VERSION}
 
 # paths
-PREFIX = /usr
-MANPREFIX = ${PREFIX}/share/man
+PREFIX      = /usr
+MANPREFIX   = ${PREFIX}/share/man
 BASHCOMPDIR = ${PREFIX}/share/bash-completion/completions
 
 # flags
-CPPFLAGS = -DVERSION=\"${VERSION}\" -DNDEBUG
-CXXFLAGS = -std=c++17 -Wall -Wextra -Wconversion -Wcast-align \
-	   -Wunused -Wshadow -Wold-style-cast
-LDFLAGS  = -lstdc++fs
+CPPFLAGS    = -DVERSION=\"${VERSION}\" -DNDEBUG
+CXXFLAGS    = -std=c++17 -Wall -Wextra -Wconversion -Wcast-align \
+	      -Wunused -Wshadow -Wold-style-cast
+LDFLAGS     = -lstdc++fs
 
 # compiler and linker
-CXX = c++
-LD  = ${CXX}
+CXX         = c++
+LD          = ${CXX}
