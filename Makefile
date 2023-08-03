@@ -16,10 +16,10 @@ all: pkgman manpages
 .cpp.o:
 	${CXX} -c ${CXXFLAGS} ${CPPFLAGS} $< -o $@
 
-manpages: ${MAN1} ${MAN5} ${MAN8}
-
 pkgman: ${OBJS}
 	${LD} $^ ${LDFLAGS} -o $@
+
+manpages: ${MAN1} ${MAN5} ${MAN8}
 
 vcomp:
 	${CXX} -o $@ -DTEST ${CXXFLAGS} ${CPPFLAGS} \
