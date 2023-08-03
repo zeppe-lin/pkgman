@@ -43,15 +43,15 @@ install: all
 	cd ${DESTDIR}${MANPREFIX}/man5 && chmod 0644 ${MAN5:pod/%=%}
 	cd ${DESTDIR}${MANPREFIX}/man8 && chmod 0644 ${MAN8:pod/%=%}
 
-install-bashcomp:
-	mkdir -p ${DESTDIR}${BASHCOMPDIR}
-	cp -f bash_completion ${DESTDIR}${BASHCOMPDIR}/pkgman
-
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/pkgman
 	cd ${DESTDIR}${MANPREFIX}/man1 && rm -f ${MAN1:pod/%=%}
 	cd ${DESTDIR}${MANPREFIX}/man5 && rm -f ${MAN5:pod/%=%}
 	cd ${DESTDIR}${MANPREFIX}/man8 && rm -f ${MAN8:pod/%=%}
+
+install-bashcomp:
+	mkdir -p ${DESTDIR}${BASHCOMPDIR}
+	cp -f bash_completion ${DESTDIR}${BASHCOMPDIR}/pkgman
 
 uninstall-bashcomp:
 	rm -f ${DESTDIR}${BASHCOMPDIR}/pkgman
