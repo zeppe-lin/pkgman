@@ -1,8 +1,8 @@
 # build files and artefacts
-src/*.o
-pod/*.1
-pod/*.5
-pod/*.8
+*.o
+*.1
+*.5
+*.8
 pkgman
 vcomp
 
