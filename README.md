@@ -24,12 +24,12 @@ This distribution is a fork of CRUX' prt-get tool as of commit da6bfb0
 - quiet mode
 - and so on, and so on...
 
-[prt-get]: https://crux.nu/ports/crux-3.7/core/prt-get/README
-[pkgman]:  https://github.com/zeppe-lin/pkgsrc-core/blob/master/pkgman/Pkgfile#L14
-
-See git log for complete/further differences and
-[COMPLEXITY.md](https://github.com/zeppe-lin/pkgman/blob/master/README.md)
+See git log for complete/further differences and [COMPLEXITY.md][3]
 for source code stats' differences.
+
+[1]: https://crux.nu/ports/crux-3.7/core/prt-get/README
+[2]: https://github.com/zeppe-lin/pkgsrc-core/blob/master/pkgman/Pkgfile#L14
+[3]: https://github.com/zeppe-lin/pkgman/blob/master/COMPLEXITY.md
 
 The original sources can be downloaded from:
 1. git://crux.nu/tools/prt-get.git                        (git)
