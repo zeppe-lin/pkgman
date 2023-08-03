@@ -1,31 +1,36 @@
-GREPOPT = --exclude-dir=.git --exclude-dir=.github -R .
-FINDOPT = -not \( -path "./.git*" -or -path ".*~" \)
-MAXLINE = 80
+# Makefile.lint is the automated checking of pkgman project
+# for various programmatic and stylistic errors.
+
+all: deadlinks podchecker shellcheck cppcheck flawfinder longlines
 
 deadlinks:
 	@echo "=======> Check for dead links"
-	@grep -Eiho "https?://[^\"\\'> ]+" ${GREPOPT}  \
-		| xargs -P10 -I{} curl -o /dev/null    \
-		 -sw "[%{http_code}] %{url}\n" '{}'    \
-		| grep -v '^\[200\]'                   \
+	@grep -EIihor "https?://[^\"\\'> ]+" --exclude-dir=.git*  \
+		| xargs -P10 -r -I{} curl -I -o/dev/null          \
+		 -sw "[%{http_code}] %{url}\n" '{}'               \
+		| grep -v '^\[200\]'                              \
 		| sort -u
 
 podchecker:
 	@echo "=======> Check PODs for syntax errors"
-	@podchecker *.pod
+	@podchecker pod/*.pod >/dev/null
 
 shellcheck:
 	@echo "=======> Check shell scripts for syntax errors"
-	@grep -m1 -l '^#\s*!/bin/sh' ${GREPOPT} | xargs -L10 shellcheck -s sh
+	@grep -m1 -Irl '^#\s*!/bin/sh' --exclude-dir=.git* \
+		| xargs -L10 -r shellcheck -s sh
 
 cppcheck:
 	@echo "=======> Static C/C++ code analysis"
-	@cppcheck --enable=all --check-level=exhaustive  \
-		--suppress=missingIncludeSystem .
+	@cppcheck --quiet --enable=all --check-level=exhaustive \
+		--suppress=missingIncludeSystem src
+
+flawfinder:
+	@echo "=======> Check for potential security flaws"
+	@flawfinder --quiet -D src
 
 longlines:
 	@echo "=======> Check for long lines (> ${MAXLINE})"
-	@find . -type f ${FINDOPT} -exec awk -v ML=${MAXLINE} \
-		'length > ML { print FILENAME ":" FNR " " $$0 }'  {} \;
+	@! grep -PIrn '^.{81,}$$' --exclude-dir=.git*
 
-.PHONY: deadlinks podchecker shellcheck cppcheck longlines
+.PHONY: all deadlinks podchecker shellcheck cppcheck flawfinder longlines
