@@ -8,8 +8,10 @@ TODO pkgman
 
 	[ ] grep 'XXX\|FIXME\|TODO' --exclude-dir=.git  -R .
 
-	[ ] issue: pkgman --config-append="runscripts no" doesn't
+	[X] issue: pkgman --config-append="runscripts no" doesn't
 	    working?
+	    Done: Fri Aug 18 07:27:40 PM EEST 2023
+	    Fixed by 4251b0ba4e77804fc2aaca24d251f753cf162d45.
 
 	[ ] issue: if package is already built with .footprint
 	    mismatch, pkgman will install it
