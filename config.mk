@@ -1,6 +1,8 @@
 # project metadata
 NAME        = pkgman
 VERSION     = 6.0.2
+HOMEPAGE    = https://github.com/zeppe-lin/pkgman/
+BUGTRACKER  = https://github.com/zeppe-lin/pkgman/issues/
 DIST        = ${NAME}-${VERSION}
 
 # paths
