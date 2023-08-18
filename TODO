@@ -48,8 +48,8 @@ TODO pkgman
 		gtk-theme-raleigh
 
 	[ ] idea: ansi colors?
-	The consensus is that the ASCII is better? Just format the code like
-	following:
+	The consensus is that the ASCII is better? Just format the output like
+	the following:
 
 		=======> This is an example of simple informational message.
 		=======> WARNING: This is an example of warning message.
