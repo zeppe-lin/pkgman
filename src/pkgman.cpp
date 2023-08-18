@@ -464,7 +464,7 @@ void Pkgman::printInfo()
 
   if ( m_parser->verbose() > 0 && pkg->hasReadme() )
   {
-    cout << "\n-- README ------" << endl;
+    cout << "\n--- README ---\n";
     printReadme();
   }
 }
