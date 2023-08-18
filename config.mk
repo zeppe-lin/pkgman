@@ -11,7 +11,10 @@ MANPREFIX   = ${PREFIX}/share/man
 BASHCOMPDIR = ${PREFIX}/share/bash-completion/completions
 
 # flags
-CPPFLAGS    = -DVERSION=\"${VERSION}\" -DNDEBUG
+CPPFLAGS    = -DNDEBUG \
+	      -DPROJECT_VERSION=\"${VERSION}\" \
+	      -DPROJECT_HOMEPAGE=\"${HOMEPAGE}\" \
+	      -DPROJECT_BUGTRACKER=\"${BUGTRACKER}\"
 CXXFLAGS    = -std=c++17 -Wall -Wextra -Wconversion -Wcast-align \
 	      -Wunused -Wshadow -Wold-style-cast
 LDFLAGS     = -lstdc++fs
