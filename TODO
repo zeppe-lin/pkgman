@@ -48,6 +48,12 @@ TODO pkgman
 		gtk-theme-raleigh
 
 	[ ] idea: ansi colors?
+	The consensus is that the ASCII is better? Just format the code like
+	following:
+
+		=======> This is an example of simple informational message.
+		=======> WARNING: This is an example of warning message.
+		=======> ERROR: This is an example of error message.
 
 	[ ] idea: add "ignore" directive to pkgman.conf?
 
