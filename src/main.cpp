@@ -18,6 +18,12 @@
 
 using namespace std;
 
+static int print_version()
+{
+  cout << "pkgman " PROJECT_VERSION "\n" COPYRIGHT_MESSAGE;
+  return EXIT_SUCCESS;
+}
+
 static void inline die( const string& message, int rc=EXIT_FAILURE )
 {
   cerr << message << endl;
@@ -42,7 +48,7 @@ int main( int argc, char** argv )
       if ( parser.commandName().empty() )
       {
         if ( parser.isVersion() )
-          die( "pkgman " VERSION, EXIT_SUCCESS );
+          return print_version();
         else if ( parser.isHelp() )
           dieman( "pkgman" );
         else
