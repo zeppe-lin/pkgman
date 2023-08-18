@@ -431,7 +431,7 @@ void Pkgman::printInfo()
     cout << "Maintainer:   " << pkg->maintainer()   << endl;
 
   if ( pkg->dependencies().size() )
-    cout << "Dependencies: " << pkg->dependencies() << endl;
+    cout << "Depends on:   " << pkg->dependencies() << endl;
 
   // files that will not be shown in info
   list< string > skipFiles
