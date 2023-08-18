@@ -440,7 +440,7 @@ void Pkgman::printInfo()
      /* .32bit, .nostrip */
   };
 
-  string filesString = "";
+  list< string > Files;
   for ( const auto& file: fs::directory_iterator( pkg->fullpath() ) )
   {
     string filename = file.path().filename();
@@ -448,14 +448,18 @@ void Pkgman::printInfo()
     if ( contains( skipFiles, filename ) )
       continue;
 
-    filesString += filename + ',';
+    Files.push_back( filename );
   }
 
-  if ( filesString.size() )
+  if ( Files.size() )
   {
-    filesString = stripWhiteSpace( filesString );
-    filesString.pop_back(); // remove the last ',' character
-    cout << "Files:        " << filesString << endl;
+    if ( Files.size() > 1 )
+      Files.sort();
+
+    list< string >::iterator it = Files.begin();
+    cout   << "Files:        " << *it++ << endl;
+    for ( ; it != Files.end(); ++it)
+      cout << "              " << *it << endl;
   }
 
   if ( m_parser->verbose() > 0 && pkg->hasReadme() )
