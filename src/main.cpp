@@ -15,6 +15,7 @@
 #include "process.h"
 #include "pkgman.h"
 #include "signaldispatcher.h"
+#include "../copyright.h"
 
 using namespace std;
 
@@ -60,7 +61,7 @@ int main( int argc, char** argv )
   }
 
   if ( parser.isVersion() )
-    die( "pkgman " VERSION, EXIT_SUCCESS );
+    return print_version();
 
   if ( parser.isHelp() )
     dieman( "pkgman-" + parser.commandName() );
