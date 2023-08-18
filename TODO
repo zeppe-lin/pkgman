@@ -16,6 +16,13 @@ TODO pkgman
 	[ ] issue: if package is already built with .footprint
 	    mismatch, pkgman will install it
 
+	[ ] skip trying to pkgadd the package if previous pkgmk execution
+	returns "footprint check failure":
+	=======> ERROR: Footprint mismatch found:
+	[...]
+	pkgman: makecommand: [package]: footprint check failure
+	pkgman: addcommand: [package]: unknown error  <========
+
 	[ ] issue: investigate the following behaviour:
 
 		pkgman sysup --depsort --deps --group
