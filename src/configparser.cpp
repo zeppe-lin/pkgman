@@ -157,24 +157,18 @@ void ConfigParser::parseLine( const string& line, bool prepend )
   {
     s = stripWhiteSpace( s.replace( 0, 8, "" ) );
     if ( s == "enabled" )
-    {
-      // it's already set to false, so we can just enable it.
-      // like this, the command line switch works as well
       m_writeLog = true;
-    }
+    else if ( s == "disabled" )
+      m_writeLog = false;
   }
 
   else if ( startsWithNoCase( s, "logmode" ) )
   {
     s = stripWhiteSpace( s.replace( 0, 7, "" ) );
     if ( s == "overwrite" )
-    {
       m_logMode = OVERWRITE_MODE;
-    }
     else if ( s == "append" )
-    {
       m_logMode = APPEND_MODE;
-    }
   }
 
   else if ( startsWithNoCase( s, "logfile" ) )
@@ -188,12 +182,16 @@ void ConfigParser::parseLine( const string& line, bool prepend )
     s = stripWhiteSpace( s.replace( 0, 16, "" ) );
     if ( s == "yes" )
       m_removeLogOnSuccess = true;
+    else if ( s == "no" )
+      m_removeLogOnSuccess = false;
   }
 
   else if ( startsWithNoCase( s, "readme" ) )
   {
     s = stripWhiteSpace( s.replace( 0, 6, "" ) );
-    if ( s == "compact" )
+    if ( s == "verbose" )
+      m_readmeMode = VERBOSE_README;
+    else if ( s == "compact" )
       m_readmeMode = COMPACT_README;
     else if ( s == "disabled" )
       m_readmeMode = WITHOUT_README;
@@ -204,6 +202,8 @@ void ConfigParser::parseLine( const string& line, bool prepend )
     s = stripWhiteSpace( s.replace( 0, 10, "" ) );
     if ( s == "yes" )
       m_runScripts = true;
+    else if ( s == "no" )
+      m_runScripts = false;
   }
 
   else if ( startsWithNoCase( s, "preferhigher" ) )
@@ -211,6 +211,8 @@ void ConfigParser::parseLine( const string& line, bool prepend )
     s = stripWhiteSpace( s.replace( 0, 12, "" ) );
     if ( s == "yes" )
       m_preferHigher = true;
+    else if ( s == "no" )
+      m_preferHigher = false;
   }
 
   else if ( startsWithNoCase( s, "useregex" ) )
@@ -218,6 +220,8 @@ void ConfigParser::parseLine( const string& line, bool prepend )
     s = stripWhiteSpace( s.replace( 0, 8, "" ) );
     if ( s == "yes" )
       m_useRegex = true;
+    else if ( s == "no" )
+      m_useRegex = false;
   }
 
   else if ( startsWithNoCase( s, "makecommand" ) )
