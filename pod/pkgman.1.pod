@@ -8,7 +8,7 @@ pkgman - advanced package management tool
 
 =head1 SYNOPSIS
 
-B<pkgman> [I<COMMAND>] [I<OPTION>]... [I<ARGS>]
+B<pkgman> [I<OPTION>]... [I<COMMAND>] [I<ARGS>]
 
 =head1 DESCRIPTION
 
@@ -59,16 +59,22 @@ print this help message.
 =item B<-->
 
 A B<--> signals the end of options and disables further option
-processing.  Any arguments after the B<--> are treated as
-I<COMMAND> and its arguments.  It helps to specify I<COMMAND>
-arguments that starts with B<-> and B<pkgman> won't confuse it
-with an option.  Example:
+processing.  Any arguments after the B<--> are treated as I<COMMAND>
+and/or I<COMMAND>'s arguments.  It helps to specify I<COMMAND>
+arguments that starts with B<-> and B<pkgman> won't confuse it with an
+option.  For example:
 
-  pkgman search -- -lib
+  pkgman search --regex -- -lib
   -- search ([i] = installed)
   [i] alsa-lib
   [i] p5-libwww
-  ...
+  [...]
+
+  pkgman --regex -- search -lib
+  -- search ([i] = installed)
+  [i] alsa-lib
+  [i] p5-libwww
+  [...]
 
 =back
 
