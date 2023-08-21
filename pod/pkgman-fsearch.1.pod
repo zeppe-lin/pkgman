@@ -49,7 +49,21 @@ wildcard in L<fnmatch(3)> format, or regex in L<regex(3)> format.
 
 =back
 
+=head1 EXIT STATUS
+
+=over 8
+
+=item 0
+
+Success.
+
+=item 255
+
+Nothing found.
+
+=back
+
 =cut
 
-# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+# vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 # End of file.
