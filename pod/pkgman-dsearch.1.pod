@@ -54,7 +54,7 @@ Success.
 
 =item 255
 
-No matching packages found.
+Nothing found.
 
 =back
 
