@@ -14,6 +14,7 @@ using namespace std;
 
 class ArgParser;
 
+
 //! \class   ConfigParser
 //! \brief   Configuration Parser
 //!
@@ -21,6 +22,7 @@ class ArgParser;
 class ConfigParser
 {
 public:
+
   //! \brief   Construct a ConfigParser object
   //!
   //! \param   configFile  path to the configuration file
@@ -29,10 +31,13 @@ public:
   //! \note    the \--log command-line option overrides config
   ConfigParser( const string& configFile, const ArgParser* parser );
 
+
   //! \brief   Parse the configuration file
   //!
   //! \return  \a true on success, \a false otherwise
-  bool parse();
+  bool
+    parse();
+
 
   //! \brief   Add configuration setting
   //!
@@ -48,14 +53,16 @@ public:
   //!                         \--config-set="line"
   //! \param   configPrepend  \a true if the command-line argument was
   //!                         \--config-prepend="line"
-  void addConfig( const string& line,
-                  bool          configSet,
-                  bool          configPrepend );
+  void
+    addConfig( const string& line, bool configSet, bool configPrepend );
+
 
   //! \brief   Whether pkgman should write to a log file
   //!
   //! \return  \a true if so, \a false otherwise
-  bool writeLog() const;
+  bool
+    writeLog()
+    const;
 
 
   //! Log modes
@@ -65,26 +72,39 @@ public:
     OVERWRITE_MODE,   //!< Overwrite the log file
   };
 
+
   //! \brief   Which Log mode should pkgman to use
   //!
   //! \return  \a logMode_t mode
-  logMode_t logMode() const;
+  logMode_t
+    logMode()
+    const;
+
 
   //! \brief   Whether pkgman should remove the log file on success build
   //!
   //! \return  \a true if so, \a false otherwise
-  bool removeLogOnSuccess() const;
+  bool
+    removeLogOnSuccess()
+    const;
+
 
   //! \brief   A path pattern to the log file
   //!
   //! \return  the string that contains a path pattern to the log file
-  string logFilePattern() const;
+  string
+    logFilePattern()
+    const;
+
 
   //! \brief   A path and packages
   //!
   //! \return  the list of pair with path and packages specified by
   //!          "pkgsrcdir"
-  const list< pair< string, string > >& rootList() const;
+  const list< pair< string, string > >&
+    rootList()
+    const;
+
 
   //! README modes
   enum readmeMode_t
@@ -94,24 +114,34 @@ public:
     WITHOUT_README,   //!< No information about README files
   };
 
+
   //! \brief   Which README mode should pkgman to use
   //!
   //! \return  \a readmeMode_t mode
-  readmeMode_t readmeMode() const;
+  readmeMode_t
+    readmeMode()
+    const;
+
 
   //! \brief   Whether pkgman should parse version strings and prefer the
   //!          higher one, even if the one found in the packages sources
   //!          tree is lower
   //!
   //! \return  \a true if so, \a false otherwise
-  bool preferHigher() const;
+  bool
+    preferHigher()
+    const;
+
 
   //! \brief   Whether pkgman should interpret \b list, \b printf,
   //!          \b search
   //!          arguments as regular expressions
   //!
   //! \return  \a true if so, \a false otherwise
-  bool useRegex() const;
+  bool
+    useRegex()
+    const;
+
 
   //! \brief   Whether pkgman should run pre/post- scripts
   //!
@@ -122,74 +152,106 @@ public:
   //!   - post-remove
   //!
   //! \return  \a true if should run, \a false otherwise
-  bool runScripts() const;
+  bool
+    runScripts()
+    const;
+
 
   //! \brief   A path to the scripts interpreter
   //!
   //! \return  the command to run the pre/post- scripts
-  string runscriptCommand() const;
+  string
+    runscriptCommand()
+    const;
+
 
   //! \brief   A path to the package builder script
   //!
   //! \return  the command to build the package
-  string makeCommand() const;
+  string
+    makeCommand()
+    const;
+
 
   //! \brief   A path to the package installer script
   //!
   //! \return  the command to install the package
-  string addCommand() const;
+  string
+    addCommand()
+    const;
+
 
   //! \brief   A path to the package remover script
   //!
   //! \return  the command to remove the package
-  string removeCommand() const;
+  string
+    removeCommand()
+    const;
+
 
 private:
+
+
   //! path to the pkgman's configuration file
   string m_configFile;
+
 
   //! argument parser
   const ArgParser* m_parser;
 
+
   //! the list of pair with path and packages
   list< pair< string, string > > m_rootList;
+
 
   //! path pattern to the log file
   string m_logFilePattern;
 
+
   //! whether write to a log file the build process
   bool m_writeLog;
+
 
   //! Log mode
   logMode_t m_logMode;
 
+
   //! whether remove the log file after success build
   bool m_removeLogOnSuccess;
 
+
   //! README mode
   readmeMode_t m_readmeMode;
+
 
   //! whether parse version strings and prefer the higher one even if
   //! the one found in the packages sources tree is lower
   bool m_preferHigher;
 
+
   //! whether interpret search strings and wildcard patterns as regex
   bool m_useRegex;
+
 
   //! whether run pre/post-install and pre/post-remove scripts
   bool m_runScripts;
 
+
   //! the command to run the pre/post-install and pre/post-remove scripts
   string m_runscriptCommand;
+
 
   //! the command to build the package
   string m_makeCommand;
 
+
   //! the command to install the package
   string m_addCommand;
 
+
   //! the command to remove the package
   string m_removeCommand;
+
 
   //! \brief   Parse the config file line
   //!
@@ -199,8 +261,10 @@ private:
   //!
   //! \param   line     the string to be parsed
   //! \param   prepend  whether prepend the data
-  void parseLine( const string& line, bool prepend=false );
-};
+  void
+    parseLine( const string& line, bool prepend=false );
 
-// vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+}; // Class ConfigParser
+
+// vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

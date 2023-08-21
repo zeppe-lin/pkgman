@@ -1,5 +1,3 @@
-.POSIX:
-
 include config.mk
 
 OBJS = $(subst   .cpp,.o,$(wildcard src/*.cpp))
@@ -7,27 +5,17 @@ MAN1 = $(subst .1.pod,.1,$(wildcard pod/*.1.pod))
 MAN5 = $(subst .5.pod,.5,$(wildcard pod/*.5.pod))
 MAN8 = $(subst .8.pod,.8,$(wildcard pod/*.8.pod))
 
-all: pkgman manpages
+all: pkgman ${MAN1} ${MAN5} ${MAN8}
 
 %: %.pod
 	pod2man -r "${NAME} ${VERSION}" -c ' ' -n $(basename $@) \
 		-s $(subst .,,$(suffix $@)) $< > $@
-
-${OBJS}: copyright.h
-copyright.h: ${CURDIR}/COPYRIGHT ${CURDIR}/COPYING.BANNER
-	{ echo "#ifndef COPYRIGHT_H"            ; \
-	  echo "#define COPYRIGHT_H"            ; \
-	  echo "#define COPYRIGHT_MESSAGE \\"   ; \
-	  sed 's/^.*/"&\\n"/;$$ ! s/$$/ \\/' $^ ; \
-	  echo "#endif"                         ; } > $@
 
 .cpp.o:
 	${CXX} -c ${CXXFLAGS} ${CPPFLAGS} $< -o $@
 
 pkgman: ${OBJS}
 	${LD} $^ ${LDFLAGS} -o $@
-
-manpages: ${MAN1} ${MAN5} ${MAN8}
 
 vcomp:
 	${CXX} -o $@ -DTEST ${CXXFLAGS} ${CPPFLAGS} \

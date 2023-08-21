@@ -26,12 +26,15 @@ Locker::Locker( const string& root ):
   file.close();
 }
 
-bool Locker::openFailed() const
+bool
+Locker::openFailed()
+  const
 {
   return m_openFailed;
 }
 
-bool Locker::lock( const pkgname_t& package )
+bool
+Locker::lock( const pkgname_t& package )
 {
   if ( isLocked( package ) )
     return false; // already locked
@@ -40,7 +43,8 @@ bool Locker::lock( const pkgname_t& package )
   return true;
 }
 
-bool Locker::unlock( const pkgname_t& package )
+bool
+Locker::unlock( const pkgname_t& package )
 {
   auto it = find( m_packages.begin(), m_packages.end(), package );
   if ( it != m_packages.end() )
@@ -52,7 +56,8 @@ bool Locker::unlock( const pkgname_t& package )
   return false;
 }
 
-bool Locker::store()
+bool
+Locker::store()
 {
   ofstream file( m_root + PATH_LOCK_DB );
   if ( ! file.is_open() )
@@ -65,7 +70,9 @@ bool Locker::store()
   return true;
 }
 
-bool Locker::isLocked( const pkgname_t& package ) const
+bool
+Locker::isLocked( const pkgname_t& package )
+  const
 {
   auto it = find( m_packages.begin(), m_packages.end(), package );
   if ( it != m_packages.end() )
@@ -74,10 +81,12 @@ bool Locker::isLocked( const pkgname_t& package ) const
   return false;
 }
 
-const vector< pkgname_t >& Locker::lockedPackages() const
+const vector< pkgname_t >&
+Locker::lockedPackages()
+  const
 {
   return m_packages;
 }
 
-// vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+// vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

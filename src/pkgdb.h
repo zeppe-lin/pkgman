@@ -30,7 +30,9 @@ public:
   //! \param   name  the package name
   //!
   //! \return  whether package \a name is installed
-  bool isInstalled( const pkgname_t& name ) const;
+  bool
+    isInstalled( const pkgname_t& name )
+    const;
 
   //! \brief   Get the package version and release
   //!
@@ -38,14 +40,17 @@ public:
   //!
   //! \return  a package's version and release or an empty string
   //!          if not found
-  string getVersionRelease( const pkgname_t& name ) const;
+  string
+    getVersionRelease( const pkgname_t& name )
+    const;
 
   //! \brief   Get all installed packages
   //!
   //! \return  a map of installed packages, where
   //!          pair.first   is the package name,
   //!          pair.second  is the version-release string
-  const map< pkgname_t, pkgver_t >& installedPackages();
+  const map< pkgname_t, pkgver_t >&
+    installedPackages();
 
   //! \brief   Search packages for a match of \a pattern in name
   //!
@@ -56,9 +61,10 @@ public:
   //!                    pair.first   is the package name,
   //!                    pair.second  is the version-release string
   //! \param   useRegex  interpret the \a pattern as regular expression
-  void getMatchingPackages( const string&                pattern,
-                            map< pkgname_t, pkgver_t >&  target,
-                            bool                         useRegex )
+  void
+    getMatchingPackages( const string&                pattern,
+                         map< pkgname_t, pkgver_t >&  target,
+                         bool                         useRegex )
     const;
 
 private:
@@ -75,5 +81,5 @@ private:
   string m_root;
 };
 
-// vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+// vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

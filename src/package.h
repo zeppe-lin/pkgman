@@ -68,12 +68,16 @@ public:
   //! \brief   Get the package name
   //!
   //! \return  the name of this package
-  const string& name() const;
+  const string&
+    name()
+    const;
 
   //! \brief   Get the package path in the packages sources tree
   //!
   //! \return  the path to this package
-  const string& path() const;
+  const string&
+    path()
+    const;
 
   //! \brief   Get the full path to this package or this package's
   //!          \a file in the packages sources tree
@@ -83,77 +87,106 @@ public:
   //!
   //! \return  the full path to this package or package file,
   //!          in case of specified \a file argument
-  const string fullpath( const string& file="" ) const;
+  const string
+    fullpath( const string& file="" )
+    const;
 
   //! \brief   Get package version (without release number)
   //!
   //! \return  the version of this package
-  const string& version() const;
+  const string&
+    version()
+    const;
 
   //! \brief   Get package release number
   //!
   //! \return  the release number of this package
-  const string& release() const;
+  const string&
+    release()
+    const;
 
   //! \brief   Get package version-release
   //!
   //! \return  a typically formatted \b version-release string
-  string version_release() const;
+  string
+    version_release()
+    const;
 
   //! \brief   Get package description
   //!
   //! \return  the description field of this package
-  const string& description() const;
+  const string&
+    description()
+    const;
 
   //! \brief   Get package dependencies
   //!
   //! \return  the dependencies (comma-split line) of this package
-  const string& dependencies() const;
+  const string&
+    dependencies()
+    const;
 
   //! \brief   Get the sources' location used to build this package
   //!
   //! \return  the sources' location for this package
-  const string& url() const;
+  const string&
+    url()
+    const;
 
   //! \brief   Get the packager of this package
   //!
   //! \return  the packager of this package
-  const string& packager() const;
+  const string&
+    packager()
+    const;
 
   //! \brief   Get the package maintainer
   //!
   //! \return  the maintainer of this package
-  const string& maintainer() const;
+  const string&
+    maintainer()
+    const;
 
   //! \brief   Whether or not this package has a readme file
   //!
   //! \return  \a true if so, \a false otherwise
-  bool hasReadme() const;
+  bool
+    hasReadme()
+    const;
 
   //! \brief   Whether or not this package has a pre-install script
   //!
   //! \return  \a true if so, \a false otherwise
-  bool hasPreInstall() const;
+  bool
+    hasPreInstall()
+    const;
 
   //! \brief   Whether or not this package has a post-install script
   //!
   //! \return  \a true if so, \a false otherwise
-  bool hasPostInstall() const;
+  bool
+    hasPostInstall()
+    const;
 
   //! \brief   Whether or not this package has a pre-remove script
   //!
   //! \return  \a true if so, \a false otherwise
-  bool hasPreRemove() const;
+  bool
+    hasPreRemove()
+    const;
 
   //! \brief   Whether or not this package has a post-remove script
   //!
   //! \return  \a true if so, \a false otherwise
-  bool hasPostRemove() const;
+  bool
+    hasPostRemove()
+    const;
 
   //! \brief   Set dependencies for this package
   //!
   //! \param   dependencies  a comma-split packages
-  void setDependencies( const string& dependencies );
+  void
+    setDependencies( const string& dependencies );
 
 private:
   //! The config file with custom specified package dependencies
@@ -161,10 +194,14 @@ private:
 
   //! Load necessary package data from Pkgfile and package source's
   //! directory
-  void load() const;
+  void
+    load()
+    const;
 
   //! Rewrite Pkgfile's dependencies to ones written in the config file
-  void loadConfigDepends() const;
+  void
+    loadConfigDepends()
+    const;
 
   //! \brief   Expand shell commands
   //!
@@ -174,9 +211,10 @@ private:
   //! \param   unameBuf  utsname structure
   //!
   //! \note    Currently are supported only date and uname
-  static void expandShellCommands( string&               input,
-                                   const time_t&         timeNow,
-                                   const struct utsname  unameBuf );
+  static void
+    expandShellCommands( string&               input,
+                         const time_t&         timeNow,
+                         const struct utsname  unameBuf );
 
   //! this package data fields
   mutable PackageData* m_data;
@@ -254,5 +292,5 @@ struct PackageData
   void generateVersionReleaseString();
 };
 
-// vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+// vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

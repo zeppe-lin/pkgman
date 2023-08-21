@@ -10,8 +10,9 @@
 using namespace std;
 using namespace StringHelper;
 
-bool DataFileParser::parse( const string&           filename,
-                            map< string, string >&  target )
+bool
+DataFileParser::parse( const string&           filename,
+                       map< string, string >&  target )
 {
   ifstream file( filename );
   if ( ! file.is_open() )
@@ -40,5 +41,5 @@ bool DataFileParser::parse( const string&           filename,
   return true;
 }
 
-// vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+// vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

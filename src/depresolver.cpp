@@ -9,17 +9,20 @@
 
 using namespace std;
 
-void DepResolver::addDependency( ssize_t first, ssize_t second )
+void
+DepResolver::addDependency( ssize_t first, ssize_t second )
 {
   m_dependencies.push_back( make_pair( first, second ) );
 }
 
-bool DepResolver::resolve( list< ssize_t >& result )
+bool
+DepResolver::resolve( list< ssize_t >& result )
 {
   return topSort( result );
 }
 
-bool DepResolver::topSort( list< ssize_t >& result )
+bool
+DepResolver::topSort( list< ssize_t >& result )
 {
   // elt -> number of predecessors
   map< ssize_t, ssize_t > numPreds;
@@ -81,5 +84,5 @@ bool DepResolver::topSort( list< ssize_t >& result )
   return numPreds.size() == 0;
 }
 
-// vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+// vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

@@ -15,29 +15,32 @@
 #include "process.h"
 #include "pkgman.h"
 #include "signaldispatcher.h"
-#include "../copyright.h"
 
 using namespace std;
 
-static int print_version()
+static int
+print_version()
 {
-  cout << "pkgman " PROJECT_VERSION "\n" COPYRIGHT_MESSAGE;
+  cout << "pkgman " VERSION "\n";
   return EXIT_SUCCESS;
 }
 
-static void inline die( const string& message, int rc=EXIT_FAILURE )
+static void inline
+die( const string& message, int rc=EXIT_FAILURE )
 {
   cerr << message << endl;
   exit( rc );
 }
 
-static void inline dieman( const string& cmd )
+static void inline
+dieman( const string& cmd )
 {
   Process man( PATH_MAN_BIN, cmd, /*logfd*/ 0, /*log2stdout*/false );
   exit( man.execute() );
 }
 
-int main( int argc, char** argv )
+int
+main( int argc, char** argv )
 {
   ArgParser parser( argc, argv );
   if ( ! parser.parse() )
@@ -288,5 +291,5 @@ int main( int argc, char** argv )
   return pkgman.returnValue();
 }
 
-// vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+// vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

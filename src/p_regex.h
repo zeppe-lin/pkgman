@@ -30,7 +30,8 @@ public:
   //! \param   input  the string for pattern matching
   //!
   //! \return  \a true if match, \a false otherwise
-  bool match( const string& input );
+  bool
+    match( const string& input );
 
   //! \brief   Whether a string contains a given pattern
   //!
@@ -39,9 +40,10 @@ public:
   //! \param   caseSensitive  perform case-sensitive matching if true
   //!
   //! \return  \a true if match, \a false otherwise
-  static bool match( const string&  pattern,
-                     const string&  input,
-                     bool           caseSensitive=false );
+  static bool
+    match( const string& pattern,
+           const string& input,
+           bool          caseSensitive=false );
 
 private:
   //! Save the pattern for searching with different input strings
@@ -51,5 +53,5 @@ private:
   bool m_validPattern;
 };
 
-// vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+// vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

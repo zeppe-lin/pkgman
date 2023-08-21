@@ -217,5 +217,5 @@ void Repository::addDependencies( map< pkgname_t, pkgname_t >& deps )
   }
 }
 
-// vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+// vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

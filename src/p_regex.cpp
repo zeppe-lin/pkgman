@@ -25,7 +25,8 @@ RegEx::~RegEx()
   regfree( &m_pattern );
 }
 
-bool RegEx::match( const string& input )
+bool
+RegEx::match( const string& input )
 {
   if ( ! m_validPattern )
     return false;
@@ -33,13 +34,14 @@ bool RegEx::match( const string& input )
   return regexec( &m_pattern, input.c_str(), 0, 0, 0 ) == 0;
 }
 
-bool RegEx::match( const string&  pattern,
-                   const string&  input,
-                   bool           caseSensitive )
+bool
+RegEx::match( const string&  pattern,
+              const string&  input,
+              bool           caseSensitive )
 {
   RegEx re( pattern, caseSensitive );
   return re.match( input );
 }
 
-// vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+// vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

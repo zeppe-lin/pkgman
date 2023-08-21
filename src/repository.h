@@ -40,8 +40,8 @@ public:
   //!
   //! \return  a \a Package pointer for a package name or 0 if not found
   const Package*
-  getPackage( const pkgname_t& name )
-  const;
+    getPackage( const pkgname_t& name )
+    const;
 
   //! \brief   Get all the packages available in the repository
   //!
@@ -49,8 +49,8 @@ public:
   //!          pair.first   is the package name,
   //!          pair.second  is \a Package pointer
   const map< pkgname_t, Package* >&
-  packages()
-  const;
+    packages()
+    const;
 
   //! \brief   Get the sorted list of duplicate packages
   //!          in the repository
@@ -60,8 +60,8 @@ public:
   //!          .first   is the shadowed package source and
   //!          .second  is the package source which precedes over first
   const list< pair< Package*, Package* > >&
-  shadowedPackages()
-  const;
+    shadowedPackages()
+    const;
 
   //! \brief   Search packages for a match of \a pattern in name, and
   //!          description if \a searchDesc is \a true
@@ -78,10 +78,10 @@ public:
   //! \param   searchDesc  whether descriptions should be searched
   //!                      as well
   void
-  searchMatchingPackages( const string&      pattern,
-                          list< Package* >&  target,
-                          bool               searchDesc )
-  const;
+    searchMatchingPackages( const string&      pattern,
+                            list< Package* >&  target,
+                            bool               searchDesc )
+    const;
 
   //! \brief   Search packages for a match of \a pattern in name
   //!
@@ -91,9 +91,9 @@ public:
   //! \param   pattern  the pattern to be found
   //! \param   target   save matching packages into a \a target list
   void
-  getMatchingPackages( const string&      pattern,
-                       list< Package* >&  target )
-  const;
+    getMatchingPackages( const string&      pattern,
+                         list< Package* >&  target )
+    const;
 
   //! \brief   Init repository by reading the directories passed
   //!
@@ -104,7 +104,8 @@ public:
   //!                         packages sources in
   //! \param   listDuplicate  whether duplicates should be registered
   //!                         (slower)
-  void initFromFS( const rootList_t& rootList, bool listDuplicate );
+  void
+    initFromFS( const rootList_t& rootList, bool listDuplicate );
 
   //! \brief   Create all components of the \a path which don't exist
   //!
@@ -112,14 +113,14 @@ public:
   //!
   //! \return  \a true on success,
   //!          \a false mostly indicates permission problems
-  static
-  bool createOutputDir( const string& path );
+  static bool
+    createOutputDir( const string& path );
 
   //! \brief   Add custom dependency for a package
   //!
   //! XXX Add more description
   void
-  addDependencies( map< string, string >& deps );
+    addDependencies( map< string, string >& deps );
 
 private:
   //! \brief   The helper function for sorting the shadowed packages
@@ -130,8 +131,8 @@ private:
   //!
   //! \return  the comparison result of \code \a p1 < \a p2 \endcode
   static int
-  compareShadowPair( pair< Package*, Package* >&  p1,
-                     pair< Package*, Package* >&  p2 );
+    compareShadowPair( pair< Package*, Package* >&  p1,
+                       pair< Package*, Package* >&  p2 );
 
   //! Whether interpret the matching \a pattern as a regular expression
   //! \see \a searchMatchingPackages and \a getMatchingPackages
@@ -144,5 +145,5 @@ private:
   map< pkgname_t, Package* > m_packageMap;
 };
 
-// vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+// vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

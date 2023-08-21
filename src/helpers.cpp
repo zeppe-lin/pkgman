@@ -8,7 +8,8 @@
 
 using namespace std;
 
-string StringHelper::getValue( const string& str, char del )
+string
+StringHelper::getValue( const string& str, char del )
 {
   const auto& pos = str.find( del );
   if ( pos != string::npos && pos + 1 < str.size() )
@@ -16,7 +17,8 @@ string StringHelper::getValue( const string& str, char del )
   return "";
 }
 
-string StringHelper::getValueBefore( const string& str, char del )
+string
+StringHelper::getValueBefore( const string& str, char del )
 {
   const auto& pos = str.find( del );
   if ( pos != string::npos )
@@ -24,7 +26,8 @@ string StringHelper::getValueBefore( const string& str, char del )
   return str;
 }
 
-string StringHelper::stripWhiteSpace( const string& str )
+string
+StringHelper::stripWhiteSpace( const string& str )
 {
   if ( str.empty() )
     return str;
@@ -48,7 +51,8 @@ string StringHelper::stripWhiteSpace( const string& str )
   return line;
 }
 
-bool StringHelper::startsWith( const string& a, const string& b )
+bool
+StringHelper::startsWith( const string& a, const string& b )
 {
   if ( b.size() > a.size() )
     return false;
@@ -57,7 +61,8 @@ bool StringHelper::startsWith( const string& a, const string& b )
   return a.find( b ) == 0;
 }
 
-bool StringHelper::startsWithNoCase( const string& a, const string& b )
+bool
+StringHelper::startsWithNoCase( const string& a, const string& b )
 {
   if ( b.size() > a.size() )
     return false;
@@ -68,7 +73,8 @@ bool StringHelper::startsWithNoCase( const string& a, const string& b )
   return x.find( y ) == 0;
 }
 
-bool StringHelper::endsWith( const string& a, const string& b )
+bool
+StringHelper::endsWith( const string& a, const string& b )
 {
   if ( b.size() > a.size() )
     return false;
@@ -76,7 +82,8 @@ bool StringHelper::endsWith( const string& a, const string& b )
   return equal( b.rbegin(), b.rend(), a.rbegin() );
 }
 
-bool StringHelper::endsWithNoCase( const string& a, const string& b )
+bool
+StringHelper::endsWithNoCase( const string& a, const string& b )
 {
   if ( b.size() > a.size() )
     return false;
@@ -87,7 +94,8 @@ bool StringHelper::endsWithNoCase( const string& a, const string& b )
   return equal( y.rbegin(), y.rend(), x.rbegin() );
 }
 
-string StringHelper::toLowerCase( const string& str )
+string
+StringHelper::toLowerCase( const string& str )
 {
   string p( str );
   transform( p.begin(), p.end(), p.begin(), ::tolower );
@@ -95,7 +103,8 @@ string StringHelper::toLowerCase( const string& str )
   return p;
 }
 
-string StringHelper::toUpperCase( const string& s )
+string
+StringHelper::toUpperCase( const string& s )
 {
   string p( s );
   transform( p.begin(), p.end(), p.begin(), ::toupper );
@@ -103,9 +112,10 @@ string StringHelper::toUpperCase( const string& s )
   return p;
 }
 
-string StringHelper::replaceAll( string&        in,
-                                 const string&  oldStr,
-                                 const string&  newStr )
+string
+StringHelper::replaceAll( string&        in,
+                          const string&  oldStr,
+                          const string&  newStr )
 {
   size_t pos;
   while ( ( pos = in.find( oldStr ) ) != string::npos )
@@ -114,5 +124,5 @@ string StringHelper::replaceAll( string&        in,
   return in;
 }
 
-// vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+// vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

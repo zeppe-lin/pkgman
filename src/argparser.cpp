@@ -46,28 +46,55 @@ ArgParser::ArgParser( int argc, char** argv ):
 {
 }
 
-bool ArgParser::parse()
+bool
+ArgParser::parse()
 {
   if ( m_argc < 2 )
     return false;
 
+  //! Must be in sync w/ argparser.h:Command_ID enum.
   string commands[] = {
+
     // Informational
-    "dumpconfig", "list", "list-dup", "list-nodependents",
-    "list-orphans", "list-locked", "printf", "info", "readme", "path",
-    "isinst", "current",
+    "dumpconfig",
+    "list",
+    "list-dup",
+    "list-nodependents",
+    "list-orphans",
+    "list-locked",
+    "printf",
+    "info",
+    "readme",
+    "path",
+    "isinst",
+    "current",
+
     // Differences / Check for updates
     "diff",
+
     // Dependencies
-    "dep", "rdep",
+    "dep",
+    "rdep",
+
     // Searching
-    "search", "dsearch", "fsearch",
+    "search",
+    "dsearch",
+    "fsearch",
+
     // Install / Update / Remove
-    "install", "update", "remove",
+    "install",
+    "update",
+    "remove",
+
     // System update
-    "sysup", "lock", "unlock",
+    "sysup",
+    "lock",
+    "unlock",
+
     // File operations
-    "ls", "cat", "edit",
+    "ls",
+    "cat",
+    "edit",
   };
 
   bool endofopts = false;
@@ -278,177 +305,247 @@ bool ArgParser::parse()
   return m_isCommandGiven;
 }
 
-bool ArgParser::isCommandGiven() const
+bool
+ArgParser::isCommandGiven()
+  const
 {
   return m_isCommandGiven;
 }
 
-size_t ArgParser::commandID() const
+size_t
+ArgParser::commandID()
+  const
 {
   return m_commandID;
 }
 
-bool ArgParser::isHelp() const
+bool
+ArgParser::isHelp()
+  const
 {
   return m_Help;
 }
 
-bool ArgParser::isVersion() const
+bool
+ArgParser::isVersion()
+  const
 {
   return m_Version;
 }
 
-bool ArgParser::isForced() const
+bool
+ArgParser::isForced()
+  const
 {
   return m_isForced;
 }
 
-bool ArgParser::isTest() const
+bool
+ArgParser::isTest()
+  const
 {
   return m_isTest;
 }
 
-bool ArgParser::isAlternateConfigGiven() const
+bool
+ArgParser::isAlternateConfigGiven()
+  const
 {
   return m_isAlternateConfigGiven;
 }
 
-bool ArgParser::writeLog() const
+bool
+ArgParser::writeLog()
+  const
 {
   return m_writeLog;
 }
 
-bool ArgParser::hasFilter() const
+bool
+ArgParser::hasFilter()
+  const
 {
   return m_hasFilter;
 }
 
-bool ArgParser::noStdConfig() const
+bool
+ArgParser::noStdConfig()
+  const
 {
   return m_noStdConfig;
 }
 
-bool ArgParser::deps() const
+bool
+ArgParser::deps()
+  const
 {
   return m_deps;
 }
 
-bool ArgParser::all() const
+bool
+ArgParser::all()
+  const
 {
   return m_all;
 }
 
-bool ArgParser::full() const
+bool
+ArgParser::full()
+  const
 {
   return m_full;
 }
 
-bool ArgParser::printPath() const
+bool
+ArgParser::printPath()
+  const
 {
   return m_printPath;
 }
 
-bool ArgParser::execPreInstall() const
+bool
+ArgParser::execPreInstall()
+  const
 {
   return m_execPreInstall;
 }
 
-bool ArgParser::execPostInstall() const
+bool
+ArgParser::execPostInstall()
+  const
 {
   return m_execPostInstall;
 }
 
-bool ArgParser::execPreRemove() const
+bool
+ArgParser::execPreRemove()
+  const
 {
   return m_execPreRemove;
 }
 
-bool ArgParser::execPostRemove() const
+bool
+ArgParser::execPostRemove()
+  const
 {
   return m_execPostRemove;
 }
 
-bool ArgParser::useRegex() const
+bool
+ArgParser::useRegex()
+  const
 {
   return m_useRegex;
 }
 
-bool ArgParser::recursive() const
+bool
+ArgParser::recursive()
+  const
 {
   return m_recursive;
 }
 
-bool ArgParser::printTree() const
+bool
+ArgParser::printTree()
+  const
 {
   return m_printTree;
 }
 
-bool ArgParser::group() const
+bool
+ArgParser::group()
+  const
 {
   return m_group;
 }
 
-bool ArgParser::depSort() const
+bool
+ArgParser::depSort()
+  const
 {
   return m_depSort;
 }
 
-const string& ArgParser::alternateConfigFile() const
+const string&
+ArgParser::alternateConfigFile()
+  const
 {
   return m_alternateConfigFile;
 }
 
-const string& ArgParser::pkgmkArgs() const
+const string&
+ArgParser::pkgmkArgs()
+  const
 {
   return m_pkgmkArgs;
 }
 
-const string& ArgParser::pkgaddArgs() const
+const string&
+ArgParser::pkgaddArgs()
+  const
 {
   return m_pkgaddArgs;
 }
 
-const string& ArgParser::pkgrmArgs() const
+const string&
+ArgParser::pkgrmArgs()
+  const
 {
   return m_pkgrmArgs;
 }
 
-const string& ArgParser::sortArgs() const
+const string&
+ArgParser::sortArgs()
+  const
 {
   return m_sortArgs;
 }
 
-const string& ArgParser::filter() const
+const string&
+ArgParser::filter()
+  const
 {
   return m_filter;
 }
 
-const string& ArgParser::root() const
+const string&
+ArgParser::root()
+  const
 {
   return m_root;
 }
 
-const string& ArgParser::ignore() const
+const string&
+ArgParser::ignore()
+  const
 {
   return m_ignore;
 }
 
-const string& ArgParser::commandName() const
+const string&
+ArgParser::commandName()
+  const
 {
   return m_commandName;
 }
 
-const string& ArgParser::unknownOption() const
+const string&
+ArgParser::unknownOption()
+  const
 {
   return m_unknownOption;
 }
 
-const list< char* >& ArgParser::cmdArgs() const
+const list< char* >&
+ArgParser::cmdArgs()
+  const
 {
   return m_cmdArgs;
 }
 
-int ArgParser::verbose() const
+int
+ArgParser::verbose()
+  const
 {
   return m_verbose;
 }
@@ -460,5 +557,5 @@ ArgParser::configData()
   return m_configData;
 }
 
-// vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+// vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

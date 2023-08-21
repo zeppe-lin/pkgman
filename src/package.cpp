@@ -62,17 +62,23 @@ Package::~Package()
   delete m_data;
 }
 
-const string& Package::name() const
+const string&
+Package::name()
+  const
 {
   return m_data->name;
 }
 
-const string& Package::path() const
+const string&
+Package::path()
+  const
 {
   return m_data->path;
 }
 
-const string Package::fullpath( const string& file ) const
+const string
+Package::fullpath( const string& file )
+  const
 {
   if ( file.empty() )
     return m_data->path + '/' + m_data->name;
@@ -80,90 +86,119 @@ const string Package::fullpath( const string& file ) const
   return m_data->path + '/' + m_data->name + '/' + file;
 }
 
-const string& Package::version() const
+const string&
+Package::version()
+  const
 {
   load();
   return m_data->version;
 }
 
-const string& Package::release() const
+const string&
+Package::release()
+  const
 {
   load();
   return m_data->release;
 }
 
-string Package::version_release() const
+string
+Package::version_release()
+  const
 {
   load();
   return m_data->version_release;
 }
 
-const string& Package::description() const
+const string&
+Package::description()
+  const
 {
   load();
   return m_data->description;
 }
 
-const string& Package::dependencies() const
+const string&
+Package::dependencies()
+  const
 {
   load();
   return m_data->depends;
 }
 
-const string& Package::url() const
+const string&
+Package::url()
+  const
 {
   load();
   return m_data->url;
 }
 
-const string& Package::packager() const
+const string&
+Package::packager()
+  const
 {
   load();
   return m_data->packager;
 }
 
-const string& Package::maintainer() const
+const string&
+Package::maintainer()
+  const
 {
   load();
   return m_data->maintainer;
 }
 
-bool Package::hasReadme() const
+bool
+Package::hasReadme()
+  const
 {
   load();
   return m_data->hasReadme;
 }
 
-bool Package::hasPreInstall() const
+bool
+Package::hasPreInstall()
+  const
 {
   load();
   return m_data->hasPreInstall;
 }
 
-bool Package::hasPostInstall() const
+bool
+Package::hasPostInstall()
+  const
 {
   load();
   return m_data->hasPostInstall;
 }
 
-bool Package::hasPreRemove() const
+bool
+Package::hasPreRemove()
+  const
 {
   load();
   return m_data->hasPreRemove;
 }
 
-bool Package::hasPostRemove() const
+bool
+Package::hasPostRemove()
+  const
 {
   load();
   return m_data->hasPostRemove;
 }
 
-void Package::setDependencies( const string& dependencies )
+void
+Package::setDependencies( const string& dependencies )
 {
   m_data->depends = dependencies;
 }
 
-void Package::load() const
+void
+Package::load()
+  const
 {
   if ( m_loaded )
     return;
@@ -253,9 +288,10 @@ void Package::load() const
     m_data->hasPostRemove = true;
 }
 
-void Package::expandShellCommands( string&               input,
-                                   const time_t&         timeNow,
-                                   const struct utsname  unameBuf )
+void
+Package::expandShellCommands( string&               input,
+                              const time_t&         timeNow,
+                              const struct utsname  unameBuf )
 {
   // TODO: consider dropping either of the tagsets,
   //       depending on feedback
@@ -339,10 +375,11 @@ PackageData::PackageData( const string&  name_,
   hasPostRemove   = ( stripWhiteSpace( hasPostRemove_  ) == "yes" );
 }
 
-void PackageData::generateVersionReleaseString()
+void
+PackageData::generateVersionReleaseString()
 {
   version_release = version + "-" + release;
 }
 
-// vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+// vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

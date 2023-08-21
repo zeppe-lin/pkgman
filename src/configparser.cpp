@@ -35,7 +35,8 @@ ConfigParser::ConfigParser( const string&    configFile,
 {
 }
 
-bool ConfigParser::parse()
+bool
+ConfigParser::parse()
 {
   ifstream file( m_configFile );
   if ( ! file.is_open() )
@@ -54,9 +55,10 @@ bool ConfigParser::parse()
   return true;
 }
 
-void ConfigParser::addConfig( const string&  line,
-                              bool           configSet,
-                              bool           configPrepend )
+void
+ConfigParser::addConfig( const string&  line,
+                         bool           configSet,
+                         bool           configPrepend )
 {
   if ( configSet && startsWithNoCase( line, "pkgsrcdir" ) )
     m_rootList.clear();
@@ -64,72 +66,99 @@ void ConfigParser::addConfig( const string&  line,
   parseLine( line, configPrepend );
 }
 
-bool ConfigParser::writeLog() const
+bool
+ConfigParser::writeLog()
+  const
 {
   return m_writeLog;
 }
 
-ConfigParser::logMode_t ConfigParser::logMode() const
+ConfigParser::logMode_t
+ConfigParser::logMode()
+  const
 {
   return m_logMode;
 }
 
-bool ConfigParser::removeLogOnSuccess() const
+bool
+ConfigParser::removeLogOnSuccess()
+  const
 {
   return m_removeLogOnSuccess;
 }
 
-string ConfigParser::logFilePattern() const
+string
+ConfigParser::logFilePattern()
+  const
 {
   return m_logFilePattern;
 }
 
-const rootList_t& ConfigParser::rootList() const
+const
+rootList_t& ConfigParser::rootList()
+  const
 {
   return m_rootList;
 }
 
-ConfigParser::readmeMode_t ConfigParser::readmeMode() const
+ConfigParser::readmeMode_t
+ConfigParser::readmeMode()
+  const
 {
   return m_readmeMode;
 }
 
-bool ConfigParser::preferHigher() const
+bool
+ConfigParser::preferHigher()
+  const
 {
   return m_preferHigher;
 }
 
-bool ConfigParser::useRegex() const
+bool
+ConfigParser::useRegex()
+  const
 {
   return m_useRegex;
 }
 
-bool ConfigParser::runScripts() const
+bool
+ConfigParser::runScripts()
+  const
 {
   return m_runScripts;
 }
 
-string ConfigParser::runscriptCommand() const
+string
+ConfigParser::runscriptCommand()
+  const
 {
   return m_runscriptCommand;
 }
 
-string ConfigParser::makeCommand() const
+string
+ConfigParser::makeCommand()
+  const
 {
   return m_makeCommand;
 }
 
-string ConfigParser::addCommand() const
+string
+ConfigParser::addCommand()
+  const
 {
   return m_addCommand;
 }
 
-string ConfigParser::removeCommand() const
+string
+ConfigParser::removeCommand()
+  const
 {
   return m_removeCommand;
 }
 
-void ConfigParser::parseLine( const string& line, bool prepend )
+void
+ConfigParser::parseLine( const string& line, bool prepend )
 {
   if ( line.empty() )
     return;
@@ -240,5 +269,5 @@ void ConfigParser::parseLine( const string& line, bool prepend )
     cerr << "pkgman: [config error]: unknown key/value: " << s << endl;
 }
 
-// vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+// vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.
