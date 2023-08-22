@@ -5,7 +5,6 @@
 *.8
 pkgman
 vcomp
-copyright.h
 
 # vim undo and swap files
 .*.un~
