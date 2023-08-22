@@ -8,8 +8,8 @@ MAN8 = $(subst .8.pod,.8,$(wildcard pod/*.8.pod))
 all: pkgman ${MAN1} ${MAN5} ${MAN8}
 
 %: %.pod
-	pod2man -r "${NAME} ${VERSION}" -c ' ' -n $(basename $@) \
-		-s $(subst .,,$(suffix $@)) $< > $@
+	pod2man -r "${NAME} ${VERSION}" -c "Package Management" \
+		-n $(basename $@) -s $(subst .,,$(suffix $@)) $< > $@
 
 .cpp.o:
 	${CXX} -c ${CXXFLAGS} ${CPPFLAGS} $< -o $@
