@@ -48,11 +48,11 @@ the string or regex in L<regex(3)> format.
 
 =over 8
 
-=item 0
+=item C<0>
 
 Success.
 
-=item 255
+=item C<255>
 
 Nothing found.
 
