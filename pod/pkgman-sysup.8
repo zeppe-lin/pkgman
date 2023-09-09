@@ -1,0 +1,170 @@
+.\" pkgman-sysup(8) manual page
+.\" See COPYING and COPYRIGHT files for corresponding information.
+.Dd September 9, 2023
+.Dt PKGMAN-SYSUP 8
+.Os pkgman @VERSION@
+.\" ==================================================================
+.Sh NAME
+.Nm pkgman-sysup
+.Nd update all outdated packages
+.\" ==================================================================
+.Sh SYNOPSIS
+.Nm pkgman
+.Cm sysup
+.Op Fl v Ns | Ns Fl vv
+.Op Fl \-test
+.Op Fl \-log
+.Op Fl \-deps
+.Op Fl \-depsort
+.Op Fl \-group
+.Op Fl \-margs Ns = Ns Ar pkgmk_args Ns | Ns Ar pkgmk_aliases
+.Op Fl \-aargs Ns = Ns Ar pkgadd_args Ns | Ns Ar pkgadd_aliases
+.Op Fl \-ignore Ns = Ns Ar pkgname Ns Op ,...
+.Oo
+.Fl \-install-scripts Ns | Ns
+.Op Fl \-pre-install Ns
+.Op Fl \-post-install
+.Oc
+.\" ==================================================================
+.Sh DESCRIPTION
+Update all installed packages which are outdated.
+.Pp
+Also see the
+.Xr pkgman-lock 8
+and
+.Xr pkgman-unlock 8
+commands to keep the currently installed versions, even if there are
+changes in the packages sources directories.
+.Pp
+If you want to update only diffs which have a lower version installed
+than the one in the packages sources directories, use the
+.Fl \-prefer-higher
+option.
+.\" *** Options description: ***
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.\" *** -v
+.It Fl v
+Unused.
+.\" *** -vv
+.It Fl vv
+Log to stdout the installation/updating process.
+.\" *** --test
+.It Fl \-test
+Dry run, do not actually install/update anything.
+.\" *** --log
+.It Fl \-log
+Create a transaction log file.
+It can be set globally for all transactions
+.Po
+see
+.Dq Li writelog
+option in
+.Xr pkgman.conf 5
+.Pc .
+.\" *** --deps
+.It Fl \-deps
+Update all packages including their new dependencies.
+.\" *** --depsort
+.It Fl \-depsort
+Sort updating by dependencies.
+.\" *** --group
+.It Fl \-group
+Update all packages, but stop if updating of one package fails.
+.\" *** --margs=pkgmk_args
+.It Sy --margs Ns = Ns Ar pkgmk_args
+Arguments to be passed to
+.Xr pkgmk 8 .
+.\" *** pkgmk_aliases
+.It Ar pkgmk_aliases
+.Bl -tag -width Ds
+.\" *** -fr
+.It Fl fr
+Force build, implies
+.Dq Li pkgmk -f
+.Po
+same as
+.Dq Li --margs Ns =-f
+.Pc .
+.\" *** -um
+.It Fl um
+Update md5sum, implies
+.Dq Li pkgmk -um
+.Po
+same as
+.Dq Li --margs Ns =-um
+.Pc .
+.\" *** -im
+.It Fl im
+Ignore md5sum, implies
+.Dq Li pkgmk -im
+.Po
+same as
+.Dq Li --margs Ns =-im
+.Pc .
+.\" *** -uf
+.It Fl uf
+Update footprint, implies
+.Dq Li pkgmk -uf
+.Po
+same as
+.Dq Li --margs Ns =-uf
+.Pc .
+.\" *** -if
+.It Fl if
+Ignore footprint, implies
+.Dq Li pkgmk -if
+.Po
+same as
+.Dq Li --margs Ns =-if
+.Pc .
+.\" *** -ns
+.It Fl ns
+No stripping, implies
+.Dq Li pkgmk -ns
+.Po
+same as
+.Dq Li --margs Ns =-ns
+.Pc .
+.\" *** -kw
+.It Fl kw
+Keep working directory, implies
+.Dq Li pkgmk -kw
+.Po
+same as
+.Dq Li --margs Ns =-kw
+.Pc .
+.El
+.\" *** --aargs=pkgadd_args
+.It Fl \-aargs Ns = Ns Ar pkgadd_args
+Arguments to be passed to
+.Xr pkgadd 8 .
+.\" *** pkgadd_args
+.It Ar pkgadd_aliases
+.Bl -tag -width Ds
+.\" *** -f, -i
+.It Fl f , Fl i
+Force install, implies
+.Dq Li pkgadd -f
+.Po
+same as
+.Dq Li --aargs Ns =-f
+.Pc .
+.El
+.\" *** --ignore=pkgname[,...]
+.It Fl \-ignore Ns = Ns Ar pkgname Ns Op ,...
+Do not install/update those packages, even if they are listed as
+dependency.
+.\" *** --install-scripts
+.It Fl \-install-scripts
+Execute pre-install and post-install script if they are there.
+.\" *** --pre-install
+.It Fl \-pre-install
+Execute pre-install script if it is there.
+.\" *** --post-install
+.It Fl \-post-install
+Execute post-install scripts if it is there.
+.El
+.\" vim: cc=72 tw=70
+.\" End of file.

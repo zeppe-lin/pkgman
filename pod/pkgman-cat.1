@@ -1,0 +1,49 @@
+.\" pkgman-cat(1) manual page
+.\" See COPYING and COPYRIGHT files for corresponding information.
+.Dd September 9, 2023
+.Dt PKGMAN-CAT 1
+.Os pkgman @VERSION@
+.\" ==================================================================
+.Sh NAME
+.Nm pkgman-cat
+.Nd print out the package's file
+.\" ==================================================================
+.Sh SYNOPSIS
+.Nm pkgman
+.Cm cat
+.Ar pkgname
+.Op file
+.\" ==================================================================
+.Sh DESCRIPTION
+Prints out the package file from the package source directory.
+If
+.Ar file
+is not specified then
+.Pa Pkgfile
+is used.
+.\" ==================================================================
+.Sh ENVIRONMENT
+If the following environment variable exists it will be utilized by
+.Xr pkgman 1 :
+.Bl -tag -width Ds
+.It Ev PAGER
+If the package's source directory has a
+.Ar file ,
+then
+.Nm
+will try to open it using a
+.Ev PAGER .
+If
+.Ev PAGER
+is unset, then
+.Nm
+prints the
+.Ar file
+to stdout.
+.El
+.\" ==================================================================
+.Sh EXIT STATUS
+0 if success, 255 if package's source directory (or package's file) is
+not found.
+.\" vim: cc=72 tw=70
+.\" End of file.

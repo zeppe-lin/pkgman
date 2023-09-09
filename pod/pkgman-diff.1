@@ -1,0 +1,51 @@
+.\" pkgman-diff(1) manual page
+.\" See COPYING and COPYRIGHT files for corresponding information.
+.Dd September 9, 2023
+.Dt PKGMAN-DIFF 1
+.Os pkgman @VERSION@
+.\" ==================================================================
+.Sh NAME
+.Nm pkgman-diff
+.Nd show differences between installed and available packages
+.\" ==================================================================
+.Sh SYNOPSIS
+.Nm pkgman
+.Cm diff
+.Op Fl \-all
+.Op Fl \-deps
+.Op Fl \-full
+.Op Fl \-regex
+.Op Fl \-filter Ns = Ns Ar expr
+.\" ==================================================================
+.Sh DESCRIPTION
+Print an overview of packages that are installed and have a different
+version than they are in the packages sources directories.
+If you would like to compare the packages using version comparison and
+show only packages with higher version, then use
+.Sy preferhigher
+configuration settings:
+.Bd -literal -offset indent
+pkgman --config-set="preferhigher yes" diff
+.Ed
+.Pp
+The options are as follows:
+.Bl -tag -width XXXXXXX
+.It Fl \-all
+Display locked packages too.
+.It Fl \-deps
+Calculate the new dependencies for available packages.
+.It Fl \-full
+Show full table.
+.It Fl \-regex
+Interpret filter argument as a regular expression.
+.It Fl \-filter Ns = Ns Ar expr
+Filter listing packages by
+.Ar expr .
+The filter argument may be the string, wildcard in
+.Xr fnmatch 3
+format, or regex in
+.Xr regex 3
+format.
+.El
+.\" vim: cc=72 tw=70
+.\" End of file.

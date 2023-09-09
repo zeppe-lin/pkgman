@@ -1,0 +1,175 @@
+.\" pkgman-update(8) manual page
+.\" See COPYING and COPYRIGHT files for corresponding information.
+.Dd September 9, 2023
+.Dt PKGMAN-UPDATE 8
+.Os pkgman @VERSION@
+.\" ==================================================================
+.Sh NAME
+.Nm pkgman-update
+.Nd update packages
+.\" ==================================================================
+.Sh SYNOPSIS
+.Nm pkgman
+.Cm update
+.Op Fl v Ns | Ns Fl vv
+.Op Fl \-test
+.Op Fl \-log
+.Op Fl \-deps
+.Op Fl \-depsort
+.Op Fl \-force
+.Op Fl \-group
+.Op Fl \-margs Ns = Ns Ar pkgmk_args Ns | Ns Ar pkgmk_aliases
+.Op Fl \-aargs Ns = Ns Ar pkgadd_args Ns | Ns Ar pkgadd_aliases
+.Op Fl \-ignore Ns = Ns Ar pkgname Ns Op ,...
+.Oo
+.Fl \-install-scripts Ns | Ns
+.Op Fl \-pre-install Ns
+.Op Fl \-post-install
+.Oc
+.Ar pkgname ...
+.\" ==================================================================
+.Sh DESCRIPTION
+Update all packages in the listed order.
+It looks in all packages sources directories specified in
+.Pa /etc/pkgman.conf
+as
+.Dq pkgsrcdir
+directories.
+.\" *** Options description: ***
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.\" *** -v
+.It Fl v
+Unused.
+.\" *** -vv
+.It Fl vv
+Log to stdout the updating process.
+.\" *** --test
+.It Fl \-test
+Dry run, do not actually update anything.
+.\" *** --log
+.It Fl \-log
+Create a transaction log file.
+It can be set globally for all transactions
+.Po
+see
+.Dq Li writelog
+option in
+.Xr pkgman.conf 5
+.Pc .
+.\" *** --deps
+.It Fl \-deps
+Update all packages in the listed order including their dependencies.
+.\" *** --depsort
+.It Fl \-depsort
+Sort updating by dependencies.
+.\" *** --force
+.It Fl \-force
+Skip installation of already installed package(s).
+Just ignore the package and install next in the listed order.
+At the end of installation procedure, all skipped packages will be in
+the report.
+.\" *** --group
+.It Fl \-group
+Update all packages in the listed order, but stop if updating of one
+package fails.
+This can be used to update packages where
+.Em package2
+depends on
+.Em package1 .
+.\" *** --margs=pkgmk_args
+.It Fl \-margs Ns = Ns Ar pkgmk_args
+Arguments to be passed to
+.Xr pkgmk 8 .
+.\" *** pkgmk_aliases
+.It Ar pkgmk_aliases
+.Bl -tag -width Ds
+.\" *** -fr
+.It Fl fr
+Force build, implies
+.Dq Li pkgmk -f
+.Po
+same as
+.Fl \-margs Ns =-f
+.Pc .
+.\" *** -um
+.It Fl um
+Update md5sum, implies
+.Dq Li pkgmk -um
+.Po
+same as
+.Fl \-margs Ns =-um
+.Pc .
+.\" *** -im
+.It Fl im
+Ignore md5sum, implies
+.Dq Li pkgmk -im
+.Po
+same as
+.Fl \-margs Ns =-im
+.Pc .
+.\" *** -uf
+.It Fl uf
+Update footprint, implies
+.Dq Li pkgmk -uf
+.Po
+same as
+.Fl \-margs Ns =-uf
+.Pc .
+.\" *** -if
+.It Fl if
+Ignore footprint, implies
+.Dq Li pkgmk -if
+.Po
+same as
+.Fl \-margs Ns =-if
+.Pc .
+.\" *** -ns
+.It Fl ns
+No stripping, implies
+.Dq Li pkgmk -ns
+.Po
+same as
+.Fl \-margs Ns =-ns
+.Pc .
+.\" *** -kw
+.It Fl kw
+Keep working directory, implies
+.Dq Li pkgmk -kw
+.Po
+same as
+.Fl \-margs Ns =-kw
+.Pc .
+.El
+.\" *** --aargs=pkgadd_args
+.It Fl \-aargs Ns = Ns Ar pkgadd_args
+Arguments to be passed to
+.Xr pkgadd 8 .
+.\" *** pkgadd_aliases
+.It Ar pkgadd_aliases
+.Bl -tag -width Ds
+.\" *** -f, -i
+.It Fl f , Fl i
+Force install, implies
+.Dq Li pkgadd -f
+.Po
+same as
+.Fl \-aargs Ns =-f
+.Pc .
+.El
+.\" *** --ignore=pkgname[,...]
+.It Fl \-ignore Ns = Ns Ar pkgname Ns Op ,...
+Do not install those packages, even if they are listed as dependency.
+.\" *** --install-scripts
+.It Fl \-install-scripts
+Execute pre-install and post-install script if they are there.
+.\" *** --pre-install
+.It Fl \-pre-install
+Execute pre-install script if it is there.
+.\" *** --post-install
+.It Fl \-post-install
+Execute post-install scripts if it is there.
+.El
+.\" vim: cc=72 tw=70
+.\" End of file.

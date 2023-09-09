@@ -1,0 +1,32 @@
+.\" pkgman-list-nodependents(1) manual page
+.\" See COPYING and COPYRIGHT files for corresponding information.
+.Dd September 9, 2023
+.Dt PKGMAN-LIST-NODEPENDENTS 1
+.Os pkgman @VERSION@
+.\" ==================================================================
+.Sh NAME
+.Nm pkgman-list-nodependents
+.Nd print list of packages that no other depends on them
+.\" ==================================================================
+.Sh SYNOPSIS
+.Nm pkgman
+.Cm list-nodependents
+.Op Fl v Ns | Ns Fl vv
+.Op Fl \-path
+.\" ==================================================================
+.Sh DESCRIPTION
+Print list of packages without dependents.
+.Dq Nodependent
+are packages without packages depending on them.
+.Pp
+The options are as follows:
+.Bl -tag -width XXXXXX
+.It Fl v
+Show package version in the listing.
+.It Fl vv
+Show package version and description in the listing.
+.It Fl \-path
+Show package source path in the listing.
+.El
+.\" vim: cc=72 tw=70
+.\" End of file.

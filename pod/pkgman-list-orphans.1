@@ -1,0 +1,34 @@
+.\" pkgman-list-orphans(1) manual page
+.\" See COPYING and COPYRIGHT files for corresponding information.
+.Dd September 9, 2023
+.Dt PKGMAN-LIST-ORPHANS 1
+.Os pkgman @VERSION@
+.\" ==================================================================
+.Sh NAME
+.Nm pkgman-list-orphans
+.Nd list orphaned packages on your system
+.\" ==================================================================
+.Sh SYNOPSIS
+.Nm pkgman
+.Cm list-orphans
+.Op Fl v
+.\" ==================================================================
+.Sh DESCRIPTION
+Print list of orphaned packages on your system.
+.Dq Orphaned
+are packages what are not present in the packages sources directories
+configured in
+.Pa /etc/pkgman.conf
+as
+.Dq pkgsrcdir
+directories.
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Fl v
+Also show the ones that depends on orphaned
+.Pq or even completely missing
+packages.
+.El
+.\" vim: cc=72 tw=70
+.\" End of file.

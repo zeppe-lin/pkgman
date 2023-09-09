@@ -1,0 +1,72 @@
+.\" pkgman-remove(8) manual page
+.\" See COPYING and COPYRIGHT files for corresponding information.
+.Dd September 9, 2023
+.Dt PKGMAN-REMOVE 8
+.Os pkgman @VERSION@
+.\" ==================================================================
+.Sh NAME
+.Nm pkgman-remove
+.Nd remove installed packages
+.\" ==================================================================
+.Sh SYNOPSIS
+.Nm pkgman
+.Cm remove
+.Op Fl v Ns | Ns Fl vv
+.Op Fl \-test
+.Op Fl \-log
+.Op Fl \-deps
+.Op Fl \-force
+.Op Fl \-group
+.Op Fl \-rargs Ns = Ns Ar pkgrm_args
+.Op Fl \-ignore Ns = Ns Ar pkgname Ns Op ,...
+.Oo
+.Fl \-remove-scripts Ns | Ns
+.Op Fl \-pre-remove Ns
+.Op Fl \-post-remove
+.Oc
+.Ar pkgname ...
+.\" ==================================================================
+.Sh DESCRIPTION
+Remove all installed packages in the listed order.
+.Pp
+The options are as follows:
+.Bl -tag -width XXXXXXX
+.It Fl v
+Unused.
+.It Fl vv
+Log to stdout the removing process.
+.It Fl \-test
+Dry run, do not actually remove anything.
+.It Fl \-log
+Create a transaction log file.
+It can be set globally for all transactions
+.Po
+see
+.Dq Li writelog
+in
+.Xr pkgman.conf 5
+.Pc .
+.It Fl \-deps
+Remove all packages in the listed order including their dependencies.
+.It Fl \-force
+Skip removing of already removed package(s).
+Just ignore the package and remove next in the listed order.
+At the end of installation procedure, all skipped packages will be in
+the report.
+.It Fl \-group
+Remove all packages in the listed order, but stop if removing of one
+package fails.
+.It Fl \-rargs Ns = Ns Ar pkgrm_args
+Arguments to be passed to
+.Xr pkgrm 8 .
+.It Fl \-ignore Ns = Ns Ar pkgname Ns Op ,...
+Do not remove those packages, even if they are listed as dependency.
+.It Fl \-remove-scripts
+Execute pre-remove and post-remove script if they are there.
+.It Fl \-pre-remove
+Execute pre-remove script if it is there.
+.It Fl \-post-remove
+Execute post-remove scripts if it is there.
+.El
+.\" vim: cc=72 tw=70
+.\" End of file.

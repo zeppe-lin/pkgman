@@ -1,0 +1,68 @@
+.\" pkgman-fsearch(1) manual page
+.\" See COPYING and COPYRIGHT files for corresponding information.
+.Dd September 9, 2023
+.Dt PKGMAN-FSEARCH 1
+.Os pkgman @VERSION@
+.\" ==================================================================
+.Sh NAME
+.Nm pkgman-fsearch
+.Nd search the packages sources directories for a file in footprint
+.\" ==================================================================
+.Sh SYNOPSIS
+.Nm pkgman
+.Cm fsearch
+.Op Fl v | vv
+.Op Fl \-path
+.Op Fl \-regex
+.Op Fl \-full
+.Ar expr
+.\" ==================================================================
+.Sh DESCRIPTION
+Search the packages sources directories for
+.Ar expr
+in packages'
+.Pa .footprint
+files.
+It looks in all directories specified in
+.Pa /etc/pkgman.conf
+as
+.Dq pkgsrcdir
+directories.
+.Pp
+The options are as follows:
+.Bl -tag -width XXXXXXX
+.It Fl v
+Show package version in the listing.
+.It Fl vv
+Show package version and description in the listing.
+.It Fl \-path
+Show package source path in the listing.
+.It Fl \-regex
+Interpret
+.Ar expr
+as regular expression.
+.It Fl \-full
+Full path search
+.Po
+e.g.,
+.Do Li pkgman fsearch --full /usr/bin/gcc Dc
+.Pc .
+.It Ar expr
+Search footprints for
+.Ar expr ,
+where the expression may be the string, wildcard in
+.Xr fnmatch 3
+format, or regex in
+.Xr regex 3
+format.
+.El
+.\" ==================================================================
+.Sh EXIT STATUS
+.Bl -tag -width Ds
+.It 0
+Success.
+.It 255
+Nothing found.
+.El
+.\" vim: cc=72 tw=70
+.\" End of file.
