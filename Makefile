@@ -1,25 +1,18 @@
 include config.mk
 
-OBJS = $(subst   .cpp,.o,$(wildcard src/*.cpp))
-MAN1 = $(subst .1.pod,.1,$(wildcard pod/*.1.pod))
-MAN5 = $(subst .5.pod,.5,$(wildcard pod/*.5.pod))
-MAN8 = $(subst .8.pod,.8,$(wildcard pod/*.8.pod))
+OBJS = $(subst .cpp,.o,$(wildcard *.cpp))
+MAN1 = $(wildcard *.1)
+MAN5 = $(wildcard *.5)
+MAN8 = $(wildcard *.8)
 
-all: pkgman ${MAN1} ${MAN5} ${MAN8}
-
-%: %.pod
-	pod2man -r "${NAME} ${VERSION}" -c "Package Management" \
-		-n $(basename $@) -s $(subst .,,$(suffix $@)) $< > $@
-
-.cpp.o:
-	${CXX} -c ${CXXFLAGS} ${CPPFLAGS} $< -o $@
+all: pkgman
 
 pkgman: ${OBJS}
-	${LD} $^ ${LDFLAGS} -o $@
+	${CXX} $^ ${LDFLAGS} -o $@
 
 vcomp:
 	${CXX} -o $@ -DTEST ${CXXFLAGS} ${CPPFLAGS} \
-		src/helpers.cpp src/versioncomparator.cpp
+		helpers.cpp versioncomparator.cpp
 
 check: vcomp
 	@echo "=======> Check version comparator"
@@ -31,19 +24,22 @@ install: all
 	mkdir -p      ${DESTDIR}${MANPREFIX}/man5
 	mkdir -p      ${DESTDIR}${MANPREFIX}/man8
 	cp -f pkgman  ${DESTDIR}${PREFIX}/bin/
-	cp -f ${MAN1} ${DESTDIR}${MANPREFIX}/man1/
-	cp -f ${MAN5} ${DESTDIR}${MANPREFIX}/man5/
-	cp -f ${MAN8} ${DESTDIR}${MANPREFIX}/man8/
+	for F in ${MAN1}; do sed "s/@VERSION@/${VERSION}/" $$F > \
+		${DESTDIR}${MANPREFIX}/man1/$$F; done
+	for F in ${MAN5}; do sed "s/@VERSION@/${VERSION}/" $$F > \
+		${DESTDIR}${MANPREFIX}/man5/$$F; done
+	for F in ${MAN8}; do sed "s/@VERSION@/${VERSION}/" $$F > \
+		${DESTDIR}${MANPREFIX}/man8/$$F; done
 	cd ${DESTDIR}${PREFIX}/bin     && chmod 0755 pkgman
-	cd ${DESTDIR}${MANPREFIX}/man1 && chmod 0644 ${MAN1:pod/%=%}
-	cd ${DESTDIR}${MANPREFIX}/man5 && chmod 0644 ${MAN5:pod/%=%}
-	cd ${DESTDIR}${MANPREFIX}/man8 && chmod 0644 ${MAN8:pod/%=%}
+	cd ${DESTDIR}${MANPREFIX}/man1 && chmod 0644 ${MAN1}
+	cd ${DESTDIR}${MANPREFIX}/man5 && chmod 0644 ${MAN5}
+	cd ${DESTDIR}${MANPREFIX}/man8 && chmod 0644 ${MAN8}
 
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/pkgman
-	cd ${DESTDIR}${MANPREFIX}/man1 && rm -f ${MAN1:pod/%=%}
-	cd ${DESTDIR}${MANPREFIX}/man5 && rm -f ${MAN5:pod/%=%}
-	cd ${DESTDIR}${MANPREFIX}/man8 && rm -f ${MAN8:pod/%=%}
+	cd ${DESTDIR}${MANPREFIX}/man1 && rm -f ${MAN1}
+	cd ${DESTDIR}${MANPREFIX}/man5 && rm -f ${MAN5}
+	cd ${DESTDIR}${MANPREFIX}/man8 && rm -f ${MAN8}
 
 install-bashcomp:
 	mkdir -p ${DESTDIR}${BASHCOMPDIR}
@@ -53,7 +49,7 @@ uninstall-bashcomp:
 	rm -f ${DESTDIR}${BASHCOMPDIR}/pkgman
 
 clean:
-	rm -f pkgman vcomp copyright.h ${OBJS} ${MAN1} ${MAN5} ${MAN8}
+	rm -f pkgman vcomp ${OBJS}
 	rm -f ${DIST}.tar.gz
 
 dist: clean
