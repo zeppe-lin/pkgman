@@ -15,7 +15,7 @@ This distribution is a fork of CRUX' prt-get tool as of commit da6bfb0
 - so-called prt-cache functionality have been removed since there is
   no fundamental advantage while PageCache+NVMe are available
 - prt.aliases functionality have been removed too
-- man pages in mdoc(7) format
+- manual pages in mdoc(7) format
 - switch from autotools to Makefile
 - rewritten command-line interface
 - unified and improved commands output
