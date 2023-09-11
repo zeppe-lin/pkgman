@@ -12,6 +12,7 @@
 
 using namespace std;
 
+
 //! \class  Locker
 //! \brief  Lock the packages to skip updates while performing a system
 //!         update
