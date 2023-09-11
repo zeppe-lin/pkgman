@@ -23,19 +23,10 @@ install: all
 	mkdir -p ${DESTDIR}${MANPREFIX}/man1
 	mkdir -p ${DESTDIR}${MANPREFIX}/man5
 	mkdir -p ${DESTDIR}${MANPREFIX}/man8
-	cp -f pkgman ${DESTDIR}${PREFIX}/bin/
-	for M in ${MAN1}; do \
-		sed "s/^\.Os/.Os ${NAME} ${VERSION}/" man/$$M \
-		> ${DESTDIR}${MANPREFIX}/man1/$$M; \
-	done
-	for M in ${MAN5}; do \
-		sed "s/^\.Os/.Os ${NAME} ${VERSION}/" man/$$M \
-		> ${DESTDIR}${MANPREFIX}/man5/$$M; \
-	done
-	for M in ${MAN8}; do \
-		sed "s/^\.Os/.Os ${NAME} ${VERSION}/" man/$$M \
-		> ${DESTDIR}${MANPREFIX}/man8/$$M; \
-	done
+	cp -f pkgman  ${DESTDIR}${PREFIX}/bin/
+	cp -f ${MAN1} ${DESTDIR}${MANPREFIX}/man1/
+	cp -f ${MAN5} ${DESTDIR}${MANPREFIX}/man5/
+	cp -f ${MAN8} ${DESTDIR}${MANPREFIX}/man8/
 	cd ${DESTDIR}${PREFIX}/bin     && chmod 0755 pkgman
 	cd ${DESTDIR}${MANPREFIX}/man1 && chmod 0644 ${MAN1}
 	cd ${DESTDIR}${MANPREFIX}/man5 && chmod 0644 ${MAN5}
