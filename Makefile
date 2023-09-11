@@ -61,4 +61,4 @@ clean:
 dist: clean
 	git archive --format=tar.gz -o ${DIST}.tar.gz --prefix=${DIST}/ HEAD
 
-.PHONY: all check install install_bashcomp uninstall uninstall_bashcomp clean dist
+.PHONY: all check install uninstall install_bashcomp uninstall_bashcomp clean dist
