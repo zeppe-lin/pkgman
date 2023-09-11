@@ -1,9 +1,9 @@
 include config.mk
 
-OBJS = $(subst .cpp,.o,$(wildcard *.cpp))
-MAN1 = $(wildcard *.1)
-MAN5 = $(wildcard *.5)
-MAN8 = $(wildcard *.8)
+OBJS = $(subst .cpp,.o,$(wildcard src/*.cpp))
+MAN1 = $(subst man/,,$(wildcard man/*.1))
+MAN5 = $(subst man/,,$(wildcard man/*.5))
+MAN8 = $(subst man/,,$(wildcard man/*.8))
 
 all: pkgman
 
@@ -12,24 +12,30 @@ pkgman: ${OBJS}
 
 vcomp:
 	${CXX} -o $@ -DTEST ${CXXFLAGS} ${CPPFLAGS} \
-		helpers.cpp versioncomparator.cpp
+		src/helpers.cpp src/versioncomparator.cpp
 
 check: vcomp
 	@echo "=======> Check version comparator"
 	@./vcomp ${VCOMP}
 
 install: all
-	mkdir -p      ${DESTDIR}${PREFIX}/bin
-	mkdir -p      ${DESTDIR}${MANPREFIX}/man1
-	mkdir -p      ${DESTDIR}${MANPREFIX}/man5
-	mkdir -p      ${DESTDIR}${MANPREFIX}/man8
-	cp -f pkgman  ${DESTDIR}${PREFIX}/bin/
-	for F in ${MAN1}; do sed "s/@VERSION@/${VERSION}/" $$F > \
-		${DESTDIR}${MANPREFIX}/man1/$$F; done
-	for F in ${MAN5}; do sed "s/@VERSION@/${VERSION}/" $$F > \
-		${DESTDIR}${MANPREFIX}/man5/$$F; done
-	for F in ${MAN8}; do sed "s/@VERSION@/${VERSION}/" $$F > \
-		${DESTDIR}${MANPREFIX}/man8/$$F; done
+	mkdir -p ${DESTDIR}${PREFIX}/bin
+	mkdir -p ${DESTDIR}${MANPREFIX}/man1
+	mkdir -p ${DESTDIR}${MANPREFIX}/man5
+	mkdir -p ${DESTDIR}${MANPREFIX}/man8
+	cp -f pkgman ${DESTDIR}${PREFIX}/bin/
+	for M in ${MAN1}; do \
+		sed "s/^\.Os/.Os ${NAME} ${VERSION}/" man/$$M \
+		> ${DESTDIR}${MANPREFIX}/man1/$$M; \
+	done
+	for M in ${MAN5}; do \
+		sed "s/^\.Os/.Os ${NAME} ${VERSION}/" man/$$M \
+		> ${DESTDIR}${MANPREFIX}/man5/$$M; \
+	done
+	for M in ${MAN8}; do \
+		sed "s/^\.Os/.Os ${NAME} ${VERSION}/" man/$$M \
+		> ${DESTDIR}${MANPREFIX}/man8/$$M; \
+	done
 	cd ${DESTDIR}${PREFIX}/bin     && chmod 0755 pkgman
 	cd ${DESTDIR}${MANPREFIX}/man1 && chmod 0644 ${MAN1}
 	cd ${DESTDIR}${MANPREFIX}/man5 && chmod 0644 ${MAN5}
