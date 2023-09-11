@@ -15,14 +15,14 @@ This distribution is a fork of CRUX' prt-get tool as of commit da6bfb0
 - so-called prt-cache functionality have been removed since there is
   no fundamental advantage while PageCache+NVMe are available
 - prt.aliases functionality have been removed too
-- the man pages have been rewritten in POD format
-- build system have been switched from autotools to POSIX make(1p)
-- the command-line interface have been rewritten
-- the commands output have been unified and improved
-- added new commands
-- added dependency injection for sysup/update/remove commands
+- man pages in mdoc(7) format
+- switch from autotools to Makefile
+- rewritten command-line interface
+- unified and improved commands output
+- new commands
+- dependency injection for sysup/update/remove commands
 - quiet mode
-- and so on, and so on...
+- etc
 
 See git log for complete/further differences and [COMPLEXITY.md][3]
 for source code stats' differences.
@@ -42,7 +42,6 @@ REQUIREMENTS
 - C++17 compiler (GCC 8 and later, Clang 5 and later)
 - POSIX sh(1p) and "mandatory utilities"
 - GNU make(1)
-- pod2man(1pm) to build man pages
 
 **Runtime**:
 - POSIX sh(1p) to execute pre/post scripts
@@ -53,9 +52,11 @@ REQUIREMENTS
 INSTALL
 -------
 The shell commands `make && make install` should build and install
-this package.  See `config.mk` file for configuration parameters,
-and `pathnames.h` for absolute filenames that pkgman wants for
-various defaults.
+this package.  The shell command `make install_bashcomp` should
+install bash completion script.
+
+See `config.mk` file for configuration parameters, and `pathnames.h`
+for absolute filenames that pkgman wants for various defaults.
 
 
 LICENSE
