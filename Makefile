@@ -41,11 +41,11 @@ uninstall:
 	cd ${DESTDIR}${MANPREFIX}/man5 && rm -f ${MAN5}
 	cd ${DESTDIR}${MANPREFIX}/man8 && rm -f ${MAN8}
 
-install-bashcomp:
+install_bashcomp:
 	mkdir -p ${DESTDIR}${BASHCOMPDIR}
 	cp -f bash_completion ${DESTDIR}${BASHCOMPDIR}/pkgman
 
-uninstall-bashcomp:
+uninstall_bashcomp:
 	rm -f ${DESTDIR}${BASHCOMPDIR}/pkgman
 
 clean:
@@ -55,4 +55,4 @@ clean:
 dist: clean
 	git archive --format=tar.gz -o ${DIST}.tar.gz --prefix=${DIST}/ HEAD
 
-.PHONY: all check install install-bashcomp uninstall uninstall-bashcomp clean dist
+.PHONY: all check install install_bashcomp uninstall uninstall_bashcomp clean dist
