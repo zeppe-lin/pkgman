@@ -11,16 +11,21 @@ using namespace std;
 // forward declaration
 struct PackageData;
 
+
 // useful aliases
 typedef string pkgname_t;   //!< Package name
 typedef string pkgver_t;    //!< Package version-release
+
 
 //! \class  Package
 //! \brief  The Representation of a Package from the GNU/Zeppe-Lin
 //!         packages sources tree
 class Package
 {
+
 public:
+
+
   //! \brief   Create a package, which is not yet fully initialized
   //!
   //! \param   name  the package name
@@ -29,6 +34,7 @@ public:
   //! \note    This is interesting in combination with the lazy
   //!          initialization
   Package( const string& name, const string& path );
+
 
   //! \brief   Create a fully initialized package
   //!
@@ -62,8 +68,10 @@ public:
            const string&  hasPreRemove,
            const string&  hasPostRemove);
 
+
   //! destroy the package
   ~Package();
+
 
   //! \brief   Get the package name
   //!
@@ -72,12 +80,14 @@ public:
     name()
     const;
 
+
   //! \brief   Get the package path in the packages sources tree
   //!
   //! \return  the path to this package
   const string&
     path()
     const;
+
 
   //! \brief   Get the full path to this package or this package's
   //!          \a file in the packages sources tree
@@ -91,12 +101,14 @@ public:
     fullpath( const string& file="" )
     const;
 
+
   //! \brief   Get package version (without release number)
   //!
   //! \return  the version of this package
   const string&
     version()
     const;
+
 
   //! \brief   Get package release number
   //!
@@ -105,12 +117,14 @@ public:
     release()
     const;
 
+
   //! \brief   Get package version-release
   //!
   //! \return  a typically formatted \b version-release string
   string
     version_release()
     const;
+
 
   //! \brief   Get package description
   //!
@@ -119,12 +133,14 @@ public:
     description()
     const;
 
+
   //! \brief   Get package dependencies
   //!
   //! \return  the dependencies (comma-split line) of this package
   const string&
     dependencies()
     const;
+
 
   //! \brief   Get the sources' location used to build this package
   //!
@@ -133,12 +149,14 @@ public:
     url()
     const;
 
+
   //! \brief   Get the packager of this package
   //!
   //! \return  the packager of this package
   const string&
     packager()
     const;
+
 
   //! \brief   Get the package maintainer
   //!
@@ -147,12 +165,14 @@ public:
     maintainer()
     const;
 
+
   //! \brief   Whether or not this package has a readme file
   //!
   //! \return  \a true if so, \a false otherwise
   bool
     hasReadme()
     const;
+
 
   //! \brief   Whether or not this package has a pre-install script
   //!
@@ -161,12 +181,14 @@ public:
     hasPreInstall()
     const;
 
+
   //! \brief   Whether or not this package has a post-install script
   //!
   //! \return  \a true if so, \a false otherwise
   bool
     hasPostInstall()
     const;
+
 
   //! \brief   Whether or not this package has a pre-remove script
   //!
@@ -175,6 +197,7 @@ public:
     hasPreRemove()
     const;
 
+
   //! \brief   Whether or not this package has a post-remove script
   //!
   //! \return  \a true if so, \a false otherwise
@@ -182,15 +205,20 @@ public:
     hasPostRemove()
     const;
 
+
   //! \brief   Set dependencies for this package
   //!
   //! \param   dependencies  a comma-split packages
   void
     setDependencies( const string& dependencies );
 
+
 private:
+
+
   //! The config file with custom specified package dependencies
   static const string CUSTOM_DEPS_FILE;
+
 
   //! Load necessary package data from Pkgfile and package source's
   //! directory
@@ -198,10 +226,12 @@ private:
     load()
     const;
 
+
   //! Rewrite Pkgfile's dependencies to ones written in the config file
   void
     loadConfigDepends()
     const;
+
 
   //! \brief   Expand shell commands
   //!
@@ -216,18 +246,24 @@ private:
                          const time_t&         timeNow,
                          const struct utsname  unameBuf );
 
+
   //! this package data fields
   mutable PackageData* m_data;
 
+
   //! don't load() data twice
   mutable bool m_loaded;
-}; // Package
+
+
+}; // class Package
 
 
 //! \struct  PackageData
 //! \brief   The package data fields
 struct PackageData
 {
+
+
   PackageData( const string&  name_,
                const string&  path_,
                const string&  version_="",
@@ -243,54 +279,72 @@ struct PackageData
                const string&  hasPreRemove_="",
                const string&  hasPostRemove_="" );
 
+
   //! the name of this package
   string name;
+
 
   //! the path to this package
   string path;
 
+
   //! the version of this package
   string version;
+
 
   //! the release number of this package
   string release;
 
+
   //! the typically formatted version-release string of this package
   string version_release;
+
 
   //! the description of this package
   string description;
 
+
   //! the dependencies of this package
   string depends;
+
 
   //! the upstream URL location of this package
   string url;
 
+
   //! the packager of this package
   string packager;
+
 
   //! the maintainer of this package
   string maintainer;
 
+
   //! whether or not this package has a readme file
   bool hasReadme;
+
 
   //! whether or not this package has a pre-install script
   bool hasPreInstall;
 
+
   //! whether or not this package has a post-install script
   bool hasPostInstall;
+
 
   //! whether or not this package has a pre-remove script
   bool hasPreRemove;
 
+
   //! whether or not this package has a post-remove script
   bool hasPostRemove;
 
+
   //! generate the \a version_release string
   void generateVersionReleaseString();
-};
+
+
+}; // struct PackageData
 
 // vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

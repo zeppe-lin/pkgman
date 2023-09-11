@@ -13,6 +13,8 @@ using namespace std;
 //! \brief      Compare versions of packages
 namespace VersionComparator
 {
+
+
   //! Comparation result
   enum COMP_RESULT
   {
@@ -22,10 +24,12 @@ namespace VersionComparator
     UNDEFINED   //!< Undefined comparation
   };
 
+
 #ifdef TEST
   //! Comparation result as character representation for printing out
   static char COMP_RESULT_CHAR[] = { '<', '>', '=', '?' };
 #endif
+
 
   //! \brief   Compare versions
   //!
@@ -34,6 +38,7 @@ namespace VersionComparator
   //!
   //! \return  the comparation results of v1 and v2
   COMP_RESULT compareVersions( const string& v1, const string& v2 );
+
 
   //! \brief   Subdivide version in blocks
   //!
@@ -53,6 +58,7 @@ namespace VersionComparator
     tokenizeIntoBlocks( const string&      version,
                         vector< string >&  blocks );
 
+
   //! \brief   Normalize version blocks size
   //!
   //! Since, after \a tokenizeIntoBlocks() the resulting blocks might
@@ -66,6 +72,7 @@ namespace VersionComparator
   size_t
     normalizeBlocksSize( vector< string >&  v1,
                          vector< string >&  v2 );
+
 
   //! \brief   Subdivide version tokens into subtokens by mask
   //!
@@ -84,7 +91,9 @@ namespace VersionComparator
   void
     tokenizeMixedIntoBlocks( const string&      s,
                              vector< string >&  tokens );
-}
+
+}; // namespace VersionComparator
+
 
 // vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

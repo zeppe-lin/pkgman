@@ -16,7 +16,9 @@ using namespace std;
 //! Parser for files of the format "key:value1,value2"
 class DataFileParser
 {
+
 public:
+
 
   //! \brief   Parse a file of the format "key:value1,value2" into std::map
   //!
@@ -27,7 +29,9 @@ public:
   bool
     parse( const string& filename, map< string, string >& target );
 
-};
+
+}; // class DataFileParser
+
 
 // vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

@@ -13,8 +13,10 @@
 
 using namespace std;
 
+
 //! A list of pair with path and packages specified by "pkgsrcdir"
 typedef list< pair< string, string > > rootList_t;
+
 
 //! \class  Repository
 //! \brief  Repository of available packages sources
@@ -23,7 +25,10 @@ typedef list< pair< string, string > > rootList_t;
 //! in the packages sources tree
 class Repository
 {
+
 public:
+
+
   //! \brief   Create a repository
   //!
   //! \param   useRegex  interpret the search pattern in methods
@@ -31,8 +36,10 @@ public:
   //!                    \a getMatchingPackages as regular expression
   Repository( bool useRegex );
 
+
   //! Destroy a repository
   ~Repository();
+
 
   //! \brief   Get the package
   //!
@@ -43,6 +50,7 @@ public:
     getPackage( const pkgname_t& name )
     const;
 
+
   //! \brief   Get all the packages available in the repository
   //!
   //! \return  a map of available packages, where
@@ -51,6 +59,7 @@ public:
   const map< pkgname_t, Package* >&
     packages()
     const;
+
 
   //! \brief   Get the sorted list of duplicate packages
   //!          in the repository
@@ -62,6 +71,7 @@ public:
   const list< pair< Package*, Package* > >&
     shadowedPackages()
     const;
+
 
   //! \brief   Search packages for a match of \a pattern in name, and
   //!          description if \a searchDesc is \a true
@@ -83,6 +93,7 @@ public:
                             bool               searchDesc )
     const;
 
+
   //! \brief   Search packages for a match of \a pattern in name
   //!
   //! \note    The name can contain shell wildcards or be interpreted
@@ -94,6 +105,7 @@ public:
     getMatchingPackages( const string&      pattern,
                          list< Package* >&  target )
     const;
+
 
   //! \brief   Init repository by reading the directories passed
   //!
@@ -107,6 +119,7 @@ public:
   void
     initFromFS( const rootList_t& rootList, bool listDuplicate );
 
+
   //! \brief   Create all components of the \a path which don't exist
   //!
   //! \param   path  the path to be created
@@ -116,13 +129,17 @@ public:
   static bool
     createOutputDir( const string& path );
 
+
   //! \brief   Add custom dependency for a package
   //!
   //! XXX Add more description
   void
     addDependencies( map< string, string >& deps );
 
+
 private:
+
+
   //! \brief   The helper function for sorting the shadowed packages
   //!          by name
   //!
@@ -134,16 +151,22 @@ private:
     compareShadowPair( pair< Package*, Package* >&  p1,
                        pair< Package*, Package* >&  p2 );
 
+
   //! Whether interpret the matching \a pattern as a regular expression
   //! \see \a searchMatchingPackages and \a getMatchingPackages
   bool m_useRegex;
 
+
   //! The list of duplicated packages in the repo
   list< pair< Package*, Package* > > m_shadowedPackages;
 
+
   //! The repository of all available packages
   map< pkgname_t, Package* > m_packageMap;
-};
+
+
+}; // class Repository
+
 
 // vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

@@ -21,7 +21,9 @@ class ArgParser;
 //! This is configuration file parser for pkgman
 class ConfigParser
 {
+
 public:
+
 
   //! \brief   Construct a ConfigParser object
   //!
@@ -264,7 +266,9 @@ private:
   void
     parseLine( const string& line, bool prepend=false );
 
-}; // Class ConfigParser
+
+}; // class ConfigParser
+
 
 // vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

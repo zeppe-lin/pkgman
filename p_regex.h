@@ -10,11 +10,15 @@
 
 using namespace std;
 
+
 //! \class  RegEx
 //! \brief  Regular Expression Matcher
 class RegEx
 {
+
 public:
+
+
   //! \brief   Construct a RegEx object which can be used it's
   //!          \a match() method with different input strings
   //!
@@ -22,8 +26,10 @@ public:
   //! \param   caseSensitive  perform case-sensitive matching if true
   RegEx( const string& pattern, bool caseSensitive=false );
 
+
   //! Destroy the RegEx object
   ~RegEx();
+
 
   //! \brief   Whether a \a input string contains a \a RegEx pattern
   //!
@@ -32,6 +38,7 @@ public:
   //! \return  \a true if match, \a false otherwise
   bool
     match( const string& input );
+
 
   //! \brief   Whether a string contains a given pattern
   //!
@@ -45,13 +52,20 @@ public:
            const string& input,
            bool          caseSensitive=false );
 
+
 private:
+
+
   //! Save the pattern for searching with different input strings
   regex_t m_pattern;
 
+
   //! Regex compilation return value
   bool m_validPattern;
-};
+
+
+}; // class RegEx
+
 
 // vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

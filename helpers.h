@@ -19,6 +19,7 @@ namespace ListHelper {};
 namespace StringHelper
 {
 
+
   // forward declaration
   template< class T > void
     split( const string&  str,
@@ -167,6 +168,7 @@ namespace StringHelper
         target.push_back( line );
     }
 
+
 }; // namespace StringHelper
 
 
@@ -174,6 +176,7 @@ namespace StringHelper
 //! \brief      A generic place with list functions
 namespace ListHelper
 {
+
 
   //! \brief   Search if the list container contains an element
   //!
@@ -218,7 +221,9 @@ namespace ListHelper
       return target.find( s ) != string::npos;
     }
 
+
 }; // namespace ListHelper
+
 
 // vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

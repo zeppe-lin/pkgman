@@ -24,12 +24,15 @@ class Package;
 class PkgDB;
 class Repository;
 
+
 //! \class  Transaction
 //! \brief  To install, update, remove a package or a list of packages,
 //!         and to calculate their dependencies.
 class Transaction
 {
 public:
+
+
   //! Transaction type
   enum Transaction_t
   {
@@ -39,6 +42,7 @@ public:
     UPDATE,   //!< Update the package(s)
     REMOVE    //!< Remove the package(s)
   };
+
 
   //! Result of transaction execution
   enum Result_t
@@ -85,6 +89,7 @@ public:
     PKGMK_E_INSTALL   =  9, //!< Error while executing 'addcommand'
   };
 
+
   //! \struct  pkgRunScriptsState_t
   //! \brief   To save the results of pre/post-... scripts
   //!          for a package in the current transaction.
@@ -112,6 +117,7 @@ public:
       return state;
     }
   };
+
 
   //! \brief   Construct a Transaction object
   //!
@@ -180,17 +186,20 @@ public:
       }
     }
 
+
   //! \brief   Get the worked transaction type
   //!
   //! \return  a \a Transaction_t value indicating which type of
   //!          transaction worked out
   const Transaction_t& type() const;
 
+
   //! \brief   Get the transaction execution result
   //!
   //! \return  a \a Result_t value indicating the transaction
   //!          execution result
   const Result_t& result() const;
+
 
   //! \brief   Install/Update the packages indicated in the current
   //!          transaction
@@ -205,11 +214,13 @@ public:
   //!          to this result.
   const Result_t& install( Transaction_t transactionType );
 
+
   //! \brief   Remove the packages indicated in the current transaction
   //!
   //! \return  a \a Result_t value indicating the transaction execution
   //!          result
   const Result_t& remove();
+
 
   //! \brief   Calculate dependendencies for the packages indicated
   //!          in the current transaction
@@ -217,6 +228,7 @@ public:
   //! \return  a \a Result_t value indicating the transaction
   //!          execution result
   const Result_t& calcDeps();
+
 
   //! \brief   Get the list of packages required for the install
   //!          transaction
@@ -232,6 +244,7 @@ public:
   //! \return  the list of packages required for the install transaction
   const list< pkgname_t >& deps() const;
 
+
   //! \brief   Get the packages that were installed in this transaction
   //!
   //! \return  the list or pairs, where
@@ -240,6 +253,7 @@ public:
   //!                         execution info
   const list< pair< pkgname_t, pkgRunScriptsState_t > >& installed()
     const;
+
 
   //! \brief   Get the packages that were removed in this transaction
   //!
@@ -250,11 +264,13 @@ public:
   const list< pair< pkgname_t, pkgRunScriptsState_t > >& removed()
     const;
 
+
   //! \brief   Get the packages that were requested to be installed
   //!          but are already installed
   //!
   //! \return  the list of already installed packages
   const list< pkgname_t >& alreadyInstalled() const;
+
 
   //! \brief   Get the packages that were ignored in this transaction,
   //!          or selected to be ignored by the user through
@@ -262,6 +278,7 @@ public:
   //!
   //! \return  the list of ignored packages
   const list< pkgname_t >& ignored() const;
+
 
   //! \brief   Get the list of packages that cannot be installed
   //!          because they could not be found in the packages sources
@@ -273,16 +290,19 @@ public:
   //!          - pair.second  is the package requiring \a pair.first
   const list< pair< pkgname_t, pkgname_t > >& missing() const;
 
+
   //! \brief   Get the list of packages whose source(s) could not be
   //!          downloaded
   //!
   //! \return  the list of package whose source(s) downloading failed
   const list< pkgname_t >& downloadFailed() const;
 
+
   //! \brief   Get the list of packages that were building failed
   //!
   //! \return  the list of packages that were building failed
   const list< pkgname_t >& buildFailed() const;
+
 
   //! \brief   Get the list of packages that were installation/update
   //!          failed
@@ -295,6 +315,7 @@ public:
     list< pair< pkgname_t, pkgRunScriptsState_t > >& installFailed()
     const;
 
+
   //! \brief   Get the list of packages that were removing failed
   //!
   //! \return  the list of pairs, where
@@ -305,16 +326,19 @@ public:
     list< pair< pkgname_t, pkgRunScriptsState_t > >& removeFailed()
     const;
 
+
   //! \brief   Get PKGMK_PACKAGE_DIR value from pkgmk(8)
   //!
   //! \return  the PKGMK_PACKAGE_DIR value read from pkgmk(8)
   static string getPkgmkPackageDir();
+
 
   //! \brief   Get PKGMK_COMPRESSION_MODE value from pkgmk(8)
   //!
   //! \return  the PKGMK_COMPRESSION_MODE value read from pkgmk(8),
   //!          or "gz" if pkgmk(8) has no such setting.
   static string getPkgmkCompressionMode();
+
 
   //! \brief   Get the string describing the transaction error code
   //!
@@ -329,80 +353,105 @@ public:
   //!          empty string if there is no error
   const string strerror( const Result_t& result=SUCCESS ) const;
 
+
 private:
+
+
   //! Repository to look for packages
   const Repository* m_repo;
+
 
   //! Package database of installed packages
   PkgDB* m_pkgDB;
 
+
   //! Argument parser
   const ArgParser* m_parser;
+
 
   //! Configuration file parser
   const ConfigParser* m_config;
 
+
   //! Package locker
   Locker* m_locker;
+
 
   //! Dependency resolver
   DepResolver m_resolver;
 
+
   //! Type of executed transaction
   Transaction_t m_transactionType;
+
 
   //! Result of executed transaction
   Result_t m_transactionResult;
 
+
   //! Log file descriptor
   int m_logfd;
+
 
   //! Boolean used to implement lazy initialization
   bool m_depCalced;
 
+
   //! Packages to be installed
   list< pair< pkgname_t, const Package* > > m_packages;
+
 
   //! Packages that should be installed to meet the requirements
   //! for the packages to be installed, includes the packages
   //! to be installed.
   list< pkgname_t > m_depNameList;
 
+
   //! Vector of dependencies that will help to fill in the correct
   //! order \a m_depNameList
   vector< pkgname_t > m_depList;
 
+
   //! Packages that were installed in this transaction
   list< pair< pkgname_t, pkgRunScriptsState_t > > m_installedPackages;
 
+
   //! Packages that were removed in this transaction
   list< pair< pkgname_t, pkgRunScriptsState_t > > m_removedPackages;
+
 
   //! Packages that were requested to be installed
   //! but are already installed
   list< pkgname_t > m_alreadyInstalledPackages;
 
+
   //! Packages that were ignored in this transaction,
   //! or selected to be ignored by the user through command-line
   list< pkgname_t > m_ignoredPackages;
+
 
   //! Packages that cannot be installed because they could not be found
   //! in the packages sources tree
   list< pair< pkgname_t, pkgname_t > > m_missingPackages;
 
+
   //! Packages whose source(s) could not be downloaded
   list< pkgname_t > m_downloadFailedPackages;
 
+
   //! Packages that were building failed
   list< pkgname_t > m_buildFailedPackages;
+
 
   //! Packages that were installation/update failed
   list< pair< pkgname_t, pkgRunScriptsState_t > >
     m_installFailedPackages;
 
+
   //! Packages that were removing failed
   list< pair< pkgname_t, pkgRunScriptsState_t > >
     m_removeFailedPackages;
+
 
   //! \brief   Get the log file path from path pattern defined in the
   //!          configuration file
@@ -414,6 +463,7 @@ private:
   //! \see     ConfigParser::logFilePattern()
   inline string logPathFromPattern( const Package* pkg );
 
+
   //! \brief   Create the necessary directories for the log file
   //!          placement
   //!
@@ -421,6 +471,7 @@ private:
   //!
   //! \return  \a true if success, \a false otherwise
   bool logDirCreate( const string& logFilePath );
+
 
   //! \brief   Create the log file
   //!
@@ -434,6 +485,7 @@ private:
   //!          the log file, even if it already exists.
   bool logFileCreate( const string& logFilePath );
 
+
   //! \brief   Build the package (pkgmk wrapper)
   //!
   //! \param   pkg    the package to build
@@ -441,6 +493,7 @@ private:
   //!
   //! \return  \a Result_t value indicating the package building result
   Result_t pkgmk( const Package* pkg ) const;
+
 
   //! \brief   Install the package (pkgadd wrapper)
   //!
@@ -452,10 +505,12 @@ private:
   //!                       result
   Result_t pkgadd( const Package* pkg ) const;
 
+
   //! \brief   Calculate dependencies for this transaction
   //!
   //! \return  \a true on success, \a false otherwise
   bool calculateDependencies();
+
 
   //! \brief   Recursive method to calculate dependencies
   //!
@@ -464,7 +519,10 @@ private:
   //! \param   depends  index if the package \a pkg depends on,
   //!                   -1 for none
   void checkDependecies( const Package* pkg, ssize_t depends=-1 );
-};
+
+
+}; // class Transaction
+
 
 // vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

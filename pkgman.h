@@ -21,18 +21,24 @@ class Repository;
 
 using namespace std;
 
+
 //! \class  Pkgman
 //! \brief  Pkgman's main class, controlling all the commands
 class Pkgman : public SignalHandler
 {
+
 public:
+
+
   //! \brief   Create a Pkgman object
   //!
   //! \param   parser  the argument parser to be used
   Pkgman( const ArgParser* parser );
 
+
   //! Destroy a Pkgman object
   ~Pkgman();
+
 
   //! Pkgman return states
   enum PReturnStates
@@ -45,67 +51,87 @@ public:
     P_DEPENDENCY_CALC_ERROR,        //!< Dependency calculation fails
   };
 
+
   /////////////////////////////////////////////////////////////////////
   //                     Informational commands                      //
   /////////////////////////////////////////////////////////////////////
 
+
   //! Dump the configuration
   void dumpConfig() const;
+
 
   //! Print list of available packages
   void listPackages();
 
+
   //! Print list of duplicate packages in the repository
   void listShadowed();
+
 
   //! Print list of independent packages
   void listNodependents();
 
+
   //! Print list of orphaned packages
   void listOrphans();
+
 
   //! Print list of locked packages
   void listLocked();
 
+
   //! Print formatted list of packages available in the repository
   void printf();
+
 
   //! Print info for a package
   void printInfo();
 
+
   //! Print package source's readme file
   void printReadme();
+
 
   //! Print path to package source
   void printPath();
 
+
   //! Print whether a package is installed or not
   void printIsInstalled();
 
+
   //! Print installed package version
   void printCurrentVersion();
+
 
   /////////////////////////////////////////////////////////////////////
   //                 Differences / Check for updates                 //
   /////////////////////////////////////////////////////////////////////
 
+
   //! Print an overview of packages that are installed and have
   //! a different version than they are in the repository
   void printDiff();
+
 
   /////////////////////////////////////////////////////////////////////
   //                          Dependencies                           //
   /////////////////////////////////////////////////////////////////////
 
+
   //! Print dependencies for a package
   void printDep();
+
 
   //! Print reverse dependencies for a package
   void printRevDep();
 
+
   /////////////////////////////////////////////////////////////////////
   //                            Searching                            //
   /////////////////////////////////////////////////////////////////////
+
 
   //! \brief   Search repository packages for a certain pattern
   //!          in their names and/or description
@@ -115,15 +141,18 @@ public:
   //! \see     Repository::searchMatchingPackages()
   void psearch( bool desc=false );
 
+
   //! \brief   Search repository for a certain pattern as a filename
   //!          in their footprint
   //!
   //! \see     Repository::getMatchingPackages()
   void fsearch();
 
+
   /////////////////////////////////////////////////////////////////////
   //                    Install / Update / Remove                    //
   /////////////////////////////////////////////////////////////////////
+
 
   //! \brief   Install or Update the package(s)
   //!
@@ -132,35 +161,45 @@ public:
   //! \see     Transaction::Transaction_t
   void install( Transaction::Transaction_t transaction_t );
 
+
   //! Remove the package(s)
   void remove();
+
 
   /////////////////////////////////////////////////////////////////////
   //                          System update                          //
   /////////////////////////////////////////////////////////////////////
 
+
   //! Update all outdated packages
   void sysup();
+
 
   //! \brief   (Un)Lock the packages and don't update them in the
   //!          \sysup operation
   //! \param   lock  lock if \a true, unlock otherwise
   void setLock( bool lock );
 
+
   /////////////////////////////////////////////////////////////////////
   //                         File operations                         //
   /////////////////////////////////////////////////////////////////////
 
+
   //! Print a listing of the package source's directory
   void ls();
+
 
   //! Print the package source's file
   void cat();
 
+
   //! Edit the package source's file
   void edit();
 
+
   /////////////////////////////////////////////////////////////////////
+
 
   //! \brief   Interrupt handler
   //!
@@ -169,45 +208,61 @@ public:
   //! \return  \a HandlerResult of catched signal
   SignalHandler::HandlerResult handleSignal( int signal );
 
+
   //! \a Pkgman return code
   int returnValue() const;
 
+
 protected:
+
+
   //! Name of the default configuration file
   static const string CONF_FILE;
+
 
   //! Argument parser
   const ArgParser* m_parser;
 
+
   //! Repository of all available packages
   Repository* m_repo;
+
 
   //! Configuration file parser
   ConfigParser* m_config;
 
+
   //! Package locker
   Locker* m_locker;
+
 
   //! Current executing transaction
   Transaction* m_currentTransaction;
 
+
   //! Return code
   int m_returnValue;
+
 
   //! Package database of installed packages
   PkgDB* m_pkgDB;
 
+
   //! Whether \a ConfigParser::useRegex() or \a ArgParser::useRegex() is set
   bool m_useRegex;
+
 
   //! Packages that have a greater version in the packages sources tree
   list< string > m_greaterVersionComp;
 
+
   //! Packages with undecidable version differences
   list< string > m_undefinedVersionComp;
 
+
   //! Packages that are installed but not found in the packages sources tree
   list< pair< string, string > > m_missingRepoPackages;
+
 
   //! \brief   Helper function to display an error message
   //!          and set \a Pkgman return value
@@ -217,8 +272,10 @@ protected:
   inline void errx( const string& error_message,
                     int           ret = P_GENERAL_ERROR );
 
+
   //! Read the config file
   void readConfig();
+
 
   //! \brief   Initialize repository
   //!
@@ -226,6 +283,7 @@ protected:
   //!
   //! \see     Repository::initFromFS()
   void initRepo( bool listDuplicate = false );
+
 
   //! \brief   Get the packages that match the patterns
   //!          from the installed ones
@@ -237,6 +295,7 @@ protected:
   void expandWildcardsPkgDB( const list< char* >&    in,
                              map< string, string >&  target );
 
+
   //! \brief   Get the packages that match the pattern
   //!          from the whole repository
   //!
@@ -247,11 +306,13 @@ protected:
   void expandWildcardsRepo( const list< char* >&  in,
                             list< string >&       target );
 
+
   //! \brief   List the packages sorted by dependency,
   //!          without injecting missing ones
   //!
   //! \param   packages  the packages to be sorted and listed
   void listDepSorted( map< string, string >& packages );
+
 
   //! \brief   Print a file to stdout or open it with PAGER
   //!          if available
@@ -262,6 +323,7 @@ protected:
   //!          \a true otherwise
   static bool printFile( const string& filepath );
 
+
   //! \brief   Compare two versions
   //!
   //! \param   v1  first string
@@ -270,6 +332,7 @@ protected:
   //! \return  a \a COMP_RESULT value indicating the comparison result
   VersionComparator::COMP_RESULT compareVersions( const string& v1,
                                                   const string& v2 );
+
 
   //! \brief   Calculate the version difference between selected,
   //!          installed packages and the packages available in the
@@ -285,6 +348,7 @@ protected:
   //!          - \a m_undefinedVersionComp
   void diffCalc( const map< string, string >& packages );
 
+
   //! \brief   Print the formatted line of the package
   //!          that has a difference
   //!
@@ -298,11 +362,13 @@ protected:
                                       const string&  versionAvailable,
                                       bool           isLocked );
 
+
   //! \brief   Print the list of package dependencies
   //!
   //! \param   pkg  the package
   //! \param   level  the identation level
   void printDepList( const Package* pkg, int level );
+
 
   //! \brief   Print the tree of package dependencies
   //!
@@ -310,17 +376,20 @@ protected:
   //! \param   level  the identation level
   void printDepTree( const Package* pkg, int level );
 
+
   //! \brief   Print the list of package reverse dependencies
   //!
   //! \param   arg  the package name
   //! \param   level  the identation level
   void printRevDepList( const pkgname_t& arg, int level );
 
+
   //! \brief   Print the tree of package reverse dependencies
   //!
   //! \param   arg    the package name
   //! \param   level  the identation level
   void printRevDepTree( const pkgname_t& arg, int level );
+
 
   //! \brief   Get the package's removable (unneeded) dependencies
   //!
@@ -332,6 +401,7 @@ protected:
   //!                     dependencies
   void getRemovableDeps( const string&    pkg,
                          list< string >&  removable );
+
 
   //! \brief   Search for \a pattern in \a filename
   //!          (used in fsearch command to search files in .footprints)
@@ -350,6 +420,7 @@ protected:
                       bool             fullPath,
                       bool             useRegex );
 
+
   //! \brief   Execute the transaction and evaluate the result
   //!
   //! \param   transaction      the transaction to execute
@@ -357,12 +428,14 @@ protected:
   void executeTransaction( Transaction&                transaction,
                            Transaction::Transaction_t  transactionType );
 
+
   //! \brief   Helper method to print the result of \a Transaction
   //!
   //! \param   transaction  the transaction to evaluate
   //! \param   interrupted  whether the transaction was interrupted
   void evaluateResult( const Transaction&  transaction,
                        bool                interrupted=false );
+
 
   //! \brief   Print the package brief info depending on the
   //!          command-line verbosity level
@@ -403,7 +476,10 @@ protected:
       if ( newline )
         cout << endl;
     }
-};
+
+
+}; // class Pkgman
+
 
 // vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

@@ -14,16 +14,21 @@
 
 using namespace std;
 
+
 //! \class  PkgDB
 //! \brief  The Representation of zeppelin's package database of installed
 //!         packages
 class PkgDB
 {
+
 public:
+
+
   //! \brief   Create a PkgDB object
   //!
   //! \param   root  use a different root directory
   PkgDB( const string& root="" );
+
 
   //! \brief   Check whether a package is installed
   //!
@@ -33,6 +38,7 @@ public:
   bool
     isInstalled( const pkgname_t& name )
     const;
+
 
   //! \brief   Get the package version and release
   //!
@@ -44,6 +50,7 @@ public:
     getVersionRelease( const pkgname_t& name )
     const;
 
+
   //! \brief   Get all installed packages
   //!
   //! \return  a map of installed packages, where
@@ -51,6 +58,7 @@ public:
   //!          pair.second  is the version-release string
   const map< pkgname_t, pkgver_t >&
     installedPackages();
+
 
   //! \brief   Search packages for a match of \a pattern in name
   //!
@@ -67,19 +75,28 @@ public:
                          bool                         useRegex )
     const;
 
+
 private:
+
+
   //! Load the package db
   bool load() const;
+
 
   //! Don't load the package db twice
   mutable bool m_isLoaded;
 
+
   //! All installed packages
   mutable map< pkgname_t, pkgver_t > m_packages;
 
+
   //! For a different than "/" root directory
   string m_root;
-};
+
+
+}; // class PkgDB
+
 
 // vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

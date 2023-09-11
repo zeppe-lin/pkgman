@@ -14,6 +14,7 @@ using namespace std;
 //! \brief  A dependency resolver
 class DepResolver
 {
+
 public:
 
 
@@ -35,7 +36,9 @@ public:
   bool
     resolve( list< ssize_t >& result );
 
+
 private:
+
 
   //! Sort the dependencies
   bool
@@ -47,7 +50,9 @@ private:
   //!   second  the package which \a first depends on
   list< pair< ssize_t /*first*/, ssize_t /*second*/ > > m_dependencies;
 
-};
+
+}; // class DepResolver
+
 
 // vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.

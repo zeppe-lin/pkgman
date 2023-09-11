@@ -24,10 +24,14 @@ using namespace std;
 //! \warning REMEMBER TO CALL store!
 class Locker
 {
+
 public:
+
+
   //! \brief   Open a locker file and read the locked packages into
   //!          \a m_packages
   Locker( const string& root );
+
 
   //! \brief   Check if opening failed
   //!
@@ -36,6 +40,7 @@ public:
     openFailed()
     const;
 
+
   //! \brief   Lock the package
   //!
   //! \param   package  the package name
@@ -43,6 +48,7 @@ public:
   //! \return  \a true if locking worked, \a false if already locked
   bool
     lock( const pkgname_t& package );
+
 
   //! \brief   Unlock the package
   //!
@@ -53,12 +59,14 @@ public:
   bool
     unlock( const pkgname_t& package );
 
+
   //! \brief   Write the changes to locker file
   //!
   //! \return  \a true if ok, \a false if locker file could not be
   //!          opened for writing
   bool
     store();
+
 
   //! \brief   Check if the \a package is locked
   //!
@@ -69,6 +77,7 @@ public:
     isLocked( const pkgname_t& package )
     const;
 
+
   //! \brief   Get all locked packages
   //!
   //! \return  the vector of names of all locked packages
@@ -76,15 +85,23 @@ public:
     lockedPackages()
     const;
 
+
 private:
+
+
   //! The vector of names of all locked packages
   vector< pkgname_t > m_packages;
+
 
   //! true if lock file opening error
   bool m_openFailed;
 
+  // XXX: document
   string m_root;
-};
+
+
+}; // class Locker
+
 
 // vim: sw=2 ts=2 sts=2 et cc=72 tw=70
 // End of file.
