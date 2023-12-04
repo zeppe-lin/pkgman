@@ -58,7 +58,7 @@ Pkgman::Pkgman( const ArgParser* parser ):
 
   readConfig();
 
-  m_useRegex = m_config->useRegex() || m_parser->useRegex();
+  m_useRegex = ( m_config->useRegex() || m_parser->useRegex() );
 }
 
 Pkgman::~Pkgman()
@@ -148,7 +148,7 @@ void Pkgman::dumpConfig() const
 
 void Pkgman::listPackages()
 {
-  string filter = m_parser->useRegex() ? "." : "*";
+  string filter = m_useRegex ? "." : "*";
   if ( m_parser->hasFilter() )
     filter = m_parser->filter();
 
@@ -316,7 +316,7 @@ void Pkgman::printf()
   string sortString = stripWhiteSpace( m_parser->sortArgs() );
   sortString += "%n"; // make it unique
 
-  string filter = m_parser->useRegex() ? "." : "*";
+  string filter = m_useRegex ? "." : "*";
   if ( m_parser->hasFilter() )
     filter = m_parser->filter();
 
