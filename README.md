@@ -4,16 +4,18 @@ This directory contains pkgman, a package management tool that
 provides additional functionality to basic package management
 utilities like pkgmk and pkgutils.
 
-This distribution is a fork of CRUX' prt-get tool as of commit da6bfb0
-(Fri Oct 16 2020) with the following differences:
+This distribution is a fork of CRUX' prt-get tool as of commit
+da6bfb0 (Fri Oct 16 2020) with the following differences:
 
 - the code has been rewritten from "C-like" coding standard to
-  high-level C++17 primitives; this enabled aggressive optimization
-  (-O3 and above), look at [prt-get][1] vs [pkgman][2]
-- doxygen documentation has been improved and covers (almost?) all
-  code
-- so-called prt-cache functionality have been removed since there is
-  no fundamental advantage while PageCache+NVMe are available
+  high-level C++17 primitives; this enabled aggressive
+  optimization (-O3 and above), look at [prt-get][1] vs
+  [pkgman][2]
+- doxygen documentation has been improved and covers (almost?)
+  all code
+- so-called prt-cache functionality have been removed since
+  there is no fundamental advantage while PageCache+NVMe are
+  available
 - prt.aliases functionality have been removed too
 - manual pages in mdoc(7) format
 - switch from autotools to Makefile
@@ -24,8 +26,8 @@ This distribution is a fork of CRUX' prt-get tool as of commit da6bfb0
 - quiet mode
 - etc
 
-See git log for complete/further differences and [COMPLEXITY.md][3]
-for source code stats' differences.
+See git log for complete/further differences and
+[COMPLEXITY.md][3] for source code stats' differences.
 
 [1]: https://crux.nu/ports/crux-3.7/core/prt-get/README
 [2]: https://github.com/zeppe-lin/pkgsrc-core/blob/master/pkgman/Pkgfile#L14
@@ -51,18 +53,20 @@ REQUIREMENTS
 
 INSTALL
 -------
-The shell commands `make && make install` should build and install
-this package.  The shell command `make install_bashcomp` should
-install bash completion script.
+The shell commands `make && make install` should build and
+install this package.
+
+The shell command `make install_bashcomp` should install bash
+completion script.
 
 See `config.mk` file for configuration parameters, and
-`src/pathnames.h` for absolute filenames that pkgman wants for various
-defaults.
+`src/pathnames.h` for absolute filenames that pkgman wants for
+various defaults.
 
 
 LICENSE
 -------
-pkgman is licensed through the GNU General Public License v2 or later
-<https://gnu.org/licenses/gpl.html>.
+pkgman is licensed through the GNU General Public License v2
+or later <https://gnu.org/licenses/gpl.html>.
 Read the COPYING file for copying conditions.
 Read the COPYRIGHT file for copyright notices.
