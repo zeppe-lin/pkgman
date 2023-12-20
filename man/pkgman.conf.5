@@ -162,6 +162,16 @@ log files of successful build will be removed.
 .It Sy logfile Em format
 The string that contains a path to the log file, where all occurrences
 of next characters will be replaced by corresponding items:
+.\" --- format ---
+.Pp
+.Bl -column Variable Description -compact
+.It Sy Variable Ta Sy Description
+.It \&%n Ta package name Ta
+.It \&%p Ta package path Ta
+.It \&%v Ta package version Ta
+.It \&%r Ta package release number Ta
+.El
+.\" --- ----- ---
 .Pp
 Example:
 .Dq Li /var/log/pkgbuild/%n.log
