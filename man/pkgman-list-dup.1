@@ -19,7 +19,8 @@ Print list of duplicate packages in the packages sources directories.
 It looks in all directories specified in
 .Pa /etc/pkgman.conf
 as
-.Dq pkgsrcdir .
+.Dq pkgsrcdir
+argument.
 .Pp
 The default
 .Ar format
@@ -33,8 +34,11 @@ Prefer higher installed versions over lower ones in the packages
 sources directories.
 .It Fl \-strict-diff
 Override
-.Fl preferhigher
-configuration settings.
+.Fl \-prefer-higher
+command-line option or
+.Sy preferhigher
+configuration setting in
+.Pa pkgman.conf .
 .It Ar format
 The string that contain variables, which are replaced like this:
 .Bl -column Variable -compact

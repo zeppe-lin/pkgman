@@ -22,7 +22,7 @@ It looks in all packages sources directories specified in
 .Pa /etc/pkgman.conf
 as
 .Dq pkgsrcdir
-directories.
+argument.
 .Pp
 The options are as follows:
 .Bl -tag -width Ds
@@ -67,8 +67,9 @@ The string that contains variables, which are replaced like this:
 .It \&%i Ta is installed Ta yes/no/diff
 .El
 .Pp
+The
 .Dq diff
-for
+replacement for
 .Dq \&%i
 (is installed) variable means the package is installed and different
 package version is available in the packages sources directories.
