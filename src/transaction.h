@@ -251,8 +251,7 @@ public:
   //!          - pair.first   is the package name
   //!          - pair.second  is the package pre/post-install scripts
   //!                         execution info
-  const list< pair< pkgname_t, pkgRunScriptsState_t > >& installed()
-    const;
+  const list< pair< pkgname_t, pkgRunScriptsState_t > >& installed() const;
 
 
   //! \brief   Get the packages that were removed in this transaction
@@ -261,8 +260,7 @@ public:
   //!          - pair.first   is the package name
   //!          - pair.second  is the package pre/post-remove scripts
   //!                         execution info
-  const list< pair< pkgname_t, pkgRunScriptsState_t > >& removed()
-    const;
+  const list< pair< pkgname_t, pkgRunScriptsState_t > >& removed() const;
 
 
   //! \brief   Get the packages that were requested to be installed
@@ -311,9 +309,7 @@ public:
   //!          - pair.first   is the package name
   //!          - pair.second  is the package pre/post-install scripts
   //!                         execution info
-  const
-    list< pair< pkgname_t, pkgRunScriptsState_t > >& installFailed()
-    const;
+  const list< pair< pkgname_t, pkgRunScriptsState_t > >& installFailed() const;
 
 
   //! \brief   Get the list of packages that were removing failed
@@ -322,9 +318,7 @@ public:
   //!          - pair.first   is the package name
   //!          - pair.second  is the package pre/post-remove scripts
   //!                         execution info
-  const
-    list< pair< pkgname_t, pkgRunScriptsState_t > >& removeFailed()
-    const;
+  const list< pair< pkgname_t, pkgRunScriptsState_t > >& removeFailed() const;
 
 
   //! \brief   Get PKGMK_PACKAGE_DIR value from pkgmk(8)

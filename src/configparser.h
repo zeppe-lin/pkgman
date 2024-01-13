@@ -37,8 +37,7 @@ public:
   //! \brief   Parse the configuration file
   //!
   //! \return  \a true on success, \a false otherwise
-  bool
-    parse();
+  bool parse();
 
 
   //! \brief   Add configuration setting
@@ -55,16 +54,13 @@ public:
   //!                         \--config-set="line"
   //! \param   configPrepend  \a true if the command-line argument was
   //!                         \--config-prepend="line"
-  void
-    addConfig( const string& line, bool configSet, bool configPrepend );
+  void addConfig( const string& line, bool configSet, bool configPrepend );
 
 
   //! \brief   Whether pkgman should write to a log file
   //!
   //! \return  \a true if so, \a false otherwise
-  bool
-    writeLog()
-    const;
+  bool writeLog() const;
 
 
   //! Log modes
@@ -78,34 +74,26 @@ public:
   //! \brief   Which Log mode should pkgman to use
   //!
   //! \return  \a logMode_t mode
-  logMode_t
-    logMode()
-    const;
+  logMode_t logMode() const;
 
 
   //! \brief   Whether pkgman should remove the log file on success build
   //!
   //! \return  \a true if so, \a false otherwise
-  bool
-    removeLogOnSuccess()
-    const;
+  bool removeLogOnSuccess() const;
 
 
   //! \brief   A path pattern to the log file
   //!
   //! \return  the string that contains a path pattern to the log file
-  string
-    logFilePattern()
-    const;
+  string logFilePattern() const;
 
 
   //! \brief   A path and packages
   //!
   //! \return  the list of pair with path and packages specified by
   //!          "pkgsrcdir"
-  const list< pair< string, string > >&
-    rootList()
-    const;
+  const list< pair< string, string > >& rootList() const;
 
 
   //! README modes
@@ -120,9 +108,7 @@ public:
   //! \brief   Which README mode should pkgman to use
   //!
   //! \return  \a readmeMode_t mode
-  readmeMode_t
-    readmeMode()
-    const;
+  readmeMode_t readmeMode() const;
 
 
   //! \brief   Whether pkgman should parse version strings and prefer the
@@ -130,9 +116,7 @@ public:
   //!          tree is lower
   //!
   //! \return  \a true if so, \a false otherwise
-  bool
-    preferHigher()
-    const;
+  bool preferHigher() const;
 
 
   //! \brief   Whether pkgman should interpret \b list, \b printf,
@@ -140,9 +124,7 @@ public:
   //!          arguments as regular expressions
   //!
   //! \return  \a true if so, \a false otherwise
-  bool
-    useRegex()
-    const;
+  bool useRegex() const;
 
 
   //! \brief   Whether pkgman should run pre/post- scripts
@@ -154,41 +136,31 @@ public:
   //!   - post-remove
   //!
   //! \return  \a true if should run, \a false otherwise
-  bool
-    runScripts()
-    const;
+  bool runScripts() const;
 
 
   //! \brief   A path to the scripts interpreter
   //!
   //! \return  the command to run the pre/post- scripts
-  string
-    runscriptCommand()
-    const;
+  string runscriptCommand() const;
 
 
   //! \brief   A path to the package builder script
   //!
   //! \return  the command to build the package
-  string
-    makeCommand()
-    const;
+  string makeCommand() const;
 
 
   //! \brief   A path to the package installer script
   //!
   //! \return  the command to install the package
-  string
-    addCommand()
-    const;
+  string addCommand() const;
 
 
   //! \brief   A path to the package remover script
   //!
   //! \return  the command to remove the package
-  string
-    removeCommand()
-    const;
+  string removeCommand() const;
 
 
 private:

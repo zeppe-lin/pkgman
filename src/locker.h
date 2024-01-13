@@ -37,9 +37,7 @@ public:
   //! \brief   Check if opening failed
   //!
   //! \return  \a true if so, \a false otherwise
-  bool
-    openFailed()
-    const;
+  bool openFailed() const;
 
 
   //! \brief   Lock the package
@@ -47,8 +45,7 @@ public:
   //! \param   package  the package name
   //!
   //! \return  \a true if locking worked, \a false if already locked
-  bool
-    lock( const pkgname_t& package );
+  bool lock( const pkgname_t& package );
 
 
   //! \brief   Unlock the package
@@ -57,16 +54,14 @@ public:
   //!
   //! \return  \a true if it could be unlocked,
   //!          \a false if it wasn't locked
-  bool
-    unlock( const pkgname_t& package );
+  bool unlock( const pkgname_t& package );
 
 
   //! \brief   Write the changes to locker file
   //!
   //! \return  \a true if ok, \a false if locker file could not be
   //!          opened for writing
-  bool
-    store();
+  bool store();
 
 
   //! \brief   Check if the \a package is locked
@@ -74,17 +69,13 @@ public:
   //! \param   package  the package name
   //!
   //! \return  \a true if locked, \a false otherwise
-  bool
-    isLocked( const pkgname_t& package )
-    const;
+  bool isLocked( const pkgname_t& package ) const;
 
 
   //! \brief   Get all locked packages
   //!
   //! \return  the vector of names of all locked packages
-  const vector< pkgname_t >&
-    lockedPackages()
-    const;
+  const vector< pkgname_t >& lockedPackages() const;
 
 
 private:
@@ -92,7 +83,6 @@ private:
 
   //! The vector of names of all locked packages
   vector< pkgname_t > m_packages;
-
 
   //! true if lock file opening error
   bool m_openFailed;

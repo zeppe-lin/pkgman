@@ -26,18 +26,22 @@ using namespace std;
 using namespace ListHelper;
 using namespace StringHelper;
 
-const Transaction::Transaction_t& Transaction::type() const
+const
+Transaction::Transaction_t& Transaction::type()
+  const
 {
   return m_transactionType;
 }
 
-const Transaction::Result_t& Transaction::result() const
+const
+Transaction::Result_t& Transaction::result()
+  const
 {
   return m_transactionResult;
 }
 
 const Transaction::Result_t&
-  Transaction::install( Transaction::Transaction_t transactionType )
+Transaction::install( Transaction::Transaction_t transactionType )
 {
   m_transactionType = transactionType;
 
@@ -305,7 +309,8 @@ Transaction::remove()
   return m_transactionResult = SUCCESS;
 }
 
-const Transaction::Result_t& Transaction::calcDeps()
+const Transaction::Result_t&
+Transaction::calcDeps()
 {
   m_transactionType = DEPCALC;
 
@@ -334,61 +339,79 @@ const Transaction::Result_t& Transaction::calcDeps()
   return m_transactionResult = SUCCESS;
 }
 
-const list< pkgname_t >& Transaction::deps() const
+const list< pkgname_t >&
+Transaction::deps()
+  const
 {
   return m_depNameList;
 }
 
 const list< pair< pkgname_t, Transaction::pkgRunScriptsState_t > >&
-Transaction::installed() const
+Transaction::installed()
+  const
 {
   return m_installedPackages;
 }
 
 const list< pair< pkgname_t, Transaction::pkgRunScriptsState_t > >&
-Transaction::removed() const
+Transaction::removed()
+  const
 {
   return m_removedPackages;
 }
 
-const list< pkgname_t >& Transaction::alreadyInstalled() const
+const list< pkgname_t >&
+Transaction::alreadyInstalled()
+  const
 {
   return m_alreadyInstalledPackages;
 }
 
-const list< pkgname_t >& Transaction::ignored() const
+const list< pkgname_t >&
+Transaction::ignored()
+  const
 {
   return m_ignoredPackages;
 }
 
-const list< pair< pkgname_t, pkgname_t > >& Transaction::missing() const
+const list< pair< pkgname_t, pkgname_t > >&
+Transaction::missing()
+  const
 {
   return m_missingPackages;
 }
 
-const list< pkgname_t >& Transaction::downloadFailed() const
+const list< pkgname_t >&
+Transaction::downloadFailed()
+  const
 {
   return m_downloadFailedPackages;
 }
 
-const list< pkgname_t >& Transaction::buildFailed() const
+const list< pkgname_t >&
+Transaction::buildFailed()
+  const
 {
   return m_buildFailedPackages;
 }
 
 const list< pair< pkgname_t, Transaction::pkgRunScriptsState_t > >&
-Transaction::installFailed() const
+Transaction::installFailed()
+  const
 {
   return m_installFailedPackages;
 }
 
 const list< pair< pkgname_t, Transaction::pkgRunScriptsState_t > >&
-Transaction::removeFailed() const
+Transaction::removeFailed()
+  const
 {
   return m_removeFailedPackages;
 }
 
-const string Transaction::strerror( const Result_t& result ) const
+const string
+Transaction::strerror( const Result_t& result )
+  const
 {
   switch ( result ? result : m_transactionResult )
   {
@@ -475,7 +498,8 @@ const string Transaction::strerror( const Result_t& result ) const
 ///////////////////////////////////////////////////////////////////////
 
 
-inline string Transaction::logPathFromPattern( const Package* pkg )
+inline string
+Transaction::logPathFromPattern( const Package* pkg )
 {
   string logfile = m_config->logFilePattern();
 
@@ -487,13 +511,15 @@ inline string Transaction::logPathFromPattern( const Package* pkg )
   return logfile;
 }
 
-bool Transaction::logDirCreate( const string& logFilePath )
+bool
+Transaction::logDirCreate( const string& logFilePath )
 {
   return Repository::createOutputDir(
       fs::path( logFilePath ).parent_path() );
 }
 
-bool Transaction::logFileCreate( const string& logFilePath )
+bool
+Transaction::logFileCreate( const string& logFilePath )
 {
   if ( m_config->logMode() == ConfigParser::OVERWRITE_MODE )
   {
@@ -508,7 +534,9 @@ bool Transaction::logFileCreate( const string& logFilePath )
   return m_logfd != -1;
 }
 
-Transaction::Result_t Transaction::pkgmk( const Package* pkg ) const
+Transaction::Result_t
+Transaction::pkgmk( const Package* pkg )
+  const
 {
   const auto& pkgmk     = m_config->makeCommand();
   const auto& pkgmkArgs =
@@ -540,7 +568,9 @@ Transaction::Result_t Transaction::pkgmk( const Package* pkg ) const
   return result != SUCCESS ? static_cast<Result_t>( result ) : SUCCESS;
 }
 
-Transaction::Result_t Transaction::pkgadd( const Package* pkg ) const
+Transaction::Result_t
+Transaction::pkgadd( const Package* pkg )
+  const
 {
   PkgmkSetting pkgmkConf( m_parser );
   string pkgadd = m_config->addCommand();
@@ -597,7 +627,8 @@ Transaction::Result_t Transaction::pkgadd( const Package* pkg ) const
          : SUCCESS;
 }
 
-bool Transaction::calculateDependencies()
+bool
+Transaction::calculateDependencies()
 {
   if ( m_depCalced )
     return true;
@@ -620,8 +651,9 @@ bool Transaction::calculateDependencies()
   return true;
 }
 
-void Transaction::checkDependecies( const Package*  pkg,
-                                    ssize_t         depends )
+void
+Transaction::checkDependecies( const Package*  pkg,
+                               ssize_t         depends )
 {
   ssize_t index = -1;
   bool newPackage = true;

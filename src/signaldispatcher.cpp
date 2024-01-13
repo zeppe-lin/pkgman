@@ -15,7 +15,8 @@ SignalDispatcher::SignalDispatcher()
 {
 }
 
-SignalDispatcher* SignalDispatcher::instance()
+SignalDispatcher*
+SignalDispatcher::instance()
 {
   if ( m_instance == 0 )
     m_instance = new SignalDispatcher();
@@ -23,7 +24,8 @@ SignalDispatcher* SignalDispatcher::instance()
   return m_instance;
 }
 
-void SignalDispatcher::dispatch( int signalNumber )
+void
+SignalDispatcher::dispatch( int signalNumber )
 {
   auto it = instance()->m_signalHandlers.find( signalNumber );
   if ( it != instance()->m_signalHandlers.end() )
@@ -34,13 +36,15 @@ void SignalDispatcher::dispatch( int signalNumber )
   exit( signalNumber );
 }
 
-void SignalDispatcher::registerHandler( SignalHandler*  handler,
-                                        int             signalNumber )
+void
+SignalDispatcher::registerHandler( SignalHandler*  handler,
+                                   int             signalNumber )
 {
   m_signalHandlers[ signalNumber ] = handler;
 }
 
-void SignalDispatcher::unregisterHandler( int signalNumber )
+void
+SignalDispatcher::unregisterHandler( int signalNumber )
 {
   m_signalHandlers.erase( signalNumber );
 }

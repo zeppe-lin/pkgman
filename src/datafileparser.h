@@ -26,8 +26,7 @@ public:
   //! \param   target    save key/value into target[key]=value
   //!
   //! \return  \a true if parsing is ok, \a false otherwise
-  bool
-    parse( const string& filename, map< string, string >& target );
+  bool parse( const string& filename, map< string, string >& target );
 
 
 }; // class DataFileParser

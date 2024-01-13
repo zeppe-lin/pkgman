@@ -73,7 +73,9 @@ Pkgman::~Pkgman()
   delete m_pkgDB;
 }
 
-void Pkgman::dumpConfig() const
+void
+Pkgman::dumpConfig()
+  const
 {
   PkgmkSetting pkgmkConf( m_parser );
 
@@ -146,7 +148,8 @@ void Pkgman::dumpConfig() const
   }
 }
 
-void Pkgman::listPackages()
+void
+Pkgman::listPackages()
 {
   string filter = m_useRegex ? "." : "*";
   if ( m_parser->hasFilter() )
@@ -208,7 +211,8 @@ void Pkgman::listPackages()
   }
 }
 
-void Pkgman::listShadowed() // listDup
+void
+Pkgman::listShadowed() // aka listDup
 {
   string format = "%p1 %v1 %c %p2 %v2\n";
   if ( m_parser->cmdArgs().size() )
@@ -237,7 +241,8 @@ void Pkgman::listShadowed() // listDup
   }
 }
 
-void Pkgman::listNodependents()
+void
+Pkgman::listNodependents()
 {
   initRepo();
 
@@ -269,7 +274,8 @@ void Pkgman::listNodependents()
   }
 }
 
-void Pkgman::listLocked()
+void
+Pkgman::listLocked()
 {
   if ( m_locker->openFailed() )
     return errx( "failed to open locker data file: " +
@@ -282,7 +288,8 @@ void Pkgman::listLocked()
     briefInfo( name );
 }
 
-void Pkgman::listOrphans()
+void
+Pkgman::listOrphans()
 {
   initRepo();
 
@@ -309,7 +316,8 @@ void Pkgman::listOrphans()
   }
 }
 
-void Pkgman::printf()
+void
+Pkgman::printf()
 {
   const string formatString = m_parser->cmdArgs().front();
 
@@ -403,7 +411,8 @@ void Pkgman::printf()
      cout << output;
 }
 
-void Pkgman::printInfo()
+void
+Pkgman::printInfo()
 {
   string arg = m_parser->cmdArgs().front();
 
@@ -476,7 +485,8 @@ void Pkgman::printInfo()
   }
 }
 
-void Pkgman::printReadme()
+void
+Pkgman::printReadme()
 {
   string arg = m_parser->cmdArgs().front();
 
@@ -492,7 +502,8 @@ void Pkgman::printReadme()
   printFile( pkg->fullpath( "README" ) );
 }
 
-void Pkgman::printPath()
+void
+Pkgman::printPath()
 {
   string arg = m_parser->cmdArgs().front();
 
@@ -505,7 +516,8 @@ void Pkgman::printPath()
   cout << pkg->fullpath() << endl;
 }
 
-void Pkgman::printIsInstalled()
+void
+Pkgman::printIsInstalled()
 {
   for ( const string& arg: m_parser->cmdArgs() )
   {
@@ -516,7 +528,8 @@ void Pkgman::printIsInstalled()
   }
 }
 
-void Pkgman::printCurrentVersion()
+void
+Pkgman::printCurrentVersion()
 {
   string arg = m_parser->cmdArgs().front();
 
@@ -531,7 +544,8 @@ void Pkgman::printCurrentVersion()
   errx( "package '" + arg + "' not installed" );
 }
 
-void Pkgman::printDiff()
+void
+Pkgman::printDiff()
 {
   initRepo();
 
@@ -663,7 +677,8 @@ void Pkgman::printDiff()
   }
 }
 
-void Pkgman::printDep()
+void
+Pkgman::printDep()
 {
   string arg = m_parser->cmdArgs().front();
 
@@ -693,7 +708,8 @@ void Pkgman::printDep()
     printDepList( pkg, /*indent level*/ 0 );
 }
 
-void Pkgman::printRevDep()
+void
+Pkgman::printRevDep()
 {
   string arg = m_parser->cmdArgs().front();
 
@@ -715,7 +731,8 @@ void Pkgman::printRevDep()
     printRevDepList( arg, /*indent level*/ 0 );
 }
 
-void Pkgman::psearch( bool desc )
+void
+Pkgman::psearch( bool desc )
 {
   string arg = m_parser->cmdArgs().front();
 
@@ -735,7 +752,8 @@ void Pkgman::psearch( bool desc )
   }
 }
 
-void Pkgman::fsearch()
+void
+Pkgman::fsearch()
 {
   string arg = "*";
   if ( m_parser->cmdArgs().size() == 1 )
@@ -771,7 +789,8 @@ void Pkgman::fsearch()
     errx( "Nothing found" );
 }
 
-void Pkgman::install( Transaction::Transaction_t transaction_t )
+void
+Pkgman::install( Transaction::Transaction_t transaction_t )
 {
   const auto& args = m_parser->cmdArgs();
   list< pkgname_t > sortedList;
@@ -847,7 +866,8 @@ void Pkgman::install( Transaction::Transaction_t transaction_t )
   }
 }
 
-void Pkgman::remove()
+void
+Pkgman::remove()
 {
   const auto& args = m_parser->cmdArgs();
 
@@ -877,7 +897,8 @@ void Pkgman::remove()
   }
 }
 
-void Pkgman::sysup()
+void
+Pkgman::sysup()
 {
   initRepo();
 
@@ -924,7 +945,8 @@ void Pkgman::sysup()
   executeTransaction( update, Transaction::UPDATE );
 }
 
-void Pkgman::setLock( bool lock )
+void
+Pkgman::setLock( bool lock )
 {
   if ( lock )
     initRepo();
@@ -953,7 +975,8 @@ void Pkgman::setLock( bool lock )
           m_parser->root() + PATH_LOCK_DB );
 }
 
-void Pkgman::ls()
+void
+Pkgman::ls()
 {
   string name = m_parser->cmdArgs().front();
 
@@ -972,7 +995,8 @@ void Pkgman::ls()
   }
 }
 
-void Pkgman::cat()
+void
+Pkgman::cat()
 {
   const auto& args = m_parser->cmdArgs();
 
@@ -989,7 +1013,8 @@ void Pkgman::cat()
     errx( "file '" + file + "' not found" );
 }
 
-void Pkgman::edit()
+void
+Pkgman::edit()
 {
   const auto& args = m_parser->cmdArgs();
 
@@ -1023,7 +1048,9 @@ Pkgman::handleSignal( int __attribute__((unused)) signal )
   return EXIT;
 }
 
-int Pkgman::returnValue() const
+int
+Pkgman::returnValue()
+  const
 {
   return m_returnValue;
 }
@@ -1032,13 +1059,15 @@ int Pkgman::returnValue() const
 //                          Private methods                          //
 ///////////////////////////////////////////////////////////////////////
 
-inline void Pkgman::errx( const string& error_message, int ret )
+inline void
+Pkgman::errx( const string& error_message, int ret )
 {
   cerr << "pkgman: " << error_message << ".\n";
   m_returnValue = ret;
 }
 
-void Pkgman::readConfig()
+void
+Pkgman::readConfig()
 {
   if ( m_config )
     return; // don't initialize twice
@@ -1061,7 +1090,8 @@ void Pkgman::readConfig()
   }
 }
 
-void Pkgman::initRepo( bool listDuplicate )
+void
+Pkgman::initRepo( bool listDuplicate )
 {
   if ( m_repo )
     return;
@@ -1070,8 +1100,9 @@ void Pkgman::initRepo( bool listDuplicate )
   m_repo->initFromFS( m_config->rootList(), listDuplicate );
 }
 
-void Pkgman::expandWildcardsPkgDB( const list< char* >&         in,
-                                   map< pkgname_t, pkgver_t >&  target )
+void
+Pkgman::expandWildcardsPkgDB( const list< char* >&         in,
+                              map< pkgname_t, pkgver_t >&  target )
 {
   for ( const auto& pattern: in )
   {
@@ -1083,8 +1114,9 @@ void Pkgman::expandWildcardsPkgDB( const list< char* >&         in,
   }
 }
 
-void Pkgman::expandWildcardsRepo( const list< char* >&  in,
-                                  list< pkgname_t >&    target )
+void
+Pkgman::expandWildcardsRepo( const list< char* >&  in,
+                             list< pkgname_t >&    target )
 {
   for ( const auto& pattern: in )
   {
@@ -1096,7 +1128,8 @@ void Pkgman::expandWildcardsRepo( const list< char* >&  in,
   }
 }
 
-void Pkgman::listDepSorted( map< string, string >& packages )
+void
+Pkgman::listDepSorted( map< string, string >& packages )
 {
   while ( packages.size() )
   {
@@ -1129,7 +1162,8 @@ void Pkgman::listDepSorted( map< string, string >& packages )
   }
 }
 
-bool Pkgman::printFile( const string& filepath )
+bool
+Pkgman::printFile( const string& filepath )
 {
   if ( ! fs::exists( fs::path( filepath ) ) )
     return false;
@@ -1156,7 +1190,8 @@ bool Pkgman::printFile( const string& filepath )
   return true;
 }
 
-COMP_RESULT Pkgman::compareVersions( const string& v1, const string& v2 )
+COMP_RESULT
+Pkgman::compareVersions( const string& v1, const string& v2 )
 {
   if ( v1 == v2 )
     return EQUAL;
@@ -1170,7 +1205,8 @@ COMP_RESULT Pkgman::compareVersions( const string& v1, const string& v2 )
   return LESS;
 }
 
-void Pkgman::diffCalc( const map< pkgname_t, pkgver_t >& packages )
+void
+Pkgman::diffCalc( const map< pkgname_t, pkgver_t >& packages )
 {
   for ( const auto& [ name, version ]: packages )
   {
@@ -1194,10 +1230,11 @@ void Pkgman::diffCalc( const map< pkgname_t, pkgver_t >& packages )
   }
 }
 
-void Pkgman::printFormattedDiffLine( const string&  name,
-                                     const string&  versionInstalled,
-                                     const string&  versionAvailable,
-                                     bool           isLocked )
+void
+Pkgman::printFormattedDiffLine( const string&  name,
+                                const string&  versionInstalled,
+                                const string&  versionAvailable,
+                                bool           isLocked )
 {
   cout.setf( ios::left, ios::adjustfield );
   cout.width( 32 );
@@ -1215,7 +1252,8 @@ void Pkgman::printFormattedDiffLine( const string&  name,
   cout << versionAvailable << ( isLocked ? "locked\n" : "\n" );
 }
 
-void Pkgman::printDepList( const Package* pkg, int level )
+void
+Pkgman::printDepList( const Package* pkg, int level )
 {
   if ( pkg->dependencies().empty() )
     return;
@@ -1248,7 +1286,8 @@ void Pkgman::printDepList( const Package* pkg, int level )
   }
 }
 
-void Pkgman::printDepTree( const Package* pkg, int level )
+void
+Pkgman::printDepTree( const Package* pkg, int level )
 {
   if ( pkg->dependencies().empty() )
     return;
@@ -1288,7 +1327,8 @@ void Pkgman::printDepTree( const Package* pkg, int level )
   }
 }
 
-void Pkgman::printRevDepList( const pkgname_t& arg, int level )
+void
+Pkgman::printRevDepList( const pkgname_t& arg, int level )
 {
   set< string > revdep;
 
@@ -1339,7 +1379,8 @@ void Pkgman::printRevDepList( const pkgname_t& arg, int level )
   }
 }
 
-void Pkgman::printRevDepTree( const pkgname_t& arg, int level )
+void
+Pkgman::printRevDepTree( const pkgname_t& arg, int level )
 {
   // used ArgParser options:
   // -v, -vv, --path
@@ -1403,8 +1444,9 @@ void Pkgman::printRevDepTree( const pkgname_t& arg, int level )
   }
 }
 
-void Pkgman::getRemovableDeps( const string&    name,
-                               list< string >&  removable )
+void
+Pkgman::getRemovableDeps( const string&    name,
+                          list< string >&  removable )
 {
   const auto& pkg = m_repo->getPackage( name );
   if ( ! pkg || ! m_pkgDB->isInstalled( name ) )
@@ -1439,11 +1481,12 @@ void Pkgman::getRemovableDeps( const string&    name,
   }
 }
 
-bool Pkgman::footprintGrep( const string&    filename,
-                            const string&    pattern,
-                            list< string >&  result,
-                            bool             fullPath,
-                            bool             useRegex )
+bool
+Pkgman::footprintGrep( const string&    filename,
+                       const string&    pattern,
+                       list< string >&  result,
+                       bool             fullPath,
+                       bool             useRegex )
 {
   ifstream file( filename );
   if ( ! file.is_open() )
@@ -1508,8 +1551,9 @@ Pkgman::executeTransaction( Transaction&                transaction,
   m_currentTransaction = 0;
 }
 
-void Pkgman::evaluateResult( const Transaction&  transaction,
-                             bool                interrupted )
+void
+Pkgman::evaluateResult( const Transaction&  transaction,
+                        bool                interrupted )
 {
   int errors = 0;
   const auto& ignored          = transaction.ignored();

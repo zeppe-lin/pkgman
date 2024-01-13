@@ -22,8 +22,7 @@ public:
   //!
   //! \param   first   the package with dependency
   //! \param   second  the package which \a first depends on
-  void
-    addDependency( ssize_t first, ssize_t second );
+  void addDependency( ssize_t first, ssize_t second );
 
 
   //! \brief   Resolve the dependencies
@@ -33,16 +32,14 @@ public:
   //!
   //! \return  \a true on success, \a false otherwise
   //!          (cyclic dependencies)
-  bool
-    resolve( list< ssize_t >& result );
+  bool resolve( list< ssize_t >& result );
 
 
 private:
 
 
   //! Sort the dependencies
-  bool
-    topSort( list< ssize_t >& result );
+  bool topSort( list< ssize_t >& result );
 
 
   //! The list of dependencies pairs, where

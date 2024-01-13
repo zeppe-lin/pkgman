@@ -35,8 +35,7 @@ namespace StringHelper
   //! \param   del  the delimiter char
   //!
   //! \return  the string from \a del position + 1 to the end of \a str
-  string
-    getValue( const string& str, char del );
+  string getValue( const string& str, char del );
 
 
   //! \brief   Get the value before the first occurrence of \a del
@@ -45,8 +44,7 @@ namespace StringHelper
   //! \param   del  the delimiter char
   //!
   //! \return  the string from 0 to the \a del position of \a str
-  string
-    getValueBefore( const string& str, char del );
+  string getValueBefore( const string& str, char del );
 
 
   //! \brief   Strip whitespace in the beginning and end of string \a str
@@ -54,8 +52,7 @@ namespace StringHelper
   //! \param   str  the string to be stripped
   //!
   //! \return  a stripped string
-  string
-    stripWhiteSpace( const string& str );
+  string stripWhiteSpace( const string& str );
 
 
   //! \brief   Case sensitive implementation of startsWith()
@@ -65,8 +62,7 @@ namespace StringHelper
   //!
   //! \return \a true if the string \a a starts with \a b,
   //!         \a false otherwise
-  bool
-    startsWith( const string& a, const string& b );
+  bool startsWith( const string& a, const string& b );
 
 
   //! \brief   Case insensitive implementation of startsWith()
@@ -76,8 +72,7 @@ namespace StringHelper
   //!
   //! \return  \a true if the string \a a starts with \a b,
   //!          \a false otherwise
-  bool
-    startsWithNoCase( const string& a, const string& b );
+  bool startsWithNoCase( const string& a, const string& b );
 
 
   //! \brief   Case sensitive implementation of endsWith()
@@ -87,8 +82,7 @@ namespace StringHelper
   //!
   //! \return  \a true if the string \a a ends with \a b,
   //!          \a false otherwise
-  bool
-    endsWith( const string& a, const string& b );
+  bool endsWith( const string& a, const string& b );
 
 
   //! \brief   Case insensitive implementation of endsWith()
@@ -98,8 +92,7 @@ namespace StringHelper
   //!
   //! \return  \a true if the string \a a ends with \a b,
   //!          \a false otherwise
-  bool
-    endsWithNoCase( const string& a, const string& b );
+  bool endsWithNoCase( const string& a, const string& b );
 
 
   //! \brief   Convert the string into a lowercase representation
@@ -107,8 +100,7 @@ namespace StringHelper
   //! \param   str  the string to be converted
   //!
   //! \return  a lowercase representation of \a str
-  string
-    toLowerCase( const string& str );
+  string toLowerCase( const string& str );
 
 
   //! \brief   Convert a string into a uppercase representation
@@ -116,8 +108,7 @@ namespace StringHelper
   //! \param   str the string to be converted
   //!
   //! \return  an uppercase representation of \a str
-  string
-    toUpperCase( const string& str );
+  string toUpperCase( const string& str );
 
 
   //! \brief   Replace all occurrences of \a oldStr in \a in
@@ -128,10 +119,9 @@ namespace StringHelper
   //! \param   newStr  the replacement string
   //!
   //! \return  a replaced representation of \a in string
-  string
-    replaceAll(       string& in,
-                const string& oldStr,
-                const string& newStr );
+  string replaceAll(       string& in,
+                     const string& oldStr,
+                     const string& newStr );
 
 
   //! \brief   Metafunction to split a string into parts

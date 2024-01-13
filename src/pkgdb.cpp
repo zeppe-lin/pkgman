@@ -25,7 +25,9 @@ PkgDB::PkgDB( const string& root ):
 {
 }
 
-bool PkgDB::isInstalled( const pkgname_t& name ) const
+bool
+PkgDB::isInstalled( const pkgname_t& name )
+  const
 {
   if ( ! load() )
     return false;
@@ -33,7 +35,9 @@ bool PkgDB::isInstalled( const pkgname_t& name ) const
   return m_packages.find( name ) != m_packages.end();
 }
 
-string PkgDB::getVersionRelease( const pkgname_t& name ) const
+string
+PkgDB::getVersionRelease( const pkgname_t& name )
+  const
 {
   if ( ! load() )
     return "";
@@ -45,7 +49,9 @@ string PkgDB::getVersionRelease( const pkgname_t& name ) const
   return pkg->second; /* version-release */
 }
 
-const map< pkgname_t, pkgver_t >& PkgDB::installedPackages() {
+const map< pkgname_t, pkgver_t >&
+PkgDB::installedPackages()
+{
   load();
   return m_packages;
 }
@@ -79,7 +85,9 @@ PkgDB::getMatchingPackages( const string&                pattern,
   }
 }
 
-bool PkgDB::load() const
+bool
+PkgDB::load()
+  const
 {
   if ( m_isLoaded )
     return true;

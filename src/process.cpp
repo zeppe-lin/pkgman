@@ -31,7 +31,8 @@ Process::Process( const string&  app,
 {
 }
 
-int Process::execute()
+int
+Process::execute()
 {
   list< string > args;
   split( m_arguments, ' ', args, /*startPos*/ 0, /*useEmpty*/ false );
@@ -60,14 +61,16 @@ int Process::execute()
   return status / 256;
 }
 
-int Process::executeShell( const char *shell )
+int
+Process::executeShell( const char *shell )
 {
   int status = m_logfd > 0 ? execShellLog( shell )
                            : execShell( shell );
   return status / 256;
 }
 
-int Process::exec( const size_t argc, char** argv )
+int
+Process::exec( const size_t argc, char** argv )
 {
   int status = 0;
   pid_t pid = fork();
@@ -88,7 +91,8 @@ int Process::exec( const size_t argc, char** argv )
   return status;
 }
 
-int Process::execLog( const size_t argc, char** argv )
+int
+Process::execLog( const size_t argc, char** argv )
 {
   int status = 0;
   int fdpipe[ 2 ];
@@ -142,7 +146,8 @@ int Process::execLog( const size_t argc, char** argv )
   return status;
 }
 
-int Process::execShell( const char* shell )
+int
+Process::execShell( const char* shell )
 {
   int status = 0;
   pid_t pid = fork();
@@ -164,7 +169,8 @@ int Process::execShell( const char* shell )
   return status;
 }
 
-int Process::execShellLog( const char* shell )
+int
+Process::execShellLog( const char* shell )
 {
   int status = 0;
   int fdpipe[ 2 ];

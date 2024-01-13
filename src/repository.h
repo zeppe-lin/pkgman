@@ -46,9 +46,7 @@ public:
   //! \param   name the package name to be returned
   //!
   //! \return  a \a Package pointer for a package name or 0 if not found
-  const Package*
-    getPackage( const pkgname_t& name )
-    const;
+  const Package* getPackage( const pkgname_t& name ) const;
 
 
   //! \brief   Get all the packages available in the repository
@@ -56,9 +54,7 @@ public:
   //! \return  a map of available packages, where
   //!          pair.first   is the package name,
   //!          pair.second  is \a Package pointer
-  const map< pkgname_t, Package* >&
-    packages()
-    const;
+  const map< pkgname_t, Package* >& packages() const;
 
 
   //! \brief   Get the sorted list of duplicate packages
@@ -68,9 +64,7 @@ public:
   //!          wherein the pairs
   //!          .first   is the shadowed package source and
   //!          .second  is the package source which precedes over first
-  const list< pair< Package*, Package* > >&
-    shadowedPackages()
-    const;
+  const list< pair< Package*, Package* > >& shadowedPackages() const;
 
 
   //! \brief   Search packages for a match of \a pattern in name, and
@@ -87,11 +81,9 @@ public:
   //! \param   target      save matching packages into a \a target list
   //! \param   searchDesc  whether descriptions should be searched
   //!                      as well
-  void
-    searchMatchingPackages( const string&      pattern,
-                            list< Package* >&  target,
-                            bool               searchDesc )
-    const;
+  void searchMatchingPackages( const string&      pattern,
+                               list< Package* >&  target,
+                               bool               searchDesc ) const;
 
 
   //! \brief   Search packages for a match of \a pattern in name
@@ -101,10 +93,8 @@ public:
   //!
   //! \param   pattern  the pattern to be found
   //! \param   target   save matching packages into a \a target list
-  void
-    getMatchingPackages( const string&      pattern,
-                         list< Package* >&  target )
-    const;
+  void getMatchingPackages( const string&      pattern,
+                            list< Package* >&  target ) const;
 
 
   //! \brief   Init repository by reading the directories passed
@@ -116,8 +106,7 @@ public:
   //!                         packages sources in
   //! \param   listDuplicate  whether duplicates should be registered
   //!                         (slower)
-  void
-    initFromFS( const rootList_t& rootList, bool listDuplicate );
+  void initFromFS( const rootList_t& rootList, bool listDuplicate );
 
 
   //! \brief   Create all components of the \a path which don't exist
@@ -126,15 +115,13 @@ public:
   //!
   //! \return  \a true on success,
   //!          \a false mostly indicates permission problems
-  static bool
-    createOutputDir( const string& path );
+  static bool createOutputDir( const string& path );
 
 
   //! \brief   Add custom dependency for a package
   //!
   //! XXX Add more description
-  void
-    addDependencies( map< string, string >& deps );
+  void addDependencies( map< string, string >& deps );
 
 
 private:
@@ -147,9 +134,8 @@ private:
   //! \param   p2  the second pair of shadowed packages
   //!
   //! \return  the comparison result of \code \a p1 < \a p2 \endcode
-  static int
-    compareShadowPair( pair< Package*, Package* >&  p1,
-                       pair< Package*, Package* >&  p2 );
+  static int compareShadowPair( pair< Package*, Package* >&  p1,
+                                pair< Package*, Package* >&  p2 );
 
 
   //! Whether interpret the matching \a pattern as a regular expression

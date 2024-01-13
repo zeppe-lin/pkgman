@@ -38,7 +38,9 @@ Repository::~Repository()
     delete pkgobj;
 }
 
-const Package* Repository::getPackage( const pkgname_t& name ) const
+const Package*
+Repository::getPackage( const pkgname_t& name )
+  const
 {
   const auto& pkg = m_packageMap.find( name );
   if ( pkg == m_packageMap.end() )
@@ -46,13 +48,15 @@ const Package* Repository::getPackage( const pkgname_t& name ) const
   return pkg->second; /* Package pointer */
 }
 
-const map< pkgname_t, Package* >& Repository::packages() const
+const map< pkgname_t, Package* >&
+Repository::packages()
+  const
 {
   return m_packageMap;
 }
 
-const
-list< pair< Package*, Package* > >& Repository::shadowedPackages()
+const list< pair< Package*, Package* > >&
+Repository::shadowedPackages()
   const
 {
   return m_shadowedPackages;
@@ -92,14 +96,16 @@ Repository::searchMatchingPackages( const string&      pattern,
   }
 }
 
-int Repository::compareShadowPair( pair< Package*, Package* >&  p1,
-                                   pair< Package*, Package* >&  p2 )
+int
+Repository::compareShadowPair( pair< Package*, Package* >&  p1,
+                               pair< Package*, Package* >&  p2 )
 {
   return p1.second->name() < p2.second->name();
 }
 
-void Repository::initFromFS( const rootList_t& rootList,
-                             bool              listDuplicate )
+void
+Repository::initFromFS( const rootList_t& rootList,
+                        bool              listDuplicate )
 {
   map< string, bool > alreadyChecked;
 
@@ -159,7 +165,8 @@ void Repository::initFromFS( const rootList_t& rootList,
   m_shadowedPackages.sort( compareShadowPair );
 }
 
-bool Repository::createOutputDir( const string& path )
+bool
+Repository::createOutputDir( const string& path )
 {
   list< string > dirs;
   split( path, '/', dirs, 1 );
@@ -177,8 +184,10 @@ bool Repository::createOutputDir( const string& path )
   return true;
 }
 
-void Repository::getMatchingPackages( const string&      pattern,
-                                      list< Package* >&  target ) const
+void
+Repository::getMatchingPackages( const string&      pattern,
+                                 list< Package* >&  target )
+  const
 {
   if ( m_useRegex )
   {
@@ -200,7 +209,8 @@ void Repository::getMatchingPackages( const string&      pattern,
   }
 }
 
-void Repository::addDependencies( map< pkgname_t, pkgname_t >& deps )
+void
+Repository::addDependencies( map< pkgname_t, pkgname_t >& deps )
 {
   for ( const auto& [ first, second ]: deps )
   {

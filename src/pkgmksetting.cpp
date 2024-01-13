@@ -16,7 +16,8 @@ PkgmkSetting::PkgmkSetting( const ArgParser* parser ) :
 {
 }
 
-const string PkgmkSetting::get( const string& setting )
+const string
+PkgmkSetting::get( const string& setting )
 {
   using namespace StringHelper;
 
@@ -40,8 +41,9 @@ const string PkgmkSetting::get( const string& setting )
   return getSettingFromFile( setting, PATH_PKGMK_BIN );
 }
 
-string PkgmkSetting::getSettingFromFile( const string& setting,
-                                         const string& filename )
+string
+PkgmkSetting::getSettingFromFile( const string& setting,
+                                  const string& filename )
 {
   using namespace StringHelper;
   ifstream file( filename );
