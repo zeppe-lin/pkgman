@@ -45,6 +45,16 @@ install_bashcomp:
 uninstall_bashcomp:
 	rm -f ${DESTDIR}${BASHCOMPDIR}/pkgman
 
+install_vimfiles:
+	mkdir -p ${DESTDIR}${VIMFILESDIR}/ftdetect
+	mkdir -p ${DESTDIR}${VIMFILESDIR}/syntax
+	cp -f vim/ftdetect/pkgmanconf.vim ${DESTDIR}${VIMFILESDIR}/ftdetect/
+	cp -f vim/syntax/pkgmanconf.vim   ${DESTDIR}${VIMFILESDIR}/syntax/
+
+uninstall_vimfiles:
+	rm -f ${DESTDIR}${VIMFILESDIR}/ftdetect/pkgmanconf.vim
+	rm -f ${DESTDIR}${VIMFILESDIR}/syntax/pkgmanconf.vim
+
 clean:
 	rm -f pkgman vcomp ${OBJS}
 	rm -f ${DIST}.tar.gz
@@ -52,4 +62,5 @@ clean:
 dist: clean
 	git archive --format=tar.gz -o ${DIST}.tar.gz --prefix=${DIST}/ HEAD
 
-.PHONY: all check install uninstall install_bashcomp uninstall_bashcomp clean dist
+.PHONY: all check install uninstall install_bashcomp uninstall_bashcomp \
+	install_vimfiles uninstall_vimfiles clean dist
