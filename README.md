@@ -24,6 +24,7 @@ da6bfb0 (Fri Oct 16 2020) with the following differences:
 - new commands
 - dependency injection for sysup/update/remove commands
 - quiet mode
+- vim syntax highlight for `pkgman.conf` file
 - etc
 
 See git log for complete/further differences and
@@ -58,6 +59,9 @@ install this package.
 
 The shell command `make install_bashcomp` should install bash
 completion script.
+
+The shell command `make install_vimfiles` should install vim
+syntax highlight for `pkgman.conf` file.
 
 See `config.mk` file for configuration parameters, and
 `src/pathnames.h` for absolute filenames that pkgman wants for
