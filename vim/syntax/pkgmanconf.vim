@@ -25,7 +25,7 @@ syn region  pkgmanComment  start="^\s*#" end="$"
 syn region  pkgmanLine     start="^[^ #]" end="$"
                            \ display
                            \ oneline
-                           \ contains=pkgmanKey
+                           \ contains=pkgmanKey,pkgmanComment
 syn keyword pkgmanKey      pkgsrcdir runscripts preferhigher useregex readme
                            \ writelog logmode rmlog_on_success logfile
                            \ makecommand addcommand removecommand
