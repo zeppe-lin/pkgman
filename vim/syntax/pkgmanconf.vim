@@ -14,24 +14,35 @@ let s:cpo_save = &cpo
 set cpo&vim
 
 " Comment.
-syn keyword pkgmanTodo     contained TODO FIXME XXX NOTE
-syn region  pkgmanComment  display oneline start="^\s*#" end="$"
+syn keyword pkgmanTodo     TODO FIXME XXX NOTE
+                           \ contained
+syn region  pkgmanComment  start="^\s*#" end="$"
+                           \ display
+                           \ oneline
                            \ contains=pkgmanTodo,@Spell
 
-" Pattern.
-syn region pkgmanLine      display oneline start="^[^ #]" end="$"
+" Key Value.
+syn region  pkgmanLine     start="^[^ #]" end="$"
+                           \ display
+                           \ oneline
                            \ contains=pkgmanKey
-syn keyword pkgmanKey      contained pkgsrcdir runscripts preferhigher
-                           \ useregex readme writelog logmode rmlog_on_success
-                           \ logfile makecommand addcommand removecommand
+syn keyword pkgmanKey      pkgsrcdir runscripts preferhigher useregex readme
+                           \ writelog logmode rmlog_on_success logfile
+                           \ makecommand addcommand removecommand
                            \ runscriptcommand
-                           \ nextgroup=pkgmanVal skipwhite
-syn region pkgmanVal       display oneline start="\s" end="$"
-                           \ contains=pkgmanSVal,pkgmanKVal
-syn keyword pkgmanKVal     contained append overwrite enabled disabled yes no
-                           \ verbose compact disabled
+                           \ contained
+                           \ nextgroup=pkgmanVal
                            \ skipwhite
-syn region  pkgmanSVal     matchgroup=pkgmanSVal start="\s.\+\s" end="$"
+syn region  pkgmanVal      start="\s" end="$"
+                           \ display
+                           \ oneline
+                           \ contains=pkgmanSVal,pkgmanKVal
+syn keyword pkgmanKVal     append overwrite enabled disabled yes no
+                           \ verbose compact
+                           \ contained
+                           \ skipwhite
+syn region  pkgmanSVal     start="\s.\+\s" end="$"
+                           \ matchgroup=pkgmanSVal
                            \ contains=pkgmanKVal
 
 " Define the default highlighting.
