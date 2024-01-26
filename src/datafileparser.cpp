@@ -1,5 +1,5 @@
 //! \file   datafileparser.cpp
-//! \brief  DataFileParser Implementation.
+//! \brief  DataFileParser implementation.
 //!         See COPYING and COPYRIGHT files for corresponding information.
 
 #include <fstream>

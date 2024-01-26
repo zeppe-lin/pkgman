@@ -1,5 +1,5 @@
 //! \file   p_regex.h
-//! \brief  RegEx Definition.
+//! \brief  RegEx definition.
 //!         See COPYING and COPYRIGHT files for corresponding information.
 
 #pragma once

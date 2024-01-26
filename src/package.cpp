@@ -1,5 +1,5 @@
 //! \file   package.cpp
-//! \brief  Package and PackageData Implementation.
+//! \brief  Package and PackageData implementation.
 //!         See COPYING and COPYRIGHT files for corresponding information.
 
 #include <cstdio>

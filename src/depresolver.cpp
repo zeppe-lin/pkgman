@@ -1,5 +1,5 @@
 //! \file   depresolver.cpp
-//! \brief  DepResolver Implementation.
+//! \brief  DepResolver implementation.
 //!         See COPYING and COPYRIGHT files for corresponding information.
 
 #include <cassert>

@@ -1,5 +1,5 @@
 //! \file   process.cpp
-//! \brief  Process Implementation.
+//! \brief  Process implementation.
 //!         See COPYING and COPYRIGHT files for corresponding information.
 
 #include <cassert>

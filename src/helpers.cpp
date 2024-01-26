@@ -1,5 +1,5 @@
 //! \file   helpers.cpp
-//! \brief  Helper Functions Implementation.
+//! \brief  Helper Functions implementation.
 //!         See COPYING and COPYRIGHT files for corresponding information.
 
 #include <algorithm>

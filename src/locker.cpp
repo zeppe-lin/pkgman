@@ -1,5 +1,5 @@
 //! \file   locker.cpp
-//! \brief  Locker Implementation.
+//! \brief  Locker implementation.
 //!         See COPYING and COPYRIGHT files for corresponding information.
 
 #include <algorithm>

@@ -1,5 +1,5 @@
 //! \file   process.h
-//! \brief  Process Definition.
+//! \brief  Process definition.
 //!         See COPYING and COPYRIGHT files for corresponding information.
 
 #pragma once
