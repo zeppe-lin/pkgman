@@ -189,9 +189,6 @@ ArgParser::parse()
       else if ( arg == "--remove-scripts" )
         m_execPreRemove = m_execPostRemove = true;
 
-      else if ( arg == "--no-std-config" )
-        m_noStdConfig = true;
-
       else if ( arg == "--regex" )
         m_useRegex = true;
 
