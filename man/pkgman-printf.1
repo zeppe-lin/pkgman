@@ -13,7 +13,7 @@
 .Cm printf
 .Op Fl \-sort Ns = Ns Ar format
 .Op Fl \-regex
-.Op Fl \-filter Ns = Ns Ar pkgname
+.Op Fl \-filter Ns = Ns Ar expr
 .Ar format
 .\" ==================================================================
 .Sh DESCRIPTION
@@ -34,8 +34,9 @@ string (see below) that is used to sort the output.
 Interpret
 .Fl \-filter
 argument as a regular expression.
-.It Fl \-filter Ns = Ns Ar pkgname
-Filter listing packages by name.
+.It Fl \-filter Ns = Ns Ar expr
+Filter listing package names by
+.Ar expr .
 The
 .Fl \-filter
 argument may be the string, wildcard in
