@@ -3,7 +3,7 @@
 //!         See COPYING and COPYRIGHT files for corresponding information.
 
 #if __cplusplus < 201412L
-# error expecting c++17 standard
+# error expecting C++17 standard
 #endif
 
 #include <cstdlib>
