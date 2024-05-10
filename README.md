@@ -7,7 +7,6 @@ pkgutils.
 
 This distribution is a fork of CRUX' prt-get tool as of commit da6bfb0 (Fri Oct
 16 2020) with the following differences:
-
   * the code has been rewritten from "C-like" coding standard to high-level
     C++17 primitives; this enabled aggressive optimization (-O3 and above),
     look at [prt-get][1] vs [pkgman][2]
