@@ -27,13 +27,12 @@ This distribution is a fork of CRUX' prt-get tool as of commit da6bfb0 (Fri Oct
 See git log for complete/further differences and [COMPLEXITY.md][3] for source
 code stats' differences.
 
-[1]: https://crux.nu/ports/crux-3.7/core/prt-get/README
+[1]: https://git.crux.nu/ports/core/src/branch/3.7/prt-get/README
 [2]: https://github.com/zeppe-lin/pkgsrc-core/blob/master/pkgman/Pkgfile#L14
 [3]: https://github.com/zeppe-lin/pkgman/blob/master/COMPLEXITY.md
 
 The original sources can be downloaded from:
-  1. git://crux.nu/tools/prt-get.git                        (git)
-  2. https://crux.nu/gitweb/?p=tools/prt-get.git;a=summary  (web)
+  * https://git.crux.nu/tools/prt-get.git
 
 
 REQUIREMENTS
