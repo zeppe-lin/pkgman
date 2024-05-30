@@ -1,7 +1,10 @@
 COMPLEXITY
-----------
-In general, the number of changes and their impact reflects well
-[scc]( https://github.com/boyter/scc ) report:
+==========
+
+In general, the number of changes and their impact reflects well [scc][1]
+report:
+
+[1]: https://github.com/boyter/scc
 
 **prt-get**:
 ```
