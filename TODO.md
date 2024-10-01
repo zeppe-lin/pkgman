@@ -62,24 +62,25 @@ the following:
 
 ----------------------------------------------------------------------
 
+
 DONE
 ====
 
 ----------------------------------------------------------------------
 
-- [x] rename config.{cpp,h} -> configparser.{cpp,h}
-- [x] rename "Config" class and fix the impacted code
+- [x] refactor: rename config.{cpp,h} -> configparser.{cpp,h}
+- [x] refactor: rename "Config" class and fix the impacted code
       Done: Thu Mar 16 10:31:04 AM EET 2023
 
 ----------------------------------------------------------------------
 
 - [x] issue: pkgman --config-append="runscripts no" doesn't working?
-      Done: Fri Aug 18 07:27:40 PM EEST 2023
-      Fixed by 4251b0ba4e77804fc2aaca24d251f753cf162d45.
+  Done: Fri Aug 18 07:27:40 PM EEST 2023
+  Fixed by 4251b0ba4e77804fc2aaca24d251f753cf162d45.
 
 -----------------------------------------------------------------------
 
-- [x] Respect --group option for sysup operation:
+- [x] issue: respect --group option for sysup operation
 
   ```
   # pkgman sysup --depsort --deps --group
