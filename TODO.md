@@ -25,21 +25,6 @@ pkgman: addcommand: [package]: unknown error  <========
 
 ----------------------------------------------------------------------
 
-- [ ] Respect --group option for sysup operation:
-```
-# pkgman sysup --depsort --deps --group
-pkgman: preparing libcap-ng 0.8.3-1
-pkgman: md5sum verification failed.
- 
--- Packages where build failed
-libcap-ng
-
-pkgman: preparing alsa-lib 1.2.7.1-1
-^Cpkgman: interrupted
-```
-
-----------------------------------------------------------------------
-
 - [ ] issue: investigate the following behaviour:
 ```
 pkgrm: could not remove /usr/share/icons/Mint-X-Teal/:
@@ -91,3 +76,21 @@ DONE
 - [x] issue: pkgman --config-append="runscripts no" doesn't working?
       Done: Fri Aug 18 07:27:40 PM EEST 2023
       Fixed by 4251b0ba4e77804fc2aaca24d251f753cf162d45.
+
+-----------------------------------------------------------------------
+
+- [x] Respect --group option for sysup operation:
+
+  ```
+  # pkgman sysup --depsort --deps --group
+  pkgman: preparing libcap-ng 0.8.3-1
+  pkgman: md5sum verification failed.
+
+  -- Packages where build failed
+  libcap-ng
+
+  pkgman: preparing alsa-lib 1.2.7.1-1
+  ^Cpkgman: interrupted
+  ```
+  Done: Tue Oct  1 04:46:49 PM EEST 2024
+  Fixed by db54ab223bf615c5b4b2c84951bb55dd31d7b3ca
