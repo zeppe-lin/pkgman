@@ -25,7 +25,7 @@ pkgman: addcommand: [package]: unknown error  <========
 
 ----------------------------------------------------------------------
 
-- [ ] issue: investigate the following behaviour:
+- [ ] Respect --group option for sysup operation:
 ```
 # pkgman sysup --depsort --deps --group
 pkgman: preparing libcap-ng 0.8.3-1
