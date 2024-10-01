@@ -936,6 +936,14 @@ Pkgman::sysup()
     Transaction install( newList, m_repo, m_pkgDB, m_parser,
                          m_config, m_locker );
     executeTransaction( install, Transaction::INSTALL );
+
+    /*
+     * Do not process the following update if install transaction
+     * fails and '--group' was option specified.
+     */
+    if (   install.result() != Transaction::SUCCESS
+        && m_parser->group() )
+      return;
   }
 
   target = m_parser->depSort() ? &sortedList : &m_greaterVersionComp;
