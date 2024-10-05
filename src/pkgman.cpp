@@ -944,6 +944,9 @@ Pkgman::sysup()
     if (   install.result() != Transaction::SUCCESS
         && m_parser->group() )
       return;
+
+    /* add newline separator between transactions */
+    cout << endl;
   }
 
   target = m_parser->depSort() ? &sortedList : &m_greaterVersionComp;
