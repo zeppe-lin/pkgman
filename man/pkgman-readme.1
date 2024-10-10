@@ -14,14 +14,16 @@
 .Ar pkgname
 .\" ==================================================================
 .Sh DESCRIPTION
-Print the package's README file if it exists.
+Print the package's README.md/README file if it exists.
+If the package source directory contains both files README.md and
+README, the markdown markup (README.md) takes precedence.
 .\" ==================================================================
 .Sh ENVIRONMENT
 If the following environment variable exists it will be utilized by
 .Xr pkgman 1 :
 .Bl -tag -width Ds
 .It Ev PAGER
-If the package source directory has a README file, then
+If the package source directory has a README.md/README file, then
 .Nm
 will try to open it using a
 .Ev PAGER .

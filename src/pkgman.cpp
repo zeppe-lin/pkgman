@@ -499,7 +499,8 @@ Pkgman::printReadme()
   if ( ! pkg->hasReadme() )
     return errx( "package '" + arg + "' has no README file" );
 
-  printFile( pkg->fullpath( "README" ) );
+  if (!printFile(pkg->fullpath("README.md")))
+    printFile(pkg->fullpath("README"));
 }
 
 void

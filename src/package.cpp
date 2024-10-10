@@ -272,7 +272,7 @@ Package::load()
 
   m_data->generateVersionReleaseString();
 
-  if ( fs::exists( fullpath( "README" ) ) )
+  if (fs::exists(fullpath("README.md")) || fs::exists(fullpath("README")))
     m_data->hasReadme = true;
 
   if ( fs::exists( fullpath( "pre-install" ) ) )
