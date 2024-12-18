@@ -62,6 +62,14 @@ the following:
 
 ----------------------------------------------------------------------
 
+- [ ] sysup --deps --depsort case #1:
+    e.g. we have mpv (installed), which depends on libplacebo (uninstalled),
+    which depends on py3-markupsafe (installed, but need upgraded).
+    The sysup --deps --depsort fail, 'cause pkgman tries to install libplacebo
+    without updateing the deps: py3-markupsafe is broken, it needs to be
+    updated first, the built and installed libplacebo, and only then to update
+    mpv.
+
 
 DONE
 ====
