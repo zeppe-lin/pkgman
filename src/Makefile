@@ -2,8 +2,8 @@
 .SUFFIXES: .cpp .o
 
 include ../config.mk
-#include ../flags-extra.mk
-#include ../flags-sanitizer.mk
+#include ../extra/flags-extra.mk
+#include ../extra/flags-sanitizer.mk
 
 OBJS = argparser.o configparser.o datafileparser.o depresolver.o \
        helpers.o locker.o main.o package.o pkgdb.o pkgman.o \
