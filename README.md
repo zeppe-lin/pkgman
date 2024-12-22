@@ -57,6 +57,11 @@ INSTALL
 The shell commands `make && make install` should build and install this
 package.
 
+For static linking you need to run `make` as the following:
+```
+make LDFLAGS="-static -lstdc++fs"
+```
+
 See `config.mk` file for configuration parameters, and `src/pathnames.h`
 for absolute filenames that pkgman wants for various defaults.
 
