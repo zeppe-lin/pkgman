@@ -1,0 +1,49 @@
+PKG/
+└── usr
+    ├── bin
+    │   └── pkgman
+    └── share
+        ├── bash-completion
+        │   └── completions
+        │       └── pkgman
+        ├── man
+        │   ├── man1
+        │   │   ├── pkgman.1
+        │   │   ├── pkgman-cat.1
+        │   │   ├── pkgman-current.1
+        │   │   ├── pkgman-dep.1
+        │   │   ├── pkgman-diff.1
+        │   │   ├── pkgman-dsearch.1
+        │   │   ├── pkgman-dumpconfig.1
+        │   │   ├── pkgman-fsearch.1
+        │   │   ├── pkgman-info.1
+        │   │   ├── pkgman-isinst.1
+        │   │   ├── pkgman-list.1
+        │   │   ├── pkgman-list-dup.1
+        │   │   ├── pkgman-list-locked.1
+        │   │   ├── pkgman-list-nodependents.1
+        │   │   ├── pkgman-list-orphans.1
+        │   │   ├── pkgman-ls.1
+        │   │   ├── pkgman-path.1
+        │   │   ├── pkgman-printf.1
+        │   │   ├── pkgman-rdep.1
+        │   │   ├── pkgman-readme.1
+        │   │   └── pkgman-search.1
+        │   ├── man5
+        │   │   └── pkgman.conf.5
+        │   └── man8
+        │       ├── pkgman-edit.8
+        │       ├── pkgman-install.8
+        │       ├── pkgman-lock.8
+        │       ├── pkgman-remove.8
+        │       ├── pkgman-sysup.8
+        │       ├── pkgman-unlock.8
+        │       └── pkgman-update.8
+        └── vim
+            └── vimfiles
+                ├── ftdetect
+                │   └── pkgmanconf.vim
+                └── syntax
+                    └── pkgmanconf.vim
+
+14 directories, 33 files

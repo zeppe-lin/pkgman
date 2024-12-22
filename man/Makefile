@@ -1,8 +1,18 @@
-include $(CURDIR)/../config.mk
+.POSIX:
 
-MAN1 = $(wildcard *.1)
-MAN5 = $(wildcard *.5)
-MAN8 = $(wildcard *.8)
+include ../config.mk
+
+MAN1 = pkgman.1 pkgman-cat.1 pkgman-current.1 pkgman-dep.1 \
+       pkgman-diff.1 pkgman-dsearch.1 pkgman-dumpconfig.1 \
+       pkgman-fsearch.1 pkgman-info.1 pkgman-isinst.1 \
+       pkgman-list.1 pkgman-list-dup.1 pkgman-list-locked.1 \
+       pkgman-list-nodependents.1 pkgman-list-orphans.1 \
+       pkgman-ls.1 pkgman-path.1 pkgman-printf.1 \
+       pkgman-rdep.1 pkgman-readme.1 pkgman-search.1
+MAN5 = pkgman.conf.5
+MAN8 = pkgman-edit.8 pkgman-install.8 pkgman-lock.8 \
+       pkgman-remove.8 pkgman-sysup.8 pkgman-unlock.8 \
+       pkgman-update.8
 
 all:
 

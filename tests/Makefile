@@ -1,11 +1,11 @@
-include $(CURDIR)/../config.mk
+.POSIX:
 
-SUBDIRS = vcomp
+include ../config.mk
 
 all clean:
-	$(MAKE) $(SUBDIRS) TARGET=$@
+	cd vcomp && $(MAKE) $@
+	cd gnu_make && $(MAKE) $@
+	cd posix_2017_make && $(MAKE) $@
+	cd posix_2024_make && $(MAKE) $@
 
-$(SUBDIRS):
-	cd $@ && $(MAKE) $(TARGET)
-
-.PHONY: all clean $(SUBDIRS)
+.PHONY: all clean

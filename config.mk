@@ -12,3 +12,7 @@ VIMFILESDIR = ${PREFIX}/share/vim/vimfiles
 CPPFLAGS    = -DNDEBUG -DVERSION=\"${VERSION}\"
 CXXFLAGS    = -std=c++1z -pedantic -Wall -Wextra
 LDFLAGS     = -static -lstdc++fs
+
+# compiler and linker
+CXX         = c++
+LD          = $(CXX)

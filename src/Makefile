@@ -1,14 +1,23 @@
-include $(CURDIR)/../config.mk
-#include $(CURDIR)/../extra/asan_ubsan.mk
-#include $(CURDIR)/../extra/extra_warns.mk
+.POSIX:
+.SUFFIXES: .cpp .o
 
-OBJS = $(subst .cpp,.o,$(wildcard *.cpp))
+include ../config.mk
+#include ../flags-extra.mk
+#include ../flags-sanitizer.mk
+
+OBJS = argparser.o configparser.o datafileparser.o depresolver.o \
+       helpers.o locker.o main.o package.o pkgdb.o pkgman.o \
+       pkgmksetting.o p_regex.o process.o repository.o \
+       signaldispatcher.o transaction.o versioncomparator.o
 BIN1 = pkgman
 
 all: $(BIN1)
 
+.cpp.o:
+	$(CXX) -c $< $(CPPFLAGS) $(CXXFLAGS)
+
 $(BIN1): $(OBJS)
-	$(CXX) $^ $(LDFLAGS) -o $@
+	$(CXX) $(OBJS) $(LDFLAGS) -o $@
 
 install: all
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
