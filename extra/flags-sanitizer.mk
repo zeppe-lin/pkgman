@@ -4,7 +4,7 @@
 
 # includes and libs
 INCS     =
-LIBS     = -lstc++fs -lasan -lubsan
+LIBS     = -lstdc++fs -lasan -lubsan
 
 # flags
 CPPFLAGS = -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 \
