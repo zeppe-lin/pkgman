@@ -28,8 +28,14 @@ _pkgman()
   if [ $COMP_CWORD '>' 1 ]; then
     if [[ "$cur" != -* ]]; then
       case ${COMP_WORDS[1]} in
-      install|info|readme|path|isinst|ls|dep)
+      install|info|path|isinst|ls|dep)
         plist=$(pkgman list --all)
+        if [ "$plist" != "" ]; then
+          COMPREPLY=($(compgen -W '$plist' $cur))
+        fi
+        ;;
+      readme)
+        plist=$(pkgman printf "%R %n\n" | awk '/^yes /{print $2}')
         if [ "$plist" != "" ]; then
           COMPREPLY=($(compgen -W '$plist' $cur))
         fi
