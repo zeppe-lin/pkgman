@@ -1,4 +1,4 @@
-# Bash programmable completion for pkgman(8).
+# bash programmable completion for pkgman(8)
 # See COPYING and COPYRIGHT files for corresponding information.
 
 _pkgman()
