@@ -58,7 +58,7 @@ The shell commands `make && make install` should build and install
 this package.
 
 For static linking you need to run `make` as the following:
-```
+```sh
 make LDFLAGS="-static -lstdc++fs"
 ```
 
