@@ -1,9 +1,9 @@
 OVERVIEW
 ========
 
-This directory contains pkgman, a package management tool that provides
-additional functionality to basic package management utilities like
-pkgmk and pkgutils.
+This directory contains pkgman, a package management tool that
+provides additional functionality to basic package management
+utilities like pkgmk and pkgutils.
 
 This distribution is a fork of CRUX' prt-get tool as of commit da6bfb0
 (Fri Oct 16 2020) with the following differences:
@@ -25,8 +25,8 @@ This distribution is a fork of CRUX' prt-get tool as of commit da6bfb0
   * vim syntax highlight for `pkgman.conf` file
   * etc
 
-See git log for complete/further differences and [COMPLEXITY.md][3] for
-source code stats' differences.
+See git log for complete/further differences and [COMPLEXITY.md][3]
+for source code stats' differences.
 
 [1]: https://git.crux.nu/ports/core/src/branch/3.7/prt-get/README
 [2]: https://github.com/zeppe-lin/pkgsrc-core/blob/master/pkgman/Pkgfile#L14
@@ -54,16 +54,17 @@ Runtime
 INSTALL
 =======
 
-The shell commands `make && make install` should build and install this
-package.
+The shell commands `make && make install` should build and install
+this package.
 
 For static linking you need to run `make` as the following:
 ```
 make LDFLAGS="-static -lstdc++fs"
 ```
 
-See `config.mk` file for configuration parameters, and `src/pathnames.h`
-for absolute filenames that pkgman wants for various defaults.
+See `config.mk` file for configuration parameters, and
+`src/pathnames.h` for absolute filenames that pkgman wants for various
+defaults.
 
 
 LICENSE
