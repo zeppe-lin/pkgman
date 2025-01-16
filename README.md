@@ -1,7 +1,7 @@
 OVERVIEW
 ========
 
-This directory contains pkgman, a package management tool that
+This repository contains pkgman, a package management tool that
 provides additional functionality to basic package management
 utilities like pkgmk and pkgutils.
 
