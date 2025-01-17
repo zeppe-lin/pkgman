@@ -938,15 +938,13 @@ Pkgman::sysup()
                          m_config, m_locker );
     executeTransaction( install, Transaction::INSTALL );
 
-    /*
-     * Do not process the following update if install transaction
-     * fails and '--group' was option specified.
-     */
+    // Do not process the following update if the install transaction
+    // fails and the ''--group'' option is specified.
     if (   install.result() != Transaction::SUCCESS
         && m_parser->group() )
       return;
 
-    /* add newline separator between transactions */
+    // add newline separator between transactions
     cout << endl;
   }
 
