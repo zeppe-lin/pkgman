@@ -14,6 +14,15 @@ TODO pkgman
 
 ----------------------------------------------------------------------
 
+- [ ] --group: better name it --fail-on-error? and --continue-on-error by
+  default? `--on-error=<fail|continue>`?
+  The `--group` should remain but deprecation note should be added?
+
+- [ ] --test: better name it --dry-run?
+  Also, the `--test` should remain and deprecation note should be added?
+
+----------------------------------------------------------------------
+
 - [ ] issue: skip trying to pkgadd the package if previous pkgmk
 execution returns "footprint check failure":
 ```
