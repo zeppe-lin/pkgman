@@ -46,9 +46,9 @@ Build time
 
 Runtime
 -------
-  * POSIX sh(1p) to execute pre/post scripts
-  * pkgmk to build packages
-  * pkgutils to add/update/remove packages
+  * POSIX sh(1p) to execute pre/post scripts (configurable)
+  * pkgmk to build packages (configurable)
+  * pkgutils to add/update/remove packages (configurable)
 
 
 INSTALL
