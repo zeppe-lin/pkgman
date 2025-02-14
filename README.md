@@ -68,6 +68,44 @@ See `config.mk` file for configuration parameters, and
 defaults.
 
 
+DOCUMENTATION
+=============
+
+Online documentation
+--------------------
+
+Manual pages:
+- [pkgman.1](https://zeppe-lin.github.io/pkgman.1.html)
+- [pkgman-cat.1](https://zeppe-lin.github.io/pkgman-cat.1.html)
+- [pkgman.conf.5](https://zeppe-lin.github.io/pkgman.conf.5.html)
+- [pkgman-current.1](https://zeppe-lin.github.io/pkgman-current.1.html)
+- [pkgman-dep.1](https://zeppe-lin.github.io/pkgman-dep.1.html)
+- [pkgman-diff.1](https://zeppe-lin.github.io/pkgman-diff.1.html)
+- [pkgman-dsearch.1](https://zeppe-lin.github.io/pkgman-dsearch.1.html)
+- [pkgman-dumpconfig.1](https://zeppe-lin.github.io/pkgman-dumpconfig.1.html)
+- [pkgman-edit.8](https://zeppe-lin.github.io/pkgman-edit.8.html)
+- [pkgman-fsearch.1](https://zeppe-lin.github.io/pkgman-fsearch.1.html)
+- [pkgman-info.1](https://zeppe-lin.github.io/pkgman-info.1.html)
+- [pkgman-install.8](https://zeppe-lin.github.io/pkgman-install.8.html)
+- [pkgman-isinst.1](https://zeppe-lin.github.io/pkgman-isinst.1.html)
+- [pkgman-list.1](https://zeppe-lin.github.io/pkgman-list.1.html)
+- [pkgman-list-dup.1](https://zeppe-lin.github.io/pkgman-list-dup.1.html)
+- [pkgman-list-locked.1](https://zeppe-lin.github.io/pkgman-list-locked.1.html)
+- [pkgman-list-nodependents.1](https://zeppe-lin.github.io/pkgman-list-nodependents.1.html)
+- [pkgman-list-orphans.1](https://zeppe-lin.github.io/pkgman-list-orphans.1.html)
+- [pkgman-lock.8](https://zeppe-lin.github.io/pkgman-lock.8.html)
+- [pkgman-ls.1](https://zeppe-lin.github.io/pkgman-ls.1.html)
+- [pkgman-path.1](https://zeppe-lin.github.io/pkgman-path.1.html)
+- [pkgman-printf.1](https://zeppe-lin.github.io/pkgman-printf.1.html)
+- [pkgman-rdep.1](https://zeppe-lin.github.io/pkgman-rdep.1.html)
+- [pkgman-readme.1](https://zeppe-lin.github.io/pkgman-readme.1.html)
+- [pkgman-remove.8](https://zeppe-lin.github.io/pkgman-remove.8.html)
+- [pkgman-search.1](https://zeppe-lin.github.io/pkgman-search.1.html)
+- [pkgman-sysup.8](https://zeppe-lin.github.io/pkgman-sysup.8.html)
+- [pkgman-unlock.8](https://zeppe-lin.github.io/pkgman-unlock.8.html)
+- [pkgman-update.8](https://zeppe-lin.github.io/pkgman-update.8.html)
+
+
 LICENSE
 =======
 
