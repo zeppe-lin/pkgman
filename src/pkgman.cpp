@@ -626,7 +626,8 @@ Pkgman::printDiff()
 
   if ( m_undefinedVersionComp.size() )
   {
-    cout << "\n-- Undecidable version differences (use --strict-diff)\n";
+    cout << "\n-- Undecidable version differences "
+         << "(use --config-append='preferhigher no')\n";
 
     printFormattedDiffLine( "Package", "Installed", "Available", false );
 
@@ -1699,7 +1700,7 @@ Pkgman::evaluateResult( const Transaction&  transaction,
   if ( m_undefinedVersionComp.size() )
   {
     cout << "\n-- Packages with undecidable version difference "
-         << "(use --strict-diff)\n";
+         << "(use --config-append='preferhigher no')\n";
 
     for ( const auto& name: m_undefinedVersionComp )
       cout << name
