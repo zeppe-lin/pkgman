@@ -11,7 +11,6 @@
 .Sh SYNOPSIS
 .Nm pkgman
 .Cm list-dup
-.Op Fl \-prefer-higher | Fl \-strict-diff
 .Op Ar format
 .\" ==================================================================
 .Sh DESCRIPTION
@@ -29,16 +28,6 @@ string is
 .Pp
 The options are as follows:
 .Bl -tag -width Ds
-.It Fl \-prefer-higher
-Prefer higher installed versions over lower ones in the packages
-sources directories.
-.It Fl \-strict-diff
-Override
-.Fl \-prefer-higher
-command-line option or
-.Sy preferhigher
-configuration setting in
-.Pa pkgman.conf .
 .It Ar format
 The string that contain variables, which are replaced like this:
 .Pp
@@ -74,5 +63,23 @@ and
 to format your output.
 No additional format specifier is supported.
 .El
+.\" --- ------ ---
+.Pp
+.Sy Note :
+The comparison sign
+.Dq %c
+is influenced by the
+.Sy preferhigher
+configuration setting in
+.Xr pkgman.conf 5 .
+To modify the comparison behaviour for this operation only, call
+.Xr pkgman 1
+with custom
+.Fl \-config-append
+settings as shown below:
+.Bd -literal -offset indent
+pkgman --config-append="preferhigher no" list-dup [format]
+.Ed
+.\" --- ------ ---
 .\" vim: cc=72 tw=70
 .\" End of file.
