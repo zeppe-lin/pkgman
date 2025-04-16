@@ -1,0 +1,79 @@
+PKGMAN-RUNSCRIPTS(7)
+
+# NAME
+
+pkgman-runscripts - pre/post-install and pre/post-remove scripts for
+packages
+
+# SYNOPSIS
+
+These scripts are invoked by *pkgman*(1) during package installation,
+updates, and removal.  They are not meant ro be run directly as users.
+
+# DESCRIPTION
+
+*pkgman*(1) supports the following scripts in a packages' source
+directory: _pre-install_, _post-install_, _pre-remove_, and
+_post-remove_.
+
+These scripts allow package maintainers to perform actions before or
+after main operations.  Script execution depends on the *runscripts*
+option in _/etc/pkgman.conf_, and the default interpreter is set by
+*runscriptcommand* (default: *sh*(1p)).
+
+## Execution
+
+*pre-install*:  Runs before files are installed.++
+*post-install*: Runs after files are installed.++
+*pre-remove*:   Runs before files are removed.++
+*post-remove*:  Runs after files are removed.
+
+## Reporting Failures
+
+Failures (non-zero exit code) in these scripts do not abort the
+associated *pkgman*(1) operation.  Instead, *pkgman*(1) reports script
+statuses:
+
+	For a single script failure:
+	```
+	pkgman: installing pkgname [pre: fail]
+	```
+
+	For multiple scripts with mixed results:
+	```
+	pkgman: installing pkgname [pre: ok, post: fail]
+	```
+
+This applies to operations like installation, removal, updates, and
+system updates (e.g., *pkgman-install*(8), *pkgman-remove*(8),
+*pkgman-update*(8), and *pkgman-sysup*(8)).
+
+## Guidelines
+
+Design packages assuming scripts might not run, especially in *core*
+pkgsrc collection.
+
+If _pre-install_ adds a user, _pre-remove_ must remove them.
+
+Scripts should *not*: edit config files, remove other packages,
+restart system services, prompt for user input.
+
+These rules mainly apply to official repositories; custom collections
+have more flexibility.
+
+# FILES
+
+_/etc/pkgman.conf_
+	Configuretion for *pkgman*(1).
+
+# SEE ALSO
+
+*pkgman*(1),
+*pkgman.conf*(5),
+*pkgman-install*(8),
+*pkgman-update*(8),
+*pkgman-remove*(8),
+*pkgman-sysup*(8),
+*sh*(1p)
+
+; vim: ft=scdoc cc=72 tw=70
