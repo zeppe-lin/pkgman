@@ -58,6 +58,24 @@ If _pre-install_ adds a user, _pre-remove_ must remove them.
 Scripts should *not*: edit config files, remove other packages,
 restart system services, prompt for user input.
 
+Scripts must start with "#!/bin/sh -ex".  The *-e* option ensures that
+the script will exit immediately if any command fails (returns a
+non-zero exit status), following fail-first practice.  The *-x* option
+enables logging of script execution by *pkgman*(1), which is helpful
+for debugging script failures.
+
+It's recommended to explicitly set the *PATH* environment variable at
+the beginning of your scripts to include all necessary directories,
+like:
+
+```
+export PATH="/sbin:/usr/sbin:/bin:/usr/bin"
+```
+
+This ensures that commands used within the script can be found
+regardless of the user's environment or potential changes in package
+binary locations.
+
 These rules mainly apply to official repositories; custom collections
 have more flexibility.
 
@@ -65,6 +83,55 @@ have more flexibility.
 
 _/etc/pkgman.conf_
 	Configuretion for *pkgman*(1).
+
+# EXAMPLES
+
+The following examples demonstrate a _post-install_ and a
+corresponding _post-remove_ script for "dhcpcd" package.
+
+*post-install*:
+```
+#!/bin/sh -ex
+
+export PATH="/sbin:/usr/sbin:/bin:/usr/bin"
+
+if ! getent group  dhcpcd >/dev/null; then
+      groupadd -r dhcpcd
+fi
+
+if ! getent passwd dhcpcd >/dev/null; then
+      useradd  -g dhcpcd -r -d /var/lib/dhcpcd -s /bin/false dhcpcd
+fi
+
+passwd -l dhcpcd
+chown -R dhcpcd:dhcpcd /var/lib/dhcpcd
+
+# End of file.
+```
+
+This script ensures the dhcpcd group and user exist, locks the user's
+password, and sets the correct ownership for its data directory.
+
+*post-remove*:
+```
+#!/bin/sh -ex
+
+export PATH="/sbin:/usr/sbin:/bin:/usr/bin"
+
+if getent passwd dhcpcd >/dev/null; then
+    userdel dhcpcd
+fi
+
+if getent group dhcpcd >/dev/null; then
+    groupdel dhcpcd
+fi
+
+# End of file.
+```
+
+This script removes the dhcpcd user and group if they exist on the
+system.  The _/var/lib/dhcpcd_ directory is typically handled by the
+package manager during the removal process.
 
 # SEE ALSO
 
