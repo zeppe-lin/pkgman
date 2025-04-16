@@ -1,0 +1,32 @@
+PKGMAN-LOCK(8)
+
+# NAME
+
+pkgman-lock - lock the package(s)
+
+# SYNOPSIS
+
+*pkgman lock* _pkgname_ ...
+
+# DESCRIPTION
+
+Lock the packages, preventing them from being updated by
+*pkgman-sysup*(8) or *pkgman-update*(8) operations.
+
+# EXIT STATUS
+
+*0* if successfully locked, *255* otherwise.
+
+# FILES
+
+_/var/lib/pkg/locked_
+	Database of locked packages.
+
+# SEE ALSO
+
+*pkgman-list-locked*(1),
+*pkgman-unlock*(8),
+*pkgman-sysup*(8),
+*pkgman-update*(8)
+
+; vim: ft=scdoc cc=72 tw=70

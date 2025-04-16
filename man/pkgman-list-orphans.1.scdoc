@@ -1,0 +1,28 @@
+PKGMAN-LIST-ORPHANS(1)
+
+# NAME
+
+pkgman-list-orphans - list orphaned packages
+
+# SYNOPSIS
+
+*pkgman list-orphans* [*-v*]
+
+# DESCRIPTION
+
+List orphaned packages on your system.  Orphaned packages are those
+not found in the packages sources directories specified by the
+*pkgsrcdir* option in _/etc/pkgman.conf_.
+
+The options are as follows:
+
+*-v*
+	Include packages that depend on orphaned or missing packages.
+
+# SEE ALSO
+
+*pkgman-list*(1),
+*pkgman-list-dup*(1),
+*pkgman-list-nodependents*(1)
+
+; vim: ft=scdoc cc=72 tw=70

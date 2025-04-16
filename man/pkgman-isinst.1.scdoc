@@ -1,0 +1,29 @@
+PKGMAN-ISINST(1)
+
+# NAME
+
+pkgman-isinst - print whether packages are installed or not
+
+# SYNOPSIS
+
+*pkgman isinst* _pkgname_ ...
+
+# DESCRIPTION
+
+Print whether packages are installed or not.
+
+# EXIT STATUS
+
+*0* if installed, *255* otherwise.
+
+# FILES
+
+_/var/log/pkg/db_
+	Database of currently installed packages.
+
+# SEE ALSO
+
+*pkgman*(1),
+*pkgman.conf*(5)
+
+; vim: ft=scdoc cc=72 tw=70

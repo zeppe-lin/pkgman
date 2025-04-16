@@ -1,0 +1,37 @@
+PKGMAN-LIST-LOCKED(1)
+
+# NAME
+
+pkgman-list-locked - print list of locked packages
+
+# SYNOPSIS
+
+*pkgman list-locked* [*-v* | *-vv*] [*--path*]
+
+# DESCRIPTION
+
+Print list of locked packages.  "Locked" are packages that will not
+update while performing a system update.
+
+The options are as follows:
+
+*-v*
+	Show package version in the listing.
+
+*-vv*
+	Show package version and description in the listing.
+
+*--path*
+	Show package source path in the listing.
+
+# FILES
+
+_/var/lib/pkg/locked_
+	Database of locked packages.
+
+# SEE ALSO
+
+*pkgman-lock*(8),
+*pkgman-unlock*(8)
+
+; vim: ft=scdoc cc=72 tw=70

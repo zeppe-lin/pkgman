@@ -14,12 +14,12 @@ MAN8 = pkgman-edit.8 pkgman-install.8 pkgman-lock.8 \
        pkgman-remove.8 pkgman-sysup.8 pkgman-unlock.8 \
        pkgman-update.8
 
-all:
+all: $(MAN1) $(MAN5) $(MAN8)
 
-lint:
-	mandoc -Tlint $(MAN1) $(MAN5) $(MAN8)
+$(MAN1) $(MAN5) $(MAN8):
+	scdoc < $@.scdoc > $@
 
-install:
+install: all
 	mkdir -p $(DESTDIR)$(MANPREFIX)/man1
 	mkdir -p $(DESTDIR)$(MANPREFIX)/man5
 	mkdir -p $(DESTDIR)$(MANPREFIX)/man8
@@ -36,5 +36,6 @@ uninstall:
 	cd $(DESTDIR)$(MANPREFIX)/man8 && rm -f $(MAN8)
 
 clean:
+	rm -f $(MAN1) $(MAN5) $(MAN8)
 
-.PHONY: all lint install uninstall clean
+.PHONY: all install uninstall clean

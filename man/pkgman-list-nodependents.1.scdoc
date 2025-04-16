@@ -1,0 +1,33 @@
+PKGMAN-LIST-NODEPENDENTS(1)
+
+# NAME
+
+pkgman-list-nodependents - print list of packages that no other depends on them
+
+# SYNOPSIS
+
+*pkgman list-nodependents* [*-v* | *-vv*] [*--path*]
+
+# DESCRIPTION
+
+Print list of packages without dependents.  "Nodependent" are
+packages without packages depending on them.
+
+The options are as follows:
+
+*-v*
+	Show package version in the listing.
+
+*-vv*
+	Show package version and description in the listing.
+
+*--path*
+	Show package source path in the listing.
+
+# SEE ALSO
+
+*pkgman-list*(1),
+*pkgman-list-dup*(1),
+*pkgman-list-orphans*(1)
+
+; vim: ft=scdoc cc=72 tw=70

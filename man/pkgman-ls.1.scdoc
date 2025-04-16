@@ -1,0 +1,34 @@
+PKGMAN-LS(1)
+
+# NAME
+
+pkgman-ls - list package source directory contents
+
+# SYNOPSIS
+
+*pkgman ls* [*--path*] _pkgname_ ...
+
+# DESCRIPTION
+
+List the contents of the package source directory.
+
+The options are as follows:
+
+*--path*
+	Show full paths in the listing.
+
+# EXIT STATUS
+
+*0*
+	Success.
+*255*
+	Package source is not found.
+
+# SEE ALSO
+
+*pkgman-cat*(1),
+*pkgman-edit*(8),
+*pkgman*(1),
+*pkgman.conf*(5)
+
+; vim: ft=scdoc cc=72 tw=70

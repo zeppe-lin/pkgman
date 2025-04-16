@@ -1,0 +1,27 @@
+PKGMAN-DUMPCONFIG(1)
+
+# NAME
+
+pkgman-dumpconfig - dump the configuration
+
+# SYNOPSIS
+
+*pkgman dumpconfig*
+
+# DESCRIPTION
+
+Dump the current configuration on stdout.
+
+# EXIT STATUS
+
+*0*
+	Success
+*255*
+	Failure (e.g., "Missing pkgsrcdir directories").
+
+# SEE ALSO
+
+*pkgman*(1),
+*pkgman.conf*(5)
+
+; vim: ft=scdoc cc=72 tw=70

@@ -1,0 +1,56 @@
+PKGMAN-DIFF(1)
+
+# NAME
+
+pkgman-diff - show differences between installed and available packages
+
+# SYNOPSIS
+
+*pkgman diff* \
+[*--all*] \
+[*--deps*] \
+[*--full*] \
+[*--regex*] \
+[*--filter*=_expr_]
+
+# DESCRIPTION
+
+List installed packages with versions differing from those in the
+package sources.
+
+The options are as follows:
+
+*--all*
+	Include locked packages in the output.
+
+*--deps*
+	Calculate and display new dependencies for available packages.
+
+*--full*
+	Display a more detailed output table.
+
+*--regex*
+	Interpret filter argument as a regular expression.
+
+*--filter*=_expr_
+	Filter listing packages by _expr_, where the expression may be
+	the string, wildcard in *fnmatch*(3) format, or regex in
+	*regex*(3) format.
+
+*Note*:
+	The comparison behaviour is influenced by the *preferhigher*
+	configuration setting in _pkgman.conf_(5).  To modify the
+	comparison behaviour for this operation only (e.g., to compare
+	the packages using version comparison and show only packages
+	with higher version) then call *pkgman*(1) with custom
+	*--config-append* settings as shown below:
+	```
+	pkgman --config-append="preferhigher yes" diff ...
+	```
+
+# SEE ALSO
+
+*pkgman*(1),
+*pkgman.conf*(5)
+
+; vim: ft=scdoc cc=72 tw=70

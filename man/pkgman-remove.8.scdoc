@@ -1,0 +1,92 @@
+PKGMAN-REMOVE(8)
+
+# NAME
+
+pkgman-remove - remove installed packages
+
+# SYNOPSIS
+
+*pkgman remove* \
+[*-v* | *-vv*] \
+[*--test*] \
+[*--log*] \
+[*--deps*] \
+[*--force*] \
+[*--group*] \
+[*--rargs*=_pkgrm_args_] \
+[*--ignore*=_pkgname_[,...]] \
+[*--remove-scripts* | [*--pre-remove*] [*--post-remove*]] \
+_pkgname_ ...
+
+# DESCRIPTION
+
+Remove all installed packages in the listed order.
+
+The options are as follows:
+
+*-v*
+	No operation.  This option is unused.
+
+*-vv*
+	Enable verbose output, logging the remove process to standard
+	output.
+
+*--test*
+	Perform a dry run; do not actually remove packages.
+
+*--log*
+	Enable transaction logging for this remove operation.  Global
+	logging can be configured using the *writelog* option in
+	*pkgman.conf*(5).
+
+*--deps*
+	Include all dependencies of the specified packages in the
+	remove process.
+
+	*Important*:
+		Option *--deps* also removes dependencies of the
+		specified packages if those dependencies are not
+		required by any other installed package (outside of
+		the packages specified for removal).  Use with extreme
+		caution (preferably not at all) as this can
+		unintentionally remove needed packages.
+
+*--force*
+	Skip already removed packages and continue with the next
+	package in the list.  Skipped packages will be summarized in
+	the final report.
+
+*--group*
+	Remove the specified packages in order, stopping immediately
+	if the remove of any package fails.
+
+; FIXME: actually specified arguments are passed to removecommand of
+; pkgman(1).
+*--rargs*=_pkgrm_args_
+	Pass the specified arguments directly to the *pkgrm*(8).
+
+*--ignore*=_pkgname_[,...]
+	Ignore the specified packages during the remove process.
+
+*--remove-scripts*
+	Execute any available pre-remove and post-remove scripts for
+	the packages being removed.
+
+*--pre-remove*
+	Execute any available pre-remove script for the packages being
+	removed.
+
+*--post-remove*
+	Execute any available post-remove script for the packages
+	being remove.
+
+# EXIT STATUS
+
+*0* on success, *>0* otherwise.
+
+# SEE ALSO
+
+*pkgman*(1),
+*pkgman.conf*(5)
+
+; vim: ft=scdoc cc=72 tw=70

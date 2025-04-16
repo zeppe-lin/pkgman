@@ -1,0 +1,138 @@
+PKGMAN-INSTALL(8)
+
+; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Ensure consistent options are documented across the install, update,
+; and sysup manual pages due to their shared functionality.
+; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+# NAME
+
+pkgman-install - install packages
+
+# SYNOPSIS
+
+*pkgman install* \
+[*-v* | *-vv*] \
+[*--test*] \
+[*--log*] \
+[*--deps*] \
+[*--depsort*] \
+[*--force*] \
+[*--group*] \
+[*--margs*=_pkgmk_args_ | _pkgmk_aliases_] \
+[*--aargs*=_pkgadd_args_ | _pkgadd_aliases_] \
+[*--ignore*=_pkgname_[,...]] \
+[*--install-scripts* | [*--pre-install*] [*--post-install*]] \
+_pkgname_ ...
+
+# DESCRIPTION
+
+Install all packages in the listed order.  It searches for packages
+sources in the directories defined by the *pkgsrcdir* option in
+_/etc/pkgman.conf_.
+
+The options are as follows:
+
+*-v*
+	No operation.  This option is unused.
+
+*-vv*
+	Enable verbose output, logging the install process to standard
+	output.
+
+*--test*
+	Perform a dry run; do not build or install packages.
+
+*--log*
+	Enable transaction logging for this install operation.  Global
+	logging can be configured using the *writelog* option in
+	*pkgman.conf*(5).
+
+*--deps*
+	Include all dependencies of the specified packages in the
+	install process.
+
+*--depsort*
+	Sort packages by dependency order before installing.
+
+*--force*
+	Skip already installed package and continue with the next
+	package in the list.  Skipped packages will be summarized in
+	the final report.
+
+*--group*
+	Install the specified packages in order, stopping immediately
+	if the install of any package fails.  This is useful for
+	installing dependent packages sequentially.
+
+*--margs*=_pkgmk_args_
+	Pass the specified arguments directly to the *pkgmk*(8)
+	command.
+
+_pkgmk_aliases_
+	Shorthands for the above *--margs*=_pkgmk_args_:
+
+	*-fr*
+		Equivalent to *--margs*=-f, forces the package build.
+
+	*-um*
+		Equivalent to *--margs*=-um, updates the package's MD5
+		checksum.
+
+	*-im*
+		Equivalent to *--margs*=-im, ignores the package's MD5
+		checksum during build.
+
+	*-uf*
+		Equivalent to *--margs*=-uf, updates the package's
+		footprint file.
+
+	*-if*
+		Equivalent to *--margs*=-if, ignores the package's
+		footprint file during build.
+
+	*-ns*
+		Equivalent to *--margs*=-ns, disables stripping of
+		binaries during the build process.
+
+	*-kw*
+		Equivalent to *--margs*=-kw, keeps the build working
+		directory after the build process.
+
+*--aargs*=_pkgadd_args_
+	Pass the specified arguments directly to the *pkgadd*(8)
+	command.
+
+_pkgadd_aliases_
+	Shorthands for the above *--aargs*=_pkgadd_args_:
+
+	*-f*, *-i*
+		Equivalent to *--aargs*=-f, forces the package
+		installation
+
+*--ignore*=_pkgname_[,...]
+	Ignore the specified packages during the install process,
+	even if they are dependencies of the packages being installed.
+
+*--install-scripts*
+	Execute any available pre-install and post-install scripts for
+	the packages being installed.
+
+*--pre-install*
+	Execute any available pre-install script for the packages
+	being installed.
+
+*--post-install*
+	Execute any available post-install script for the packages
+	being installed.
+
+# EXIT STATUS
+
+*0* on success, *>0* otherwise.
+
+# SEE ALSO
+
+*pkgman*(1),
+*pkgman.conf*(5)
+
+; vim: ft=scdoc cc=72 tw=70

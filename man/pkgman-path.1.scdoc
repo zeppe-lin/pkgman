@@ -1,0 +1,24 @@
+PKGMAN-PATH(1)
+
+# NAME
+
+pkgman-path - print path to package source
+
+# SYNOPSIS
+
+*pkgman path* _pkgname_
+
+# DESCRIPTION
+
+Print the path to the package source directory.
+
+# EXIT STATUS
+
+*0* if path found, *255* otherwise.
+
+# SEE ALSO
+
+*pkgman*(1),
+*pkgman.conf*(5)
+
+; vim: ft=scdoc cc=72 tw=70

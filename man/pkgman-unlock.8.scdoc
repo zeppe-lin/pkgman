@@ -1,0 +1,31 @@
+PKGMAN-UNLOCK(8)
+
+# NAME
+
+pkgman-unlock - unlock the package(s)
+
+# SYNOPSIS
+
+*pkgman unlock* _pkgname_ ...
+
+# DESCRIPTION
+
+Remove lock from specified packages.  They will be available for
+updating in *pkgman-sysup*(8) operation.
+
+# EXIT STATUS
+
+*0* if successfully unlocked, *>0* otherwise.
+
+# FILES
+
+_/var/lib/pkg/locked_
+	Database of locked packages.
+
+# SEE ALSO
+
+*pkgman-lock*(8),
+*pkgman-list-locked*(1),
+*pkgman*(1)
+
+; vim: ft=scdoc cc=72 tw=70

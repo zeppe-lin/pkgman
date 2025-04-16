@@ -1,0 +1,144 @@
+PKGMAN-SYSUP(8)
+
+; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Ensure consistent options are documented across the install, update,
+; and sysup manual pages due to their shared functionality.
+; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+# NAME
+
+pkgman-sysup - update all outdated packages
+
+# SYNOPSIS
+
+*pkgman sysup* \
+[*-v* | *-vv*] \
+[*--test*] \
+[*--log*] \
+[*--deps*] \
+[*--depsort*] \
+[*--group*] \
+[*--margs*=_pkgmk_args_ | _pkgmk_aliases_] \
+[*--aargs*=_pkgadd_args_ | _pkgadd_aliases_] \
+[*--ignore*=_pkgname_[,...]] \
+[*--install-scripts* | [*--pre-install*] [*--post-install*]]
+
+# DESCRIPTION
+
+Update all installed packages which are outdated.  It searches for
+package sources in the directories defnied by the *pkgsrcdir* option
+in _/etc/pkgman.conf_.
+
+Also see the *pkgman-lock*(8) and *pkgman-unlock*(8) commands to keep
+the currently installed versions, even if there are changes in the
+packages sources directories.
+
+If you want to update only diffs which have a lower version installed
+than the one in the packages sources directories, use the
+*--config-append*="preferhigher yes" option.
+
+The options are as follows:
+
+*-v*
+	No operation.  This option is unused.
+
+*-vv*
+	Enable verbose output, logging the update process to standard
+	output.
+
+*--test*
+	Perform a dry run; do not build or install packages.
+
+*--log*
+	Enable transaction logging for this sysup operation.  Global
+	logging can be configured using the *writelog* option in
+	*pkgman.conf*(5).
+
+*--deps*
+	Include all dependencies of the packages in the update
+	process.
+
+*--depsort*
+	Sort packages by dependency order before updating.
+
+*--force*
+	If a package being updated is already installed, skip its
+	installation and proceed with the next package.  Skipped
+	packages will be noted in the final report.
+
+*--group*
+	Update all packages in order, stopping immediately if the
+	update of any package fails.  This is useful for updating
+	dependent packages sequentially.
+
+*--margs*=_pkgmk_args_
+	Pass the specified arguments directly to the *pkgmk*(8)
+	command.
+
+_pkgmk_aliases_
+	Shorthands for the above *--margs*=_pkgmk_args_:
+
+	*-fr*
+		Equivalent to *--margs*=-f, forces the package build.
+
+	*-um*
+		Equivalent to *--margs*=-um, updates the package's MD5
+		checksum.
+
+	*-im*
+		Equivalent to *--margs*=-im, ignores the package's MD5
+		checksum during build.
+
+	*-uf*
+		Equivalent to *--margs*=-uf, updates the package's
+		footprint file.
+
+	*-if*
+		Equivalent to *--margs*=-if, ignores the package's
+		footprint file during build.
+
+	*-ns*
+		Equivalent to *--margs*=-ns, disables stripping of
+		binaries during the build process.
+
+	*-kw*
+		Equivalent to *--margs*=-kw, keeps the build working
+		directory after the build process.
+
+*--aargs*=_pkgadd_args_
+	Pass the specified arguments directly to the *pkgadd*(8)
+	command.
+
+_pkgadd_aliases_
+	Shorthands for the above *--aargs*=_pkgadd_args_:
+
+	*-f*, *-i*
+		Equivalent to *--aargs*=-f, forces the package
+		installation
+
+*--ignore*=_pkgname_[,...]
+	Ignore the specified packages during the update process,
+	even if they are dependencies of the packages being updated.
+
+*--install-scripts*
+	Execute any available pre-install and post-install scripts for
+	the packages being updated.
+
+*--pre-install*
+	Execute any available pre-install script for the packages
+	being updated.
+
+*--post-install*
+	Execute any available post-install script for the packages
+	being updated.
+
+# EXIT STATUS
+
+*0* on success, *>0* otherwise.
+
+# SEE ALSO
+
+*pkgman*(1),
+*pkgman.conf*(5)
+
+; vim: ft=scdoc cc=72 tw=70

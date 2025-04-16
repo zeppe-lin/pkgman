@@ -1,0 +1,57 @@
+PKGMAN-DEP(1)
+
+# NAME
+
+pkgman-dep - print dependencies for a package
+
+# SYNOPSIS
+
+*pkgman dep* \
+[*-v* | *-vv*] \
+[*--path*] \
+[*--all*] \
+[*--tree*] \
+[*--recursive*] \
+[*--full*] \
+_pkgname_
+
+# DESCRIPTION
+
+Print dependencies for a package.  It searches for package sources in
+the directories defined by the *pkgsrcdir* option in
+_/etc/pkgman.conf_.
+
+The options are as follows:
+
+*-v*
+	Show package version in the listing.
+
+*-vv*
+	Show package version and description in the listing.
+
+*--path*
+	Show package source path in the listing.
+
+*--all*
+	List all packages, not only installed.
+
+*--tree*
+	Print a nicely indented tree of the package dependencies.
+
+*--recursive*
+	Print a recursive list of dependencies.  In case *--tree* was
+	specified, subtrees already shown are marked with "-->" to
+	save some space.  If *--tree* option wasn't specified,
+	dependencies already shown are not displayed.  In order to
+	show them all, add the *--full* option (described below).
+
+*--full*
+	If *--recursive* option was set, show all dependencies.
+
+# SEE ALSO
+
+*pkgman-rdep*(1),
+*pkgman*(1),
+*pkgman.conf*(5)
+
+; vim: ft=scdoc cc=72 tw=70

@@ -1,0 +1,192 @@
+PKGMAN.CONF(5)
+
+# NAME
+
+pkgman.conf - configuration file for pkgman
+
+# SYNOPSIS
+
+*/etc/pkgman.conf*
+
+# DESCRIPTION
+
+This manual page describes the format of the _pkgman.conf_ file, used
+by *pkgman*(1).
+
+Each line in the configuration file follows the format: *key value*.
+Lines starting with *#* are treated as comments and ignored.  Blank
+lines are skipped.
+
+The valid configuration options are as follows:
+
+*pkgsrcdir* _path_[:_pkg_[,...]]
+	Specify directories containing package sources.  Directories
+	listed earlier take precedence when multiple sources have the
+	same package.
+
+	Optionally, append a comma-separated list of package names to
+	limit packages used from the directory, separating them from
+	the path with a colon *:*.
+
+	_path_  The directory containing package sources.
+
+	_pkg_   Specific packages within the directory.
+
+	Example:
+	```
+	# Use all packages from the path.
+	pkgsrcdir /usr/src/pkgsrc-core
+
+	# Use only mpv and ffmpeg packages from the path.
+	pkgsrcdir /usr/src/pkgsrc-desktop:mpv,ffmpeg
+	```
+
+*runscripts* _yes_ | _no_
+	Enable or disable executing pre/post-install and
+	pre/post-remove scripts.  Influences *pkgman-install*(8),
+	*pkgman-update*(8), and *pkgman-sysup*(8) operations.
+
+	Default: _no_.
+
+*preferhigher* _yes_ | _no_
+	If set to _yes_, *pkgman*(1) will parse version strings and
+	prefer the higher one, even if the one found in the
+	packages sources directories is lower.  Influences
+	*pkgman-diff*(1), *pkgman-list-dup*(1), and *pkgman-sysup*(8)
+	operations.
+
+	Default: _no_.
+
+*useregex* _yes_ | _no_
+	If set to _yes_, *pkgman*(1) will interpret _expr_ and
+	_filter_ patterns in *pkgman-list*(1), *pkgman-printf*(1),
+	*pkgman-search*(1), *pkgman-dsearch*(1), and
+	*pkgman-fsearch*(1) operations as regular expression in
+	*regex*(3) format.
+
+	Default: _no_.
+
+*readme* _verbose_ | _compat_ | _disabled_
+	If the readme option is set to something different that
+	_disabled_, *pkgman*(1) will notify the user if
+	installed/updated packages have readme files.
+
+	_verbose_
+		Print separate information about readme files.
+
+	_compact_
+		Integrate in the result output.
+
+	_disabled_
+		No information about readme files.
+
+	See *pkgman-readme*(1) for information how to read those
+	readme files.
+
+	Default: _verbose_
+
+*writelog* _enabled_ | _disabled_
+	Enable or disable logging of operations such as
+	*pkgman-sysup*(8), *pkgman-install*(8), *pkgman-update*(8),
+	and *pkgman-remove*(8).
+
+	Default: _disabled_
+
+*logmode* _append_ | _overwrite_
+	Set how logs are written.
+
+	_append_
+		Append new log entries to the existing log file.
+
+	_overwrite_
+		Overwrite the existing log file with each operation.
+
+	Default: _overwrite_
+
+*rmlog_on_success* _yes_ | _no_
+	Remove logs of succesful builds if set to _yes_.
+
+	Default: _no_
+
+*logfile* _format_
+	Specifies the path format for log files. The following
+	variables can be used in the format string and will be
+	replaced accordingly:
+	```
+	Variable  Description 
+	%n        package name
+	%p        package path
+	%v        package version
+	%r        package release number
+	```
+
+	Example:
+	```
+	/var/log/pkgbuild/%n.log
+	```
+
+	Default: No default value is set; logging must be disabled if
+	*writelog* is enabled without a *logfile*.
+
+*makecommand* _command_
+	Use an alternate command instead of *pkgmk*(8) for building
+	packages.
+
+*addcommand* _command_
+	Use an alternate command instead of *pkgadd*(8) for installing
+	packages.
+
+*removecommand* _command_
+	Use an alternate command instead of *pkgrm*(8) for removing
+	packages.
+
+*runscriptcommand* _command_
+	Use an alternate command instead of *sh*(1p) for executing
+	pre/post-install and pre/post-remove scripts.
+
+# EXAMPLES
+
+Sample _pkgman.conf_ configuration:
+
+```
+#
+# /etc/pkgman.conf: pkgman(1) configuration
+#
+# See pkgman.conf(5) for more information.
+#
+
+# Use local package sources first.
+#pkgsrcdir /path/to/unofficial/pkgsrcs/
+
+# Official sources.
+pkgsrcdir /usr/src/pkgsrc-core
+pkgsrcdir /usr/src/pkgsrc-system
+pkgsrcdir /usr/src/pkgsrc-xorg
+pkgsrcdir /usr/src/pkgsrc-desktop
+
+# Log configuration.
+writelog enabled
+logmode overwrite
+rmlog_on_success yes
+logfile /var/log/pkgbuild/%n.log
+
+# Notify the user about README files.
+readme verbose
+
+# Do not prefer higher versions in sysup / diff.
+preferhigher no
+
+# Do not use regex search.
+useregex no
+
+# Execute pre/post-install and pre/post-remove scripts.
+runscripts yes
+
+# End of file.
+```
+
+# SEE ALSO
+
+*pkgman*(1)
+
+; vim: ft=scdoc cc=72 tw=70

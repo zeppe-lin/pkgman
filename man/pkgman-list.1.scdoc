@@ -1,0 +1,53 @@
+PKGMAN-LIST(1)
+
+# NAME
+
+pkgman-list - list available packages
+
+# SYNOPSIS
+
+*pkgman list* \
+[*-v* | *-vv*] \
+[*--path*] \
+[*--all*] \
+[*--depsort*] \
+[*--regex*] \
+[*--filter*=_expr_]
+
+# DESCRIPTION
+
+List available packages.  It searches for package sources in the
+directories defined by the *pkgsrcdir* option in _/etc/pkgman.conf_.
+
+The options are as follows:
+
+*-v*
+	Show package version in the listing.
+
+*-vv*
+	Show package version and description in the listing.
+
+*--path*
+	Show package source path in the listing.
+
+*--all*
+	List all packages, not only installed.
+
+*--depsort*
+	List the packages sorted by dependency.
+
+*--regex*
+	Interpret *--filter* argument as a regular expression.
+
+*--filter*=_expr_
+	Filter listing packages by _expr_.  The *--filter* argument
+	may be the string, wildcard in *fnmatch*(3) format, or regex
+	in *regex*(3) format.
+
+# SEE ALSO
+
+*pkgman-list-dup*(1),
+*pkgman-list-nodependents*(1),
+*pkgman-list-orphans*(1)
+
+; vim: ft=scdoc cc=72 tw=70
