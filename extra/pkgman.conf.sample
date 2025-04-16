@@ -4,18 +4,19 @@
 # See pkgman.conf(5) for more information.
 #
 
-# Custom local repo.
+# Custom local collection.
 #pkgsrcdir /mnt/my-pkgsrc-dir
 
-# Zeppe-Lin official repos.
+# Official Zeppe-Lin collections.
 pkgsrcdir /usr/src/pkgsrc-core
 pkgsrcdir /usr/src/pkgsrc-system
 pkgsrcdir /usr/src/pkgsrc-xorg
 pkgsrcdir /usr/src/pkgsrc-desktop
 
-# Zeppe-Lin unofficial repos.
-pkgsrcdir /usr/src/pkgsrc-games
-pkgsrcdir /usr/src/pkgsrc-stuff
+# Unofficial Zeppe-Lin colletions.
+#pkgsrcdir /usr/src/pkgsrc-games
+#pkgsrcdir /usr/src/pkgsrc-wmaker
+#pkgsrcdir /usr/src/pkgsrc-stuff
 
 # Write the log for install, update and remove operations.
 writelog enabled
