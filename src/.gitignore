@@ -1,3 +1,18 @@
-# build files and artefacts
-*.o
+argparser.o
+configparser.o
+datafileparser.o
+depresolver.o
+helpers.o
+locker.o
+main.o
+p_regex.o
+package.o
+pkgdb.o
 pkgman
+pkgman.o
+pkgmksetting.o
+process.o
+repository.o
+signaldispatcher.o
+transaction.o
+versioncomparator.o
