@@ -15,7 +15,8 @@ This distribution is a fork of CRUX' prt-get tool as of commit da6bfb0
   * so-called prt-cache functionality have been removed since there is
     no fundamental advantage while PageCache+NVMe are available
   * prt.aliases functionality have been removed too
-  * manual pages in mdoc(7) format
+  * manual pages in scdoc(5) format
+  * pkgman-readme(7) & pkgman-runscripts(7)
   * switch from autotools to Makefile
   * rewritten command-line interface
   * unified and improved commands output
@@ -43,6 +44,7 @@ Build time
 ----------
   * C++17 compiler (GCC 8 and later, Clang 5 and later)
   * POSIX sh(1p), make(1p) and "mandatory utilities"
+  * scdoc(1) to build manual pages
 
 Runtime
 -------
@@ -54,56 +56,22 @@ Runtime
 INSTALL
 =======
 
-The shell commands `make && make install` should build and install
-this package.
+To build and install this package:
 
-For static linking you need to run `make` as the following:
+    make && make install
 
-```sh
-make LDFLAGS="-static -lstdc++fs"
-```
+For static linking you need to run make(1p) as the following:
 
-See `config.mk` file for configuration parameters, and
-`src/pathnames.h` for absolute filenames that pkgman wants for various
-defaults.
+    make LDFLAGS="-static -lstdc++fs"
+
+See config.mk file for configuration parameters, and src/pathnames.h
+for absolute filenames that pkgman wants for various defaults.
 
 
 DOCUMENTATION
 =============
 
-Online documentation
---------------------
-
-Manual pages:
-- [pkgman.1](https://zeppe-lin.github.io/pkgman.1.html)
-- [pkgman-cat.1](https://zeppe-lin.github.io/pkgman-cat.1.html)
-- [pkgman.conf.5](https://zeppe-lin.github.io/pkgman.conf.5.html)
-- [pkgman-current.1](https://zeppe-lin.github.io/pkgman-current.1.html)
-- [pkgman-dep.1](https://zeppe-lin.github.io/pkgman-dep.1.html)
-- [pkgman-diff.1](https://zeppe-lin.github.io/pkgman-diff.1.html)
-- [pkgman-dsearch.1](https://zeppe-lin.github.io/pkgman-dsearch.1.html)
-- [pkgman-dumpconfig.1](https://zeppe-lin.github.io/pkgman-dumpconfig.1.html)
-- [pkgman-edit.8](https://zeppe-lin.github.io/pkgman-edit.8.html)
-- [pkgman-fsearch.1](https://zeppe-lin.github.io/pkgman-fsearch.1.html)
-- [pkgman-info.1](https://zeppe-lin.github.io/pkgman-info.1.html)
-- [pkgman-install.8](https://zeppe-lin.github.io/pkgman-install.8.html)
-- [pkgman-isinst.1](https://zeppe-lin.github.io/pkgman-isinst.1.html)
-- [pkgman-list.1](https://zeppe-lin.github.io/pkgman-list.1.html)
-- [pkgman-list-dup.1](https://zeppe-lin.github.io/pkgman-list-dup.1.html)
-- [pkgman-list-locked.1](https://zeppe-lin.github.io/pkgman-list-locked.1.html)
-- [pkgman-list-nodependents.1](https://zeppe-lin.github.io/pkgman-list-nodependents.1.html)
-- [pkgman-list-orphans.1](https://zeppe-lin.github.io/pkgman-list-orphans.1.html)
-- [pkgman-lock.8](https://zeppe-lin.github.io/pkgman-lock.8.html)
-- [pkgman-ls.1](https://zeppe-lin.github.io/pkgman-ls.1.html)
-- [pkgman-path.1](https://zeppe-lin.github.io/pkgman-path.1.html)
-- [pkgman-printf.1](https://zeppe-lin.github.io/pkgman-printf.1.html)
-- [pkgman-rdep.1](https://zeppe-lin.github.io/pkgman-rdep.1.html)
-- [pkgman-readme.1](https://zeppe-lin.github.io/pkgman-readme.1.html)
-- [pkgman-remove.8](https://zeppe-lin.github.io/pkgman-remove.8.html)
-- [pkgman-search.1](https://zeppe-lin.github.io/pkgman-search.1.html)
-- [pkgman-sysup.8](https://zeppe-lin.github.io/pkgman-sysup.8.html)
-- [pkgman-unlock.8](https://zeppe-lin.github.io/pkgman-unlock.8.html)
-- [pkgman-update.8](https://zeppe-lin.github.io/pkgman-update.8.html)
+See /man directory for manual pages.
 
 
 LICENSE
