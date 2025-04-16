@@ -10,7 +10,7 @@ MAN1 = pkgman.1 pkgman-cat.1 pkgman-current.1 pkgman-dep.1 \
        pkgman-ls.1 pkgman-path.1 pkgman-printf.1 \
        pkgman-rdep.1 pkgman-readme.1 pkgman-search.1
 MAN5 = pkgman.conf.5
-MAN7 = pkgman-runscripts.7
+MAN7 = pkgman-runscripts.7 pkgman-readme.7
 MAN8 = pkgman-edit.8 pkgman-install.8 pkgman-lock.8 \
        pkgman-remove.8 pkgman-sysup.8 pkgman-unlock.8 \
        pkgman-update.8

@@ -1,0 +1,84 @@
+PKGMAN-README(7)
+
+# NAME
+
+pkgman-readme - optional README files for packages
+
+# SYNOPSIS
+
+README.md and README files provide additional information about
+packages and are accessed using *pkgman-readme*(1).
+
+# DESCRIPTION
+
+README.md or README files in a package's source directory offer
+supplementary details that go beyond the core functionality of
+pre/post-install and pre/post-remove scripts.
+
+If both README.md and README files exist, README.md takes precedence.
+These files are optional.
+
+## Typical Contents
+
+A README file may include the following sections:
+
+*POST-INSTALL*, *PRE-INSTALL*, *POST-REMOVE*, *PRE-REMOVE*:
+	Manual instructions for users who have disabled the execution
+	of scripts.
+
+*REQUIREMENTS*:
+	Information about additional (optional) packages that enhance
+	the software functionality.
+
+*KERNEL CONFIGURATION*:
+	Details for users compiling custom kernels, specifying
+	required kernel configurations.
+
+*KERNEL MODULE*:
+	Which kernel modules need to be loaded at startup for proper
+	program operation.  Include steps for enabling them if needed.
+
+*UPGRADE*:
+	Recommendations for handling upgrades, especially between
+	major versions.  Highlight potential pitfalls, required steps,
+	and troubleshooting for common errors.
+
+*CAUTION*, *TROUBLESHOOTING*:
+	Warnings about issues users may encounter, along with
+	solutions to address them.
+
+*REFERENCES*:
+	Links to detailed online documentation, wikis, or related
+	resources.
+
+## Guidelines
+
+When creating README files, maintainers should:
+
+	Povide clear and concise instructions.
+
+	Structure content with sections for key topics described
+	above.
+
+	Avoid redundancy by excluding information covered in other
+	scripts or documentation.
+
+These guidelines primarily apply to official repositories.  Custom
+repositories may adapt README content to suit their needs.
+
+# FILES
+
+_README.md_ or _README_
+	Optional documentation files located in the package source
+	directory.
+
+_/etc/pkgman.conf_
+	Configuration for *pkgman*(1).
+
+# SEE ALSO
+
+*pkgman*(1),
+*pkgman.conf*(5),
+*pkgman-readme*(1)
+
+; vim: ft=scdoc cc=72 tw=70
