@@ -57,6 +57,9 @@ _format_
 	The "diff" value for "%i" indicates the package is installed
 	but a different version is available in the package sources.
 
+	Use "\\n" and "\\t" to format your output.  No additional
+	format specifier is supported.
+
 # EXIT STATUS
 
 *0* if success, *255* if packages not found.
