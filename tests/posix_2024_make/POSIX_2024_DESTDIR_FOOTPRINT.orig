@@ -31,6 +31,9 @@ PKG/
         │   │   └── pkgman-search.1
         │   ├── man5
         │   │   └── pkgman.conf.5
+        │   ├── man7
+        │   │   ├── pkgman-readme.7
+        │   │   └── pkgman-runscripts.7
         │   └── man8
         │       ├── pkgman-edit.8
         │       ├── pkgman-install.8
@@ -46,4 +49,4 @@ PKG/
                 └── syntax
                     └── pkgmanconf.vim
 
-14 directories, 33 files
+15 directories, 35 files
