@@ -55,12 +55,12 @@ A README file may include the following sections:
 
 When creating README files, maintainers should:
 
-	Povide clear and concise instructions.
+	\* Povide clear and concise instructions.
 
-	Structure content with sections for key topics described
+	\* Structure content with sections for key topics described
 	above.
 
-	Avoid redundancy by excluding information covered in other
+	\* Avoid redundancy by excluding information covered in other
 	scripts or documentation.
 
 These guidelines primarily apply to official repositories.  Custom
