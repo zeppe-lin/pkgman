@@ -11,7 +11,7 @@ pkgman-cat - print out the package's file
 # DESCRIPTION
 
 Prints out the package file from the package source directory.  If
-file is not specified then Pkgfile is used.
+file is not specified then _Pkgfile_ is used.
 
 # ENVIRONMENT
 
