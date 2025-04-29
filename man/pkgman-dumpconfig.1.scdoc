@@ -14,10 +14,7 @@ Dump the current configuration on stdout.
 
 # EXIT STATUS
 
-*0*
-	Success
-*255*
-	Failure (e.g., "Missing pkgsrcdir directories").
+*0* if success, *>0* otherwise.
 
 # SEE ALSO
 

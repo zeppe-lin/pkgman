@@ -6,11 +6,11 @@ pkgman-fsearch - search the packages sources directories for a file in footprint
 
 # SYNOPSIS
 
-*pkgman fsearch* \
-[*-v* | *-vv*] \
-[*--path*] \
-[*--regex*] \
-[*--full*] \
+*pkgman fsearch*  \
+[*-v* | *-vv*]    \
+[*--path*]        \
+[*--regex*]       \
+[*--full*]        \
 _expr_
 
 # DESCRIPTION

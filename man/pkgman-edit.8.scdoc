@@ -25,11 +25,11 @@ The following environment variable is used by *pkgman edit*:
 # EXIT STATUS
 
 *0*
-	Success
+	Success.
 *255*
-	*EDITOR* is unset or package source not found
+	*EDITOR* is unset or package source not found.
 *>0*
-	Exit status of the editor
+	Exit status of the editor.
 
 # SEE ALSO
 

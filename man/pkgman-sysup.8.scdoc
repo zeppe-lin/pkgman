@@ -18,8 +18,8 @@ pkgman-sysup - update all outdated packages
 [*--deps*] \
 [*--depsort*] \
 [*--group*] \
-[*--margs*=_pkgmk_args_ | _pkgmk_aliases_] \
-[*--aargs*=_pkgadd_args_ | _pkgadd_aliases_] \
+[*--margs*=_pkgmk_args_ | *-fr* | *-um* | *-im* | *-uf* | *-if* | *-ns* | *-kd*] \
+[*--aargs*=_pkgadd_args_ | *-f* | *-i*] \
 [*--ignore*=_pkgname_[,...]] \
 [*--install-scripts* | [*--pre-install*] [*--post-install*]]
 
@@ -75,46 +75,47 @@ The options are as follows:
 	Pass the specified arguments directly to the *pkgmk*(8)
 	command.
 
-_pkgmk_aliases_
 	Shorthands for the above *--margs*=_pkgmk_args_:
 
 	*-fr*
-		Equivalent to *--margs*=-f, forces the package build.
+		Force the package build.
+		Equivalent to *--margs=-f*.
 
 	*-um*
-		Equivalent to *--margs*=-um, updates the package's MD5
-		checksum.
+		Update the package's MD5 checksum.
+		Equivalent to *--margs=-um*
 
 	*-im*
-		Equivalent to *--margs*=-im, ignores the package's MD5
-		checksum during build.
+		Ignore the package's MD5 checksum during build.
+		Equivalent to *--margs=-im*.
 
 	*-uf*
-		Equivalent to *--margs*=-uf, updates the package's
-		footprint file.
+		Update the package's footprint file.
+		Equivalent to *--margs=-uf*.
 
 	*-if*
-		Equivalent to *--margs*=-if, ignores the package's
-		footprint file during build.
+		Ignore the package's footprint file during build.
+		Equivalent to *--margs=-if*.
 
 	*-ns*
-		Equivalent to *--margs*=-ns, disables stripping of
-		binaries during the build process.
+		Disable stripping of binaries during the build
+		process.
+		Equivalent to *--margs=-ns*.
 
 	*-kw*
-		Equivalent to *--margs*=-kw, keeps the build working
-		directory after the build process.
+		Keep the build working directory after the build
+		process.
+		Equivalent to *--margs=-kw*.
 
 *--aargs*=_pkgadd_args_
 	Pass the specified arguments directly to the *pkgadd*(8)
 	command.
 
-_pkgadd_aliases_
 	Shorthands for the above *--aargs*=_pkgadd_args_:
 
 	*-f*, *-i*
-		Equivalent to *--aargs*=-f, forces the package
-		installation
+		Force the package installation.
+		Equivalent to *--aargs=-f*.
 
 *--ignore*=_pkgname_[,...]
 	Ignore the specified packages during the update process,
