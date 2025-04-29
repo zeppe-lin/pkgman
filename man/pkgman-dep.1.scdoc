@@ -48,6 +48,10 @@ The options are as follows:
 *--full*
 	If *--recursive* option was set, show all dependencies.
 
+# EXIT STATUS
+
+*0* on success, *255* if package not found.
+
 # SEE ALSO
 
 *pkgman-rdep*(1),
