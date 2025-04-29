@@ -34,25 +34,39 @@ The options are as follows:
 _format_
 	The string that contains variables, which are replaced like
 	this:
-	```
-	Variable    Description         Replacement
-	%n          name
-	%p          path
-	%v          version
-	%r          release number
-	%d          description
-	%e          dependencies
-	%u          URL
-	%P          packager
-	%M          maintainer
-	%R          has README          yes/no
-	%A          has pre-install     yes/no
-	%B          has post-install    yes/no
-	%C          has pre-remove      yes/no
-	%D          has post-remove     yes/no
-	%l          is locked           yes/no
-	%i          is installed        yes/no/diff
-	```
+
+	%n
+		Package name.
+	%v
+		Package version.
+	%r
+		Package release number.
+	%p
+		Package path.
+	%d
+		Package description.
+	%e
+		Package dependencies.
+	%u
+		URL.
+	%P
+		Packager.
+	%M
+		Maintainer.
+	%R
+		Has README file (yes/no).
+	%A
+		Has pre-install script (yes/no).
+	%B
+		Has post-install script (yes/no).
+	%C
+		Has pre-remove script (yes/no).
+	%D
+		Has post-remove script (yes/no).
+	%l
+		Package is locked (yes/no).
+	%i
+		Package is installed (yes/no/diff).
 
 	The "diff" value for "%i" indicates the package is installed
 	but a different version is available in the package sources.
