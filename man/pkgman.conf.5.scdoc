@@ -41,6 +41,8 @@ The valid configuration options are as follows:
 	pkgsrcdir /usr/src/pkgsrc-desktop:mpv,ffmpeg
 	```
 
+	Default: unset.
+
 *runscripts* _yes_ | _no_
 	Enable or disable executing pre/post-install and
 	pre/post-remove scripts.  Influences *pkgman-install*(8),
