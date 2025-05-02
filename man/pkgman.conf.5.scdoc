@@ -26,7 +26,7 @@ The valid configuration options are as follows:
 
 	Optionally, append a comma-separated list of package names to
 	limit packages used from the directory, separating them from
-	the path with a colon *:*.
+	the path with a colon ('*:*').
 
 	_path_  The directory containing package sources.
 
@@ -111,16 +111,18 @@ The valid configuration options are as follows:
 	Default: _no_
 
 *logfile* _format_
-	Specifies the path format for log files. The following
+	Specifies the path format for log files.  The following
 	variables can be used in the format string and will be
 	replaced accordingly:
-	```
-	Variable  Description 
-	%n        package name
-	%p        package path
-	%v        package version
-	%r        package release number
-	```
+
+	%n
+		package name
+	%p
+		package path
+	%v
+		package version
+	%r
+		package release number
 
 	Example:
 	```
