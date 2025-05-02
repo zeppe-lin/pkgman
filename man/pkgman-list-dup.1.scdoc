@@ -37,8 +37,8 @@ _format_
 	%c
 		comparison sign of %p1 and %p2: <, >, ==, !=
 
-	Use "\\n" and "\\t" to format your output.  No additional format
-	specifier is supported.
+	Use "\\n" and "\\t" to format your output.  No additional
+	format specifier is supported.
 
 *Important*:
 	The comparison sign "%c" is influenced by the *preferhigher*
