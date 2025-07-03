@@ -36,37 +36,37 @@ _format_
 	this:
 
 	%n
-		Package name.
+		package name
 	%v
-		Package version.
+		package version
 	%r
-		Package release number.
+		package release number
 	%p
-		Package path.
+		package path
 	%d
-		Package description.
+		package description
 	%e
-		Package dependencies.
+		package dependencies
 	%u
-		URL.
+		URL
 	%P
-		Packager.
+		packager
 	%M
-		Maintainer.
+		maintainer
 	%R
-		Has README file (yes/no).
+		has README file (yes/no)
 	%A
-		Has pre-install script (yes/no).
+		has pre-install script (yes/no)
 	%B
-		Has post-install script (yes/no).
+		has post-install script (yes/no)
 	%C
-		Has pre-remove script (yes/no).
+		has pre-remove script (yes/no)
 	%D
-		Has post-remove script (yes/no).
+		has post-remove script (yes/no)
 	%l
-		Package is locked (yes/no).
+		hackage is locked (yes/no)
 	%i
-		Package is installed (yes/no/diff).
+		hackage is installed (yes/no/diff)
 
 	The "diff" value for "%i" indicates the package is installed
 	but a different version is available in the package sources.
