@@ -1,6 +1,6 @@
-//! \file   depresolver.h
-//! \brief  DepResolver definition.
-//!         See COPYING and COPYRIGHT files for corresponding information.
+//! \file depresolver.h
+//! \brief DepResolver definition.
+//! \copyright See COPYING and COPYRIGHT files for corresponding information.
 
 #pragma once
 

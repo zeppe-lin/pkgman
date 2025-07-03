@@ -1,6 +1,6 @@
-//! \file   pathnames.h
-//! \brief  Absolute filenames that pkgman wants for various defaults.
-//!         See COPYING and COPYRIGHT files for corresponding information.
+//! \file pathnames.h
+//! \brief Absolute filenames that \a pkgman wants for various defaults.
+//! \copyright See COPYING and COPYRIGHT files for corresponding information.
 
 #pragma once
 

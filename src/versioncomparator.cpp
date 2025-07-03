@@ -1,9 +1,9 @@
-//! \file   versioncomparator.cpp
-//! \brief  VersionComparator namespace implementation.
-//!         See COPYING and COPYRIGHT files for corresponding information.
-
-//! \note   Get a test application with the following command:
-//!         g++ -o vcomp -DTEST helpers.cpp versioncomparator.cpp
+//! \file versioncomparator.cpp
+//! \brief VersionComparator namespace implementation.
+//! \copyright See COPYING and COPYRIGHT files for corresponding information.
+//!
+//! \note Get a test application with the following command:
+//!       g++ -o vcomp -DTEST helpers.cpp versioncomparator.cpp
 
 #include <cctype>
 #include <cstring>

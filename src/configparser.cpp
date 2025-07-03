@@ -1,6 +1,6 @@
-//! \file   configparser.cpp
-//! \brief  Configuration Parser implementation.
-//!         See COPYING and COPYRIGHT files for corresponding information.
+//! \file configparser.cpp
+//! \brief Configuration Parser implementation.
+//! \copyright See COPYING and COPYRIGHT files for corresponding information.
 
 #include <filesystem>
 #include <fstream>

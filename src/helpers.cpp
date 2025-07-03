@@ -1,6 +1,6 @@
-//! \file   helpers.cpp
-//! \brief  Helper Functions implementation.
-//!         See COPYING and COPYRIGHT files for corresponding information.
+//! \file helpers.cpp
+//! \brief Helper Functions implementation.
+//! \copyright See COPYING and COPYRIGHT files for corresponding information.
 
 #include <algorithm>
 

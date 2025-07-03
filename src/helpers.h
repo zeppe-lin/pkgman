@@ -1,6 +1,6 @@
-//! \file   helpers.h
-//! \brief  Helper Functions definition.
-//!         See COPYING and COPYRIGHT files for corresponding information.
+//! \file helpers.h
+//! \brief Helper Functions definition.
+//! \copyright See COPYING and COPYRIGHT files for corresponding information.
 
 #pragma once
 

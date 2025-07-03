@@ -1,6 +1,6 @@
-//! \file   pkgdb.h
-//! \brief  PkgDB definition.
-//!         See COPYING and COPYRIGHT files for corresponding information.
+//! \file pkgdb.h
+//! \brief PkgDB definition.
+//! \copyright See COPYING and COPYRIGHT files for corresponding information.
 
 #pragma once
 

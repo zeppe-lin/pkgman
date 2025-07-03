@@ -1,6 +1,6 @@
-//! \file   pkgmksetting.h
-//! \brief  Get settings from pkgmk configuration.
-//!         See COPYING and COPYRIGHT files for corresponding information.
+//! \file pkgmksetting.h
+//! \brief Get settings from pkgmk configuration.
+//! \copyright See COPYING and COPYRIGHT files for corresponding information.
 
 #pragma once
 

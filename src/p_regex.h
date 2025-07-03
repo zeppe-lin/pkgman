@@ -1,6 +1,6 @@
-//! \file   p_regex.h
-//! \brief  RegEx definition.
-//!         See COPYING and COPYRIGHT files for corresponding information.
+//! \file p_regex.h
+//! \brief RegEx definition.
+//! \copyright See COPYING and COPYRIGHT files for corresponding information.
 
 #pragma once
 

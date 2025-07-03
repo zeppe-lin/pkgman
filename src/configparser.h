@@ -1,6 +1,6 @@
-//! \file   configparser.h
-//! \brief  Configuration Parser definition.
-//!         See COPYING and COPYRIGHT files for corresponding information.
+//! \file configparser.h
+//! \brief Configuration Parser definition.
+//! \copyright See COPYING and COPYRIGHT files for corresponding information.
 
 #pragma once
 

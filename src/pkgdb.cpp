@@ -1,6 +1,6 @@
-//! \file   pkgdb.cpp
-//! \brief  PkgDB implementation.
-//!         See COPYING and COPYRIGHT files for corresponding information.
+//! \file pkgdb.cpp
+//! \brief PkgDB implementation.
+//! \copyright See COPYING and COPYRIGHT files for corresponding information.
 
 #include <algorithm>
 #include <cstdio>

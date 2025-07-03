@@ -1,6 +1,6 @@
-//! \file   package.h
-//! \brief  Package and PackageData definition.
-//!         See COPYING and COPYRIGHT files for corresponding information.
+//! \file package.h
+//! \brief Package and PackageData definition.
+//! \copyright See COPYING and COPYRIGHT files for corresponding information.
 
 #pragma once
 

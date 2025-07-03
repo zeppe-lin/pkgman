@@ -1,6 +1,6 @@
-//! \file   repository.h
-//! \brief  Repository class definition.
-//!         See COPYING and COPYRIGHT files for corresponding information.
+//! \file repository.h
+//! \brief Repository class definition.
+//! \copyright See COPYING and COPYRIGHT files for corresponding information.
 
 #pragma once
 

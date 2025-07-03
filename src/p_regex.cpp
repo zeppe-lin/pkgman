@@ -1,6 +1,6 @@
-//! \file   p_regex.cpp
-//! \brief  RegEx implementation.
-//!         See COPYING and COPYRIGHT files for corresponding information.
+//! \file p_regex.cpp
+//! \brief RegEx implementation.
+//! \copyright See COPYING and COPYRIGHT files for corresponding information.
 
 #include <string>
 

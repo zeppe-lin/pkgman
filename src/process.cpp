@@ -1,6 +1,6 @@
-//! \file   process.cpp
-//! \brief  Process implementation.
-//!         See COPYING and COPYRIGHT files for corresponding information.
+//! \file process.cpp
+//! \brief Process implementation.
+//! \copyright See COPYING and COPYRIGHT files for corresponding information.
 
 #include <cassert>
 #include <cstddef>

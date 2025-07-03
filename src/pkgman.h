@@ -1,6 +1,6 @@
-//! \file   pkgman.h
-//! \brief  Pkgman main commands definition.
-//!         See COPYING and COPYRIGHT files for corresponding information.
+//! \file pkgman.h
+//! \brief Pkgman main commands definition.
+//! \copyright See COPYING and COPYRIGHT files for corresponding information.
 
 #pragma once
 

@@ -1,6 +1,6 @@
-//! \file   argparser.cpp
-//! \brief  ArgParser class implementation.
-//!         See COPYING and COPYRIGHT files for corresponding information.
+//! \file argparser.cpp
+//! \brief ArgParser class implementation.
+//! \copyright See COPYING and COPYRIGHT files for corresponding information.
 
 #include "argparser.h"
 

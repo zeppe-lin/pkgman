@@ -1,6 +1,6 @@
-//! \file   depresolver.cpp
-//! \brief  DepResolver implementation.
-//!         See COPYING and COPYRIGHT files for corresponding information.
+//! \file depresolver.cpp
+//! \brief DepResolver implementation.
+//! \copyright See COPYING and COPYRIGHT files for corresponding information.
 
 #include <cassert>
 #include <map>
