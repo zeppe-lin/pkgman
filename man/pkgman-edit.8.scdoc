@@ -19,7 +19,7 @@ specified, _Pkgfile_ is used by default.
 The following environment variable is used by *pkgman edit*:
 
 *EDITOR*
-	The editor used by *pkgman-edit*.  If *EDITOR* is unset, the
+	The editor used by *pkgman edit*.  If *EDITOR* is unset, the
 	command fails.
 
 # EXIT STATUS
