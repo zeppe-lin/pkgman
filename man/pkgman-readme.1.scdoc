@@ -16,10 +16,10 @@ markdown markup (README.md) takes precedence.
 
 # ENVIRONMENT
 
-The following environment variable affects *pkgman*(1):
+The following environment variable affects *pkgman readme*:
 
 *PAGER*
-	If set, *pkgman-readme* uses the program specified by *PAGER*
+	If set, *pkgman readme* uses the program specified by *PAGER*
 	to display the README file.  If *PAGER* is unset, the file is
 	printed to stdout.
 
