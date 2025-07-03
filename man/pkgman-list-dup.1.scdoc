@@ -14,7 +14,7 @@ Print list of duplicate packages in the packages sources directories.
 It looks in all directories specified in _/etc/pkgman.conf_ as
 *pkgsrcdir* argument.
 
-The default format string is "%p1 %v1 %c %p2 %v2\n".
+The default format string is "%p1 %v1 %c %p2 %v2\\n".
 
 The options are as follows:
 
