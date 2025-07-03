@@ -15,10 +15,10 @@ _file_ is not specified then _Pkgfile_ is used.
 
 # ENVIRONMENT
 
-The following environment variable affects *pkgman-cat*:
+The following environment variable affects *pkgman cat*:
 
 *PAGER*
-	If set, *pkgman-cat* uses the program specified by *PAGER* to
+	If set, *pkgman cat* uses the program specified by *PAGER* to
 	display the _file_.  If *PAGER* is unset, the _file_ is
 	printed to stdout.
 
