@@ -14,7 +14,7 @@ This manual page describes the format of the _pkgman.conf_ file, used
 by *pkgman*(1).
 
 Each line in the configuration file follows the format: *key value*.
-Lines starting with *#* are treated as comments and ignored.  Blank
+Lines starting with '*#*' are treated as comments and ignored.  Blank
 lines are skipped.
 
 The valid configuration options are as follows:
@@ -82,8 +82,8 @@ The valid configuration options are as follows:
 	_disabled_
 		No information about readme files.
 
-	See *pkgman-readme*(1) for information how to read those
-	readme files.
+	See *pkgman-readme*(1) and *pkgman-readme*(7) for more
+	information how to read/write those readme files.
 
 	Default: _verbose_
 
@@ -129,8 +129,8 @@ The valid configuration options are as follows:
 	/var/log/pkgbuild/%n.log
 	```
 
-	Default: No default value is set; logging must be disabled if
-	*writelog* is enabled without a *logfile*.
+	Default: unset; logging must be disabled if *writelog* is
+	enabled without a *logfile*.
 
 *makecommand* _command_
 	Use an alternate command instead of *pkgmk*(8) for building
@@ -146,7 +146,9 @@ The valid configuration options are as follows:
 
 *runscriptcommand* _command_
 	Use an alternate command instead of *sh*(1p) for executing
-	pre/post-install and pre/post-remove scripts.
+	pre/post-install and pre/post-remove scripts.  See
+	*pkgman-runscripts*(7) for more information about these
+	scripts.
 
 # EXAMPLES
 
