@@ -10,21 +10,23 @@ pkgman-info - print package information
 
 # DESCRIPTION
 
-Print available information for a package.
+Print available information for a package, such as its version, path,
+URL, and dependencies.
 
 The options are as follows:
 
 *-v*, *-vv*
-	Print also the README file if exists.
+	Include the package's README.md or README file in the output,
+	if available.
 
 # ENVIRONMENT
 
-The following environment variable affects *pkgman*(1):
+The following environment variable is used by *pkgman info*:
 
 *PAGER*
-	If the README file exists, *pkgman-info* uses *PAGER* to
-	display it.  If *PAGER* is unset, the file is printed to
-	stdout.
+	If the README.md or README file exists, *pkgman info* uses
+	*PAGER* to display it.  If *PAGER* is unset, the file is
+	printed to stdout.
 
 # EXIT STATUS
 
