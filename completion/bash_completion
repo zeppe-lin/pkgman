@@ -52,7 +52,7 @@ _pkgman()
 
 			case ${COMP_WORDS[1]} in
 			install | info | path | isinst | ls | dep)
-				plist=$(pkgman list --all)
+				plist=$(pkgman printf "%n\n")
 				if [ "$plist" != "" ]; then
 					COMPREPLY=($(compgen -W '$plist' $cur))
 				fi
@@ -70,7 +70,7 @@ _pkgman()
 					plist=$(pkgman ls ${COMP_WORDS[2]})
 					COMPREPLY=($(compgen -W '$plist' $cur))
 				else
-					plist=$(pkgman list --all)
+					plist=$(pkgman printf "%n\n")
 					if [ "$plist" != "" ]; then
 						COMPREPLY=($(compgen -W '$plist' $cur))
 					fi
