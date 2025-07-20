@@ -79,32 +79,39 @@ The options are as follows:
 
 	*-fr*
 		Force the package build.
+
 		Equivalent to *--margs=-f*.
 
 	*-um*
 		Update the package's MD5 checksum.
+
 		Equivalent to *--margs=-um*
 
 	*-im*
 		Ignore the package's MD5 checksum during build.
+
 		Equivalent to *--margs=-im*.
 
 	*-uf*
 		Update the package's footprint file.
+
 		Equivalent to *--margs=-uf*.
 
 	*-if*
 		Ignore the package's footprint file during build.
+
 		Equivalent to *--margs=-if*.
 
 	*-ns*
 		Disable stripping of binaries during the build
 		process.
+
 		Equivalent to *--margs=-ns*.
 
 	*-kw*
 		Keep the build working directory after the build
 		process.
+
 		Equivalent to *--margs=-kw*.
 
 *--aargs*=_pkgadd_args_
@@ -115,6 +122,7 @@ The options are as follows:
 
 	*-f*, *-i*
 		Force the package installation.
+
 		Equivalent to *--aargs=-f*.
 
 *--ignore*=_pkgname_[,...]
