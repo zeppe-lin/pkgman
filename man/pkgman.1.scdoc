@@ -212,7 +212,7 @@ Originally written by Johannes Winkelmann <jw@tks6.net> as *prt-get*
 for CRUX: http://crux.nu.
 
 This implementation was extensively re-worked for Zeppe-Lin:
-https://zeppe-lin.github.io by Alexandr Savca
+https://zeppe%2Dlin.github.io by Alexandr Savca
 <alexandr.savca89@gmail.com>.
 
 ; vim: ft=scdoc cc=72 tw=70
