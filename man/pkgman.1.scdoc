@@ -54,14 +54,14 @@ following options are common to all commands:
 	Print program version and exit.
 
 *-h*, *--help*
-	Print the _command_'s help (actually the manual page) if command
-	argument specified.  Otherwise, print this manual page as a
-	help message.
+	Print the _command_'s help (actually the manual page) if
+	command argument specified.  Otherwise, print this manual page
+	as a help message.
 
 *--*
 	Signal the end of options.  Any arguments following *--* are
 	treated as the _command_ and its arguments.  This is useful
-	for specifying command arguments that begin with *-*.  For
+	for specifying command arguments that begin with '*-*'.  For
 	example:
 	```
 	pkgman search --regex -- -lib
