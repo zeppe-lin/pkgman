@@ -129,6 +129,7 @@ following self-explanatory categories:
 
 	*pkgman-dep*(1)
 		print dependencies for a package
+
 	*pkgman-rdep*(1)
 		print reverse dependencies for a package
 
@@ -181,13 +182,13 @@ following self-explanatory categories:
 
 # EXIT STATUS
 
-*0* on success, *>0* if an error occurs.
+*pkgman* returns *0* on success and *>0* if an error occurs.
 
 # FILES
 
 _/etc/pkgman.conf_
-	Default configuration file.  See *pkgman.conf*(5) for more
-	information.
+	Default configuration file.
+	See *pkgman.conf*(5) for more information.
 
 _/var/lib/pkg/db_
 	Database of currently installed packages.
@@ -209,10 +210,8 @@ _/var/lib/pkg/locked_
 # AUTHORS
 
 Originally written by Johannes Winkelmann <jw@tks6.net> as *prt-get*
-for CRUX: http://crux.nu.
+for CRUX (http://crux.nu).
 
-This implementation was extensively re-worked for Zeppe-Lin:
-https://zeppe%2Dlin.github.io by Alexandr Savca
-<alexandr.savca89@gmail.com>.
+Reworked for Zeppe-Lin by Alexandr Savca <alexandr.savca89@gmail.com>.
 
 ; vim: ft=scdoc cc=72 tw=70
