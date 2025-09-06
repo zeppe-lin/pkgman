@@ -310,7 +310,7 @@ Pkgman::listOrphans()
       cout << package1 << endl;
     else
     {
-      if ( m_parser->verbose() > 0 )
+      if ( m_parser->dependents() )
         cout << package1 << " (required by " << package2 << ")" << endl;
     }
   }

@@ -20,6 +20,7 @@ ArgParser::ArgParser( int argc, char** argv ):
   m_noStdConfig( false ),
   m_writeLog( false ),
   m_deps( false ),
+  m_dependents( false ),
   m_all( false ),
   m_full( false ),
   m_printPath( false ),
@@ -158,6 +159,9 @@ ArgParser::parse()
 
       else if ( arg == "--deps" )
         m_deps = true;
+
+      else if ( arg == "--dependents" )
+        m_dependents = true;
 
       else if ( arg == "--all" )
         m_all = true;
@@ -377,6 +381,13 @@ ArgParser::deps()
   const
 {
   return m_deps;
+}
+
+bool
+ArgParser::dependents()
+  const
+{
+  return m_dependents;
 }
 
 bool

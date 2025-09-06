@@ -143,6 +143,12 @@ public:
   bool nodeps() const;
 
 
+  //! \brief   Whether \--dependents command-line option is specified
+  //!
+  //! \return \a true if so, \a false otherwise
+  bool dependents() const;
+
+
   //! \brief   Whether \--all command-line option is specified
   //!
   //! \return  \a true if so, \a false otherwise
@@ -355,6 +361,10 @@ private:
 
   //! \--deps option
   bool m_deps;
+
+
+  //! \--dependents option
+  bool m_dependents;
 
 
   //! \--all option
