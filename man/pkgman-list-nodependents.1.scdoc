@@ -2,7 +2,7 @@ PKGMAN-LIST-NODEPENDENTS(1)
 
 # NAME
 
-pkgman-list-nodependents - print list of packages that no other depends on them
+pkgman-list-nodependents - list packages without dependents
 
 # SYNOPSIS
 
@@ -10,8 +10,7 @@ pkgman-list-nodependents - print list of packages that no other depends on them
 
 # DESCRIPTION
 
-Print list of packages without dependents.  "Nodependent" are
-packages without packages depending on them.
+List packages that no other package depends on.
 
 The options are as follows:
 

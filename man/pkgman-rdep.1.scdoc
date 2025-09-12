@@ -17,8 +17,10 @@ _pkgname_
 
 # DESCRIPTION
 
-Print reverse dependencies for a package.  It searches for package
-sources in the directories defined by the *pkgsrcdir* option in
+Print reverse dependencies for a package.
+
+The specified _pkgname_ (package name) is searched in the package
+sources directories defined by the *pkgsrcdir* option in
 _/etc/pkgman.conf_.
 
 The options are as follows:
@@ -33,21 +35,38 @@ The options are as follows:
 	Show package source path in the listing.
 
 *--all*
-	List all packages, not only installed.
+	List all packages, not only installed ones.
 
 *--tree*
-	Print a nicely indented tree of the package reverse dependencies.
+	Print a nicely indented tree of the package reverse
+	dependencies.
 
 *--recursive*
-	Print a recursive list of reverse dependencies.  In case
-	*--tree* was specified, subtrees already shown are marked with
-	"-->" to save some space.  If *--tree* option wasn't
-	specified, reverse dependencies already shown are not
-	displayed.  In order to show them all, add the *--full* option
-	(described below).
+	Print a recursive list of reverse dependencies.  If *--tree*
+	is specified, subtrees already shown are marked with "-->" to
+	avoid duplication.  If *--tree* is not specified, reverse
+	dependencies already shown are not repeated.  To display all,
+	use the *--full* option.
 
 *--full*
-	If *--recursive* option was set, show all dependencies.
+	When used with *--recursive*, show all reverse dependencies
+	without omission.
+
+# EXIT STATUS
+
+*0*
+	Success.
+*>0*
+	Package not found or error.
+
+# EXAMPLES
+
+When major version of Perl change, full rebuild of all affected
+packages:
+
+```
+pkgman update -fr --deps --depsort $(pkgman rdep perl)
+```
 
 # SEE ALSO
 

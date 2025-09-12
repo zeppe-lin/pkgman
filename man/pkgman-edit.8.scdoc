@@ -10,24 +10,25 @@ pkgman-edit - edit the package's file
 
 # DESCRIPTION
 
-Edit the specified _file_ from the package source directory using the
-editor defined by the *EDITOR* environment variable.  If no _file_ is
-specified, _Pkgfile_ is used by default.
+Edit a file from a package's source directory in the editor defined by
+the *EDITOR* environment variable.  If no file is specified, _Pkgfile_
+is used.
+
+The specified _pkgname_ (package name) is searched in the package
+sources directories defined by the *pkgsrcdir* option in
+_/etc/pkgman.conf_.
 
 # ENVIRONMENT
 
-The following environment variable is used by *pkgman edit*:
-
 *EDITOR*
-	The editor used by *pkgman edit*.  If *EDITOR* is unset, the
-	command fails.
+	Program used to edit the file.  If unset, the command fails.
 
 # EXIT STATUS
 
 *0*
 	Success.
 *255*
-	*EDITOR* is unset or package source not found.
+	*EDITOR* unset or package source not found.
 *>0*
 	Exit status of the editor.
 

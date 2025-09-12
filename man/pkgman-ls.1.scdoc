@@ -2,7 +2,7 @@ PKGMAN-LS(1)
 
 # NAME
 
-pkgman-ls - list package source directory contents
+pkgman-ls - list contents of a package source directory
 
 # SYNOPSIS
 
@@ -10,7 +10,11 @@ pkgman-ls - list package source directory contents
 
 # DESCRIPTION
 
-List the contents of the package source directory.
+List the contents of a package's source directory.
+
+The specified _pkgname_ (package name) is searched in the package
+sources directories defined by the *pkgsrcdir* option in
+_/etc/pkgman.conf_.
 
 The options are as follows:
 

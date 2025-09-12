@@ -14,8 +14,8 @@ _format_
 
 # DESCRIPTION
 
-Print formatted list of available packages.  It searches for package
-sources in the directories defined by the *pkgsrcdir* option in
+Print formatted list of available packages, searched in the package
+sources directories defined by the *pkgsrcdir* option in
 _/etc/pkgman.conf_.
 
 The options are as follows:
@@ -31,52 +31,55 @@ The options are as follows:
 	argument may be the string, wildcard in *fnmatch*(3) format,
 	or regex in *regex*(3) format.
 
-_format_
-	The string that contains variables, which are replaced like
-	this:
+# FORMAT STRING
 
-	%n
-		package name
-	%v
-		package version
-	%r
-		package release number
-	%p
-		package path
-	%d
-		package description
-	%e
-		package dependencies
-	%u
-		URL
-	%P
-		packager
-	%M
-		maintainer
-	%R
-		has README file (yes/no)
-	%A
-		has pre-install script (yes/no)
-	%B
-		has post-install script (yes/no)
-	%C
-		has pre-remove script (yes/no)
-	%D
-		has post-remove script (yes/no)
-	%l
-		hackage is locked (yes/no)
-	%i
-		hackage is installed (yes/no/diff)
+The following placeholders may be used in the _format_ string:
 
-	The "diff" value for "%i" indicates the package is installed
-	but a different version is available in the package sources.
+%n
+	Package name.
+%v
+	Package version.
+%r
+	package release number.
+%p
+	Package path.
+%d
+	Package description.
+%e
+	Package dependencies.
+%u
+	URL.
+%P
+	Packager.
+%M
+	Maintainer.
+%R
+	Has README file (yes/no).
+%A
+	Has pre-install script (yes/no).
+%B
+	Has post-install script (yes/no).
+%C
+	Has pre-remove script (yes/no).
+%D
+	Has post-remove script (yes/no).
+%l
+	Package is locked (yes/no).
+%i
+	Package is installed (yes/no/diff).
 
-	Use "\\n" and "\\t" to format your output.  No additional
-	format specifier is supported.
+The "diff" value for "%i" indicates the package is installed but a
+different version is available in the package sources.
+
+Use "\\n" and "\\t" for newlines and tabs.  No other format specifiers
+are supported.
 
 # EXIT STATUS
 
-*0* if success, *255* if packages not found.
+*0*
+	Success.
+*>0*
+	Packages not found or error.
 
 # SEE ALSO
 

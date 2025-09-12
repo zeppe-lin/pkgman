@@ -6,17 +6,17 @@ pkgman-list-orphans - list orphaned packages
 
 # SYNOPSIS
 
-*pkgman list-orphans* [*-v*]
+*pkgman list-orphans* [*--dependents*]
 
 # DESCRIPTION
 
-List orphaned packages on your system.  Orphaned packages are those
-not found in the packages sources directories specified by the
+List orphaned packages on the system.  Orphaned packages are those
+not found in the packages sources directories defined by the
 *pkgsrcdir* option in _/etc/pkgman.conf_.
 
 The options are as follows:
 
-*-v*
+*--dependents*
 	Include packages that depend on orphaned or missing packages.
 
 # SEE ALSO

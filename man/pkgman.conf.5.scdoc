@@ -15,20 +15,20 @@ by *pkgman*(1).
 
 Each line in the configuration file follows the format: *key value*.
 Lines starting with '*#*' are treated as comments and ignored.  Blank
-lines are skipped.
+lines are ignored.
 
 The valid configuration options are as follows:
 
 *pkgsrcdir* _path_[:_pkg_[,...]]
-	Specify directories containing package sources.  Directories
-	listed earlier take precedence when multiple sources have the
+	Directories containing package sources.  Directories listed
+	earlier have higher priority when multiple sources contain the
 	same package.
 
 	Optionally, append a comma-separated list of package names to
 	limit packages used from the directory, separating them from
 	the path with a colon ('*:*').
 
-	_path_  The directory containing package sources.
+	_path_  Directory containing package sources.
 
 	_pkg_   Specific packages within the directory.
 
@@ -116,13 +116,13 @@ The valid configuration options are as follows:
 	replaced accordingly:
 
 	%n
-		package name
+		Package name.
 	%p
-		package path
+		Package path.
 	%v
-		package version
+		Package version.
 	%r
-		package release number
+		Package release number.
 
 	Example:
 	```

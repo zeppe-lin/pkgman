@@ -16,8 +16,8 @@ pkgman-list - list available packages
 
 # DESCRIPTION
 
-List available packages.  It searches for package sources in the
-directories defined by the *pkgsrcdir* option in _/etc/pkgman.conf_.
+List available packages in the directories defined by the *pkgsrcdir*
+option in _/etc/pkgman.conf_.
 
 The options are as follows:
 
@@ -31,18 +31,25 @@ The options are as follows:
 	Show package source path in the listing.
 
 *--all*
-	List all packages, not only installed.
+	List all packages, not only installed ones.
 
 *--depsort*
-	List the packages sorted by dependency.
+	List the packages sorted by dependency order.
 
 *--regex*
 	Interpret *--filter* argument as a regular expression.
 
 *--filter*=_expr_
-	Filter listing packages by _expr_.  The *--filter* argument
-	may be the string, wildcard in *fnmatch*(3) format, or regex
-	in *regex*(3) format.
+	Filter packages by _expr_, that may be a string, a wildcard
+	pattern (in *fnmatch*(3) format), or a regex (in *regex*(3)
+	format).
+
+# EXIT STATUS
+
+*0*
+	Success.
+*>0*
+	No packages found or error.
 
 # SEE ALSO
 

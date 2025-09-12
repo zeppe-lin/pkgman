@@ -10,11 +10,14 @@ pkgman-isinst - print whether packages are installed or not
 
 # DESCRIPTION
 
-Print whether packages are installed or not.
+Report whether the specified packages are installed.
 
 # EXIT STATUS
 
-*0* if installed, *255* otherwise.
+*0*
+	Package is installed.
+*>0*
+	Package is not installed or error.
 
 # FILES
 

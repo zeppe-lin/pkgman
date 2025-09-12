@@ -86,99 +86,99 @@ following self-explanatory categories:
 *Informational Commands*:
 
 	*pkgman-dumpconfig*(1)
-		dump the configuration
+		Dump current configuration.
 
 	*pkgman-list*(1)
-		print list of available packages
+		Print list of available packages.
 
 	*pkgman-list-dup*(1)
-		print list of duplicate packages
+		Print list of duplicate packages.
 
 	*pkgman-list-nodependents*(1)
-		print list of packages that no other depends on them
+		Print list of packages that no other depends on them.
 
 	*pkgman-list-locked*(1)
-		print list of locked packages
+		Print list of locked packages.
 
 	*pkgman-list-orphans*(1)
-		print list of orphaned packages
+		Print list of orphaned packages.
 
 	*pkgman-printf*(1)
-		print formatted list of available packages
+		Print formatted list of available packages.
 
 	*pkgman-info*(1)
-		print package info
+		Print package info.
 
 	*pkgman-readme*(1)
-		print the package's README
+		Print the package's README.
 
 	*pkgman-path*(1)
-		print path to package source
+		Print path to package source.
 
 	*pkgman-isinst*(1)
-		print whether packages are installed or not
+		Print whether packages are installed or not.
 
 	*pkgman-current*(1)
-		print installed package version
+		Print installed package version.
 
 	*pkgman-diff*(1)
-		print the differences between installed and available
-		packages
+		Print the differences between installed and available
+		packages.
 
 *Dependency Commands*:
 
 	*pkgman-dep*(1)
-		print dependencies for a package
+		Print dependencies for a package.
 
 	*pkgman-rdep*(1)
-		print reverse dependencies for a package
+		Print reverse dependencies for a package.
 
 *Searching Commands*:
 
 	*pkgman-search*(1)
-		search the packages sources directories for package
-		name
+		Search the packages sources directories for package
+		name.
 
 	*pkgman-dsearch*(1)
-		search the packages sources directories for package
-		name and description
+		Search the packages sources directories for package
+		name and description.
 
 	*pkgman-fsearch*(1)
-		search the packages sources directories for a file in
-		package footprint
+		Search the packages sources directories for a file in
+		package footprint.
 
 *Package Management Commands*:
 
 	*pkgman-install*(8)
-		install package(s)
+		Install package(s).
 
 	*pkgman-update*(8)
-		update installed package(s)
+		Update installed package(s).
 
 	*pkgman-remove*(8)
-		remove installed package(s)
+		Remove installed package(s).
 
 *System Update Commands*:
 
 	*pkgman-sysup*(8)
-		update all outdated packages
+		Update all outdated packages.
 
 	*pkgman-lock*(8)
-		lock the package(s)
+		Lock the package(s).
 
 	*pkgman-unlock*(8)
-		unlock the package(s)
+		Unlock the package(s).
 
 *File Operation Commands*:
 
 	*pkgman-ls*(1)
-		print out a listing of the package's directory
+		Print out a listing of the package's directory.
 
 	*pkgman-cat*(1)
-		print out the package's file
+		Print out the package's file.
 
 	*pkgman-edit*(8)
-		edit the package's file
+		Edit the package's file.
 
 # EXIT STATUS
 
@@ -199,9 +199,9 @@ _/var/lib/pkg/locked_
 	*pkgman-list-locked*(1).
 
 *Note*:
-	When the *--root*=_rootdir_ option is specified,  both
-	databases location changes to _rootdir/var/lib/pkg/db_ and
-	_rootdir/var/lib/pkg/locked_ respectively.
+	When the *--root*=_rootdir_ is specified,  database are
+	relocated to _rootdir/var/lib/pkg/db_ and
+	_rootdir/var/lib/pkg/locked_.
 
 # SEE ALSO
 

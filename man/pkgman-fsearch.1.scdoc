@@ -2,7 +2,8 @@ PKGMAN-FSEARCH(1)
 
 # NAME
 
-pkgman-fsearch - search the packages sources directories for a file in footprint
+pkgman-fsearch - search package source directories for a file in \
+footprints
 
 # SYNOPSIS
 
@@ -16,8 +17,12 @@ _expr_
 # DESCRIPTION
 
 Search for _expr_ in _.footprint_ files within package source
-directories.  These directories are defined by the *pkgsrcdir* option
-in _/etc/pkgman.conf_.
+directories.  Directories searched are those listed in the *pkgsrcdir*
+option of _/etc/pkgman.conf_.
+
+The _expr_ argument may be a string, wildcard (in *fnmatch*(3)
+format), or a regex pattern (in *regex*(3) format) to match footprint
+entries.
 
 The options are as follows:
 
@@ -31,23 +36,20 @@ The options are as follows:
 	Show package source path in the listing.
 
 *--regex*
-	Interpret expr as regular expression.
+	Interpret _expr_ as regular expression.
 
 *--full*
-	Search for full paths
-	(e.g., *pkgman fsearch --full /usr/bin/gcc*).
-
-_expr_
-	Search footprints for _expr_, where the expression may be the
-	string, wildcard in *fnmatch*(3) format, or regex in
-	*regex*(3) format.
+	Search for full paths, e.g.:
+	```
+	pkgman fsearch --full /usr/bin/gcc*
+	```
 
 # EXIT STATUS
 
 *0*
-	Success.
-*255*
-	No matches found.
+	Matches found.
+*>0*
+	Nothing found or error.
 
 # SEE ALSO
 

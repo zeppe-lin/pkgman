@@ -8,18 +8,18 @@ packages
 # SYNOPSIS
 
 These scripts are invoked by *pkgman*(1) during package installation,
-updates, and removal.  They are not meant ro be run directly as users.
+updates, and removal.  They are not meant to be run directly by users.
 
 # DESCRIPTION
 
-*pkgman*(1) supports the following scripts in a packages' source
+*pkgman*(1) supports the following scripts in a package's source
 directory: _pre-install_, _post-install_, _pre-remove_, and
 _post-remove_.
 
-These scripts allow package maintainers to perform actions before or
-after main operations.  Script execution depends on the *runscripts*
-option in _/etc/pkgman.conf_, and the default interpreter is set by
-*runscriptcommand* (default: *sh*(1p)).
+Scripts allow maintainers to perform actions before or after main
+operations.  Execution depends on the *runscripts* option in
+_/etc/pkgman.conf_.  The default interpreter is set by
+*runscriptcommand* option, and defaults to *sh*(1p).
 
 ## Execution
 
@@ -51,12 +51,15 @@ system updates (e.g., *pkgman-install*(8), *pkgman-remove*(8),
 ## Guidelines
 
 Design packages assuming scripts might not run, especially in *core*
-pkgsrc collection.
+package sources collection.
 
 If _pre-install_ adds a user, _pre-remove_ must remove them.
 
-Scripts should *not*: edit config files, remove other packages,
-restart system services, prompt for user input.
+Scripts should *not*:
+. Edit config files.
+. Remove other packages.
+. Restart system services.
+. Prompt for user input.
 
 Scripts must start with "#!/bin/sh -ex".  The *-e* option ensures that
 the script will exit immediately if any command fails (returns a
@@ -77,7 +80,7 @@ regardless of the user's environment or potential changes in package
 binary locations.
 
 These rules mainly apply to official repositories; custom collections
-have more flexibility.
+may adapt as needed.
 
 # FILES
 

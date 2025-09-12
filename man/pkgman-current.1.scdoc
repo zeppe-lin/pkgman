@@ -14,7 +14,10 @@ Print the version of the specified installed package.
 
 # EXIT STATUS
 
-*0* if success, *255* otherwise.
+*0*
+	Success.
+*>0*
+	Package not found or error.
 
 # FILES
 

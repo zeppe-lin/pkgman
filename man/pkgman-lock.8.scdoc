@@ -2,7 +2,7 @@ PKGMAN-LOCK(8)
 
 # NAME
 
-pkgman-lock - lock the package(s)
+pkgman-lock - lock package(s) to prevent updates
 
 # SYNOPSIS
 
@@ -10,17 +10,20 @@ pkgman-lock - lock the package(s)
 
 # DESCRIPTION
 
-Lock the packages, preventing them from being updated by
+Lock one or more packages, preventing them from being updated by
 *pkgman-sysup*(8) or *pkgman-update*(8) operations.
 
 # EXIT STATUS
 
-*0* if successfully locked, *255* otherwise.
+*0*
+	Package(s) successfully locked.
+*>0*
+	Package(s) not found or error.
 
 # FILES
 
 _/var/lib/pkg/locked_
-	Database of locked packages.
+	Database of currently locked packages.
 
 # SEE ALSO
 

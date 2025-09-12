@@ -44,8 +44,7 @@ A README file may include the following sections:
 	and troubleshooting for common errors.
 
 *CAUTION*, *TROUBLESHOOTING*:
-	Warnings about issues users may encounter, along with
-	solutions to address them.
+	Warnings and solutions for known issues.
 
 *REFERENCES*:
 	Links to detailed online documentation, wikis, or related
@@ -55,7 +54,7 @@ A README file may include the following sections:
 
 When creating README files, maintainers should:
 
-	\* Povide clear and concise instructions.
+	\* Provide clear and concise instructions.
 
 	\* Structure content with sections for key topics described
 	above.
@@ -63,8 +62,8 @@ When creating README files, maintainers should:
 	\* Avoid redundancy by excluding information covered in other
 	scripts or documentation.
 
-These guidelines primarily apply to official repositories.  Custom
-repositories may adapt README content to suit their needs.
+These conventions apply to official repositories; custom repositories
+may adapt as needed.
 
 # FILES
 

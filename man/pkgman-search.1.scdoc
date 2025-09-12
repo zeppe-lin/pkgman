@@ -10,9 +10,12 @@ pkgman-search - search package names in package sources
 
 # DESCRIPTION
 
-Search package source directories for _expr_ in package names.  It
-searches the directories listed in the *pkgsrcdir* option of
+Search package source directories for _expr_ in package names.
+Directories searched are those listed in the *pkgsrcdir* option of
 _/etc/pkgman.conf_.
+
+The _expr_ may be a string or a regex pattern (in *regex*(3) format)
+to match package names.
 
 The options are as follows:
 
@@ -26,15 +29,14 @@ The options are as follows:
 	Show package source path in the listing.
 
 *--regex*
-	Interpret _expr_ as regular expression.
-
-_expr_
-	Search names for _expr_, where the expression may be the
-	string or regex in *regex*(3) format.
+	Interpret _expr_ as a regular expression.
 
 # EXIT STATUS
 
-*0* if success, *255* if nothing found.
+*0*
+	Matches found.
+*>0*
+	Nothing found or error.
 
 # SEE ALSO
 

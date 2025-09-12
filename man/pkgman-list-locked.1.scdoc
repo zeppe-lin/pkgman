@@ -2,7 +2,7 @@ PKGMAN-LIST-LOCKED(1)
 
 # NAME
 
-pkgman-list-locked - print list of locked packages
+pkgman-list-locked - list currently locked packages
 
 # SYNOPSIS
 
@@ -10,8 +10,8 @@ pkgman-list-locked - print list of locked packages
 
 # DESCRIPTION
 
-Print list of locked packages.  "Locked" are packages that will not
-update while performing a system update.
+Print a list of locked packages.  "Locked" are packages protected from
+updates during system update operations.
 
 The options are as follows:
 
@@ -27,7 +27,7 @@ The options are as follows:
 # FILES
 
 _/var/lib/pkg/locked_
-	Database of locked packages.
+	Database of currently locked packages.
 
 # SEE ALSO
 

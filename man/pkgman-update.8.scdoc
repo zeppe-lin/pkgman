@@ -139,6 +139,16 @@ The options are as follows:
 
 *0* on success, *>0* otherwise.
 
+# EXAMPLES
+
+Rebuild all packages that depend on an interpreter after a major
+version upgrade:
+
+```
+pkgman update -fr -if --deps --depsort --group \\
+	$(pkgman rdep python3)
+```
+
 # SEE ALSO
 
 *pkgman*(1),

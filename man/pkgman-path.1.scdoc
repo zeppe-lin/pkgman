@@ -2,7 +2,7 @@ PKGMAN-PATH(1)
 
 # NAME
 
-pkgman-path - print path to package source
+pkgman-path - print the path to a package source
 
 # SYNOPSIS
 
@@ -10,11 +10,18 @@ pkgman-path - print path to package source
 
 # DESCRIPTION
 
-Print the path to the package source directory.
+Print the path to the specified package's source directory.
+
+The specified _pkgname_ (package name) is searched in the package
+sources directories defined by the *pkgsrcdir* option in
+_/etc/pkgman.conf_.
 
 # EXIT STATUS
 
-*0* if path found, *255* otherwise.
+*0*
+	Path found.
+*>0*
+	Package not found or error.
 
 # SEE ALSO
 

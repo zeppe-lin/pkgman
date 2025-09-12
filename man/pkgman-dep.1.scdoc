@@ -17,8 +17,10 @@ _pkgname_
 
 # DESCRIPTION
 
-Print dependencies for a package.  It searches for package sources in
-the directories defined by the *pkgsrcdir* option in
+Print dependencies for a package.
+
+The specified _pkgname_ (package name) is searched in the package
+sources directories defined by the *pkgsrcdir* option in
 _/etc/pkgman.conf_.
 
 The options are as follows:
@@ -33,24 +35,27 @@ The options are as follows:
 	Show package source path in the listing.
 
 *--all*
-	List all packages, not only installed.
+	List all packages, not only installed ones.
 
 *--tree*
-	Print a nicely indented tree of the package dependencies.
+	Print a nicely indented dependency tree.
 
 *--recursive*
-	Print a recursive list of dependencies.  In case *--tree* was
-	specified, subtrees already shown are marked with "-->" to
-	save some space.  If *--tree* option wasn't specified,
-	dependencies already shown are not displayed.  In order to
-	show them all, add the *--full* option (described below).
+	Recursively list dependencies.  If *--tree* is specified,
+	subtrees already show are marked with "-->" to avoid
+	duplication.  Without *--tree*, already show dependencies are
+	ommited.  Use *--full* to show all.
 
 *--full*
-	If *--recursive* option was set, show all dependencies.
+	When used with *--recursive*, show all dependencies without
+	omission.
 
 # EXIT STATUS
 
-*0* on success, *255* if package not found.
+*0*
+	Success.
+*>0*
+	Package not found or error.
 
 # SEE ALSO
 
