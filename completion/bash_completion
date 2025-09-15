@@ -107,7 +107,7 @@ _pkgman()
 
 			list-orphans)
 				COMPREPLY=($(compgen -W '\
-					-v \
+					--dependents \
 					$common_opts \
 					' -- $cur))
 				;;
