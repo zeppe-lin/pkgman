@@ -2,33 +2,35 @@ PKGMAN-CAT(1)
 
 # NAME
 
-pkgman-cat - print out the package's file
+pkgman-cat - display a file from a package source directory
 
 # SYNOPSIS
 
-*pkgman cat* _pkgname_ [_file_]
+*pkgman cat* _package-name_ [_file_]
 
 # DESCRIPTION
 
-Print a file from a package's source directory.  If no file is
-specified, _Pkgfile_ is used.
+The *pkgman cat* command displays the contents of _file_ from the
+source directory of the specified package.
+If no _file_ is specified, _Pkgfile_ is used by default.
 
-The specified _pkgname_ (package name) is searched in the package
-sources directories defined by the *pkgsrcdir* option in
-_/etc/pkgman.conf_.
+The _package-name_ is searched for in the package source directories
+listed by the *pkgsrcdir* directive in *pkgman.conf*(5).
 
 # ENVIRONMENT
 
 *PAGER*
-	Program used to display the file.  If unset, output is written
-	to stdout.
+	Program used to display the file.
+	If unset, output is written to standard output.
 
 # EXIT STATUS
 
 *0*
-	Success.
+	File displayed successfully.
 *255*
-	Package source directory or file not found.
+	Package or file not found.
+*>0*
+	Exit status of the pager program.
 
 # SEE ALSO
 

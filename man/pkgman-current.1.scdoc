@@ -6,27 +6,35 @@ pkgman-current - print installed package version
 
 # SYNOPSIS
 
-*pkgman current* _pkgname_
+*pkgman current* _package-name_
 
 # DESCRIPTION
 
-Print the version of the specified installed package.
+The *pkgman current* command prints the installed version of the
+specified package.
 
-# EXIT STATUS
-
-*0*
-	Success.
-*>0*
-	Package not found or error.
+Installed packages are recorded in the database at _/var/lib/pkg/db_,
+or at _root-dir_/var/lib/pkg/db_ when *--root* is specified.
 
 # FILES
 
 _/var/lib/pkg/db_
 	Database of currently installed packages.
 
+	See *packages*(7).
+
+# EXIT STATUS
+
+*0*
+	Version printed successfully.
+*>0*
+	Package not found, or an error occurred.
+
 # SEE ALSO
 
 *pkgman-isinst*(1),
-*pkgman*(1)
+*pkgman*(1),
+*pkgman.conf*(5),
+*packages*(7)
 
 ; vim: ft=scdoc cc=72 tw=70

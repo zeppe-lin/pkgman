@@ -13,40 +13,45 @@ pkgman-rdep - print reverse dependencies for a package
 [*--tree*] \
 [*--recursive*] \
 [*--full*] \
-_pkgname_
+_package-name_
 
 # DESCRIPTION
 
-Print reverse dependencies for a package.
+The *pkgman rdep* command prints the reverse dependencies of the
+specified package.
 
-The specified _pkgname_ (package name) is searched in the package
-sources directories defined by the *pkgsrcdir* option in
-_/etc/pkgman.conf_.
+The _package-name_ is searched for in the package source directories
+listed by the *pkgsrcdir* directive in *pkgman.conf*(5).
 
 The options are as follows:
 
 *-v*
-	Show package version in the listing.
+	Include the package version in the listing.
 
 *-vv*
-	Show package version and description in the listing.
+	Include the package version and description in the listing.
 
 *--path*
-	Show package source path in the listing.
+	Include the package source path in the listing.
 
 *--all*
-	List all packages, not only installed ones.
+	List all reverse dependencies, not only those that are
+	installed.
 
 *--tree*
-	Print a nicely indented tree of the package reverse
-	dependencies.
+	Display reverse dependencies as an indented tree.
 
 *--recursive*
-	Print a recursive list of reverse dependencies.  If *--tree*
-	is specified, subtrees already shown are marked with "-->" to
-	avoid duplication.  If *--tree* is not specified, reverse
-	dependencies already shown are not repeated.  To display all,
-	use the *--full* option.
+	Print a recursive list of reverse dependencies.
+
+	If *--tree* is specified, subtrees already shown are marked
+	with "-->" to avoid duplication.
+
+	If *--tree* is not specified, reverse dependencies already
+	shown are not repeated.
+
+	Use *--full* to display all reverse dependencies without
+	omission.
 
 *--full*
 	When used with *--recursive*, show all reverse dependencies
@@ -55,17 +60,17 @@ The options are as follows:
 # EXIT STATUS
 
 *0*
-	Success.
+	Reverse dependencies listed successfully.
 *>0*
-	Package not found or error.
+	Package not found, or an error occurred.
 
 # EXAMPLES
 
-When major version of Perl change, full rebuild of all affected
-packages:
+Rebuild all packages affected by a major Perl version change:
 
 ```
-pkgman update -fr --deps --depsort $(pkgman rdep perl)
+pkgman update -fr -if --deps --depsort --group \\
+	$(pkgman rdep perl)
 ```
 
 # SEE ALSO

@@ -10,19 +10,30 @@ pkgman-list-orphans - list orphaned packages
 
 # DESCRIPTION
 
-List orphaned packages on the system.  Orphaned packages are those
-not found in the packages sources directories defined by the
-*pkgsrcdir* option in _/etc/pkgman.conf_.
+The *pkgman list-orphans* command lists orphaned packages on the
+system.
+An orphaned package is one not found in any of the package source
+directories listed by the *pkgsrcdir* directive in *pkgman.conf*(5).
 
 The options are as follows:
 
 *--dependents*
 	Include packages that depend on orphaned or missing packages.
 
+# EXIT STATUS
+
+*0*
+; TODO  Orphaned packages listed successfully.
+	Success.
+*>0*
+; TODO  No orphaned packages found, or an error occurred.
+	An error occurred.
+
 # SEE ALSO
 
 *pkgman-list*(1),
 *pkgman-list-dup*(1),
-*pkgman-list-nodependents*(1)
+*pkgman-list-nodependents*(1),
+*pkgman.conf*(5)
 
 ; vim: ft=scdoc cc=72 tw=70

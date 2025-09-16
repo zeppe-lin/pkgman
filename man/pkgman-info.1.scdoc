@@ -2,20 +2,19 @@ PKGMAN-INFO(1)
 
 # NAME
 
-pkgman-info - show package information
+pkgman-info - display package information
 
 # SYNOPSIS
 
-*pkgman info* [*-v* | *-vv*] _pkgname_
+*pkgman info* [*-v* | *-vv*] _package-name_
 
 # DESCRIPTION
 
-Print information about a package, including version, path, URL, and
-dependencies.
+The *pkgman info* command displays information about a package,
+including its version, source path, URL, and dependencies.
 
-The specified _pkgname_ (package name) is searched in the package
-sources directories defined by the *pkgsrcdir* option in
-_/etc/pkgman.conf_.
+The _package-name_ is searched for in the package source directories
+listed by the *pkgsrcdir* directive in *pkgman.conf*(5).
 
 The options are as follows:
 
@@ -28,19 +27,21 @@ The options are as follows:
 
 *PAGER*
 	If a README is included and *-v* or *-vv* is specified,
-	*pkgman-info* uses *PAGER* to display it.  If unset, the file
-	is written to stdout.
+	*pkgman-info* uses *PAGER* to display it.
+	If unset, the README is written to standard output.
 
 # EXIT STATUS
 
 *0*
-	Success.
+	Information displayed successfully.
 *>0*
-	Package not found or error.
+	Package not found, or an error occurred.
 
 # SEE ALSO
 
 *pkgman*(1),
+*pkgman-readme*(1),
+*pkgman-readme*(7),
 *pkgman.conf*(5)
 
 ; vim: ft=scdoc cc=72 tw=70

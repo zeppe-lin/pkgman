@@ -9,209 +9,202 @@ pkgman - advanced package management tool
 *pkgman* \
 [*-Vh*] \
 [*--no-std-config*] \
-[*--config*=_conffile_] \
-[*--config-set*="_string_"] \
-[*--config-append*="_string_"] \
-[*--config-prepend*="_string_"] \
-[*--root*=_rootdir_] \
+[*--config*=_config-file_] \
+[*--config-set*=_string_] \
+[*--config-append*=_string_] \
+[*--config-prepend*=_string_] \
+[*--root*=_root-dir_] \
 [*--*] \
 _command_ \
 [_args_]
 
 # DESCRIPTION
 
-*pkgman* is a package management tool providing enhanced functionality
-beyond basic package management utilities like *pkgmk*(8),
-*pkgadd*(8), *pkgrm*(8), and *pkginfo*(1).  It acts as a front-end or
-provides supplementary features for these core tools.
+The *pkgman* utility is a front end to, and extends, the core package
+tools *pkgmk*(8), *pkgadd*(8), *pkgrm*(8), and *pkginfo*(1).
+It provides advanced package management features and a unified
+interface for building, installing, updating, and querying packages.
 
-## Generic Options
+# GENERIC OPTIONS
 
-Each command has its own set of specific options and arguments.  The
-following options are common to all commands:
+The following options are common to all *pkgman* commands.
+Each command may also define its own options and arguments.
 
 *--no-std-config*
-	Ignore default (_/etc/pkgman.conf_) configuration file.
+	Ignore the default configuration file.
 
-*--config*=_conffile_
-	Use an alternate configuration file instead of the default
-	_/etc/pkgman.conf_.
+*--config*=_config-file_
+	Use an alternate configuration file.
 
-*--config-set*="_string_"
-	Set _string_ in configuration, overriding configuration file.
+	Default: _/etc/pkgman.conf_.
 
-*--config-append*="_string_"
-	Append _string_ to configuration.
+*--config-set*=_string_
+	Set a configuration entry, overriding the config file.
 
-*--config-prepend*="_string_"
-	Prepend _string_ to configuration.
+*--config-append*=_string_
+	Append to a configuration entry.
 
-*--root*=_rootdir_
-	Specify an alternate root directory instead of the default
-	'*/*'.
+*--config-prepend*=_string_
+	Prepend to a configuration entry.
+
+*--root*=_root-dir_
+	Use an alternate root directory.
+
+	Default: */*.
 
 *-V*, *--version*
-	Print program version and exit.
+	Print version and exit.
 
 *-h*, *--help*
-	Print the _command_'s help (actually the manual page) if
-	command argument specified.  Otherwise, print this manual page
-	as a help message.
+	Print the manual page for _command_, or this page if no
+	command is specified.
 
 *--*
-	Signal the end of options.  Any arguments following *--* are
-	treated as the _command_ and its arguments.  This is useful
-	for specifying command arguments that begin with '*-*'.  For
-	example:
+	Signal the end of options.
+	Any arguments following *--* are treated as the _command_ and
+	its arguments.
+	Useful when command arguments begin with '*-*'.
+
+	Example:
+
 	```
 	pkgman search --regex -- -lib
-	-- search ([i] = installed)
-	[i] alsa-lib
-	[i] p5-libwww
-	[...]
-
 	pkgman --regex -- search -lib
-	-- search ([i] = installed)
-	[i] alsa-lib
-	[i] p5-libwww
-	[...]
 	```
 
-## Commands
+# COMMANDS
 
-*pkgman* uses so-called commands, which always have to be the first
-non-option argument passed.  The commands can be divided into the
-following self-explanatory categories:
+The first non-option argument is always the command name.
+Commands are grouped into the following categories.
 
-*Informational Commands*:
+## Informational
 
-	*pkgman-dumpconfig*(1)
-		Dump current configuration.
+*pkgman-dumpconfig*(1)
+	Print current configuration.
 
-	*pkgman-list*(1)
-		Print list of available packages.
+*pkgman-list*(1)
+	List available packages.
 
-	*pkgman-list-dup*(1)
-		Print list of duplicate packages.
+*pkgman-list-dup*(1)
+	List duplicate packages.
 
-	*pkgman-list-nodependents*(1)
-		Print list of packages that no other depends on them.
+*pkgman-list-nodependents*(1)
+	List packages without dependents.
 
-	*pkgman-list-locked*(1)
-		Print list of locked packages.
+*pkgman-list-locked*(1)
+	List currently locked packages.
 
-	*pkgman-list-orphans*(1)
-		Print list of orphaned packages.
+*pkgman-list-orphans*(1)
+	List orphaned packages.
 
-	*pkgman-printf*(1)
-		Print formatted list of available packages.
+*pkgman-printf*(1)
+	Print formatted list of available packages.
 
-	*pkgman-info*(1)
-		Print package info.
+*pkgman-info*(1)
+	Display package information.
 
-	*pkgman-readme*(1)
-		Print the package's README.
+*pkgman-readme*(1)
+	Print a package's README file.
 
-	*pkgman-path*(1)
-		Print path to package source.
+*pkgman-path*(1)
+	Print the path to a package source.
 
-	*pkgman-isinst*(1)
-		Print whether packages are installed or not.
+*pkgman-isinst*(1)
+	Check if packages are installed.
 
-	*pkgman-current*(1)
-		Print installed package version.
+*pkgman-current*(1)
+	Print installed package version.
 
-	*pkgman-diff*(1)
-		Print the differences between installed and available
-		packages.
+*pkgman-diff*(1)
+	Show differences between installed and available packages.
 
-*Dependency Commands*:
+## Dependency
 
-	*pkgman-dep*(1)
-		Print dependencies for a package.
+*pkgman-dep*(1)
+	Print dependencies for a package.
 
-	*pkgman-rdep*(1)
-		Print reverse dependencies for a package.
+*pkgman-rdep*(1)
+	Print reverse dependencies for a package.
 
-*Searching Commands*:
+## Search
 
-	*pkgman-search*(1)
-		Search the packages sources directories for package
-		name.
+*pkgman-search*(1)
+	Search package source directories for package names.
 
-	*pkgman-dsearch*(1)
-		Search the packages sources directories for package
-		name and description.
+*pkgman-dsearch*(1)
+	Search package source directories for package names and
+	descriptions.
 
-	*pkgman-fsearch*(1)
-		Search the packages sources directories for a file in
-		package footprint.
+*pkgman-fsearch*(1)
+	Search package source directories for files listed in package
+	footprints.
 
-*Package Management Commands*:
+## Management
 
-	*pkgman-install*(8)
-		Install package(s).
+*pkgman-install*(8)
+	Install packages.
 
-	*pkgman-update*(8)
-		Update installed package(s).
+*pkgman-update*(8)
+	Update packages.
 
-	*pkgman-remove*(8)
-		Remove installed package(s).
+*pkgman-remove*(8)
+	Remove installed packages.
 
-*System Update Commands*:
+## System update
 
-	*pkgman-sysup*(8)
-		Update all outdated packages.
+*pkgman-sysup*(8)
+	Update all outdated packages.
 
-	*pkgman-lock*(8)
-		Lock the package(s).
+*pkgman-lock*(8)
+	Lock packages to prevent updates.
 
-	*pkgman-unlock*(8)
-		Unlock the package(s).
+*pkgman-unlock*(8)
+	Unlock packages for updates.
 
-*File Operation Commands*:
+## File operations
 
-	*pkgman-ls*(1)
-		Print out a listing of the package's directory.
+*pkgman-ls*(1)
+	List contents of a package source directory.
 
-	*pkgman-cat*(1)
-		Print out the package's file.
+*pkgman-cat*(1)
+	Display a file from a package source directory.
 
-	*pkgman-edit*(8)
-		Edit the package's file.
+*pkgman-edit*(8)
+	Edit a file from a package source directory.
 
 # EXIT STATUS
 
-*pkgman* returns *0* on success and *>0* if an error occurs.
+*0*
+	Command executed successfully.
+*>0*
+	An error occurred.
 
 # FILES
 
 _/etc/pkgman.conf_
-	Default configuration file.
-	See *pkgman.conf*(5) for more information.
+	Configuration file.
+
+	See *pkgman.conf*(5).
 
 _/var/lib/pkg/db_
-	Database of currently installed packages.
+	Database of installed packages.
+
+	See *packages*(7).
 
 _/var/lib/pkg/locked_
-	Database of currently locked packages.  Used by
-	*pkgman-lock*(8), *pkgman-unlock*(8) and
-	*pkgman-list-locked*(1).
+	Database of locked packages, used by *pkgman-lock*(8),
+	*pkgman-unlock*(8), and *pkgman-list-locked*(1).
 
-*Note*:
-	When the *--root*=_rootdir_ is specified,  database are
-	relocated to _rootdir/var/lib/pkg/db_ and
-	_rootdir/var/lib/pkg/locked_.
+When *--root*=_root-dir_ is specified, databases are read from and
+written to _root-dir/var/lib/pkg/db_ and
+_root-dir/var/lib/pkg/locked_.
 
 # SEE ALSO
 
-*pkgman.conf*(5)
-
-# AUTHORS
-
-Originally written by Johannes Winkelmann <jw@tks6.net> as *prt-get*
-for CRUX (http://crux.nu).
-
-Reworked for Zeppe-Lin by Alexandr Savca <alexandr.savca89@gmail.com>.
+*pkgman.conf*(5),
+*pkgmk*(8),
+*pkgadd*(8),
+*pkgrm*(8),
+*pkginfo*(1)
 
 ; vim: ft=scdoc cc=72 tw=70

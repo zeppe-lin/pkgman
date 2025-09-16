@@ -6,27 +6,30 @@ pkgman-ls - list contents of a package source directory
 
 # SYNOPSIS
 
-*pkgman ls* [*--path*] _pkgname_ ...
+*pkgman ls* [*--path*] _package-name_ ...
 
 # DESCRIPTION
 
-List the contents of a package's source directory.
+The *pkgman ls* command lists the contents of the source directory for
+the specified package.
 
-The specified _pkgname_ (package name) is searched in the package
-sources directories defined by the *pkgsrcdir* option in
-_/etc/pkgman.conf_.
+The _package-name_ is searched for in the package source directories
+listed by the *pkgsrcdir* directive in *pkgman.conf*(5).
 
 The options are as follows:
 
 *--path*
-	Show full paths in the listing.
+	Show the package source path in the listing instead of
+	relative paths.
 
 # EXIT STATUS
 
 *0*
-	Success.
+	Contents listed successfully.
 *255*
-	Package source is not found.
+	Package not found.
+*>0*
+	An error occurred.
 
 # SEE ALSO
 

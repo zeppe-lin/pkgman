@@ -13,80 +13,88 @@ pkgman-remove - remove installed packages
 [*--deps*] \
 [*--force*] \
 [*--group*] \
-[*--rargs*=_pkgrm_args_] \
-[*--ignore*=_pkgname_[,...]] \
+[*--rargs*=_pkgrm-args_] \
+[*--ignore*=_package-name_[,...]] \
 [*--remove-scripts* | [*--pre-remove*] [*--post-remove*]] \
-_pkgname_ ...
+_package-name_ ...
 
 # DESCRIPTION
 
-Remove all installed packages in the listed order.
+The *pkgman remove* command removes the specified installed packages
+in the order listed.
 
 The options are as follows:
 
 *-v*
-	No operation.  This option is unused.
+	No operation.
+	This option is unused.
 
 *-vv*
-	Enable verbose output, logging the remove process to standard
-	output.
+	Enable verbose output.
+	Log the removal process to standard output.
 
 *--test*
-	Perform a dry run; do not actually remove packages.
+	Perform a dry run; do not remove packages.
 
 *--log*
-	Enable transaction logging for this remove operation.  Global
-	logging can be configured using the *writelog* option in
+	Enable transaction logging for this operation.
+	Global logging is controlled by the *writelog* setting in
 	*pkgman.conf*(5).
 
 *--deps*
 	Include all dependencies of the specified packages in the
-	remove process.
+	removal process.
 
 	*Important*:
-		Option *--deps* also removes dependencies of the
-		specified packages if those dependencies are not
-		required by any other installed package (outside of
-		the packages specified for removal).  Use with extreme
-		caution (preferably not at all) as this can
-		unintentionally remove needed packages.
+		This option also removes dependencies of the specified
+		packages if those dependencies are not required by any
+		other installed package (outside of the packages
+		specified for removal).
+		Use with extreme caution, as this can unintentionally
+		remove needed packages.
 
 *--force*
 	Skip already removed packages and continue with the next
-	package in the list.  Skipped packages will be summarized in
-	the final report.
+	package.
+	Skipped packages are summarized in the final report.
 
 *--group*
 	Remove the specified packages in order, stopping immediately
-	if the remove of any package fails.
+	if the removal of any package fails.
 
-; FIXME: actually specified arguments are passed to removecommand of
-; pkgman(1).
-*--rargs*=_pkgrm_args_
-	Pass the specified arguments directly to the *pkgrm*(8).
+*--rargs*=_pkgrm-args_
+	Pass the specified arguments directly to the *removecommand*
+	(see *pkgman.conf*(5)).
 
-*--ignore*=_pkgname_[,...]
-	Ignore the specified packages during the remove process.
+*--ignore*=_package-list_
+	Ignore the specified packages during removal, even if they are
+	dependencies.
+	_package-list_ is a comma-separated list of package names.
 
 *--remove-scripts*
-	Execute any available pre-remove and post-remove scripts for
-	the packages being removed.
+	Execute any available _pre-remove_ and _post-remove_ scripts.
 
 *--pre-remove*
-	Execute any available pre-remove script for the packages being
-	removed.
+	Execute any available _pre-remove_ script.
 
 *--post-remove*
-	Execute any available post-remove script for the packages
-	being remove.
+	Execute any available _post-remove_ script.
 
 # EXIT STATUS
 
-*0* on success, *>0* otherwise.
+*0*
+	Packages removed successfully.
+*>0*
+	One or more packages were not removed, or an error occurred.
 
 # SEE ALSO
 
+*pkgman-install*(8),
+*pkgman-update*(8),
+*pkgman-sysup*(8),
 *pkgman*(1),
-*pkgman.conf*(5)
+*pkgman.conf*(5),
+*pkgman-runscripts*(7),
+*pkgrm*(8)
 
 ; vim: ft=scdoc cc=72 tw=70

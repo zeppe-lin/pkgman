@@ -2,7 +2,7 @@ PKGMAN-SEARCH(1)
 
 # NAME
 
-pkgman-search - search package names in package sources
+pkgman-search - search package source directories for package names
 
 # SYNOPSIS
 
@@ -10,23 +10,23 @@ pkgman-search - search package names in package sources
 
 # DESCRIPTION
 
-Search package source directories for _expr_ in package names.
-Directories searched are those listed in the *pkgsrcdir* option of
-_/etc/pkgman.conf_.
+The *pkgman search* command searches the package source directories
+listed by the *pkgsrcdir* directive in *pkgman.conf*(5) for _expr_ in
+package names.
 
-The _expr_ may be a string or a regex pattern (in *regex*(3) format)
-to match package names.
+The _expr_ argument may be a plain string or a regular expression in
+*regex*(3) format.
 
 The options are as follows:
 
 *-v*
-	Show package version in the listing.
+	Include the package version in the listing.
 
 *-vv*
-	Show package version and description in the listing.
+	Include the package version and description in the listing.
 
 *--path*
-	Show package source path in the listing.
+	Include the package source path in the listing.
 
 *--regex*
 	Interpret _expr_ as a regular expression.
@@ -36,12 +36,13 @@ The options are as follows:
 *0*
 	Matches found.
 *>0*
-	Nothing found or error.
+	No matches found, or an error occurred.
 
 # SEE ALSO
 
 *pkgman-dsearch*(1),
 *pkgman-fsearch*(1),
-*pkgman*(1)
+*pkgman*(1),
+*pkgman.conf*(5)
 
 ; vim: ft=scdoc cc=72 tw=70

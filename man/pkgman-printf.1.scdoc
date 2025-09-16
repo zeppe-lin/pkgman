@@ -14,22 +14,24 @@ _format_
 
 # DESCRIPTION
 
-Print formatted list of available packages, searched in the package
-sources directories defined by the *pkgsrcdir* option in
-_/etc/pkgman.conf_.
+The *pkgman printf* command prints a formatted list of available
+packages from the package source directories listed by the *pkgsrcdir*
+directive in *pkgman.conf*(5).
 
 The options are as follows:
 
 *--sort*=_format_
-	The format string (see below) that is used to sort the output.
+	Use the specified format string (see *FORMAT STRING*) to sort
+	the output.
 
 *--regex*
-	Interpret *--filter* argument as a regular expression.
+	Interpret the *--filter* _expr_ as a regular expression.
 
 *--filter*=_expr_
-	Filter listing package names by _expr_.  The *--filter*
-	argument may be the string, wildcard in *fnmatch*(3) format,
-	or regex in *regex*(3) format.
+	Filter package names by _expr_.
+	The expression may be a plain string, a wildcard pattern in
+	*fnmatch*(3) format, or a regular expression in *regex*(3)
+	format.
 
 # FORMAT STRING
 
@@ -40,7 +42,7 @@ The following placeholders may be used in the _format_ string:
 %v
 	Package version.
 %r
-	package release number.
+	Package release number.
 %p
 	Package path.
 %d
@@ -67,22 +69,22 @@ The following placeholders may be used in the _format_ string:
 	Package is locked (yes/no).
 %i
 	Package is installed (yes/no/diff).
+	The value 'diff' indicates the package is installed but a
+	different version is available in the package sources.
 
-The "diff" value for "%i" indicates the package is installed but a
-different version is available in the package sources.
-
-Use "\\n" and "\\t" for newlines and tabs.  No other format specifiers
-are supported.
+Use '\\n' for newlines and '\\t' for tabs.
+No other format specifiers are supported.
 
 # EXIT STATUS
 
 *0*
-	Success.
+	Packages listed successfully.
 *>0*
-	Packages not found or error.
+	No packages found, or an error occurred.
 
 # SEE ALSO
 
+*pkgman-list*(1),
 *pkgman*(1),
 *pkgman.conf*(5)
 

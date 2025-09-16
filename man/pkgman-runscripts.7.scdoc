@@ -2,108 +2,92 @@ PKGMAN-RUNSCRIPTS(7)
 
 # NAME
 
-pkgman-runscripts - pre/post-install and pre/post-remove scripts for
-packages
+pkgman-runscripts - package pre/post-install and pre/post-remove scripts
 
 # SYNOPSIS
 
-These scripts are invoked by *pkgman*(1) during package installation,
-updates, and removal.  They are not meant to be run directly by users.
+Scripts are invoked by *pkgman*(1) during package installation,
+updates, and removal.
+They are not intended to be run directly by users.
 
 # DESCRIPTION
 
-*pkgman*(1) supports the following scripts in a package's source
-directory: _pre-install_, _post-install_, _pre-remove_, and
-_post-remove_.
+Each package source may contain up to four scripts: _pre-install_,
+_post-install_, _pre-remove_, and _post-remove_.
+They are placed in the package source directory and executed by
+*pkgman*(1) at the corresponding stage.
 
-Scripts allow maintainers to perform actions before or after main
-operations.  Execution depends on the *runscripts* option in
-_/etc/pkgman.conf_.  The default interpreter is set by
-*runscriptcommand* option, and defaults to *sh*(1p).
+The _pre-install_ script runs before files are installed, and
+_post-install_ runs immediately after.
+Likewise, _pre-remove_ runs before files are removed, and
+_post-remove_ runs after removal has finished.
+These hooks allow maintainers to perform actions that cannot be
+handled by the package manager alone, such as creating users or
+cleaning up application state.
 
-## Execution
+Execution of scripts is controlled by the *runscripts* and
+*runscriptcommand* settings in *pkgman.conf*(5).
+The latter defines the interpreter and defaults to _/bin/sh_.
 
-*pre-install*:  Runs before files are installed.++
-*post-install*: Runs after files are installed.++
-*pre-remove*:   Runs before files are removed.++
-*post-remove*:  Runs after files are removed.
+Scripts must be minimal and predictable.
+A package must function even if its scripts are skipped, which may
+happen if run scripts are disabled.
+In particular, the *core* collection must not rely on them.
+If a _pre-install_ script creates a user, the corresponding
+_pre-remove_ script must remove it.
+Scripts must not edit configuration files, remove packages, restart
+services, or prompt for user input.
 
-## Reporting Failures
+Each script should begin with:
 
-Failures (non-zero exit code) in these scripts do not abort the
-associated *pkgman*(1) operation.  Instead, *pkgman*(1) reports script
-statuses:
+```
+#!/bin/sh -ex
+```
 
-	For a single script failure:
-	```
-	pkgman: installing pkgname [pre: fail]
-	```
-
-	For multiple scripts with mixed results:
-	```
-	pkgman: installing pkgname [pre: ok, post: fail]
-	```
-
-This applies to operations like installation, removal, updates, and
-system updates (e.g., *pkgman-install*(8), *pkgman-remove*(8),
-*pkgman-update*(8), and *pkgman-sysup*(8)).
-
-## Guidelines
-
-Design packages assuming scripts might not run, especially in *core*
-package sources collection.
-
-If _pre-install_ adds a user, _pre-remove_ must remove them.
-
-Scripts should *not*:
-. Edit config files.
-. Remove other packages.
-. Restart system services.
-. Prompt for user input.
-
-Scripts must start with "#!/bin/sh -ex".  The *-e* option ensures that
-the script will exit immediately if any command fails (returns a
-non-zero exit status), following fail-first practice.  The *-x* option
-enables logging of script execution by *pkgman*(1), which is helpful
-for debugging script failures.
-
-It's recommended to explicitly set the *PATH* environment variable at
-the beginning of your scripts to include all necessary directories,
-like:
+The *-e* option causes the shell to stop on the first failing command.
+The *-x* option logs commands as they run, which helps in debugging.
+It is recommended to set a known *PATH* explicitly at the beginning of
+every script, for example:
 
 ```
 export PATH="/sbin:/usr/sbin:/bin:/usr/bin"
 ```
 
-This ensures that commands used within the script can be found
-regardless of the user's environment or potential changes in package
-binary locations.
+If a script exits with a non-zero status, *pkgman*(1) does not abort
+the main operation.
+Instead, it reports the outcome of each script.
+For example:
 
-These rules mainly apply to official repositories; custom collections
-may adapt as needed.
+```
+pkgman: installing package [pre: fail]
+pkgman: installing package [pre: ok, post: fail]
+```
+
+This reporting mechanism is used consistently across installation,
+removal, update, and system update operations.
 
 # FILES
 
 _/etc/pkgman.conf_
-	Configuretion for *pkgman*(1).
+	Configuration file for *pkgman*(1).
 
 # EXAMPLES
 
-The following examples demonstrate a _post-install_ and a
-corresponding _post-remove_ script for "dhcpcd" package.
+The following _post-install_ script for the "dhcpcd" package ensures
+that the user and group exist and that the data directory has correct
+ownership:
 
-*post-install*:
 ```
 #!/bin/sh -ex
 
 export PATH="/sbin:/usr/sbin:/bin:/usr/bin"
 
 if ! getent group  dhcpcd >/dev/null; then
-      groupadd -r dhcpcd
+    groupadd -r dhcpcd
 fi
 
 if ! getent passwd dhcpcd >/dev/null; then
-      useradd  -g dhcpcd -r -d /var/lib/dhcpcd -s /bin/false dhcpcd
+    useradd  -g dhcpcd -r -d /var/lib/dhcpcd -s /bin/false dhcpcd
 fi
 
 passwd -l dhcpcd
@@ -112,10 +96,11 @@ chown -R dhcpcd:dhcpcd /var/lib/dhcpcd
 # End of file.
 ```
 
-This script ensures the dhcpcd group and user exist, locks the user's
-password, and sets the correct ownership for its data directory.
+The corresponding _post-remove_ script deletes them if they still
+exist.
+The _/var/lib/dhcpcd_ directory is typically handled by the
+package manager during removal:
 
-*post-remove*:
 ```
 #!/bin/sh -ex
 
@@ -131,10 +116,6 @@ fi
 
 # End of file.
 ```
-
-This script removes the dhcpcd user and group if they exist on the
-system.  The _/var/lib/dhcpcd_ directory is typically handled by the
-package manager during the removal process.
 
 # SEE ALSO
 

@@ -15,8 +15,9 @@ pkgman-diff - show differences between installed and available packages
 
 # DESCRIPTION
 
-List installed packages with versions differing from those in the
-package sources.
+The *pkgman diff* command lists installed packages whose versions
+differ from those in the package source directories listed by the
+*pkgsrcdir* directive in *pkgman.conf*(5).
 
 The options are as follows:
 
@@ -30,27 +31,41 @@ The options are as follows:
 	Display a more detailed output table.
 
 *--regex*
-	Interpret filter argument as a regular expression.
+	Interpret the *--filter* argument as a regular expression.
 
 *--filter*=_expr_
-	Filter listing packages by _expr_, where the expression may be
-	the string, wildcard in *fnmatch*(3) format, or regex in
-	*regex*(3) format.
+	Filter package names by _expr_.
+	The expression may be a plain string, a wildcard pattern in
+	*fnmatch*(3) format, or a regular expression in *regex*(3)
+	format.
 
-*Note*:
-	The comparison behaviour is influenced by the *preferhigher*
-	configuration setting in _pkgman.conf_(5).  To modify the
-	comparison behaviour for this operation only (e.g., to compare
-	the packages using version comparison and show only packages
-	with higher version) then call *pkgman*(1) with custom
-	*--config-append* settings as shown below:
-	```
-	pkgman --config-append="preferhigher yes" diff ...
-	```
+# EXIT STATUS
+
+*0*
+	Differences listed successfully.
+*>0*
+; TODO  No differences found or an error occurred.
+	An error occurred.
 
 # SEE ALSO
 
 *pkgman*(1),
 *pkgman.conf*(5)
+
+# CAVEATS
+
+Version comparison is affected by the *preferhigher* setting in
+*pkgman.conf*(5):
+
+_yes_
+	Show only packages where available > installed.
+_no_ (default)
+	Show any packages where available != installed.
+
+To override for a single run:
+
+```
+pkgman --config-append="preferhigher yes" diff
+```
 
 ; vim: ft=scdoc cc=72 tw=70

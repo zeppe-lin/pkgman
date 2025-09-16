@@ -2,7 +2,7 @@ PKGMAN-DUMPCONFIG(1)
 
 # NAME
 
-pkgman-dumpconfig - dump the current configuration
+pkgman-dumpconfig - print current configuration
 
 # SYNOPSIS
 
@@ -10,14 +10,16 @@ pkgman-dumpconfig - dump the current configuration
 
 # DESCRIPTION
 
-Print the current configuration to stdout.
+The *pkgman dumpconfig* command prints the current configuration as
+seen by *pkgman*(1), including any overrides specified on the command
+line.
 
 # EXIT STATUS
 
 *0*
-	Success.
+	Configuration printed successfully.
 *>0*
-	Error.
+	An error occurred.
 
 # SEE ALSO
 

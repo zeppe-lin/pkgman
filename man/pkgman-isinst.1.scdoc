@@ -2,31 +2,39 @@ PKGMAN-ISINST(1)
 
 # NAME
 
-pkgman-isinst - print whether packages are installed or not
+pkgman-isinst - check if packages are installed
 
 # SYNOPSIS
 
-*pkgman isinst* _pkgname_ ...
+*pkgman isinst* _package-name_ ...
 
 # DESCRIPTION
 
-Report whether the specified packages are installed.
+The *pkgman isinst* command checks whether the specified packages are
+installed.
+
+Installed packages are recorded in the database at _/var/lib/pkg/db_,
+or at _root-dir_/var/lib/pkg/db_ when *--root* is specified.
 
 # EXIT STATUS
 
 *0*
-	Package is installed.
+	All specified packages are installed.
 *>0*
-	Package is not installed or error.
+	One or more packages are not installed, or an error occurred.
 
 # FILES
 
 _/var/log/pkg/db_
 	Database of currently installed packages.
 
+	See *packages*(7).
+
 # SEE ALSO
 
+*pkgman-current*(1),
 *pkgman*(1),
-*pkgman.conf*(5)
+*pkgman.conf*(5),
+*packages*(7)
 
 ; vim: ft=scdoc cc=72 tw=70

@@ -2,33 +2,62 @@ PKGMAN-README(1)
 
 # NAME
 
-pkgman-readme - print the package's README
+pkgman-readme - display a package's README file
 
 # SYNOPSIS
 
-*pkgman readme* _pkgname_
+*pkgman readme* _package-name_
 
 # DESCRIPTION
 
-Print the README file from a package's source directory.  The file
-is optional; if absent, the command exits with an error.
+The *pkgman readme* command displays the README file from a package's
+source directory.
+When both _README.md_ and _README_ are present, _README.md_ takes
+precedence.
 
-If both README.md and README exist, README.md takes precedence.
-
-See *pkgman-readme*(7) for details on format and conventions.
+The _package-name_ is searched for in the package source directories
+listed by the *pkgsrcdir* directive in *pkgman.conf*(5).
 
 # ENVIRONMENT
 
 *PAGER*
-	Program used to display the README.  If unset, output is
-	written to stdout.
+	Program used to display the README.
+	If unset, output is written to standard output.
 
 # EXIT STATUS
 
 *0*
-	Success.
+	README displayed successfully.
 *>0*
-	README not found, package not found, or error.
+	README not found, package not found, or an error occurred.
+
+# NOTES
+
+*pkgman readme* outputs the README file as plain text; it does not
+render Markdown.
+For details on README file format and conventions, see
+*pkgman-readme*(7).
+
+# EXAMPLES
+
+Display a package's README in the default pages:
+
+```
+pkgman readme hdparm
+```
+
+Render a Markdown README in Firefox (with a Markdown viewer
+extension):
+
+```
+PAGER=firefox pkgman readme hdparm
+```
+
+Open a markdown README in an external program such as *glow*:
+
+```
+pkgman readme hdparm | glow
+```
 
 # SEE ALSO
 

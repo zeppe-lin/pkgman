@@ -18,40 +18,43 @@ pkgman-sysup - update all outdated packages
 [*--deps*] \
 [*--depsort*] \
 [*--group*] \
-[*--margs*=_pkgmk_args_ | *-fr* | *-um* | *-im* | *-uf* | *-if* | *-ns* | *-kd*] \
-[*--aargs*=_pkgadd_args_ | *-f* | *-i*] \
-[*--ignore*=_pkgname_[,...]] \
+[*--margs*=_pkgmk-args_ | *-fr* | *-um* | *-im* | *-uf* | *-if* | *-ns* | *-kd*] \
+[*--aargs*=_pkgadd-args_ | *-f* | *-i*] \
+[*--ignore*=_package-list_] \
 [*--install-scripts* | [*--pre-install*] [*--post-install*]]
 
 # DESCRIPTION
 
-Update all installed packages which are outdated.  It searches for
-package sources in the directories defnied by the *pkgsrcdir* option
-in _/etc/pkgman.conf_.
+The *pkgman sysup* command updates all installed packages that are
+outdated.
+Package sources are searched in the directories listed by the
+*pkgsrcdir* directive in *pkgman.conf*(5).
 
-Also see the *pkgman-lock*(8) and *pkgman-unlock*(8) commands to keep
-the currently installed versions, even if there are changes in the
-packages sources directories.
+By default, any version difference is treated as an update.
+See *CAVEATS* for details on the *preferhigher* setting, which
+controls whether downgrades are included.
 
-If you want to update only diffs which have a lower version installed
-than the one in the packages sources directories, use the
-*--config-append*="preferhigher yes" option.
+To keep specific packages at their current version, use
+*pkgman-lock*(8).
+Locked packages are skipped by *pkgman sysup* until they are
+explicitly unlocked with *pkgman-unlock*(8).
 
 The options are as follows:
 
 *-v*
-	No operation.  This option is unused.
+	No operation.
+	This option is unused.
 
 *-vv*
-	Enable verbose output, logging the update process to standard
-	output.
+	Enable verbose output.
+	Log the update process to standard output.
 
 *--test*
-	Perform a dry run; do not build or install packages.
+	Perform a dry run; do not build or install/update packages.
 
 *--log*
-	Enable transaction logging for this sysup operation.  Global
-	logging can be configured using the *writelog* option in
+	Enable transaction logging for this operation.
+	Global logging is controlled by the *writelog* setting in
 	*pkgman.conf*(5).
 
 *--deps*
@@ -62,20 +65,21 @@ The options are as follows:
 	Sort packages by dependency order before updating.
 
 *--force*
-	If a package being updated is already installed, skip its
-	installation and proceed with the next package.  Skipped
-	packages will be noted in the final report.
+	Skip already installed packages and continue with the next
+	package.
+	Skipped packages are summarized in the final report.
 
 *--group*
 	Update all packages in order, stopping immediately if the
-	update of any package fails.  This is useful for updating
-	dependent packages sequentially.
+	update of any package fails.
+	Useful for updating dependent packages sequentially.
 
-*--margs*=_pkgmk_args_
-	Pass the specified arguments directly to the *pkgmk*(8)
-	command.
+*--margs*=_pkgmk-args_
+	Pass the specified arguments directly to the *makecommand*
+	(see *pkgman.conf*(5)).
 
-	Shorthands for the above *--margs*=_pkgmk_args_:
+	Shorthands for *--margs* when *makecommand* defaults to
+	_/usr/sbin/pkgmk_:
 
 	*-fr*
 		Force the package build.
@@ -85,7 +89,7 @@ The options are as follows:
 	*-um*
 		Update the package's MD5 checksum.
 
-		Equivalent to *--margs=-um*
+		Equivalent to *--margs=-um*.
 
 	*-im*
 		Ignore the package's MD5 checksum during build.
@@ -103,51 +107,105 @@ The options are as follows:
 		Equivalent to *--margs=-if*.
 
 	*-ns*
-		Disable stripping of binaries during the build
-		process.
+		Disable stripping of binaries during build.
 
 		Equivalent to *--margs=-ns*.
 
 	*-kw*
-		Keep the build working directory after the build
-		process.
+		Keep the build working directory after build.
 
 		Equivalent to *--margs=-kw*.
 
-*--aargs*=_pkgadd_args_
-	Pass the specified arguments directly to the *pkgadd*(8)
-	command.
+*--aargs*=_pkgadd-args_
+	Pass the specified arguments directly to the *addcommand* (see
+	*pkgman.conf*(5)).
 
-	Shorthands for the above *--aargs*=_pkgadd_args_:
+	Shorthands for *--aargs* when *addcommand* defaults to
+	_/usr/sbin/pkgadd_:
 
 	*-f*, *-i*
 		Force the package installation.
 
 		Equivalent to *--aargs=-f*.
 
-*--ignore*=_pkgname_[,...]
-	Ignore the specified packages during the update process,
-	even if they are dependencies of the packages being updated.
+*--ignore*=_package-list_
+	Ignore the specified packages during the update, even if they
+	are dependencies.
+	_package-list_ is a comma-separated list of package names.
 
 *--install-scripts*
-	Execute any available pre-install and post-install scripts for
-	the packages being updated.
+	Execute any available _pre-install_ and _post-install_
+	scripts.
 
 *--pre-install*
-	Execute any available pre-install script for the packages
-	being updated.
+	Execute any available _pre-install_ script.
 
 *--post-install*
-	Execute any available post-install script for the packages
-	being updated.
+	Execute any available _post-install_ script.
 
 # EXIT STATUS
 
-*0* on success, *>0* otherwise.
+*0*
+	All outdated packages updated successfully.
+*>0*
+	One or more packages were not updated, or an error occurred.
+
+# EXAMPLES
+
+Update all packages, following repository state:
+
+```
+pkgman sysup
+```
+
+Update only when the available version is higher than the installed
+version:
+
+```
+pkgman --config-append="preferhigher yes" sysup
+```
+
+Update all packages except linux and linux-firmware:
+
+```
+pkgman sysup --ignore=linux,linux-firmware
+```
+
+Update while respecting locks set on specific packages:
+
+```
+pkgman lock linux
+pkgman sysup
+```
 
 # SEE ALSO
 
+*pkgman-update*(8),
+*pkgman-lock*(8),
+*pkgman-unlock*(8),
 *pkgman*(1),
-*pkgman.conf*(5)
+*pkgman.conf*(5),
+*pkgman-runscripts*(7),
+*pkgmk*(8),
+*pkgadd*(8)
+
+# CAVEATS
+
+The *preferhigher* setting in *pkgman.conf*(5) controls whether
+downgrades are considered updates.
+
+_yes_
+	Update only if the available version is greater than the
+	installed version.
+
+_no_ (default)
+	Update whenever the available version differs from the
+	installed version, including downgrades.
+
+The default is _no_ so that *pkgman sysup* follows repository state
+even when maintainers roll back a release.
+This allows a buggy or incompatible version to be replaced by an
+older, stable one without manual intervention.
+Users who prefer to see only upgrades may set *preferhigher* to _yes_.
 
 ; vim: ft=scdoc cc=72 tw=70

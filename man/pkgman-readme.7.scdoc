@@ -2,82 +2,75 @@ PKGMAN-README(7)
 
 # NAME
 
-pkgman-readme - optional README files for packages
+pkgman-readme - README file conventions for packages
 
 # SYNOPSIS
 
-README.md and README files provide additional information about
-packages and are accessed using *pkgman-readme*(1).
+README or README.md in package source directory
 
 # DESCRIPTION
 
-README.md or README files in a package's source directory offer
-supplementary details that go beyond the core functionality of
-pre/post-install and pre/post-remove scripts.
+A package's README file provides extra information for the user, such
+as post-installation steps, configuration notes, or usage tips.
 
-If both README.md and README files exist, README.md takes precedence.
-These files are optional.
+Choose one format - plain text (README) or Markdown (README.md) - for
+package source; there is no need to include both.
+If both files are present, *pkgman-readme*(1) displays README.md and
+ignores README.
+Notifications about README files are controlled by the *readme*
+setting in *pkgman.conf*(5).
 
-## Typical Contents
+# FILE FORMAT
 
-A README file may include the following sections:
+README files may be plain text or Markdown.
+Keep them concise, relevant, and easy to scan.
 
-*POST-INSTALL*, *PRE-INSTALL*, *POST-REMOVE*, *PRE-REMOVE*:
-	Manual instructions for users who have disabled the execution
-	of scripts.
+## Contents
 
-*REQUIREMENTS*:
-	Information about additional (optional) packages that enhance
-	the software functionality.
+Use clear section headings for any topics that apply to the package,
+and keep instructions short and direct.
+Avoid repeating information already covered in scripts or other
+documentation.
+Common sections include:
 
-*KERNEL CONFIGURATION*:
-	Details for users compiling custom kernels, specifying
-	required kernel configurations.
+*POST-INSTALL*, *PRE-INSTALL*, *POST-REMOVE*, *PRE-REMOVE*
+	Give manual steps for users who have disabled script
+	execution.
 
-*KERNEL MODULE*:
-	Which kernel modules need to be loaded at startup for proper
-	program operation.  Include steps for enabling them if needed.
+*REQUIREMENTS*
+	List optional packages that enhance functionality.
 
-*UPGRADE*:
-	Recommendations for handling upgrades, especially between
-	major versions.  Highlight potential pitfalls, required steps,
-	and troubleshooting for common errors.
+*KERNEL CONFIGURATION*
+	Specify required kernel settings for custom kernels.
 
-*CAUTION*, *TROUBLESHOOTING*:
-	Warnings and solutions for known issues.
+*KERNEL MODULE*
+	Name modules to load at startup and how to enable them.
 
-*REFERENCES*:
-	Links to detailed online documentation, wikis, or related
-	resources.
+*UPGRADE*
+	Note major version upgrade steps, pitfalls, and fixes.
 
-## Guidelines
+*CAUTION*, *TROUBLESHOOTING*
+	Warn about known issues and how to resolve them.
 
-When creating README files, maintainers should:
+*REFERENCES*
+	Link to documentation, wikis, or related resources.
 
-	\* Provide clear and concise instructions.
-
-	\* Structure content with sections for key topics described
-	above.
-
-	\* Avoid redundancy by excluding information covered in other
-	scripts or documentation.
-
-These conventions apply to official repositories; custom repositories
+Include only sections that are relevant.
+Official repositories follow these conventions; custom repositories
 may adapt as needed.
 
 # FILES
 
 _README.md_ or _README_
-	Optional documentation files located in the package source
-	directory.
+	Optional documentation files in the package source directory.
 
 _/etc/pkgman.conf_
-	Configuration for *pkgman*(1).
+	Configuration file for *pkgman*(1).
 
 # SEE ALSO
 
+*pkgman-readme*(1),
 *pkgman*(1),
-*pkgman.conf*(5),
-*pkgman-readme*(1)
+*pkgman.conf*(5)
 
 ; vim: ft=scdoc cc=72 tw=70

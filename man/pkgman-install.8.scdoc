@@ -19,57 +19,59 @@ pkgman-install - install packages
 [*--depsort*] \
 [*--force*] \
 [*--group*] \
-[*--margs*=_pkgmk_args_ | *-fr* | *-um* | *-im* | *-uf* | *-if* | *-ns* | *-kw*] \
-[*--aargs*=_pkgadd_args_ | *-f* | *-i*] \
-[*--ignore*=_pkgname_[,...]] \
+[*--margs*=_pkgmk-args_ | *-fr* | *-um* | *-im* | *-uf* | *-if* | *-ns* | *-kw*] \
+[*--aargs*=_pkgadd-args_ | *-f* | *-i*] \
+[*--ignore*=_package-list_] \
 [*--install-scripts* | [*--pre-install*] [*--post-install*]] \
-_pkgname_ ...
+_package-name_ ...
 
 # DESCRIPTION
 
-Install all packages in the listed order.  It searches for packages
-sources in the directories defined by the *pkgsrcdir* option in
-_/etc/pkgman.conf_.
+The *pkgman install* command builds and installs the specified
+packages from the package source directories listed by the *pkgsrcdir*
+directive in *pkgman.conf*(5).
 
 The options are as follows:
 
 *-v*
-	No operation.  This option is unused.
+	No operation.
+	This option is unused.
 
 *-vv*
-	Enable verbose output, logging the install process to standard
-	output.
+	Enable verbose output.
+	Log the installation process to standard output.
 
 *--test*
 	Perform a dry run; do not build or install packages.
 
 *--log*
-	Enable transaction logging for this install operation.  Global
-	logging can be configured using the *writelog* option in
+	Enable transaction logging for this operation.
+	Global logging is controlled by the *writelog* setting in
 	*pkgman.conf*(5).
 
 *--deps*
 	Include all dependencies of the specified packages in the
-	install process.
+	installation.
 
 *--depsort*
 	Sort packages by dependency order before installing.
 
 *--force*
-	Skip already installed package and continue with the next
-	package in the list.  Skipped packages will be summarized in
-	the final report.
+	Skip already installed packages and continue with the next
+	package.
+	Skipped packages are summarized in the final report.
 
 *--group*
 	Install the specified packages in order, stopping immediately
-	if the install of any package fails.  This is useful for
-	installing dependent packages sequentially.
+	if the installation of any package fails.
+	Useful for installing dependent packages sequentially.
 
-*--margs*=_pkgmk_args_
-	Pass the specified arguments directly to the *pkgmk*(8)
-	command.
+*--margs*=_pkgmk-args_
+	Pass the specified arguments directly to the *makecommand*
+	(see *pkgman.conf*(5)).
 
-	Shorthands for the above *--margs*=_pkgmk_args_:
+	Shorthands for *--margs* when *makecommand* defaults to
+	_/usr/sbin/pkgmk_:
 
 	*-fr*
 		Force the package build.
@@ -97,47 +99,48 @@ The options are as follows:
 		Equivalent to *--margs=-if*.
 
 	*-ns*
-		Disable stripping of binaries during the build
-		process.
+		Disable stripping of binaries during build.
 
 		Equivalent to *--margs=-ns*.
 
 	*-kw*
-		Keep the build working directory after the build
-		process.
+		Keep the build working directory after build.
 
 		Equivalent to *--margs=-kw*.
 
-*--aargs*=_pkgadd_args_
-	Pass the specified arguments directly to the *pkgadd*(8)
-	command.
+*--aargs*=_pkgadd-args_
+	Pass the specified arguments directly to the *addcommand* (see
+	*pkgman.conf*(5)).
 
-	Shorthands for the above *--aargs*=_pkgadd_args_:
+	Shorthands for *--aargs* when *addcommand* defaults to
+	_/usr/sbin/pkgadd_:
 
 	*-f*, *-i*
 		Force the package installation.
 
 		Equivalent to *--aargs=-f*.
 
-*--ignore*=_pkgname_[,...]
-	Ignore the specified packages during the install process,
-	even if they are dependencies of the packages being installed.
+*--ignore*=_package-list_
+	Ignore the specified packages during installation, even if
+	they are dependencies.
+	_package-list_ is a comma-separated list of package names.
 
 *--install-scripts*
-	Execute any available pre-install and post-install scripts for
-	the packages being installed.
+	Execute any available _pre-install_ and _post-install_
+	scripts.
 
 *--pre-install*
-	Execute any available pre-install script for the packages
-	being installed.
+	Execute any available _pre-install_ script.
 
 *--post-install*
-	Execute any available post-install script for the packages
-	being installed.
+	Execute any available _post-install_ script.
 
 # EXIT STATUS
 
-*0* on success, *>0* otherwise.
+*0*
+	Packages installed successfully.
+*>0*
+	An error occurred.
 
 # SEE ALSO
 
