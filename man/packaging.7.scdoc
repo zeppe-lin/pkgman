@@ -1,0 +1,195 @@
+PACKAGING(7)
+
+# NAME
+
+packaging - guidelines for creating Zeppe-Lin packages
+
+# DESCRIPTION
+
+This manual describes conventions and best practices for writing
+*pkgmk.Pkgfile(5)* build scripts and preparing packages for official
+repositories.
+
+These guidelines are not enforced by *pkgmk*(8), but adherence is
+expected to ensure consistency, maintainability, and quality across
+the system.
+
+# NAMING
+
+Package names are lowercase; dashes are permitted.
+Versioned names (e.g., *autoconf-2.13*) are allowed when multiple
+major versions must coexist.
+
+Do not combine multiple independently distributed programs or
+libraries into a single package.
+
+# FILESYSTEM LAYOUT
+
+Install files under standard locations:
+
+_/usr/bin_
+	User commands and applications.
+
+_/usr/sbin_
+	System utilities and daemons.
+
+_/usr/lib_
+	Libraries.
+
+_/usr/include_
+	Header files.
+
+_/usr/lib/<prog>_
+	Plug-ins, helpers, private executables.
+
+_/usr/share/man_
+	Manual pages.
+
+_/usr/share/<prog>_
+	Architecture-independent data.
+
+_/usr/etc/<prog>_
+	Default or example configuration for users to copy.
+
+_/etc_
+	System-wide configuration managed by the administrator.
+
+## Paths outside standard layout
+
+_/opt_, _/usr/local_
+	Reserved for locally managed software; do not install there.
+
+_/usr/libexec_
+	Not used in Zeppe-Lin; use _/usr/lib/<prog>_ instead.
+
+# CONTENT
+
+Ship manual pages under _/usr/share/man_.
+
+Omit bulk documentation (info pages, HTML manuals, README, NEWS,
+ChangeLog) unless essential.
+
+Remove unused NLS/locale files; disable NLS at build time when
+possible.
+
+Prune obsolete or unused binaries (e.g., _/usr/games/banner_,
+_/sbin/mkfs.minix_).
+
+# DEPENDENCIES
+
+Declare runtime dependencies so that *pkgman*(1) can install, remove,
+and rebuild packages in the correct order.
+Avoid redundant entries.
+
+List all linked runtime dependencies, except:
+
+*gcc* (libstdc++), *binutils*
+	Part of the base toolchain; do not list.
+
+*glibc*
+	Part of the base system; do not list.
+
+*the package itself*
+	Avoid circular dependencies.
+
+Build dependencies provided by *pkgsrc-core* must *not* be listed.
+
+Runtime dependencies from *pkgsrc-core* that are not dynamically
+linked should generally be omitted, with one exception: if the package
+installs files into a version-specific interpreter path, declare the
+matching interpreter as a runtime dependency.
+This applies to bindings or modules for languages such as Perl or
+Python, even if the package does not link to the interpreter binary or
+library.
+
+Examples of version-specific paths:
+
+```
+usr/lib/perl5/site_perl/<version>/
+usr/lib/python<version>/site-packages/
+```
+
+For example, *automake* does not list *perl* (script, not linked
+library), *bc* lists *readline* (linked library), and *py3-setuptools*
+lists *python3* (footprint requires interpreter).
+
+# SERVICE SCRIPTS
+
+Name service control scripts *rc.<prog>* and install to
+_/etc/rc.d/<prog>_.
+
+See *rc.d*(7) for interface and examples.
+
+# RUNSCRIPTS
+
+Optional scripts named *pre-install*, *post-install*, *pre-remove*,
+and *post-remove* may be placed in the package source directory.
+They are executed by *pkgman*(1) before or after installing or
+removing software packages.
+
+In *pkgsrc-core*, runscripts must not be used.
+If a core package needs a user or group, add it to the *filesystem*
+package's *passwd*(5) and *group*(5) files instead.
+
+See *pkgman-runscripts*(7) for execution order and policy.
+
+# README FILES
+
+An optional README.md or README may be placed in the package source
+directory.
+
+See *pkgman-readme*(7) for formatting and content guidelines.
+
+# FOOTPRINTS AND STRIPPING
+
+Maintain an up-to-date _.footprint_; review NEW/MISSING diffs.
+
+Use *pkgmk.nostrip*(5) to retain debug symbols where needed.
+
+# SUMMARY
+
+Package sources must follow the naming, layout, content, dependency,
+and script conventions described above.
+
+Consistency across packages ensures maintainability and simplifies
+review.
+
+# EXAMPLES
+
+A minimal GNU Autotools project with NLS disabled and info pages
+removed:
+
+```
+# Description: GNU Hello program
+# URL:         https://www.gnu.org/software/hello/
+# Maintainer:  Jane Maintainer <jane@example.org>
+
+name=hello
+version=2.12.1
+release=1
+source=https://ftp.gnu.org/gnu/hello/$name-$version.tar.gz
+
+build() {
+	cd $name-$version
+
+	./configure --prefix=/usr --disable-nls
+
+	make V=1
+	make DESTDIR=$PKG install
+
+	rm -rf $PKG/usr/share/info
+}
+```
+
+# SEE ALSO
+
+*pkgman*(1),
+*pkgmk.Pkgfile*(5),
+*pkgmk.footprint*(5),
+*pkgmk.nostrip*(5),
+*pkgman-readme*(7),
+*pkgman-runscripts*(7),
+*rc.d*(7),
+*pkgmk*(8)
+
+; vim: ft=scdoc cc=72 tw=70
