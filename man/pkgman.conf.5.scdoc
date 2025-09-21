@@ -10,17 +10,24 @@ pkgman.conf - configuration file for pkgman
 
 # DESCRIPTION
 
-The _pkgman.conf_ file configures the behavior of *pkgman*(1).
-Each line follows the format:
+The _pkgman.conf_ file provides configuration settings for
+*pkgman*(1).
+
+# FILE FORMAT
+
+The file consists of one directive per line, in the form:
 
 ```
 key value
 ```
 
-Lines starting with '*#*' are treated as comments and ignored.
 Blank lines are ignored.
+Lines beginning with '*#*' are comments.
+; Arguments containing whitespace must be quoted.
 
-The following options are recognised:
+## Directives
+
+The following directives are recognised:
 
 *pkgsrcdir* _path_[:_package-list_]
 	Directories containing package sources.
