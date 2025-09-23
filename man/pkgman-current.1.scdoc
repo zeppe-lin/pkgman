@@ -14,7 +14,7 @@ The *pkgman current* command prints the installed version of the
 specified package.
 
 Installed packages are recorded in the database at _/var/lib/pkg/db_,
-or at _root-dir_/var/lib/pkg/db_ when *--root* is specified.
+or at _root-dir/var/lib/pkg/db_ when *--root* is specified.
 
 # FILES
 
