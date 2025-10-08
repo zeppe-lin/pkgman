@@ -34,7 +34,7 @@ Individual commands may define additional options and arguments.
 	Ignore the default configuration file.
 
 *--config*=_config-file_
-	Use alternate configuration file.
+	Use an alternate configuration file.
 
 	Default: _/etc/pkgman.conf_.
 
@@ -48,7 +48,7 @@ Individual commands may define additional options and arguments.
 	Prepend value to a configuration entry.
 
 *--root*=_root-dir_
-	Use alternate root directory.
+	Use an alternate root directory.
 
 	Default: */*.
 
@@ -60,17 +60,10 @@ Individual commands may define additional options and arguments.
 	is specified.
 
 *--*
-	Signal the end of options.
-	Any arguments following *--* are treated as the _command_ and
-	its arguments.
-	Useful when command arguments begin with '*-*'.
-
-	Example:
-
-	```
-	pkgman search --regex -- -lib
-	pkgman --regex -- search -lib
-	```
+	Stop option parsing.
+	If a _command_ was specified, remaining arguments are passed
+	verbatim; otherwise the next arguments are treated as the
+	_command_ and its _args_.
 
 ## Commands
 

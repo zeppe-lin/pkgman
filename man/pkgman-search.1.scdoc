@@ -38,6 +38,28 @@ The options are as follows:
 *>0*
 	No matches found, or an error occurred.
 
+# EXAMPLES
+
+Basic search for packages with "lib" in the name:
+```
+pkgman search lib
+```
+
+Show version, description, and source path:
+```
+pkgman search -vv --path lib
+```
+
+Search for "-lib" without confusing the option parser:
+```
+pkgman search -vv --path -- -lib
+```
+
+Use a regular expression to match "gtk" or "qt":
+```
+pkgman search -vv --path --regex '^(gtk|qt)'
+```
+
 # SEE ALSO
 
 *pkgman-dsearch*(1),
