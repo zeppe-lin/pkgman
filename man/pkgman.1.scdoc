@@ -2,7 +2,7 @@ PKGMAN(1)
 
 # NAME
 
-pkgman - advanced package management tool
+pkgman - unified interface for package management
 
 # SYNOPSIS
 
@@ -20,35 +20,35 @@ _command_ \
 
 # DESCRIPTION
 
-The *pkgman* utility is a front end to, and extends, the core package
-tools *pkgmk*(8), *pkgadd*(8), *pkgrm*(8), and *pkginfo*(1).
-It provides advanced package management features and a unified
-interface for building, installing, updating, and querying packages.
+The *pkgman* utility extends the core package tools *pkgmk*(8),
+*pkgadd*(8), *pkgrm*(8), and *pkginfo*(1).
+It provides a unified interface and advanced functionality for
+building, installing, updating, and querying software packages.
 
-# GENERIC OPTIONS
+## Generic options
 
-The following options are common to all *pkgman* commands.
-Each command may also define its own options and arguments.
+The following options are recognized by all *pkgman* commands.
+Individual commands may define additional options and arguments.
 
 *--no-std-config*
 	Ignore the default configuration file.
 
 *--config*=_config-file_
-	Use an alternate configuration file.
+	Use alternate configuration file.
 
 	Default: _/etc/pkgman.conf_.
 
 *--config-set*=_string_
-	Set a configuration entry, overriding the config file.
+	Set a configuration entry, overriding the _config-file_ value.
 
 *--config-append*=_string_
-	Append to a configuration entry.
+	Append value to a configuration entry.
 
 *--config-prepend*=_string_
-	Prepend to a configuration entry.
+	Prepend value to a configuration entry.
 
 *--root*=_root-dir_
-	Use an alternate root directory.
+	Use alternate root directory.
 
 	Default: */*.
 
@@ -56,8 +56,8 @@ Each command may also define its own options and arguments.
 	Print version and exit.
 
 *-h*, *--help*
-	Print the manual page for _command_, or this page if no
-	command is specified.
+	Show the manual page for _command_, or this page if no command
+	is specified.
 
 *--*
 	Signal the end of options.
@@ -72,12 +72,12 @@ Each command may also define its own options and arguments.
 	pkgman --regex -- search -lib
 	```
 
-# COMMANDS
+## Commands
 
-The first non-option argument is always the command name.
+The first non-option argument specifies the command name.
 Commands are grouped into the following categories.
 
-## Informational
+_Informational_:
 
 *pkgman-dumpconfig*(1)
 	Print current configuration.
@@ -92,7 +92,7 @@ Commands are grouped into the following categories.
 	List packages without dependents.
 
 *pkgman-list-locked*(1)
-	List currently locked packages.
+	List locked packages.
 
 *pkgman-list-orphans*(1)
 	List orphaned packages.
@@ -118,7 +118,7 @@ Commands are grouped into the following categories.
 *pkgman-diff*(1)
 	Show differences between installed and available packages.
 
-## Dependency
+_Dependency_:
 
 *pkgman-dep*(1)
 	Print dependencies for a package.
@@ -126,31 +126,31 @@ Commands are grouped into the following categories.
 *pkgman-rdep*(1)
 	Print reverse dependencies for a package.
 
-## Search
+_Search_:
 
 *pkgman-search*(1)
 	Search package source directories for package names.
 
 *pkgman-dsearch*(1)
-	Search package source directories for package names and
-	descriptions.
+	Search package source directories for package names
+	and descriptions.
 
 *pkgman-fsearch*(1)
-	Search package source directories for files listed in package
-	footprints.
+	Search package source directories for files listed in
+	package footprints.
 
-## Management
+_Management_:
 
 *pkgman-install*(8)
 	Install packages.
 
 *pkgman-update*(8)
-	Update packages.
+	Update installed packages.
 
 *pkgman-remove*(8)
 	Remove installed packages.
 
-## System update
+_System update_:
 
 *pkgman-sysup*(8)
 	Update all outdated packages.
@@ -159,9 +159,9 @@ Commands are grouped into the following categories.
 	Lock packages to prevent updates.
 
 *pkgman-unlock*(8)
-	Unlock packages for updates.
+	Unlock packages for update.
 
-## File operations
+_File operations_:
 
 *pkgman-ls*(1)
 	List contents of a package source directory.
