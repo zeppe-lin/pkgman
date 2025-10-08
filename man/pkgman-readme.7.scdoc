@@ -18,7 +18,7 @@ package source; there is no need to include both.
 If both files are present, *pkgman-readme*(1) displays README.md and
 ignores README.
 Notifications about README files are controlled by the *readme*
-setting in *pkgman.conf*(5).
+directive in *pkgman.conf*(5).
 
 # FILE FORMAT
 

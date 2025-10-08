@@ -26,7 +26,7 @@ handled by the package manager alone, such as creating users or
 cleaning up application state.
 
 Execution of scripts is controlled by the *runscripts* and
-*runscriptcommand* settings in *pkgman.conf*(5).
+*runscriptcommand* directives in *pkgman.conf*(5).
 The latter defines the interpreter and defaults to _/bin/sh_.
 
 Scripts must be minimal and predictable.

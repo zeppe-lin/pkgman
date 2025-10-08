@@ -46,7 +46,7 @@ The options are as follows:
 
 *--log*
 	Enable transaction logging for this operation.
-	Global logging is controlled by the *writelog* setting in
+	Global logging is controlled by the *writelog* directive in
 	*pkgman.conf*(5).
 
 *--deps*

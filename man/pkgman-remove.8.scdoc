@@ -14,7 +14,7 @@ pkgman-remove - remove installed packages
 [*--force*] \
 [*--group*] \
 [*--rargs*=_pkgrm-args_] \
-[*--ignore*=_package-name_[,...]] \
+[*--ignore*=_package-list_] \
 [*--remove-scripts* | [*--pre-remove*] [*--post-remove*]] \
 _package-name_ ...
 
@@ -38,7 +38,7 @@ The options are as follows:
 
 *--log*
 	Enable transaction logging for this operation.
-	Global logging is controlled by the *writelog* setting in
+	Global logging is controlled by the *writelog* directive in
 	*pkgman.conf*(5).
 
 *--deps*
@@ -50,6 +50,7 @@ The options are as follows:
 		packages if those dependencies are not required by any
 		other installed package (outside of the packages
 		specified for removal).
+
 		Use with extreme caution, as this can unintentionally
 		remove needed packages.
 

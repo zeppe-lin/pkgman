@@ -7,11 +7,11 @@ package footprints
 
 # SYNOPSIS
 
-*pkgman fsearch*  \
-[*-v* | *-vv*]    \
-[*--path*]        \
-[*--regex*]       \
-[*--full*]        \
+*pkgman fsearch* \
+[*-v* | *-vv*] \
+[*--path*] \
+[*--regex*] \
+[*--full*] \
 _expr_
 
 # DESCRIPTION

@@ -75,7 +75,7 @@ The following directives are recognised:
 		change, regardless of ordering.
 		Both upgrades and downgrades are considered updates.
 
-	This setting affects commands that compare installed and
+	This directive affects commands that compare installed and
 	available versions, such as *pkgman-diff*(1),
 	*pkgman-list-dup*(1), and *pkgman-sysup*(8).
 	See those manual pages for command-specific behaviour and

@@ -31,7 +31,7 @@ Package sources are searched in the directories listed by the
 *pkgsrcdir* directive in *pkgman.conf*(5).
 
 By default, any version difference is treated as an update.
-See *CAVEATS* for details on the *preferhigher* setting, which
+See *CAVEATS* for details on the *preferhigher* directive, which
 controls whether downgrades are included.
 
 To keep specific packages at their current version, use
@@ -54,7 +54,7 @@ The options are as follows:
 
 *--log*
 	Enable transaction logging for this operation.
-	Global logging is controlled by the *writelog* setting in
+	Global logging is controlled by the *writelog* directive in
 	*pkgman.conf*(5).
 
 *--deps*
@@ -191,7 +191,7 @@ pkgman sysup
 
 # CAVEATS
 
-The *preferhigher* setting in *pkgman.conf*(5) controls whether
+The *preferhigher* directive in *pkgman.conf*(5) controls whether
 downgrades are considered updates.
 
 _yes_

@@ -54,7 +54,7 @@ The options are as follows:
 
 # CAVEATS
 
-Version comparison is affected by the *preferhigher* setting in
+Version comparison is affected by the *preferhigher* directive in
 *pkgman.conf*(5):
 
 _yes_
