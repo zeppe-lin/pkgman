@@ -6,13 +6,8 @@ pkgman-list - list available packages
 
 # SYNOPSIS
 
-*pkgman list* \
-[*-v* | *-vv*] \
-[*--path*] \
-[*--all*] \
-[*--depsort*] \
-[*--regex*] \
-[*--filter*=_expr_]
+*pkgman list* [*-v* | *-vv*] [*--path*] [*--all*] [*--depsort*]++
+            [*--regex*] [*--filter*=_expr_]
 
 # DESCRIPTION
 

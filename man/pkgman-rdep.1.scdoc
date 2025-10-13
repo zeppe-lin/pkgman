@@ -6,14 +6,8 @@ pkgman-rdep - print reverse dependencies for a package
 
 # SYNOPSIS
 
-*pkgman rdep* \
-[*-v* | *-vv*] \
-[*--path*] \
-[*--all*] \
-[*--tree*] \
-[*--recursive*] \
-[*--full*] \
-_package-name_
+*pkgman rdep* [*-v* | *-vv*] [*--path*] [*--all*] [*--tree*]++
+            [*--recursive*] [*--full*] _package-name_
 
 # DESCRIPTION
 

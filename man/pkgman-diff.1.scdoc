@@ -6,12 +6,8 @@ pkgman-diff - show differences between installed and available packages
 
 # SYNOPSIS
 
-*pkgman diff* \
-[*--all*] \
-[*--deps*] \
-[*--full*] \
-[*--regex*] \
-[*--filter*=_expr_]
+*pkgman diff* [*--all*] [*--deps*] [*--full*] [*--regex*]++
+            [*--filter*=_expr_]
 
 # DESCRIPTION
 

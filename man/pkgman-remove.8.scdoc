@@ -6,17 +6,13 @@ pkgman-remove - remove installed packages
 
 # SYNOPSIS
 
-*pkgman remove* \
-[*-v* | *-vv*] \
-[*--test*] \
-[*--log*] \
-[*--deps*] \
-[*--force*] \
-[*--group*] \
-[*--rargs*=_pkgrm-args_] \
-[*--ignore*=_package-list_] \
-[*--remove-scripts* | [*--pre-remove*] [*--post-remove*]] \
-_package-name_ ...
+*pkgman remove* [*-v* | *-vv*] [*--test*] [*--log*]++
+              [*--deps*] [*--force*] [*--group*]++
+              [*--rargs*=_pkgrm-args_]++
+              [*--ignore*=_package-list_]++
+              [*--remove-scripts*]++
+              [*--pre-remove*] [*--post-remove*]++
+              _package-name_ ...
 
 # DESCRIPTION
 
@@ -74,6 +70,7 @@ The options are as follows:
 
 *--remove-scripts*
 	Execute any available _pre-remove_ and _post-remove_ scripts.
+	Use individual flags to run only one phase.
 
 *--pre-remove*
 	Execute any available _pre-remove_ script.

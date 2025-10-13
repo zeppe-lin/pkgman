@@ -6,11 +6,7 @@ pkgman-printf - print formatted list of available packages
 
 # SYNOPSIS
 
-*pkgman printf* \
-[*--sort*=_format_] \
-[*--regex*] \
-[*--filter*=_expr_] \
-_format_
+*pkgman printf* [*--sort*=_format_] [*--regex*] [*--filter*=_expr_] _format_
 
 # DESCRIPTION
 

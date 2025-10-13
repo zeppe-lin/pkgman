@@ -11,19 +11,16 @@ pkgman-update - update packages
 
 # SYNOPSIS
 
-*pkgman update* \
-[*-v* | *-vv*] \
-[*--test*] \
-[*--log*] \
-[*--deps*] \
-[*--depsort*] \
-[*--force*] \
-[*--group*] \
-[*--margs*=_pkgmk-args_ | *-fr* | *-um* | *-im* | *-uf* | *-if* | *-ns* | *-kw*] \
-[*--aargs*=_pkgadd-args_ | *-f* | *-i*] \
-[*--ignore*=_package-list_] \
-[*--install-scripts* | [*--pre-install*] [*--post-install*]] \
-_package-name_ ...
+*pkgman update* [*-v* | *-vv*] [*--test*] [*--log*]++
+              [*--deps*] [*--depsort*] [*--force*] [*--group*]++
+              [*--margs*=_pkgmk-args_ |++
+                  *-fr* | *-um* | *-im* |++
+                  *-uf* | *-if* | *-ns* | *-kw*]++
+              [*--aargs*=_pkgadd-args_ | *-f* | *-i*]++
+              [*--ignore*=_package-list_]++
+              [*--install-scripts*]++
+              [*--pre-install*] [*--post-install*]++
+              _package-name_ ...
 
 # DESCRIPTION
 
@@ -129,6 +126,7 @@ The options are as follows:
 *--install-scripts*
 	Execute any available _pre-install_ and _post-install_
 	scripts.
+	Use individual flags to run only one phase.
 
 *--pre-install*
 	Execute any available _pre-install_ script.
