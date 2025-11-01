@@ -40,12 +40,12 @@ The options are as follows:
 
 # EXAMPLES
 
-Basic search for packages with "lib" in the name:
+Search package names for "lib":
 ```
 pkgman search lib
 ```
 
-Show version, description, and source path:
+Search with verbose output and package source path:
 ```
 pkgman search -vv --path lib
 ```
@@ -55,7 +55,7 @@ Search for "-lib" without confusing the option parser:
 pkgman search -vv --path -- -lib
 ```
 
-Use a regular expression to match "gtk" or "qt":
+Use regex to match packages starting with "gtk" or "qt":
 ```
 pkgman search -vv --path --regex '^(gtk|qt)'
 ```
@@ -65,6 +65,7 @@ pkgman search -vv --path --regex '^(gtk|qt)'
 *pkgman-dsearch*(1),
 *pkgman-fsearch*(1),
 *pkgman*(1),
-*pkgman.conf*(5)
+*pkgman.conf*(5),
+*regex*(3)
 
 ; vim: ft=scdoc cc=72 tw=70

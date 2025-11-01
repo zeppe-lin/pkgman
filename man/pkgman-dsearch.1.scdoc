@@ -39,11 +39,24 @@ The options are as follows:
 *>0*
 	No matches found, or an error occurred.
 
+# EXAMPLES
+
+Search package names and descriptions for the word "network":
+```
+pkgman dsearch -vv network
+```
+
+Search package names or descriptions for "server" or "daemon":
+```
+pkgman dsearch -vv --regex 'server|daemon'
+```
+
 # SEE ALSO
 
 *pkgman-search*(1),
 *pkgman-fsearch*(1),
 *pkgman*(1),
-*pkgman.conf*(5)
+*pkgman.conf*(5),
+*regex*(3)
 
 ; vim: ft=scdoc cc=72 tw=70

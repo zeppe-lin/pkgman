@@ -14,6 +14,8 @@ package footprints
 The *pkgman fsearch* command searches the package source directories
 listed by the *pkgsrcdir* directive in *pkgman.conf*(5) for _expr_ in
 _.footprint_ files.
+It reports which package sources list a matching file path in their
+footprint manifest.
 
 The _expr_ argument may be a plain string, a wildcard pattern in
 *fnmatch*(3) format, or a regular expression in *regex*(3) format.
@@ -33,12 +35,8 @@ The options are as follows:
 	Interpret _expr_ as a regular expression.
 
 *--full*
-	Search for full paths in footprint entries.
-
-	Example:
-	```
-	pkgman fsearch --full /usr/bin/gcc*
-	```
+	Search for full paths in footprint entries, rather than just
+	basenames.
 
 # EXIT STATUS
 
@@ -47,11 +45,35 @@ The options are as follows:
 *>0*
 	No matches found, or an error occurred.
 
+# EXAMPLES
+
+Search footprints for files named "gcc":
+```
+pkgman fsearch gcc
+```
+
+Search footprints for the exact full path "/usr/bin/gcc":
+```
+pkgman fsearch --full /usr/bin/gcc
+```
+
+Search footprints for any full path starting with "/bin/ch":
+```
+pkgman fsearch --full '/bin/ch*'
+```
+
+Search footprints for files in _/etc/rc.d_ (no subdirectories):
+```
+pkgman fsearch --regex --full '^/etc/rc\.d/[^/]+$'
+```
+
 # SEE ALSO
 
 *pkgman-search*(1),
 *pkgman-dsearch*(1),
 *pkgman*(1),
-*pkgman.conf*(5)
+*pkgman.conf*(5),
+*fnmatch*(3),
+*regex*(3)
 
 ; vim: ft=scdoc cc=72 tw=70
