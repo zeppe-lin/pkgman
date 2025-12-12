@@ -11,15 +11,15 @@ pkgman-install - install packages
 
 # SYNOPSIS
 
-*pkgman install* [*-v* | *-vv*] [*--test*] [*--log*]++
-               [*--deps*] [*--depsort*] [*--force*] [*--group*]++
-               [*--margs*=_pkgmk-args_ |++
-                   *-fr* | *-um* | *-im* |++
-                   *-uf* | *-if* | *-ns* | *-kw*]++
-               [*--aargs*=_pkgadd-args_ | *-f* | *-i*]++
-               [*--ignore*=_package-list_]++
-               [*--install-scripts*]++
-               [*--pre-install*] [*--post-install*]++
+*pkgman install* [*-v* | *-vv*] [*--test*] [*--log*] \
+               [*--deps*] [*--depsort*] [*--force*] [*--group*] \
+               [*--margs*=_pkgmk-args_ | \
+                   *-fr* | *-um* | *-im* | \
+                   *-uf* | *-if* | *-ns* | *-kw*] \
+               [*--aargs*=_pkgadd-args_ | *-f* | *-i*] \
+               [*--ignore*=_package-list_] \
+               [*--install-scripts*] \
+               [*--pre-install*] [*--post-install*] \
                _package-name_ ...
 
 # DESCRIPTION

@@ -6,7 +6,7 @@ pkgman-dep - print dependencies for a package
 
 # SYNOPSIS
 
-*pkgman dep* [*-v* | *-vv*] [*--path*] [*--all*] [*--tree*]++
+*pkgman dep* [*-v* | *-vv*] [*--path*] [*--all*] [*--tree*] \
            [*--recursive*] [*--full*] _package-name_
 
 # DESCRIPTION

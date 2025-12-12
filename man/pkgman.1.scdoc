@@ -6,8 +6,8 @@ pkgman - unified interface for package management
 
 # SYNOPSIS
 
-*pkgman* [*-Vh*] [*--no-std-config*] [*--config*=_config-file_]++
-       [*--config-*{*set*,*append*,*prepend*}=_string_]++
+*pkgman* [*-Vh*] [*--no-std-config*] [*--config*=_config-file_] \
+       [*--config-*{*set*,*append*,*prepend*}=_string_] \
        [*--root*=_root-dir_] [*--*] _command_ [_args_]
 
 # DESCRIPTION

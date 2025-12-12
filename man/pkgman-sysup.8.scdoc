@@ -11,14 +11,14 @@ pkgman-sysup - update all outdated packages
 
 # SYNOPSIS
 
-*pkgman sysup* [*-v* | *-vv*] [*--test*] [*--log*]++
-             [*--deps*] [*--depsort*] [*--group*]++
-             [*--margs*=_pkgmk-args_ |++
-                 *-fr* | *-um* | *-im* |++
-                 *-uf* | *-if* | *-ns* | *-kw*]++
-             [*--aargs*=_pkgadd-args_ | *-f* | *-i*]++
-             [*--ignore*=_package-list_]++
-             [*--install-scripts*]++
+*pkgman sysup* [*-v* | *-vv*] [*--test*] [*--log*] \
+             [*--deps*] [*--depsort*] [*--group*] \
+             [*--margs*=_pkgmk-args_ | \
+                 *-fr* | *-um* | *-im* | \
+                 *-uf* | *-if* | *-ns* | *-kw*] \
+             [*--aargs*=_pkgadd-args_ | *-f* | *-i*] \
+             [*--ignore*=_package-list_] \
+             [*--install-scripts*] \
              [*--pre-install*] [*--post-install*]
 
 # DESCRIPTION
