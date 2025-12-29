@@ -1,6 +1,6 @@
 //! \file package.cpp
 //! \brief Package and PackageData implementation.
-//! \copyright See COPYING and COPYRIGHT files for corresponding information.
+//! \copyright See COPYING for license terms and COPYRIGHT for notices.
 
 #include <cstdio>
 #include <iostream>

@@ -1,6 +1,6 @@
 //! \file pkgman.cpp
 //! \brief Pkgman main commands implementation.
-//! \copyright See COPYING and COPYRIGHT files for corresponding information.
+//! \copyright See COPYING for license terms and COPYRIGHT for notices.
 
 #include <algorithm>
 #include <cassert>

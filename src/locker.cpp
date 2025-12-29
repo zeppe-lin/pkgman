@@ -1,6 +1,6 @@
 //! \file locker.cpp
 //! \brief Locker implementation.
-//! \copyright See COPYING and COPYRIGHT files for corresponding information.
+//! \copyright See COPYING for license terms and COPYRIGHT for notices.
 
 #include <algorithm>
 #include <fstream>

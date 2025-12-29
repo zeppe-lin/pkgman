@@ -1,6 +1,6 @@
 //! \file versioncomparator.cpp
 //! \brief VersionComparator namespace implementation.
-//! \copyright See COPYING and COPYRIGHT files for corresponding information.
+//! \copyright See COPYING for license terms and COPYRIGHT for notices.
 //!
 //! \note Get a test application with the following command:
 //!       g++ -o vcomp -DTEST helpers.cpp versioncomparator.cpp
