@@ -127,7 +127,7 @@ and *post-remove* may be placed in the package source directory.
 They are executed by *pkgman*(1) before or after installing or
 removing software packages.
 
-In *pkgsrc-core*, runscripts must not be used.
+In *pkgsrc-core*, runscripts must *not* be used.
 If a core package needs a user or group, add it to the *filesystem*
 package's *passwd*(5) and *group*(5) files instead.
 
