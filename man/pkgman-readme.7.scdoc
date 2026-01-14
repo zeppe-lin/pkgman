@@ -10,13 +10,14 @@ README or README.md in package source directory
 
 # DESCRIPTION
 
-A package's README file provides extra information for the user, such
-as post-installation steps, configuration notes, or usage tips.
+A package README provides extra information for users, such as
+post-install steps, configuration notes, or usage tips.
 
-Choose one format - plain text (README) or Markdown (README.md) - for
-package source; there is no need to include both.
-If both files are present, *pkgman-readme*(1) displays README.md and
-ignores README.
+Choose one format: plain text (README) or Markdown (README.md).
+Do not include both.
+If both are present, *pkgman-readme*(1) displays README.md and ignores
+README.
+
 Notifications about README files are controlled by the *readme*
 directive in *pkgman.conf*(5).
 
@@ -25,35 +26,29 @@ directive in *pkgman.conf*(5).
 README files may be plain text or Markdown.
 Keep them concise, relevant, and easy to scan.
 
-## Contents
-
-Use clear section headings for any topics that apply to the package,
-and keep instructions short and direct.
-Avoid repeating information already covered in scripts or other
-documentation.
 Common sections include:
 
 *POST-INSTALL*, *PRE-INSTALL*, *POST-REMOVE*, *PRE-REMOVE*
-	Give manual steps for users who have disabled script
+	Manual steps for users who disable *pkgman-runscripts*(7)
 	execution.
 
 *REQUIREMENTS*
-	List optional packages that enhance functionality.
+	Optional packages that enhance functionality.
 
 *KERNEL CONFIGURATION*
-	Specify required kernel settings for custom kernels.
+	Required kernel settings for custom kernels.
 
 *KERNEL MODULE*
-	Name modules to load at startup and how to enable them.
+	Modules to load at startup and how to enable them.
 
 *UPGRADE*
-	Note major version upgrade steps, pitfalls, and fixes.
+	Major version upgrade steps, pitfalls, and fixes.
 
 *CAUTION*, *TROUBLESHOOTING*
-	Warn about known issues and how to resolve them.
+	Known issues and resolutions.
 
 *REFERENCES*
-	Link to documentation, wikis, or related resources.
+	Documentation, wikis, or related resources.
 
 Include only sections that are relevant.
 Official repositories follow these conventions; custom repositories
@@ -62,7 +57,7 @@ may adapt as needed.
 # FILES
 
 _README.md_ or _README_
-	Optional documentation files in the package source directory.
+	Optional documentation in package source directory.
 
 _/etc/pkgman.conf_
 	Configuration file for *pkgman*(1).
@@ -70,6 +65,7 @@ _/etc/pkgman.conf_
 # SEE ALSO
 
 *pkgman-readme*(1),
+*pkgman-runscripts*(7),
 *pkgman*(1),
 *pkgman.conf*(5)
 
