@@ -1,0 +1,108 @@
+COLLECTIONS(7)
+
+# NAME
+
+collections - organisation of package sources
+
+# DESCRIPTION
+
+A _collection_ is a directory containing related package sources.
+Typical collections group core system components, system utilities, or
+desktop software.
+
+Collections are stored in _repositories_, which provide versioning and
+distribution.
+Official repositories are hosted on Git and track Zeppe-Lin releases.
+
+Collections allow modularity: you enable only what you need and update
+it independently.
+
+Software sources are organised as:
+
+*package source*
+	See *packages*(7).
+	A single package directory containing a _Pkgfile_ and
+	auxiliary files.
+
+*collection*
+	A directory containing multiple package sources with a shared
+	purpose.
+
+*repository*
+	A version-controlled store for one or more collections.
+	Official repositories use one collection per repository.
+
+# STRUCTURE
+
+A collection is a top-level directory with one subdirectory per
+package source:
+
+```
+pkgsrc-core/
+  acl/
+    Pkgfile
+    .md5sum
+    .footprint
+  bash/
+    Pkgfile
+    .md5sum
+    .footprint
+```
+
+Common official collections:
+
+*pkgsrc-core*
+	Base system.
+*pkgsrc-system*
+	System utilities.
+*pkgsrc-xorg*
+	X Window System and related software.
+*pkgsrc-desktop*
+	Desktop applications.
+
+# REPOSITORIES
+
+Repositories track collections over time.
+Branches correspond to Zeppe-Lin release series (e.g., 1.x).
+
+Users may clone only the collections they need:
+
+```
+git clone https://github.com/zeppe-lin/pkgsrc-core \\
+	--branch 1.x
+```
+
+# ENABLING COLLECTIONS
+
+Collections are enabled in *pkgman.conf*(5) using one *pkgsrcdir*
+directive per collection:
+
+```
+pkgsrcdir /usr/src/pkgsrc-core
+pkgsrcdir /usr/src/pkgsrc-system
+```
+
+The order of *pkgsrcdir* entries defines search priority.
+
+# NOTES
+
+A *pkgsrcdir* must point to a local collection directory.
+Collections are typically cloned from official repositories or created
+locally by the user.
+
+The path must be readable by the _pkgmk_ user, as packages are built
+under that account by default.
+
+Official collections are commonly stored under _/usr/src_, while
+custom or experimental collections may be placed anywhere accessible
+to _pkgmk_.
+
+# SEE ALSO
+
+*packages*(7),
+*packaging*(7),
+*pkgman*(1),
+*pkgman.conf*(5),
+*pkgmk*(8)
+
+; vim: ft=scdoc cc=72 tw=70
