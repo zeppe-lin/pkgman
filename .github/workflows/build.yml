@@ -3,17 +3,44 @@ name: Build CI
 on:
   push:
     branches: [ "master" ]
+    paths: &build_paths
+      - "Makefile"
+      - "config.mk"
+      - "src/**"
+      - ".github/**"
   pull_request:
     branches: [ "master" ]
+    paths: *build_paths
 
 jobs:
-  test:
+  build-man:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Build
-      run: cd src && make
+      - name: Install scdoc
+        run: sudo apt-get install -y scdoc
 
-# End of file.
+      - name: Generate man pages
+        run: make -C man
+
+  build-glibc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build (glibc)
+        run: make -C src
+
+  build-musl:
+    runs-on: ubuntu-latest
+    container: alpine:latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install toolchain
+        run: apk add build-base g++ make
+
+      - name: Build (musl)
+        run: make -C src
+
