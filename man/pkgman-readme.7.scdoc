@@ -28,26 +28,43 @@ Keep them concise, relevant, and easy to scan.
 
 Common sections include:
 
-*POST-INSTALL*, *PRE-INSTALL*, *POST-REMOVE*, *PRE-REMOVE*
-	Manual steps for users who disable *pkgman-runscripts*(7)
-	execution.
-
 *REQUIREMENTS*
-	Optional packages that enhance functionality.
+	Conditions needed for correct operation, or optional
+	packages that enhances functionality.
 
-*KERNEL CONFIGURATION*
-	Required kernel settings for custom kernels.
+	*Kernel Configuration*
+		Required kernel settings for custom kernels.
 
-*KERNEL MODULE*
-	Modules to load at startup and how to enable them.
+	*Kernel Module*
+		Modules to load at startup and how to enable them.
+
+	*Optional Packages*
+		Extra libraries or tools that extend functionality
+		beyond the declared build/runtime dependencies.
+
+*CONFIGURATION*
+	Minimal setup instructions after install.
+	Point to config file paths, directories, or service scripts.
+	Include one or two short examples.
+
+*NOTES*
+	General caveats, quirks, or hardware-specific advice.
+	Keep concise and actionable.
+
+*TROUBLESHOOTING*
+	Known issues, cautions, and resolutions.
+
+*INSTALL/REMOVE*
+	Manual steps for users who disable *pkgman-runscripts*(7):
+	*pre-install*,
+	*post-install*,
+	*pre-remove*,
+	*post-remove*.
 
 *UPGRADE*
 	Major version upgrade steps, pitfalls, and fixes.
 
-*CAUTION*, *TROUBLESHOOTING*
-	Known issues and resolutions.
-
-*REFERENCES*
+*FURTHER READING*
 	Documentation, wikis, or related resources.
 
 Include only sections that are relevant.
