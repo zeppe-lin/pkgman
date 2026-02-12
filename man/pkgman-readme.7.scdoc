@@ -54,12 +54,8 @@ Common sections include:
 *TROUBLESHOOTING*
 	Known issues, cautions, and resolutions.
 
-*INSTALL/REMOVE*
-	Manual steps for users who disable *pkgman-runscripts*(7):
-	*pre-install*,
-	*post-install*,
-	*pre-remove*,
-	*post-remove*.
+*PRE-INSTALL*, *POST-INSTALL*, *PRE-REMOVE*, *POST-REMOVE*
+	Manual steps for users who disable *pkgman-runscripts*(7).
 
 *UPGRADE*
 	Major version upgrade steps, pitfalls, and fixes.
