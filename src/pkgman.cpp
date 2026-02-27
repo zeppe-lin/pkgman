@@ -1048,10 +1048,14 @@ Pkgman::edit()
 }
 
 SignalHandler::HandlerResult
-Pkgman::handleSignal( int __attribute__((unused)) signal )
+Pkgman::handleSignal(int signal)
 {
   // TODO: second argument could also be true:
   // TODO: kill installtransaction
+
+  // Forward to active subprocess group as a fallback (in case we're
+  // not using tty fg pgrp).
+  Process::terminateActiveGroup(signal);
 
   cout << "pkgman: interrupted" << endl;
   if ( m_currentTransaction )

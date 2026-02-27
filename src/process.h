@@ -4,7 +4,10 @@
 
 #pragma once
 
+#include <atomic>
 #include <string>
+
+#include <sys/types.h>
 
 using namespace std;
 
@@ -41,6 +44,9 @@ public:
   //! \return  the execution state of the application
   int executeShell( const char* shell="/bin/sh" );
 
+  // Active job process-group helpers (single-job-at-a-time model).
+  static pid_t activePgid();
+  static void terminateActiveGroup(int signum);
 
 private:
 
@@ -102,7 +108,7 @@ private:
   //! Whether make logging to stdout
   bool m_log2stdout;
 
-
+  static std::atomic<pid_t> s_active_pgid;
 }; // class Process
 
 

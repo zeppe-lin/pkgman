@@ -29,11 +29,16 @@ SignalDispatcher::dispatch( int signalNumber )
 {
   auto it = instance()->m_signalHandlers.find( signalNumber );
   if ( it != instance()->m_signalHandlers.end() )
-    it->second->handleSignal( signalNumber );
+  {
+    auto res = it->second->handleSignal(signalNumber);
+    if (res == SignalHandler::CONTINUE)
+      return;
+  }
   else
     cerr << "pkgman: caught signal " << signalNumber << endl;
 
-  exit( signalNumber );
+  // Use 128 + signalNumber (conventional shell semantics).
+  exit( 128 + signalNumber );
 }
 
 void
