@@ -209,6 +209,11 @@ Process::execLog( const size_t argc, char** argv )
 
   pipe( fdpipe );
 
+  // Make read end non-blocking to avoid deadlocks in logging loop.
+  int flags = fcntl(fdpipe[0], F_GETFL, 0);
+  if (flags >= 0)
+    fcntl(fdpipe[0], F_SETFL, flags | O_NONBLOCK);
+
   pid_t pid = fork();
   if ( pid == 0 )     // child process
   {
@@ -244,19 +249,27 @@ Process::execLog( const size_t argc, char** argv )
       if (wpval != 0)
         break; // pid (done) or -1 (real error)
 
-      ssize_t bytes;
-      while ( ( bytes =
-                  read( fdpipe[ 0 ], readbuf, sizeof( readbuf ) - 1 ) )
-              > 0 )
+      while (true)
       {
-        readbuf[ bytes ] = 0;
-        if ( m_log2stdout )
+        ssize_t bytes = read(fdpipe[0], readbuf, sizeof(readbuf)-1);
+
+        if (bytes > 0)
         {
-          printf( "%s", readbuf );
-          fflush( stdout );
-          fflush( stderr );
+          readbuf[bytes] = 0;
+          if (m_log2stdout)
+          {
+            printf("%s", readbuf);
+            fflush(stdout);
+            fflush(stderr);
+          }
+          write(m_logfd, readbuf, bytes);
+          continue;
         }
-        write( m_logfd, readbuf, bytes );
+
+        if (bytes == -1 && (errno == EAGAIN || errno == EWOULDBLOCK))
+          break; // nothing more available now
+
+        break; // EOF or real error
       }
     }
     close( fdpipe[ 0 ] );
@@ -315,6 +328,11 @@ Process::execShellLog( const char* shell )
 
   pipe( fdpipe );
 
+  // Make read end non-blocking to avoid deadlocks in logging loop.
+  int flags = fcntl(fdpipe[0], F_GETFL, 0);
+  if (flags >= 0)
+    fcntl(fdpipe[0], F_SETFL, flags | O_NONBLOCK);
+
   pid_t pid = fork();
   if ( pid == 0 )     // child process
   {
@@ -351,19 +369,27 @@ Process::execShellLog( const char* shell )
       if (wpval != 0)
         break; // pid (done) or -1 (real error)
 
-      ssize_t bytes;
-      while ( ( bytes =
-                  read( fdpipe[ 0 ], readbuf, sizeof( readbuf ) - 1 ) )
-              > 0 )
+      while (true)
       {
-        readbuf[ bytes ] = 0;
-        if ( m_log2stdout )
+        ssize_t bytes = read(fdpipe[0], readbuf, sizeof(readbuf)-1);
+
+        if (bytes > 0)
         {
-          printf( "%s", readbuf );
-          fflush( stdout );
-          fflush( stderr );
+          readbuf[bytes] = 0;
+          if (m_log2stdout)
+          {
+            printf("%s", readbuf);
+            fflush(stdout);
+            fflush(stderr);
+          }
+          write(m_logfd, readbuf, bytes);
+          continue;
         }
-        write( m_logfd, readbuf, bytes );
+
+        if (bytes == -1 && (errno == EAGAIN || errno == EWOULDBLOCK))
+          break; // nothing more available now
+
+        break; // EOF or real error
       }
     }
     close( fdpipe[ 0 ] );
