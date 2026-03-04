@@ -71,6 +71,15 @@ class ForegroundPgrpGuard
       if (m_old_pgrp < 0)
         return;
 
+      foreground(new_pgrp);
+    }
+
+    void
+    foreground(pid_t pgrp)
+    {
+      if (m_tty < 0)
+        return;
+
       // Avoid being stopped by SIGTTOU when calling tcsetpgrp().
       struct sigaction sa_old{}, sa_ign{};
       sa_ign.sa_handler = SIG_IGN;
@@ -78,26 +87,26 @@ class ForegroundPgrpGuard
       sa_ign.sa_flags = 0;
       sigaction(SIGTTOU, &sa_ign, &sa_old);
 
-      if (tcsetpgrp(m_tty, new_pgrp) == 0)
+      if (tcsetpgrp(m_tty, pgrp) == 0)
         m_active = true;
 
       sigaction(SIGTTOU, &sa_old, nullptr);
     }
 
-    ~ForegroundPgrpGuard()
+    void
+    restore()
     {
       if (!m_active)
         return;
 
-      struct sigaction sa_old{}, sa_ign{};
-      sa_ign.sa_handler = SIG_IGN;
-      sigemptyset(&sa_ign.sa_mask);
-      sa_ign.sa_flags = 0;
-      sigaction(SIGTTOU, &sa_ign, &sa_old);
+      foreground(m_old_pgrp);
+      m_active = false;
+    }
 
-      (void) tcsetpgrp(m_tty, m_old_pgrp);
-
-      sigaction(SIGTTOU, &sa_old, nullptr);
+    ~ForegroundPgrpGuard()
+    {
+      if (m_active)
+        restore();
     }
 
   private:
@@ -183,12 +192,39 @@ Process::exec( const size_t argc, char** argv )
     // sudo/fakeroot/pkgmk.
     ForegroundPgrpGuard fg(pid);
 
-    while (waitpid(pid, &status, 0) != pid)
+    for (;;)
     {
-      if (errno == EINTR)
-        continue;
+      pid_t w = waitpid(pid, &status, WUNTRACED);
+      if (w == -1)
+      {
+        if (errno == EINTR)
+          continue;
 
-      status = -1;
+        status = -1;
+        break;
+      }
+
+      if (w == pid && WIFSTOPPED(status))
+      {
+        // Give terminal back to the shell and stop ourselves too.
+        fg.restore();
+
+        // Ensure default stop behavior, then stop pkgman.
+        struct sigaction sa{};
+        sa.sa_handler = SIG_DFL;
+        sigemptyset(&sa.sa_mask);
+        sa.sa_flags = 0;
+        sigaction(SIGTSTP, &sa, nullptr);
+
+        raise(SIGTSTP);
+
+        // Resumed (SIGCONT): re-foreground the child job and resume it.
+        fg.foreground(pid);
+        (void) kill(-pid, SIGCONT);
+        continue;
+      }
+
+      // Exited or signaled.
       break;
     }
 
@@ -241,9 +277,29 @@ Process::execLog( const size_t argc, char** argv )
 
     while (true)
     {
-      wpval = waitpid(pid, &status, WNOHANG);
+      wpval = waitpid(pid, &status, WNOHANG | WUNTRACED);
       if (wpval == -1 && errno == EINTR)
         continue; // retry waitpid
+
+      if (wpval == pid && WIFSTOPPED(status))
+      {
+        // Give terminal back to the shell and stop ourselves too.
+        fg.restore();
+
+        struct sigaction sa{};
+        sa.sa_handler = SIG_DFL;
+        sigemptyset(&sa.sa_mask);
+        sa.sa_flags = 0;
+        sigaction(SIGTSTP, &sa, nullptr);
+
+        raise(SIGTSTP);
+
+        // Resumed (SIGCONT): re-foreground the child job and resume it.
+        fg.foreground(pid);
+        (void) kill(-pid, SIGCONT);
+        continue;
+      }
+
       if (wpval != 0)
         break; // pid (done) or -1 (real error)
 
@@ -304,12 +360,39 @@ Process::execShell( const char* shell )
 
     ForegroundPgrpGuard fg(pid);
 
-    while (waitpid(pid, &status, 0) != pid)
+    for (;;)
     {
-      if (errno == EINTR)
-        continue;
+      pid_t w = waitpid(pid, &status, WUNTRACED);
+      if (w == -1)
+      {
+        if (errno == EINTR)
+          continue;
 
-      status = -1;
+        status = -1;
+        break;
+      }
+
+      if (w == pid && WIFSTOPPED(status))
+      {
+        // Give terminal back to the shell and stop ourselves too.
+        fg.restore();
+
+        // Ensure default stop behavior, then stop pkgman.
+        struct sigaction sa{};
+        sa.sa_handler = SIG_DFL;
+        sigemptyset(&sa.sa_mask);
+        sa.sa_flags = 0;
+        sigaction(SIGTSTP, &sa, nullptr);
+
+        raise(SIGTSTP);
+
+        // Resumed (SIGCONT): re-foreground the child job and resume it.
+        fg.foreground(pid);
+        (void) kill(-pid, SIGCONT);
+        continue;
+      }
+
+      // Exited or signaled.
       break;
     }
     s_active_pgid.store(0);
@@ -361,9 +444,29 @@ Process::execShellLog( const char* shell )
 
     while (true)
     {
-      wpval = waitpid(pid, &status, WNOHANG);
+      wpval = waitpid(pid, &status, WNOHANG | WUNTRACED);
       if (wpval == -1 && errno == EINTR)
         continue; // retry waitpid
+
+      if (wpval == pid && WIFSTOPPED(status))
+      {
+        // Give terminal back to the shell and stop ourselves too.
+        fg.restore();
+
+        struct sigaction sa{};
+        sa.sa_handler = SIG_DFL;
+        sigemptyset(&sa.sa_mask);
+        sa.sa_flags = 0;
+        sigaction(SIGTSTP, &sa, nullptr);
+
+        raise(SIGTSTP);
+
+        // Resumed (SIGCONT): re-foreground the child job and resume it.
+        fg.foreground(pid);
+        (void) kill(-pid, SIGCONT);
+        continue;
+      }
+
       if (wpval != 0)
         break; // pid (done) or -1 (real error)
 
