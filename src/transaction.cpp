@@ -26,6 +26,27 @@ using namespace std;
 using namespace ListHelper;
 using namespace StringHelper;
 
+static Transaction::BuildResult
+decodePkgmkExit(int exitCode)
+{
+  Transaction::BuildResult result;
+  result.step.exitCode = exitCode;
+
+  // Transactional compatibility:
+  // keep download-only reporting without leaking pkgmk exit lore
+  // through Transaction::Result_t
+  result.downloadFailed = (exitCode == Transaction::PKGMK_E_DOWNLOAD);
+
+  return result;
+}
+
+static Transaction::Result_t
+genericStepFailure(int exitCode)
+{
+  (void) exitCode;
+  return Transaction::PKGMK_E_GENERAL;
+}
+
 const
 Transaction::Transaction_t& Transaction::type()
   const
@@ -127,12 +148,20 @@ Transaction::install( Transaction::Transaction_t transactionType )
     bool isDownloadOnly = contains( m_parser->pkgmkArgs(), "-do" );
 
     pkgRunScriptsState_t scriptsInfo;
-    Result_t pkgmkResult, pkgaddResult;
+    BuildResult buildResult;
+    StepResult installResult;
+    installResult.exitCode = 0;
 
     // build the package unless `--test' command-line option is set
-    pkgmkResult = m_parser->isTest() ? SUCCESS : pkgmk( pkg );
+    if (m_parser->isTest())
+    {
+      buildResult.step.exitCode = 0;
+      buildResult.downloadFailed = false;
+    }
+    else
+      buildResult = pkgmk(pkg);
 
-    if ( ! isDownloadOnly && pkgmkResult == SUCCESS )
+    if ( ! isDownloadOnly && buildResult.step.ok() )
     {
       // `pre-install` script execution
       if ( ( m_parser->execPreInstall() || m_config->runScripts() )
@@ -151,8 +180,9 @@ Transaction::install( Transaction::Transaction_t transactionType )
       }
 
       // install the package
-      pkgaddResult = m_parser->isTest() ? SUCCESS : pkgadd( pkg );
-      if ( pkgaddResult == SUCCESS )
+      installResult = m_parser->isTest() ? StepResult{0} : pkgadd(pkg);
+
+      if (installResult.ok())
       {
         // `post-install' script execution
         if ( ( m_parser->execPostInstall() || m_config->runScripts() )
@@ -170,10 +200,12 @@ Transaction::install( Transaction::Transaction_t transactionType )
             make_pair( name, scriptsInfo ) );
       }
       else
+      {
         m_installFailedPackages.push_back(
             make_pair( name, scriptsInfo ) );
+      }
     }
-    else if ( pkgmkResult == PKGMK_E_DOWNLOAD )
+    else if (buildResult.downloadFailed)
       m_downloadFailedPackages.push_back( name );
     else if ( ! isDownloadOnly )
       m_buildFailedPackages.push_back( name );
@@ -183,31 +215,43 @@ Transaction::install( Transaction::Transaction_t transactionType )
       // Remove the log file if `pkgman' is configured to remove a log
       // after successful operation.
       if (     m_config->removeLogOnSuccess()
-          &&   pkgmkResult  == SUCCESS
-          && ( pkgaddResult == SUCCESS || isDownloadOnly ) )
+          &&   buildResult.step.ok()
+          && ( installResult.ok() || isDownloadOnly ) )
         unlinkat( m_logfd, logFilePath.c_str(), 0 );
       else
         close( m_logfd );
     }
 
-    if ( pkgmkResult != SUCCESS )
+    if (!buildResult.step.ok())
     {
       if ( m_parser->group() )
-        return m_transactionResult = pkgmkResult;
+      {
+        return m_transactionResult =
+          buildResult.downloadFailed
+            ? PKGMK_E_DOWNLOAD
+            : genericStepFailure(buildResult.step.exitCode);
+      }
 
-      cout << "pkgman: makecommand: " << name << ": "
-           << strerror( pkgmkResult ) << endl;
+      cout << "pkgman: makecommand: " << name
+           << ": failed (exit " << buildResult.step.exitCode << ")\n";
     }
 
-    if ( ! isDownloadOnly && pkgaddResult != SUCCESS )
+    if (!isDownloadOnly && !installResult.ok())
     {
       if ( m_parser->group() )
-        return m_transactionResult = pkgaddResult;
+        return m_transactionResult = PKGMK_E_INSTALL;
 
-      cout << "pkgman: addcommand: " << name << ": "
-           << strerror( pkgaddResult ) << endl;
+      cout << "pkgman: addcommand: " << name
+           << ": failed (exit " << installResult.exitCode << ")\n";
     }
   }
+
+  if ( ! m_installFailedPackages.empty() )
+    return m_transactionResult = PKGMK_E_INSTALL;
+  if ( ! m_buildFailedPackages.empty() )
+    return m_transactionResult = PKGMK_E_BUILD;
+  if ( ! m_downloadFailedPackages.empty() )
+    return m_transactionResult = PKGMK_E_DOWNLOAD;
   return m_transactionResult = SUCCESS;
 }
 
@@ -534,7 +578,7 @@ Transaction::logFileCreate( const string& logFilePath )
   return m_logfd != -1;
 }
 
-Transaction::Result_t
+Transaction::BuildResult
 Transaction::pkgmk( const Package* pkg )
   const
 {
@@ -557,18 +601,18 @@ Transaction::pkgmk( const Package* pkg )
     if ( m_logfd )
       write( m_logfd, message.c_str(), message.length() );
 
-    return PKGMK_E_GENERAL;
+    BuildResult result;
+    result.step.exitCode = PKGMK_E_GENERAL;
+    return result;
   }
 
   Process pkgmkProc( pkgmk, pkgmkArgs, m_logfd,
                      m_parser->verbose() > 1 );
 
-  const auto& result = pkgmkProc.executeShell();
-
-  return result != SUCCESS ? static_cast<Result_t>( result ) : SUCCESS;
+  return decodePkgmkExit(pkgmkProc.executeShell());
 }
 
-Transaction::Result_t
+Transaction::StepResult
 Transaction::pkgadd( const Package* pkg )
   const
 {
@@ -622,9 +666,9 @@ Transaction::pkgadd( const Package* pkg )
   Process pkgaddProc( pkgadd, pkgaddArgs, m_logfd,
                       m_parser->verbose() > 1 );
 
-  return pkgaddProc.executeShell() != SUCCESS
-         ? PKGMK_E_INSTALL
-         : SUCCESS;
+  StepResult result;
+  result.exitCode = pkgaddProc.executeShell();
+  return result;
 }
 
 bool

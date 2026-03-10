@@ -89,6 +89,21 @@ public:
     PKGMK_E_INSTALL   =  9, //!< Error while executing 'addcommand'
   };
 
+  struct StepResult
+  {
+    int exitCode = 0;
+
+    bool ok() const
+    {
+      return exitCode == 0;
+    }
+  };
+
+  struct BuildResult
+  {
+    StepResult step;
+    bool downloadFailed = false;
+  };
 
   //! \struct  pkgRunScriptsState_t
   //! \brief   To save the results of pre/post-... scripts
@@ -485,8 +500,8 @@ private:
   //! \param   pkg    the package to build
   //! \param   logfd  the file descriptor for logging a build process
   //!
-  //! \return  \a Result_t value indicating the package building result
-  Result_t pkgmk( const Package* pkg ) const;
+  //! \return  \a BuildResult value indicating the package building result
+  BuildResult pkgmk(const Package* pkg) const;
 
 
   //! \brief   Install the package (pkgadd wrapper)
@@ -495,9 +510,9 @@ private:
   //! \param   logfd   the file descriptor for logging an installation
   //!                  process
   //!
-  //! \return  \a Result_t  value indicating the package installing
+  //! \return  \a StepResult value indicating the package installing
   //!                       result
-  Result_t pkgadd( const Package* pkg ) const;
+  StepResult pkgadd(const Package* pkg) const;
 
 
   //! \brief   Calculate dependencies for this transaction
