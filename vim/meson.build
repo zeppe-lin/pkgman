@@ -4,10 +4,11 @@ if get_option('vimfiles')
     vimfilesdir = get_option('datadir') / 'vim' / 'vimfiles'
   endif
 
-  install_data('ftdetect/pkgmanconf.vim',
+  install_data('ftdetect.vim',
     install_dir: vimfilesdir / 'ftdetect',
-  )
-  install_data('syntax/pkgmanconf.vim',
+    rename: 'pkgmanconf.vim')
+
+  install_data('syntax.vim',
     install_dir: vimfilesdir / 'syntax',
-  )
+    rename: 'pkgmanconf.vim')
 endif
