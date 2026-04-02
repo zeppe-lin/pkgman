@@ -42,8 +42,10 @@ REQUIREMENTS
 Build-time
 ----------
   * C++17 compiler (GCC 8+, Clang 5+)
-  * POSIX `sh(1p)`, `make(1p)`, and "mandatory utilities"
-  * `scdoc(1)` to generate manual pages
+  * Meson
+  * Ninja
+  * `scdoc(1)` to generate manual pages (if manpage build is enabled)
+  * `pkg-config(1)` for dependency discovery
 
 Runtime
 -------
@@ -56,21 +58,36 @@ Runtime
 INSTALLATION
 ============
 
-To build and install:
+Configure and build with Meson:
 
 ```sh
-make
-make install   # as root
+meson setup build \
+    --buildtype=plain \
+    --wrap-mode=nodownload \
+
+ninja -C build
 ```
 
-For static linking:
+Install:
 
 ```sh
-make LDFLAGS="-static -lstdc++fs"
+DESTDIR="$PKG" ninja -C build install
 ```
 
-Configuration parameters are defined in `config.mk`.  
-Default file paths are specified in `src/pathnames.h`.
+Common options:
+
+```sh
+meson setup build \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    -D build_man=true \
+    -D link_mode=static \
+    -D bashcomp=true \
+    -D vimfiles=true \
+```
+
+Use `meson configure build` to inspect available options.
 
 ---
 
