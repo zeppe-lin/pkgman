@@ -4,7 +4,5 @@ if get_option('bashcomp')
     bashcompdir = get_option('datadir') / 'bash-completion' / 'completions'
   endif
 
-  install_data('bash_completion',
-    install_dir: bashcompdir,
-    rename: 'pkgman')
+  install_data('pkgman.bash', install_dir: bashcompdir, rename: 'pkgman')
 endif
