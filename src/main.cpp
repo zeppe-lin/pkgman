@@ -2,10 +2,6 @@
 //! \brief Command-line utility of \a pkgman.
 //! \copyright See COPYING for license terms and COPYRIGHT for notices.
 
-#if __cplusplus < 201412L
-# error expecting C++17 standard
-#endif
-
 #include <cstdlib>
 #include <iostream>
 
@@ -16,12 +12,14 @@
 #include "pkgman.h"
 #include "signaldispatcher.h"
 
+#include "pkgman-config.h"
+
 using namespace std;
 
 static int
 print_version()
 {
-  cout << "pkgman " VERSION "\n";
+  cout << PACKAGE_NAME << " " << PACKAGE_VERSION << endl;
   return EXIT_SUCCESS;
 }
 
