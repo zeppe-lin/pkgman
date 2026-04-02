@@ -1,0 +1,30 @@
+option('link_mode',
+  type: 'combo',
+  choices: ['shared', 'static'],
+  value: 'shared',
+  description: 'How pkgman links against external libraries')
+
+option('build_man',
+  type: 'boolean',
+  value: true,
+  description: 'Build and install manual pages')
+
+option('bashcomp',
+  type: 'boolean',
+  value: false,
+  description: 'Install bash completion')
+
+option('vimfiles',
+  type: 'boolean',
+  value: false,
+  description: 'Install Vim files')
+
+option('bashcompdir',
+  type: 'string',
+  value: '',
+  description: 'Install directory for bash completion files')
+
+option('vimfilesdir',
+  type: 'string',
+  value: '',
+  description: 'Install directory for Vim files')
