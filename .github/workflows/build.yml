@@ -49,30 +49,30 @@ jobs:
           - name: static
             link_mode: static
 
-  name: ${{ matrix.env.name }} / ${{ matrix.cfg.name }}
-  container: ${{ matrix.env.container != '' && matrix.env.container || null }}
+    name: ${{ matrix.env.name }} / ${{ matrix.cfg.name }}
+    container: ${{ matrix.env.container != '' && matrix.env.container || null }}
 
-  steps:
-    - uses: actions/checkout@v4
+    steps:
+      - uses: actions/checkout@v4
 
-    - name: Install build dependencies
-      run: ${{ matrix.env.install }}
+      - name: Install build dependencies
+        run: ${{ matrix.env.install }}
 
-    - name: Configure pkgman
-      run: |
-        meson setup build \
-          --buildtype=plain \
-          --wrap-mode=nodownload \
-          --prefix=/usr \
-          -D b_lto=true \
-          -D b_pie=true \
-          -D link_mode=${{ matrix.cfg.link_mode }}
+      - name: Configure pkgman
+        run: |
+          meson setup build \
+            --buildtype=plain \
+            --wrap-mode=nodownload \
+            --prefix=/usr \
+            -D b_lto=true \
+            -D b_pie=true \
+            -D link_mode=${{ matrix.cfg.link_mode }}
 
-    - name: Build pkgman
-      run: meson compile -C build -v
+      - name: Build pkgman
+        run: meson compile -C build -v
 
-    - name: Run pkgman tests
-      run: meson test -C build -v
+      - name: Run pkgman tests
+        run: meson test -C build -v
 
-    - name: Install pkgman to staging
-      run: DESTDIR="$PWD/stage" meson install -C build
+      - name: Install pkgman to staging
+        run: DESTDIR="$PWD/stage" meson install -C build
