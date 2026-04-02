@@ -3,44 +3,76 @@ name: Build CI
 on:
   push:
     branches: [ "master" ]
-    paths: &build_paths
-      - "Makefile"
-      - "config.mk"
+    paths: &paths
+      - "meson.build"
+      - "meson.options"
+      - "meson_options.txt"
       - "src/**"
+      - "man/**"
+      - "completion/**"
+      - "vim/**"
+      - "tests/**"
       - ".github/**"
+
   pull_request:
     branches: [ "master" ]
-    paths: *build_paths
+    paths: *paths
 
 jobs:
-  build-man:
+  build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
 
-      - name: Install scdoc
-        run: sudo apt-get install -y scdoc
+    strategy:
+      fail-fast: false
 
-      - name: Generate man pages
-        run: make -C man
+      matrix:
+        env:
+          - name: glibc
+            container: ""
+            install: |
+              sudo apt-get update
+              sudo apt-get install -y \
+                meson ninja-build pkg-config g++ \
+                scdoc
 
-  build-glibc:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+          - name: musl
+            container: "alpine:latest"
+            install: |
+              apk add --no-cache \
+                build-base meson ninja pkgconf \
+                scdoc
 
-      - name: Build (glibc)
-        run: make -C src
+        cfg:
+          - name: shared
+            link_mode: shared
 
-  build-musl:
-    runs-on: ubuntu-latest
-    container: alpine:latest
-    steps:
-      - uses: actions/checkout@v3
+          - name: static
+            link_mode: static
 
-      - name: Install toolchain
-        run: apk add build-base g++ make
+  name: ${{ matrix.env.name }} / ${{ matrix.cfg.name }}
+  container: ${{ matrix.env.container != '' && matrix.env.container || null }}
 
-      - name: Build (musl)
-        run: make -C src
+  steps:
+    - uses: actions/checkout@v4
 
+    - name: Install build dependencies
+      run: ${{ matrix.env.install }}
+
+    - name: Configure pkgman
+      run: |
+        meson setup build \
+          --buildtype=plain \
+          --wrap-mode=nodownload \
+          --prefix=/usr \
+          -D b_lto=true \
+          -D b_pie=true \
+          -D link_mode=${{ matrix.cfg.link_mode }}
+
+    - name: Build pkgman
+      run: meson compile -C build -v
+
+    - name: Run pkgman tests
+      run: meson test -C build -v
+
+    - name: Install pkgman to staging
+      run: DESTDIR="$PWD/stage" meson install -C build
