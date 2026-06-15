@@ -76,6 +76,3 @@ PkgmkSetting::getSettingFromFile( const string& setting,
 
   return stripWhiteSpace( outline );
 }
-
-// vim: sw=2 ts=2 sts=2 et cc=72 tw=70
-// End of file.

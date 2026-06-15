@@ -87,7 +87,3 @@ size_t normalizeBlocksSize( vector< string >& v1, vector< string >& v2 );
 void tokenizeMixedIntoBlocks( const string& s, vector< string >& tokens );
 
 }; // namespace VersionComparator
-
-
-// vim: sw=2 ts=2 sts=2 et cc=72 tw=70
-// End of file.

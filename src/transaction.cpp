@@ -748,6 +748,3 @@ Transaction::checkDependecies( const Package*  pkg,
       m_missingPackages.push_back( make_pair( dep, pkg->name() ) );
   }
 }
-
-// vim: sw=2 ts=2 sts=2 et cc=72 tw=70
-// End of file.
