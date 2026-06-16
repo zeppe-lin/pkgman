@@ -1,7 +1,6 @@
 " Vim syntax file
-" Language:     pkgman.conf(5) configuration file
-" Maintainer:   Alexandr Savca <alexandr.savca89@gmail.com>
-" Last Change:  December 31, 2024
+" Language:   pkgman.conf(5) configuration file
+" Maintainer: Alexandr Savca <alexandr.savca89@gmail.com>
 
 " Quit when a syntax file was already loaded.
 if exists("b:current_syntax")
