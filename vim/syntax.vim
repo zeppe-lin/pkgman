@@ -63,5 +63,4 @@ let b:current_syntax = "pkgmanconf"
 let &cpo = s:cpo_save
 unlet s:cpo_save
 
-" vim: cc=72
 " End of file.
