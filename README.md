@@ -44,7 +44,8 @@ Build-time
   * C++17 compiler (GCC 8+, Clang 5+)
   * Meson
   * Ninja
-  * `scdoc(1)` to generate manual pages (if manpage build is enabled)
+  * `scdoc(1)` to generate manual pages
+    (enabled by default via the `manpages` option)
   * `pkg-config(1)` for dependency discovery
 
 Runtime
@@ -81,8 +82,8 @@ meson setup build \
     --prefix=/usr \
     --sysconfdir=/etc \
     --localstatedir=/var \
-    -D build_man=true \
     -D link_mode=static \
+    -D manpages=true \
     -D bashcomp=true \
     -D vimfiles=true \
 ```
