@@ -4,7 +4,7 @@ option('link_mode',
   value: 'shared',
   description: 'How pkgman links against external libraries')
 
-option('build_man',
+option('manpages',
   type: 'boolean',
   value: true,
   description: 'Build and install manual pages')
