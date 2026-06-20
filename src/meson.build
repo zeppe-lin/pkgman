@@ -2,7 +2,8 @@ common_deps = []
 common_incs = [internal_inc]
 common_link_args = []
 
-if get_option('link_mode') == 'static'
+want_static = get_option('link_mode') == 'static'
+if want_static
   common_link_args += ['-static']
 endif
 
