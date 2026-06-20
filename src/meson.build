@@ -1,5 +1,5 @@
 common_deps = []
-common_incs = [config_inc]
+common_incs = [internal_inc]
 common_link_args = []
 
 if get_option('link_mode') == 'static'
