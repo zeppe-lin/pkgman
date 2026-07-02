@@ -14,7 +14,6 @@ struct PackageData;
 
 // useful aliases
 typedef string pkgname_t;   //!< Package name
-typedef string pkgver_t;    //!< Package version-release
 
 
 //! \class  Package

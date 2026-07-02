@@ -155,7 +155,7 @@ Pkgman::listPackages()
   if ( m_parser->hasFilter() )
     filter = m_parser->filter();
 
-  map< pkgname_t, pkgver_t > packages;
+  map<pkgname_t, pkgutil::pkginfo_t> packages;
 
   initRepo();
 
@@ -180,7 +180,10 @@ Pkgman::listPackages()
       // calcDependencies chokes on the full list, so go through the
       // packages one by one
       for ( const auto& pkg: pkglist )
-        packages[ pkg->name() ] = pkg->version_release();
+      {
+        packages[pkg->name()] =
+          m_pkgDB->installedPackages().at(pkg->name());
+      }
 
       return listDepSorted( packages );
     }
@@ -293,7 +296,7 @@ Pkgman::listOrphans()
 {
   initRepo();
 
-  map< pkgname_t, pkgver_t > packages = m_pkgDB->installedPackages();
+  map<pkgname_t, pkgutil::pkginfo_t> packages = m_pkgDB->installedPackages();
 
   if ( packages.empty() )
     return errx( "no packages found" );
@@ -534,11 +537,11 @@ Pkgman::printCurrentVersion()
 {
   string arg = m_parser->cmdArgs().front();
 
-  for ( const auto& [ name, version ]: m_pkgDB->installedPackages() )
+  for (const auto& [name, info] : m_pkgDB->installedPackages() )
   {
     if ( name == arg )
     {
-      cout << version << endl;
+      cout << info.version << endl;
       return;
     }
   }
@@ -550,7 +553,7 @@ Pkgman::printDiff()
 {
   initRepo();
 
-  map< pkgname_t, pkgver_t > packages;
+  map<pkgname_t, pkgutil::pkginfo_t> packages;
 
   //XXX allow multiple patterns? already allowed?
   // filter!
@@ -567,7 +570,7 @@ Pkgman::printDiff()
 
   if ( m_parser->deps() )
   {
-    map< pkgname_t, pkgver_t > deps;
+    map<pkgname_t, pkgutil::pkginfo_t> deps;
 
     Transaction depcalc( packages, m_repo, m_pkgDB, m_parser,
                          m_config, m_locker );
@@ -577,9 +580,12 @@ Pkgman::printDiff()
 
     m_missingRepoPackages = depcalc.missing();
 
-    for ( const auto& dep: depcalc.deps() )
-      deps[ dep ] = m_pkgDB->getVersionRelease( dep );
-
+    for (const auto& dep : depcalc.deps())
+    {
+      auto it = m_pkgDB->installedPackages().find(dep);
+      if (it != m_pkgDB->installedPackages().end())
+        deps[dep] = it->second;
+    }
     diffCalc( deps );
   }
   else
@@ -1117,15 +1123,15 @@ Pkgman::initRepo( bool listDuplicate )
 
 void
 Pkgman::expandWildcardsPkgDB( const list< char* >&         in,
-                              map< pkgname_t, pkgver_t >&  target )
+                              map< pkgname_t, pkgutil::pkginfo_t >&  target )
 {
   for ( const auto& pattern: in )
   {
-    map< pkgname_t, pkgver_t > packages;
-    m_pkgDB->getMatchingPackages( pattern, packages, m_useRegex);
+    std::map<pkgname_t, pkgutil::pkginfo_t> packages;
+    m_pkgDB->getMatchingPackages(pattern, packages, m_useRegex);
 
-    for ( const auto& [ name, version ]: packages )
-      target[ name ] = version;
+    for (const auto& [name, info] : packages)
+      target[name] = info;
   }
 }
 
@@ -1144,7 +1150,7 @@ Pkgman::expandWildcardsRepo( const list< char* >&  in,
 }
 
 void
-Pkgman::listDepSorted( map< string, string >& packages )
+Pkgman::listDepSorted( map<string, pkgutil::pkginfo_t>& packages )
 {
   while ( packages.size() )
   {
@@ -1221,9 +1227,9 @@ Pkgman::compareVersions( const string& v1, const string& v2 )
 }
 
 void
-Pkgman::diffCalc( const map< pkgname_t, pkgver_t >& packages )
+Pkgman::diffCalc( const std::map< pkgname_t, pkgutil::pkginfo_t >& packages )
 {
-  for ( const auto& [ name, version ]: packages )
+  for ( const auto& [ name, info ]: packages )
   {
     const auto& pkg = m_repo->getPackage( name );
     if ( ! pkg )
@@ -1233,7 +1239,7 @@ Pkgman::diffCalc( const map< pkgname_t, pkgver_t >& packages )
     }
 
     const auto& result =
-      compareVersions( pkg->version_release(), version );
+      compareVersions( pkg->version_release(), info.version );
 
     if ( result == GREATER )
     {

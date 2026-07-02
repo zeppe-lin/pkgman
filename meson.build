@@ -10,6 +10,15 @@ project(
   ],
 )
 
+want_static = get_option('link_mode') == 'static'
+
+libpkgcore_dep = dependency(
+  'libpkgcore',
+  required: true,
+  static: want_static,
+  fallback: ['libpkgcore', 'libpkgcore_dep'],
+)
+
 subdir('internal')
 subdir('src')
 subdir('man')

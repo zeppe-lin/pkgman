@@ -293,7 +293,7 @@ protected:
   //!
   //! \see     PkgDB::getMatchingPackages()
   void expandWildcardsPkgDB( const list< char* >&    in,
-                             map< string, string >&  target );
+                             std::map<string, pkgutil::pkginfo_t>&  target );
 
 
   //! \brief   Get the packages that match the pattern
@@ -311,7 +311,7 @@ protected:
   //!          without injecting missing ones
   //!
   //! \param   packages  the packages to be sorted and listed
-  void listDepSorted( map< string, string >& packages );
+  void listDepSorted(map<string, pkgutil::pkginfo_t>& packages );
 
 
   //! \brief   Print a file to stdout or open it with PAGER
@@ -346,7 +346,7 @@ protected:
   //!          - \a m_missingRepoPackages
   //!          - \a m_greaterVersionComp
   //!          - \a m_undefinedVersionComp
-  void diffCalc( const map< string, string >& packages );
+  void diffCalc(const std::map<string, pkgutil::pkginfo_t>& packages);
 
 
   //! \brief   Print the formatted line of the package

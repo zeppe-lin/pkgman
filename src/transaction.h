@@ -10,6 +10,8 @@
 #include <utility>
 #include <vector>
 
+#include <libpkgcore/pkgcore.h>
+
 #include "depresolver.h"
 #include "locker.h"
 #include "process.h"
@@ -178,10 +180,10 @@ public:
             make_pair( names, m_repo->getPackage( names )  ) );
       }
       else if constexpr
-        ( is_same< T, map< pkgname_t, pkgver_t > >::value )
+        ( is_same< T, map<pkgname_t, pkgutil::pkginfo_t> >::value )
       {
-        // Got 'map< name, version >' as argument
-        for ( const auto& [ name, version ]: names )
+        // Got 'map< name, pkginfo_t >' as argument
+        for ( const auto& [name, info] : names )
           m_packages.push_back(
               make_pair( name, m_repo->getPackage( name ) ) );
       }

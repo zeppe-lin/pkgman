@@ -9,6 +9,7 @@
 #include <iostream>
 #include <map>
 
+#include <libpkgcore/pkgcore.h>
 #include <fnmatch.h>
 
 #include "datafileparser.h"
@@ -46,10 +47,10 @@ PkgDB::getVersionRelease( const pkgname_t& name )
   if ( pkg == m_packages.end() )
     return "";
 
-  return pkg->second; /* version-release */
+  return pkg->second.version; /* version-release */
 }
 
-const map< pkgname_t, pkgver_t >&
+const std::map< pkgname_t, pkgutil::pkginfo_t >&
 PkgDB::installedPackages()
 {
   load();
@@ -58,7 +59,7 @@ PkgDB::installedPackages()
 
 void
 PkgDB::getMatchingPackages( const string&                pattern,
-                            map< pkgname_t, pkgver_t >&  target,
+                            map< pkgname_t, pkgutil::pkginfo_t >&  target,
                             bool                         useRegex )
   const
 {
@@ -69,18 +70,18 @@ PkgDB::getMatchingPackages( const string&                pattern,
   {
     RegEx re( pattern );
 
-    for ( const auto& [ name, version ]: m_packages )
+    for (const auto& [name, info] : m_packages)
       if ( re.match( name ) )
-        target[ name ] = version;
+        target[name] = info;
   }
   else
   {
-    for ( const auto& [ name, version ]: m_packages )
+    for (const auto& [name, info] : m_packages)
     {
       // jw: I assume fnmatch will be quite fast for "match all" (*),
       // so I didn't add a boolean to check for this explicitely
       if ( fnmatch( pattern.c_str(), name.c_str(), 0 ) == 0 )
-        target[ name ] = version;
+        target[name] = info;
     }
   }
 }
@@ -92,35 +93,20 @@ PkgDB::load()
   if ( m_isLoaded )
     return true;
 
-  string line;
-  string name;
-  bool emptyLine = true;
-  bool nameRead = false;
+  pkgutil util("pkgman");
 
-  ifstream db( m_root + PATH_PKG_DB );
-  if ( ! db.is_open() )
-    return false;
-
-  while ( db.good() )
+  try
   {
-    getline( db, line );
-    if ( emptyLine && line.size() )
-    {
-      name      = line;
-      emptyLine = false;
-      nameRead  = true;
-    }
-    else if ( nameRead )
-    {
-      if ( line.size() )
-        m_packages[ name ] = line; // version
-
-      nameRead = false;
-    }
-    if ( line.empty() )
-      emptyLine = true;
+    db_lock lock(m_root, false);
+    util.db_open(m_root);
   }
-  db.close();
+  catch (const runtime_error& error)
+  {
+    cerr << "error: " << error.what() << endl;
+    return false;
+  }
+
+  m_packages = util.getPackages();
 
   return m_isLoaded = true;
 }

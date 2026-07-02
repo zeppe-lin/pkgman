@@ -9,6 +9,8 @@
 #include <utility>
 #include <vector>
 
+#include <libpkgcore/pkgcore.h>
+
 #include "package.h"
 #include "pathnames.h"
 
@@ -52,7 +54,7 @@ public:
   //! \return  a map of installed packages, where
   //!          pair.first   is the package name,
   //!          pair.second  is the version-release string
-  const map< pkgname_t, pkgver_t >& installedPackages();
+  const std::map< pkgname_t, pkgutil::pkginfo_t >& installedPackages();
 
 
   //! \brief   Search packages for a match of \a pattern in name
@@ -65,7 +67,7 @@ public:
   //!                    pair.second  is the version-release string
   //! \param   useRegex  interpret the \a pattern as regular expression
   void getMatchingPackages( const string&                pattern,
-                            map< pkgname_t, pkgver_t >&  target,
+                            map<pkgname_t, pkgutil::pkginfo_t>&  target,
                             bool                         useRegex ) const;
 
 
@@ -81,8 +83,7 @@ private:
 
 
   //! All installed packages
-  mutable map< pkgname_t, pkgver_t > m_packages;
-
+  mutable std::map<std::string, pkgutil::pkginfo_t> m_packages;
 
   //! For a different than "/" root directory
   string m_root;

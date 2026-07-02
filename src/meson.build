@@ -1,4 +1,4 @@
-common_deps = []
+common_deps = [libpkgcore_dep]
 common_incs = [internal_inc]
 common_link_args = []
 
