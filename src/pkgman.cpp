@@ -181,8 +181,15 @@ Pkgman::listPackages()
       // packages one by one
       for ( const auto& pkg: pkglist )
       {
-        packages[pkg->name()] =
-          m_pkgDB->installedPackages().at(pkg->name());
+        auto it = m_pkgDB->installedPackages().find(pkg->name());
+        if (it != m_pkgDB->installedPackages().end())
+          packages[pkg->name()] = it->second;
+        else
+        {
+          pkgutil::pkginfo_t info;
+          info.version = pkg->version_release();
+          packages[pkg->name()] = info;
+        }
       }
 
       return listDepSorted( packages );
