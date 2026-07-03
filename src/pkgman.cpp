@@ -589,10 +589,11 @@ Pkgman::printDiff()
 
     for (const auto& dep : depcalc.deps())
     {
-      auto it = m_pkgDB->installedPackages().find(dep);
-      if (it != m_pkgDB->installedPackages().end())
-        deps[dep] = it->second;
+      pkgutil::pkginfo_t info;
+      info.version = m_pkgDB->getVersionRelease(dep);
+      deps[dep] = info;
     }
+
     diffCalc( deps );
   }
   else
