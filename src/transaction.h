@@ -10,7 +10,7 @@
 #include <utility>
 #include <vector>
 
-#include <libpkgcore/pkgcore.h>
+#include <libpkgcore/libpkgcore.h>
 
 #include "depresolver.h"
 #include "locker.h"

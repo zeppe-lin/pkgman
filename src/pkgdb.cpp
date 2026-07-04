@@ -9,7 +9,6 @@
 #include <iostream>
 #include <map>
 
-#include <libpkgcore/pkgcore.h>
 #include <fnmatch.h>
 
 #include "datafileparser.h"

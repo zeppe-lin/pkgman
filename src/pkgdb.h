@@ -9,7 +9,7 @@
 #include <utility>
 #include <vector>
 
-#include <libpkgcore/pkgcore.h>
+#include <libpkgcore/libpkgcore.h>
 
 #include "package.h"
 #include "pathnames.h"
