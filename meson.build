@@ -2,6 +2,7 @@ project(
   'pkgman',
   'cpp',
   version: '6.2',
+  license: 'GPL-2.0-or-later',
   meson_version: '>=1.2.0',
   default_options: [
     'cpp_std=c++17',
