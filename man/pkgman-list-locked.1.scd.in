@@ -45,4 +45,9 @@ _@SHAREDSTATEDIR@/pkg/locked_
 *pkgman-unlock*(8),
 *pkgman.conf*(5)
 
+# REPORTING BUGS
+
+Report bugs to: @PACKAGE_BUGREPORT@++
+Project homepage: @PACKAGE_URL@
+
 ; vim: ft=scdoc

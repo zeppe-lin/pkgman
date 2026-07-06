@@ -192,4 +192,9 @@ _root-dir@SHAREDSTATEDIR@/pkg/locked_.
 *pkgrm*(8),
 *pkginfo*(1)
 
+# REPORTING BUGS
+
+Report bugs to: @PACKAGE_BUGREPORT@++
+Project homepage: @PACKAGE_URL@
+
 ; vim: ft=scdoc

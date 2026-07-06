@@ -162,4 +162,9 @@ pkgman update -fr -if --deps --depsort --group \\
 *pkgmk*(8),
 *pkgadd*(8)
 
+# REPORTING BUGS
+
+Report bugs to: @PACKAGE_BUGREPORT@++
+Project homepage: @PACKAGE_URL@
+
 ; vim: ft=scdoc

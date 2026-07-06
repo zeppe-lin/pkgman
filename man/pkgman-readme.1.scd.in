@@ -65,4 +65,9 @@ pkgman readme hdparm | glow
 *pkgman.conf*(5),
 *pkgman-readme*(7)
 
+# REPORTING BUGS
+
+Report bugs to: @PACKAGE_BUGREPORT@++
+Project homepage: @PACKAGE_URL@
+
 ; vim: ft=scdoc

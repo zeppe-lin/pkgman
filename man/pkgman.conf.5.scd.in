@@ -229,4 +229,9 @@ runscripts yes
 *pkgman-readme*(7),
 *pkgman-runscripts*(7)
 
+# REPORTING BUGS
+
+Report bugs to: @PACKAGE_BUGREPORT@++
+Project homepage: @PACKAGE_URL@
+
 ; vim: ft=scdoc

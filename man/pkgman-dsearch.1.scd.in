@@ -59,4 +59,9 @@ pkgman dsearch -vv --regex 'server|daemon'
 *pkgman.conf*(5),
 *regex*(3)
 
+# REPORTING BUGS
+
+Report bugs to: @PACKAGE_BUGREPORT@++
+Project homepage: @PACKAGE_URL@
+
 ; vim: ft=scdoc

@@ -76,4 +76,9 @@ pkgman fsearch --regex --full '^/etc/rc\.d/[^/]+$'
 *fnmatch*(3),
 *regex*(3)
 
+# REPORTING BUGS
+
+Report bugs to: @PACKAGE_BUGREPORT@++
+Project homepage: @PACKAGE_URL@
+
 ; vim: ft=scdoc

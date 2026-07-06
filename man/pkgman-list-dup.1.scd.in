@@ -66,4 +66,9 @@ No other format specifiers are supported.
 *pkgman-list-orphans*(1),
 *pkgman.conf*(5)
 
+# REPORTING BUGS
+
+Report bugs to: @PACKAGE_BUGREPORT@++
+Project homepage: @PACKAGE_URL@
+
 ; vim: ft=scdoc

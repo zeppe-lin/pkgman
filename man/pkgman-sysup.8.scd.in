@@ -188,6 +188,11 @@ pkgman sysup
 *pkgmk*(8),
 *pkgadd*(8)
 
+# REPORTING BUGS
+
+Report bugs to: @PACKAGE_BUGREPORT@++
+Project homepage: @PACKAGE_URL@
+
 # CAVEATS
 
 The *preferhigher* directive in *pkgman.conf*(5) controls whether

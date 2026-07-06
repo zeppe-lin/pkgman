@@ -92,6 +92,11 @@ pkgman: installing package [pre: ok, post: fail]
 *pkgman-update*(8),
 *sh*(1p)
 
+# REPORTING BUGS
+
+Report bugs to: @PACKAGE_BUGREPORT@++
+Project homepage: @PACKAGE_URL@
+
 # CAVEATS
 
 Scripts must be minimal and predictable.

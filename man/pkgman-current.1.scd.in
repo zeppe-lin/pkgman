@@ -38,4 +38,9 @@ _@SHAREDSTATEDIR@/pkg/db_
 *pkgman.conf*(5),
 *packages*(7)
 
+# REPORTING BUGS
+
+Report bugs to: @PACKAGE_BUGREPORT@++
+Project homepage: @PACKAGE_URL@
+
 ; vim: ft=scdoc

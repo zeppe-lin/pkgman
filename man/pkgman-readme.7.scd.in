@@ -82,4 +82,9 @@ _@SYSCONFDIR@/pkgman.conf_
 *pkgman*(1),
 *pkgman.conf*(5)
 
+# REPORTING BUGS
+
+Report bugs to: @PACKAGE_BUGREPORT@++
+Project homepage: @PACKAGE_URL@
+
 ; vim: ft=scdoc

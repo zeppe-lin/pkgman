@@ -37,4 +37,9 @@ listed by the *pkgsrcdir* directive in *pkgman.conf*(5).
 *pkgman-edit*(8),
 *pkgman-ls*(1)
 
+# REPORTING BUGS
+
+Report bugs to: @PACKAGE_BUGREPORT@++
+Project homepage: @PACKAGE_URL@
+
 ; vim: ft=scdoc

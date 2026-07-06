@@ -48,6 +48,11 @@ The options are as follows:
 *pkgman*(1),
 *pkgman.conf*(5)
 
+# REPORTING BUGS
+
+Report bugs to: @PACKAGE_BUGREPORT@++
+Project homepage: @PACKAGE_URL@
+
 # CAVEATS
 
 Version comparison is affected by the *preferhigher* directive in

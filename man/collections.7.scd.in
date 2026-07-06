@@ -105,4 +105,9 @@ to _pkgmk_.
 *pkgman.conf*(5),
 *pkgmk*(8)
 
+# REPORTING BUGS
+
+Report bugs to: @PACKAGE_BUGREPORT@++
+Project homepage: @PACKAGE_URL@
+
 ; vim: ft=scdoc
