@@ -3,11 +3,11 @@ vercomp_sources = [
   '../src/versioncomparator.cpp',
 ]
 
-exe = executable(
-  'vcomp',
+vercomp = executable(
+  'vercomp',
   vercomp_sources,
   cpp_args: ['-DTEST'],
   install: false
 )
 
-test('version comparator', exe)
+test('version comparator', vercomp)
