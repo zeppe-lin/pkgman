@@ -31,6 +31,7 @@ conf.set('SYSCONFDIR', get_option('sysconfdir'))
 conf.set('SHAREDSTATEDIR', get_option('sharedstatedir'))
 conf.set('BINDIR', prefix / get_option('bindir'))
 conf.set('SBINDIR', prefix / get_option('sbindir'))
+conf.set('LIBPKGCORE_VERSION', libpkgcore_dep.version())
 
 subdir('src')
 subdir('man')

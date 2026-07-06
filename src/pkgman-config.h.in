@@ -25,3 +25,8 @@
 #define BINDIR            "@BINDIR@"            //!< User executables directory
 #define SBINDIR           "@SBINDIR@"           //!< System executables directory
 //!@}
+
+//! \name Dependency metadata
+//!@{
+#define LIBPKGCORE_VERSION "@LIBPKGCORE_VERSION@" //!< Linked libpkgcore version string
+//!@}

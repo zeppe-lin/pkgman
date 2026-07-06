@@ -19,7 +19,12 @@ using namespace std;
 static int
 print_version()
 {
-  cout << PACKAGE_NAME << " " << PACKAGE_VERSION << endl;
+  cout << PACKAGE_STRING << "\n";
+  cout << "using libpkgcore " << LIBPKGCORE_VERSION << "\n";
+
+  cout << "\nReport bugs to: " << PACKAGE_BUGREPORT << "\n";
+  cout << "Project homepage: " << PACKAGE_URL << "\n";
+
   return EXIT_SUCCESS;
 }
 
