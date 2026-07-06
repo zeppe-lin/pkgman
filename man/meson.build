@@ -1,5 +1,6 @@
 if get_option('manpages')
   scdoc = find_program('scdoc')
+  curdir = meson.current_source_dir()
 
   foreach section, pages: {
     '1': [
@@ -45,10 +46,18 @@ if get_option('manpages')
     ],
   }
     foreach page: pages
+      name = page + '.' + section
+
+      generated = configure_file(
+        input: curdir / (name + '.scd.in'),
+        output: name + '.scd',
+        configuration: conf,
+      )
+
       custom_target(
-        page + '.' + section,
-        input: page + '.' + section + '.scdoc',
-        output: page + '.' + section,
+        name,
+        input: generated,
+        output: name,
         command: [scdoc],
         feed: true,
         capture: true,
