@@ -14,12 +14,6 @@ exe_kwargs = {
   'install': true,
 }
 
-configure_file(
-  input: 'pkgman-config.h.in',
-  output: 'pkgman-config.h',
-  configuration: conf,
-)
-
 sources = files(
   'argparser.cpp',
   'configparser.cpp',
@@ -38,6 +32,12 @@ sources = files(
   'signaldispatcher.cpp',
   'transaction.cpp',
   'versioncomparator.cpp',
+)
+
+configure_file(
+  input: 'pkgman-config.h.in',
+  output: 'pkgman-config.h',
+  configuration: conf,
 )
 
 executable(
