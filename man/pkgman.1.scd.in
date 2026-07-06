@@ -28,7 +28,7 @@ Individual commands may define additional options and arguments.
 *--config*=_config-file_
 	Use an alternate configuration file.
 
-	Default: _/etc/pkgman.conf_.
+	Default: _@SYSCONFDIR@/pkgman.conf_.
 
 *--config-set*=_string_
 	Set a configuration entry, overriding the _config-file_ value.
@@ -166,23 +166,23 @@ _File operations_:
 
 # FILES
 
-_/etc/pkgman.conf_
+_@SYSCONFDIR@/pkgman.conf_
 	Configuration file.
 
 	See *pkgman.conf*(5).
 
-_/var/lib/pkg/db_
+_@SHAREDSTATEDIR@/pkg/db_
 	Database of installed packages.
 
 	See *packages*(7).
 
-_/var/lib/pkg/locked_
+_@SHAREDSTATEDIR@/pkg/locked_
 	Database of locked packages, used by *pkgman-lock*(8),
 	*pkgman-unlock*(8), and *pkgman-list-locked*(1).
 
 When *--root*=_root-dir_ is specified, databases are read from and
-written to _root-dir/var/lib/pkg/db_ and
-_root-dir/var/lib/pkg/locked_.
+written to _root-dir@SHAREDSTATEDIR@/pkg/db_ and
+_root-dir@SHAREDSTATEDIR@/pkg/locked_.
 
 # SEE ALSO
 

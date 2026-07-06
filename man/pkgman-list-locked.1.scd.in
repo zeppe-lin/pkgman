@@ -27,7 +27,7 @@ The options are as follows:
 
 # FILES
 
-_/var/lib/pkg/locked_
+_@SHAREDSTATEDIR@/pkg/locked_
 	Database of currently locked packages.
 
 # EXIT STATUS

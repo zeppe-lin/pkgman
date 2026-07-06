@@ -34,7 +34,7 @@ Default interpreter is _/bin/sh_.
 
 # FILES
 
-_/etc/pkgman.conf_
+_@SYSCONFDIR@/pkgman.conf_
 	Configuration file for *pkgman*(1).
 
 # EXAMPLES

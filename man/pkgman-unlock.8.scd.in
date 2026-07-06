@@ -15,7 +15,7 @@ them to be updated by *pkgman-sysup*(8) or *pkgman-update*(8).
 
 # FILES
 
-_/var/lib/pkg/locked_
+_@SHAREDSTATEDIR@/pkg/locked_
 	Database of locked packages.
 
 # EXIT STATUS

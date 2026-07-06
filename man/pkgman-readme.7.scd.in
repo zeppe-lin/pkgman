@@ -72,7 +72,7 @@ may adapt as needed.
 _README.md_ or _README_
 	Optional documentation in package source directory.
 
-_/etc/pkgman.conf_
+_@SYSCONFDIR@/pkgman.conf_
 	Configuration file for *pkgman*(1).
 
 # SEE ALSO

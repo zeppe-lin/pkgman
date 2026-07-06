@@ -17,7 +17,7 @@ Locked package names are stored in the lock database.
 
 # FILES
 
-_/var/lib/pkg/locked_
+_@SHAREDSTATEDIR@/pkg/locked_
 	Database of locked packages.
 
 # EXIT STATUS

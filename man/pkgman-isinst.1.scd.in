@@ -13,8 +13,9 @@ pkgman-isinst - check if packages are installed
 The *pkgman isinst* command checks whether the specified packages are
 installed.
 
-Installed packages are recorded in the database at _/var/lib/pkg/db_,
-or at _root-dir_/var/lib/pkg/db_ when *--root* is specified.
+Installed packages are recorded in the database at
+_@SHAREDSTATEDIR@/pkg/db_, or at _root-dir@SHAREDSTATEDIR@/pkg/db_
+when *--root* is specified.
 
 # EXIT STATUS
 
@@ -25,7 +26,7 @@ or at _root-dir_/var/lib/pkg/db_ when *--root* is specified.
 
 # FILES
 
-_/var/log/pkg/db_
+_@SHAREDSTATEDIR@/pkg/db_
 	Database of currently installed packages.
 
 	See *packages*(7).

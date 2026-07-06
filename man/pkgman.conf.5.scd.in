@@ -6,7 +6,7 @@ pkgman.conf - configuration file for pkgman
 
 # SYNOPSIS
 
-*/etc/pkgman.conf*
+*@SYSCONFDIR@/pkgman.conf*
 
 # DESCRIPTION
 
@@ -192,7 +192,7 @@ Example _pkgman.conf_:
 
 ```
 #
-# /etc/pkgman.conf: pkgman(1) configuration
+# @SYSCONFDIR/pkgman.conf: pkgman(1) configuration
 #
 # See pkgman.conf(5) for more information.
 #
