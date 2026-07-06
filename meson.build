@@ -21,17 +21,19 @@ libpkgcore_dep = dependency(
 )
 
 prefix = get_option('prefix')
-conf = configuration_data()
-conf.set('PACKAGE_NAME', meson.project_name())
-conf.set('PACKAGE_VERSION', meson.project_version())
-conf.set('PACKAGE_STRING', meson.project_name() + ' ' + meson.project_version())
-conf.set('PACKAGE_BUGREPORT', 'https://github.com/zeppe-lin/pkgman/issues')
-conf.set('PACKAGE_URL', 'https://github.com/zeppe-lin/pkgman')
-conf.set('SYSCONFDIR', get_option('sysconfdir'))
-conf.set('SHAREDSTATEDIR', get_option('sharedstatedir'))
-conf.set('BINDIR', prefix / get_option('bindir'))
-conf.set('SBINDIR', prefix / get_option('sbindir'))
-conf.set('LIBPKGCORE_VERSION', libpkgcore_dep.version())
+
+buildmeta = {
+  'PACKAGE_NAME': meson.project_name(),
+  'PACKAGE_VERSION': meson.project_version(),
+  'PACKAGE_STRING': meson.project_name() + ' ' + meson.project_version(),
+  'PACKAGE_BUGREPORT': 'https://github.com/zeppe-lin/pkgman/issues',
+  'PACKAGE_URL': 'https://github.com/zeppe-lin/pkgman',
+  'SYSCONFDIR': get_option('sysconfdir'),
+  'SHAREDSTATEDIR': get_option('sharedstatedir'),
+  'BINDIR': prefix / get_option('bindir'),
+  'SBINDIR': prefix / get_option('sbindir'),
+  'LIBPKGCORE_VERSION': libpkgcore_dep.version(),
+}
 
 subdir('src')
 subdir('man')

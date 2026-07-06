@@ -1,6 +1,11 @@
 if get_option('manpages')
   scdoc = find_program('scdoc')
   curdir = meson.current_source_dir()
+  conf = configuration_data()
+
+  foreach k, v: buildmeta
+    conf.set(k, v)
+  endforeach
 
   foreach section, pages: {
     '1': [

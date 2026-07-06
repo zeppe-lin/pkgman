@@ -3,6 +3,7 @@ common_incs = []
 common_link_args = []
 
 want_static = get_option('link_mode') == 'static'
+
 if want_static
   common_link_args += ['-static']
 endif
@@ -34,10 +35,15 @@ sources = files(
   'versioncomparator.cpp',
 )
 
+conf_h = configuration_data()
+
+foreach k, v: buildmeta
+  conf_h.set_quoted(k, v)
+endforeach
+
 configure_file(
-  input: 'pkgman-config.h.in',
   output: 'pkgman-config.h',
-  configuration: conf,
+  configuration: conf_h,
 )
 
 executable(
