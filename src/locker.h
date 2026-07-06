@@ -8,7 +8,7 @@
 #include <vector>
 
 #include "package.h"
-#include "pathnames.h"
+#include "pkgman-config.h"
 
 using namespace std;
 

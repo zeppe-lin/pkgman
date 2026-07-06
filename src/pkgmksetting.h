@@ -6,7 +6,7 @@
 
 #include <string>
 
-#include "pathnames.h"
+#include "pkgman-config.h"
 
 class ArgParser;
 

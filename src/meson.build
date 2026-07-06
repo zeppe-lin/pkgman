@@ -1,5 +1,5 @@
 common_deps = [libpkgcore_dep]
-common_incs = [internal_inc]
+common_incs = []
 common_link_args = []
 
 want_static = get_option('link_mode') == 'static'
@@ -14,7 +14,13 @@ exe_kwargs = {
   'install': true,
 }
 
-pkgman_srcs = files(
+configure_file(
+  input: 'pkgman-config.h.in',
+  output: 'pkgman-config.h',
+  configuration: conf,
+)
+
+sources = files(
   'argparser.cpp',
   'configparser.cpp',
   'datafileparser.cpp',
@@ -34,4 +40,9 @@ pkgman_srcs = files(
   'versioncomparator.cpp',
 )
 
-executable('pkgman', pkgman_srcs, kwargs: exe_kwargs, install_dir: get_option('bindir'))
+executable(
+  'pkgman',
+  sources,
+  kwargs: exe_kwargs,
+  install_dir: get_option('bindir')
+)

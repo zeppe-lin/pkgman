@@ -7,7 +7,7 @@
 #include <list>
 #include <string>
 
-#include "pathnames.h"
+#include "pkgman-config.h"
 #include "repository.h"
 
 using namespace std;

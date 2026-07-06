@@ -29,9 +29,9 @@ ConfigParser::ConfigParser( const string&    configFile,
   m_useRegex( false ),
   m_runScripts( false ),
   m_runscriptCommand( "sh" ),
-  m_makeCommand( PATH_PKGMK_BIN ),
-  m_addCommand( PATH_PKGADD_BIN ),
-  m_removeCommand( PATH_PKGRM_BIN )
+  m_makeCommand( SBINDIR"/pkgmk" ),
+  m_addCommand( SBINDIR"/pkgadd" ),
+  m_removeCommand( SBINDIR"/pkgrm" )
 {
 }
 

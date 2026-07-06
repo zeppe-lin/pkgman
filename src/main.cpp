@@ -33,7 +33,7 @@ die( const string& message, int rc=EXIT_FAILURE )
 static void inline
 dieman( const string& cmd )
 {
-  Process man( PATH_MAN_BIN, cmd, /*logfd*/ 0, /*log2stdout*/false );
+  Process man( BINDIR"/man", cmd, /*logfd*/ 0, /*log2stdout*/false );
   exit( man.execute() );
 }
 

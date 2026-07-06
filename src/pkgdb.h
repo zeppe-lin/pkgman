@@ -12,7 +12,6 @@
 #include <libpkgcore/libpkgcore.h>
 
 #include "package.h"
-#include "pathnames.h"
 
 using namespace std;
 
