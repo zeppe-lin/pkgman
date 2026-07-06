@@ -26,4 +26,4 @@ line.
 *pkgman*(1),
 *pkgman.conf*(5)
 
-; vim: ft=scdoc cc=72 tw=70
+; vim: ft=scdoc

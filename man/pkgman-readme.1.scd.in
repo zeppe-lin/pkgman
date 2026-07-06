@@ -65,4 +65,4 @@ pkgman readme hdparm | glow
 *pkgman.conf*(5),
 *pkgman-readme*(7)
 
-; vim: ft=scdoc cc=72 tw=70
+; vim: ft=scdoc

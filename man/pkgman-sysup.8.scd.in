@@ -207,4 +207,4 @@ This allows a buggy or incompatible version to be replaced by an
 older, stable one without manual intervention.
 Users who prefer to see only upgrades may set *preferhigher* to _yes_.
 
-; vim: ft=scdoc cc=72 tw=70
+; vim: ft=scdoc

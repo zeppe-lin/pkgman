@@ -44,4 +44,4 @@ The options are as follows:
 *pkgman-readme*(7),
 *pkgman.conf*(5)
 
-; vim: ft=scdoc cc=72 tw=70
+; vim: ft=scdoc

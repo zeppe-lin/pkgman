@@ -162,4 +162,4 @@ pkgman update -fr -if --deps --depsort --group \\
 *pkgmk*(8),
 *pkgadd*(8)
 
-; vim: ft=scdoc cc=72 tw=70
+; vim: ft=scdoc

@@ -229,4 +229,4 @@ runscripts yes
 *pkgman-readme*(7),
 *pkgman-runscripts*(7)
 
-; vim: ft=scdoc cc=72 tw=70
+; vim: ft=scdoc

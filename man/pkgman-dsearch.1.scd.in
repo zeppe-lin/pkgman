@@ -59,4 +59,4 @@ pkgman dsearch -vv --regex 'server|daemon'
 *pkgman.conf*(5),
 *regex*(3)
 
-; vim: ft=scdoc cc=72 tw=70
+; vim: ft=scdoc

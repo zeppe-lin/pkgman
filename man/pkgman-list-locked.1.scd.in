@@ -45,4 +45,4 @@ _@SHAREDSTATEDIR@/pkg/locked_
 *pkgman-unlock*(8),
 *pkgman.conf*(5)
 
-; vim: ft=scdoc cc=72 tw=70
+; vim: ft=scdoc

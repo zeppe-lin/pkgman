@@ -68,4 +68,4 @@ pkgman search -vv --path --regex '^(gtk|qt)'
 *pkgman.conf*(5),
 *regex*(3)
 
-; vim: ft=scdoc cc=72 tw=70
+; vim: ft=scdoc

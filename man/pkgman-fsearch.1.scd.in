@@ -76,4 +76,4 @@ pkgman fsearch --regex --full '^/etc/rc\.d/[^/]+$'
 *fnmatch*(3),
 *regex*(3)
 
-; vim: ft=scdoc cc=72 tw=70
+; vim: ft=scdoc

@@ -192,4 +192,4 @@ _root-dir@SHAREDSTATEDIR@/pkg/locked_.
 *pkgrm*(8),
 *pkginfo*(1)
 
-; vim: ft=scdoc cc=72 tw=70
+; vim: ft=scdoc

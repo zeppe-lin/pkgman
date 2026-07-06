@@ -64,4 +64,4 @@ To override for a single run:
 pkgman --config-append="preferhigher yes" diff
 ```
 
-; vim: ft=scdoc cc=72 tw=70
+; vim: ft=scdoc

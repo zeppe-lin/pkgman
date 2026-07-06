@@ -113,4 +113,4 @@ Scripts should begin with:
 export PATH="/sbin:/usr/sbin:/bin:/usr/bin"
 ```
 
-; vim: ft=scdoc cc=72 tw=70
+; vim: ft=scdoc

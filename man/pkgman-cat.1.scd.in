@@ -37,4 +37,4 @@ listed by the *pkgsrcdir* directive in *pkgman.conf*(5).
 *pkgman-edit*(8),
 *pkgman-ls*(1)
 
-; vim: ft=scdoc cc=72 tw=70
+; vim: ft=scdoc
