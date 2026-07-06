@@ -1,4 +1,4 @@
-PKGMAN-SYSUP(8)
+PKGMAN-SYSUP(8) "@PACKAGE_STRING@"
 
 ; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Ensure consistent options are documented across the install, update,

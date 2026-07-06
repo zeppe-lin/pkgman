@@ -1,4 +1,4 @@
-PKGMAN-INSTALL(8)
+PKGMAN-INSTALL(8) "@PACKAGE_STRING@"
 
 ; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Ensure consistent options are documented across the install, update,
