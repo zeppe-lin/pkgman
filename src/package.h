@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include <map>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -15,7 +15,7 @@ struct PackageData;
 
 // useful aliases
 typedef string pkgname_t;   //!< Package name
-using package_versions_t = std::map<pkgname_t, std::string>;
+using PackageNames = std::vector<pkgname_t>;
 
 
 //! \class  Package

@@ -5,7 +5,6 @@
 #pragma once
 
 #include <list>
-#include <map>
 #include <string>
 #include <utility>
 #include <vector>
@@ -135,72 +134,21 @@ public:
   };
 
 
-  //! \brief   Construct a Transaction object
+  //! \brief   Construct a transaction from explicit package names and
+  //!          one immutable installed-state snapshot.
   //!
-  //! \tparam  names   the package source name or a list of packages
-  //!                  sources names to be processed
-  //! \tparam  repo    the repository to look for packages
-  //! \param   state   durable installed package state
-  //! \tparam  parser  the argument parser
-  //! \tparam  config  the configuration file parser
-  //! \tparam  locker  the package locker
-  template< typename T >
-    Transaction( const T&            names,
-                 const Repository*   repo,
-                 pkgstate::store&    state,
-                 const ArgParser*    parser,
-                 const ConfigParser* config,
-                 Locker*             locker )
-      : m_repo( repo ),
-        m_state( state ),
-        m_parser( parser ),
-        m_config( config ),
-        m_locker( locker ),
-        m_resolver(),
-        m_transactionType( NONE ),
-        m_logfd( -1 ),
-        m_depCalced( false ),
-        m_depNameList(),
-        m_depList(),
-        m_installedPackages(),
-        m_removedPackages(),
-        m_alreadyInstalledPackages(),
-        m_ignoredPackages(),
-        m_missingPackages(),
-        m_downloadFailedPackages(),
-        m_buildFailedPackages(),
-        m_installFailedPackages(),
-        m_removeFailedPackages()
-    {
-      if constexpr ( is_same< T, pkgname_t >::value )
-      {
-        // Got 'string' as argument
-        m_packages.push_back(
-            make_pair( names, m_repo->getPackage( names )  ) );
-      }
-      else if constexpr
-        ( is_same< T, package_versions_t >::value )
-      {
-        // Got a name/version map as argument
-        for ( const auto& [name, info] : names )
-          m_packages.push_back(
-              make_pair( name, m_repo->getPackage( name ) ) );
-      }
-      else if constexpr
-        ( is_same< T, map< pkgname_t, Package* > >::value )
-      {
-        // Got 'map< name, Package* >' as argument
-        for ( const auto& [ name, pkg ]: names )
-          m_packages.push_back( make_pair( name, pkg ) );
-      }
-      else
-      {
-        // Got 'list< T >' as argument
-        for ( const auto& name: names )
-          m_packages.push_back(
-              make_pair( name, m_repo->getPackage( name ) ) );
-      }
-    }
+  //! \param   names      package source names to process
+  //! \param   repo       repository to query for package sources
+  //! \param   installed  installed state observed for this transaction
+  //! \param   parser     command-line parser
+  //! \param   config     configuration parser
+  //! \param   locker     package lock state
+  Transaction( PackageNames            names,
+               const Repository*       repo,
+               pkgstate::snapshot      installed,
+               const ArgParser*        parser,
+               const ConfigParser*     config,
+               Locker*                 locker );
 
 
   //! \brief   Get the worked transaction type
@@ -258,7 +206,7 @@ public:
   //!          installed first come first.
   //!
   //! \return  the list of packages required for the install transaction
-  const list< pkgname_t >& deps() const;
+  const PackageNames& deps() const;
 
 
   //! \brief   Get the packages that were installed in this transaction
@@ -371,8 +319,8 @@ private:
   const Repository* m_repo;
 
 
-  //! Durable installed package state.
-  pkgstate::store& m_state;
+  //! Installed state observed when the transaction was created.
+  pkgstate::snapshot m_installedState;
 
 
   //! Argument parser
@@ -414,7 +362,7 @@ private:
   //! Packages that should be installed to meet the requirements
   //! for the packages to be installed, includes the packages
   //! to be installed.
-  list< pkgname_t > m_depNameList;
+  PackageNames m_depNameList;
 
 
   //! Vector of dependencies that will help to fill in the correct
@@ -514,13 +462,6 @@ private:
   //! \return  \a StepResult value indicating the package installing
   //!                       result
   StepResult pkgadd(const Package* pkg) const;
-
-
-  //! Return whether a package is installed in fresh durable state.
-  bool isInstalled( const pkgname_t& name ) const;
-
-  //! Return an installed version, or an empty string when absent.
-  string installedVersion( const pkgname_t& name ) const;
 
 
   //! \brief   Calculate dependencies for this transaction

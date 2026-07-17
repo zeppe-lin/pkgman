@@ -150,11 +150,13 @@ Pkgman::dumpConfig()
 void
 Pkgman::listPackages()
 {
+  const auto installed = m_state.read();
+
   string filter = m_useRegex ? "." : "*";
   if ( m_parser->hasFilter() )
     filter = m_parser->filter();
 
-  package_versions_t packages;
+  PackageNames packages;
 
   initRepo();
 
@@ -175,32 +177,21 @@ Pkgman::listPackages()
 
     if ( m_parser->depSort() )
     {
-      // sort by dependency, without injecting missing ones;
-      // calcDependencies chokes on the full list, so go through the
-      // packages one by one
       for ( const auto& pkg: pkglist )
-      {
-        auto it = installedPackages().find(pkg->name());
-        if (it != installedPackages().end())
-          packages[pkg->name()] = it->second;
-        else
-        {
-          packages[pkg->name()] = pkg->version_release();
-        }
-      }
+        packages.push_back( pkg->name() );
 
-      return listDepSorted( packages );
+      return listDepSorted( std::move( packages ), installed );
     }
 
     for ( const auto& pkg: pkglist )
     {
-      cout << ( isInstalled( pkg->name() ) ? "[i] " : "[ ] " );
+      cout << ( isInstalled( installed, pkg->name() ) ? "[i] " : "[ ] " );
       briefInfo( pkg );
     }
   }
   else
   {
-    getMatchingInstalledPackages( filter, packages, m_useRegex );
+    expandInstalledPatterns( PackageNames{ filter }, installed, packages );
 
     if ( packages.empty() )
     {
@@ -211,10 +202,10 @@ Pkgman::listPackages()
     }
 
     if ( m_parser->depSort() )
-      return listDepSorted( packages );
+      return listDepSorted( std::move( packages ), installed );
 
-    for ( const auto& [ name, version ]: packages )
-      briefInfo( name );
+    for ( const auto& name: packages )
+      briefInfo( name, installed );
   }
 }
 
@@ -251,12 +242,14 @@ Pkgman::listShadowed() // aka listDup
 void
 Pkgman::listNodependents()
 {
+  const auto installed = m_state.read();
   initRepo();
 
   map< pkgname_t, bool > required;
 
-  for ( const auto& [ name, version ]: installedPackages() )
+  for ( const auto& package: installed.packages() )
   {
+    const auto& name = package.identity().name();
     const auto& pkg = m_repo->getPackage( name );
     if ( ! pkg )
       continue;
@@ -268,22 +261,21 @@ Pkgman::listNodependents()
       required[ dep ] = true;
   }
 
-  // - we could store the package pointer in another map to avoid
-  // another getPackage lockup, but it seems better to optimized for
-  // memory since it's only used when called with -vv
-
-  for ( const auto& [ name, version ]: installedPackages() )
+  for ( const auto& package: installed.packages() )
   {
+    const auto& name = package.identity().name();
     if ( required[ name ] )
       continue;
 
-    briefInfo( name );
+    briefInfo( name, installed );
   }
 }
 
 void
 Pkgman::listLocked()
 {
+  const auto installed = m_state.read();
+
   if ( m_locker->openFailed() )
     return errx( "failed to open locker data file: " +
                  m_parser->root() + SHAREDSTATEDIR"/pkg/locked" );
@@ -292,20 +284,21 @@ Pkgman::listLocked()
     return;
 
   for ( const auto& name: m_locker->lockedPackages() )
-    briefInfo( name );
+    briefInfo( name, installed );
 }
 
 void
 Pkgman::listOrphans()
 {
+  const auto installed = m_state.read();
   initRepo();
 
-  package_versions_t packages = installedPackages();
+  PackageNames packages = installedPackageNames( installed );
 
   if ( packages.empty() )
     return errx( "no packages found" );
 
-  Transaction depcalc( packages, m_repo, m_state, m_parser,
+  Transaction depcalc( std::move( packages ), m_repo, installed, m_parser,
                        m_config, m_locker );
 
   if ( depcalc.calcDeps() != Transaction::SUCCESS )
@@ -315,17 +308,15 @@ Pkgman::listOrphans()
   {
     if ( package2.empty() )
       cout << package1 << endl;
-    else
-    {
-      if ( m_parser->dependents() )
-        cout << package1 << " (required by " << package2 << ")" << endl;
-    }
+    else if ( m_parser->dependents() )
+      cout << package1 << " (required by " << package2 << ")" << endl;
   }
 }
 
 void
 Pkgman::printf()
 {
+  const auto installed = m_state.read();
   const string formatString = m_parser->cmdArgs().front();
 
   string sortString = stripWhiteSpace( m_parser->sortArgs() );
@@ -376,11 +367,11 @@ Pkgman::printf()
     replaceAll( sortkey, "%M", pkg->maintainer()   );
 
     string isInst = "no";
-    if ( isInstalled( pkg->name() ) )
+    if ( isInstalled( installed, pkg->name() ) )
     {
-      auto result =
-        compareVersions( installedVersion( pkg->name() ),
-                         pkg->version_release() );
+      auto result = compareVersions(
+          installedVersion( installed, pkg->name() ),
+          pkg->version_release() );
       isInst = result == EQUAL ? "yes" : "diff";
     }
     replaceAll( output,  "%i", isInst );
@@ -415,7 +406,7 @@ Pkgman::printf()
 
   for ( const auto& [ sortkey, output ]: sortedOutput )
     if ( stripWhiteSpace( output ).size() )
-     cout << output;
+      cout << output;
 }
 
 void
@@ -527,9 +518,11 @@ Pkgman::printPath()
 void
 Pkgman::printIsInstalled()
 {
-  for ( const string& arg: m_parser->cmdArgs() )
+  const auto installed = m_state.read();
+
+  for ( const auto& arg: packageNames( m_parser->cmdArgs() ) )
   {
-    if ( ! isInstalled( arg ) )
+    if ( ! isInstalled( installed, arg ) )
       return errx( "package '" + arg + "' is not installed" );
 
     cout << "package '" + arg + "' is installed" << endl;
@@ -539,32 +532,29 @@ Pkgman::printIsInstalled()
 void
 Pkgman::printCurrentVersion()
 {
-  string arg = m_parser->cmdArgs().front();
+  const auto installed = m_state.read();
+  const string arg = m_parser->cmdArgs().front();
+  const auto* package = installed.find_package( arg );
 
-  for (const auto& [name, version] : installedPackages() )
-  {
-    if ( name == arg )
-    {
-      cout << version << endl;
-      return;
-    }
-  }
-  errx( "package '" + arg + "' not installed" );
+  if ( ! package )
+    return errx( "package '" + arg + "' not installed" );
+
+  cout << package->identity().version() << endl;
 }
 
 void
 Pkgman::printDiff()
 {
+  const auto installed = m_state.read();
   initRepo();
 
-  package_versions_t packages;
+  PackageNames packages;
 
-  //XXX allow multiple patterns? already allowed?
-  // filter!
   if ( m_parser->cmdArgs().size() )
-    expandWildcardsPkgDB( m_parser->cmdArgs(), packages );
+    expandInstalledPatterns( packageNames( m_parser->cmdArgs() ),
+                          installed, packages );
   else
-    packages = installedPackages();
+    packages = installedPackageNames( installed );
 
   if ( packages.empty() )
     return errx( "no packages found" );
@@ -574,40 +564,24 @@ Pkgman::printDiff()
 
   if ( m_parser->deps() )
   {
-    package_versions_t deps;
-
-    Transaction depcalc( packages, m_repo, m_state, m_parser,
+    Transaction depcalc( packages, m_repo, installed, m_parser,
                          m_config, m_locker );
 
     if ( depcalc.calcDeps() != Transaction::SUCCESS )
       return errx( depcalc.strerror(), depcalc.result() );
 
     m_missingRepoPackages = depcalc.missing();
-
-    for (const auto& dep : depcalc.deps())
-    {
-      deps[dep] = installedVersion( dep );
-    }
-
-    diffCalc( deps );
+    diffCalc( depcalc.deps(), installed );
   }
   else
-    diffCalc( packages );
-
-  // simple diff list
+    diffCalc( packages, installed );
 
   if ( ! m_parser->full() )
   {
-    // print a simple list of packages that are installed and have a
-    // different version than they are in the repository
     for ( const auto& name: m_greaterVersionComp )
       cout << name << endl;
-
-    // we don't care about undefined diffs here
     return;
   }
-
-  // full diff info
 
   size_t diff_packages = 0, new_packages = 0;
 
@@ -617,17 +591,15 @@ Pkgman::printDiff()
     "\n-- Differences between installed packages and packages sources tree\n";
 
     printFormattedDiffLine( "Package", "Installed", "Available", false );
-
     cout << endl;
 
     for ( const auto& name: m_greaterVersionComp )
     {
-      isInstalled( name ) ? ++diff_packages
-                                   : ++new_packages;
+      isInstalled( installed, name ) ? ++diff_packages : ++new_packages;
 
       printFormattedDiffLine(
           name,
-          installedVersion( name ),
+          installedVersion( installed, name ),
           m_repo->getPackage( name )->version_release(),
           m_locker->isLocked( name ) );
     }
@@ -639,13 +611,12 @@ Pkgman::printDiff()
          << "(use --config-append='preferhigher no')\n";
 
     printFormattedDiffLine( "Package", "Installed", "Available", false );
-
     cout << endl;
 
     for ( const auto& name: m_undefinedVersionComp )
       printFormattedDiffLine(
           name,
-          installedVersion( name ),
+          installedVersion( installed, name ),
           m_repo->getPackage( name )->version_release(),
           m_locker->isLocked( name ) );
   }
@@ -657,11 +628,8 @@ Pkgman::printDiff()
     cout << endl;
 
     for ( const auto& [ pkg1, pkg2 ]: m_missingRepoPackages )
-    {
-      const auto& pkg1ver = installedVersion( pkg1 );
-
-      printFormattedDiffLine( pkg1, pkg1ver, pkg2, false );
-    }
+      printFormattedDiffLine(
+          pkg1, installedVersion( installed, pkg1 ), pkg2, false );
   }
 
   cout << endl;
@@ -675,22 +643,21 @@ Pkgman::printDiff()
   cout << "--" << endl;
 
   if ( diff_packages )
-    cout << diff_packages <<
-      ( diff_packages > 1 ? " updates" : " update" );
+    cout << diff_packages << ( diff_packages > 1 ? " updates" : " update" );
 
   if ( new_packages )
   {
     if ( diff_packages )
       cout << ", ";
 
-    cout << new_packages  <<
-      ( new_packages  > 1 ? " installs\n" : " install\n" );
+    cout << new_packages << ( new_packages > 1 ? " installs\n" : " install\n" );
   }
 }
 
 void
 Pkgman::printDep()
 {
+  const auto installed = m_state.read();
   string arg = m_parser->cmdArgs().front();
 
   initRepo();
@@ -705,23 +672,22 @@ Pkgman::printDep()
   if ( m_parser->printTree() )
   {
     if ( m_parser->full() || ! m_parser->recursive() )
-      cout << "-- dependencies ([i] = installed)"
-           << endl;
+      cout << "-- dependencies ([i] = installed)" << endl;
     else
-      cout << "-- dependencies ([i] = installed, --> seen before)"
-           << endl;
+      cout << "-- dependencies ([i] = installed, --> seen before)" << endl;
 
-    cout << ( isInstalled( arg ) ? "[i] " : "[ ] " );
+    cout << ( isInstalled( installed, arg ) ? "[i] " : "[ ] " );
     briefInfo( pkg );
-    printDepTree( pkg, /*indent level*/ 2 );
+    printDepTree( pkg, 2, installed );
   }
   else
-    printDepList( pkg, /*indent level*/ 0 );
+    printDepList( pkg, 0, installed );
 }
 
 void
 Pkgman::printRevDep()
 {
+  const auto installed = m_state.read();
   string arg = m_parser->cmdArgs().front();
 
   initRepo();
@@ -733,18 +699,18 @@ Pkgman::printRevDep()
     else
       cout << "-- revdep ([i] = installed, --> seen before)" << endl;
 
-    cout << ( isInstalled( arg ) ? "[i] " : "[ ] " );
-
-    briefInfo( arg );
-    printRevDepTree( arg, /*indent level*/ 2 );
+    cout << ( isInstalled( installed, arg ) ? "[i] " : "[ ] " );
+    briefInfo( arg, installed );
+    printRevDepTree( arg, 2, installed );
   }
   else
-    printRevDepList( arg, /*indent level*/ 0 );
+    printRevDepList( arg, 0, installed );
 }
 
 void
 Pkgman::psearch( bool desc )
 {
+  const auto installed = m_state.read();
   string arg = m_parser->cmdArgs().front();
 
   initRepo();
@@ -758,7 +724,7 @@ Pkgman::psearch( bool desc )
   cout << "-- search ([i] = installed)" << endl;
   for ( const auto& pkg: pkglist )
   {
-    cout << ( isInstalled( pkg->name() ) ? "[i] " : "[ ] " );
+    cout << ( isInstalled( installed, pkg->name() ) ? "[i] " : "[ ] " );
     briefInfo( pkg );
   }
 }
@@ -766,6 +732,7 @@ Pkgman::psearch( bool desc )
 void
 Pkgman::fsearch()
 {
+  const auto installed = m_state.read();
   string arg = "*";
   if ( m_parser->cmdArgs().size() == 1 )
     arg = m_parser->cmdArgs().front();
@@ -789,7 +756,7 @@ Pkgman::fsearch()
     if ( found == 1 )
       cout << "-- fsearch ([i] = installed)" << endl;
 
-    cout << ( isInstalled( pkg.first ) ? "[i] " : "[ ] " );
+    cout << ( isInstalled( installed, pkg.first ) ? "[i] " : "[ ] " );
     briefInfo( pkg.second );
 
     for ( const string& match: matches )
@@ -803,22 +770,21 @@ Pkgman::fsearch()
 void
 Pkgman::install( Transaction::Transaction_t transaction_t )
 {
-  const auto& args = m_parser->cmdArgs();
-  list< pkgname_t > sortedList;
+  const PackageNames args = packageNames( m_parser->cmdArgs() );
+  auto installed = m_state.read();
+  PackageNames sortedList;
 
-  // this can be done without initRepo()
   bool update = transaction_t == Transaction::UPDATE;
-  for ( const string& pkg: args )
+  for ( const auto& pkg: args )
   {
-    bool installed = isInstalled( pkg );
+    bool present = isInstalled( installed, pkg );
 
-    if ( ! update && installed )
+    if ( ! update && present )
     {
       if ( ! m_parser->isForced() )
         return errx( "package " + pkg + " is installed", P_INSTALL_ERROR );
-      // else just ignored.
     }
-    else if ( update && ! installed )
+    else if ( update && ! present )
       return errx( "package " + pkg + " is not installed", P_INSTALL_ERROR );
   }
 
@@ -826,52 +792,48 @@ Pkgman::install( Transaction::Transaction_t transaction_t )
 
   if ( m_parser->deps() )
   {
-    list< string > deps;
+    PackageNames deps;
 
-    // calc dependencies
-    Transaction
-      depcalc( args, m_repo, m_state, m_parser, m_config, m_locker );
+    Transaction depcalc( args, m_repo, installed, m_parser,
+                         m_config, m_locker );
 
     if ( depcalc.calcDeps() != Transaction::SUCCESS )
       return errx( depcalc.strerror(), depcalc.result() );
 
     for ( const auto& dep: depcalc.deps() )
     {
-      if ( m_parser->depSort() )
-      {
-        const auto& it = std::find( args.begin(), args.end(), dep );
-        if ( it != args.end() )
-          sortedList.push_back( dep );
-      }
+      if ( m_parser->depSort() &&
+           std::find( args.begin(), args.end(), dep ) != args.end() )
+        sortedList.push_back( dep );
 
-      if ( ! isInstalled( dep ) )
+      if ( ! isInstalled( installed, dep ) )
         deps.push_back( dep );
     }
 
-    // install missing dependencies
     if ( deps.size() )
     {
-      Transaction tr( deps, m_repo, m_state, m_parser,
+      Transaction tr( deps, m_repo, installed, m_parser,
                       m_config, m_locker );
       executeTransaction( tr, Transaction::INSTALL );
+
+      // External pkgadd changed durable state.  Any following phase must
+      // observe a new snapshot rather than the transaction's old view.
+      installed = m_state.read();
     }
 
-    // in the installation procedure, the arguments dependencies
-    // contains the arguments themselves
     if ( transaction_t != Transaction::UPDATE )
       return;
   }
 
   if ( m_parser->deps() && m_parser->depSort() && sortedList.size() )
   {
-    Transaction tran( sortedList, m_repo, m_state, m_parser, m_config,
-                      m_locker );
+    Transaction tran( std::move( sortedList ), m_repo, installed, m_parser,
+                      m_config, m_locker );
     executeTransaction( tran, transaction_t );
   }
   else
   {
-    // install or update the rest of arguments
-    Transaction transact( args, m_repo, m_state, m_parser,
+    Transaction transact( args, m_repo, installed, m_parser,
                           m_config, m_locker );
     executeTransaction( transact, transaction_t );
   }
@@ -880,52 +842,55 @@ Pkgman::install( Transaction::Transaction_t transaction_t )
 void
 Pkgman::remove()
 {
-  const auto& args = m_parser->cmdArgs();
+  const PackageNames args = packageNames( m_parser->cmdArgs() );
+  const auto installed = m_state.read();
 
   initRepo();
 
   if ( m_parser->deps() )
   {
-    list< string > removable;
-    for ( const string& pkg: args )
+    PackageNames removable;
+    for ( const auto& pkg: args )
     {
       removable.push_back( pkg );
-      getRemovableDeps( pkg, removable );
+      getRemovableDeps( pkg, removable, installed );
     }
 
-    removable.sort();
-    removable.unique();
+    sort( removable.begin(), removable.end() );
+    removable.erase( unique( removable.begin(), removable.end() ),
+                     removable.end() );
 
-    Transaction remove( removable, m_repo, m_state, m_parser,
-                        m_config, m_locker );
-    executeTransaction( remove, Transaction::REMOVE );
+    Transaction transaction( std::move( removable ), m_repo, installed,
+                             m_parser, m_config, m_locker );
+    executeTransaction( transaction, Transaction::REMOVE );
   }
   else
   {
-    Transaction remove( args, m_repo, m_state, m_parser,
-                        m_config, m_locker );
-    executeTransaction( remove, Transaction::REMOVE );
+    Transaction transaction( args, m_repo, installed, m_parser,
+                             m_config, m_locker );
+    executeTransaction( transaction, Transaction::REMOVE );
   }
 }
 
 void
 Pkgman::sysup()
 {
+  auto installed = m_state.read();
   initRepo();
 
-  list< pkgname_t >* target;
-  list< pkgname_t >  sortedList;
-  list< pkgname_t >  newList;
+  PackageNames* target;
+  PackageNames sortedList;
+  PackageNames newList;
 
-  // calculate the difference between installed and available packages
-  diffCalc( installedPackages() );
+  diffCalc( installedPackageNames( installed ), installed );
 
   if ( m_greaterVersionComp.empty() )
     return errx( "System is up to date", P_OK );
 
-  // calculate new dependencies for different packages
-  Transaction depCalcSort( m_greaterVersionComp, m_repo, m_state,
-                           m_parser, m_config, m_locker );
+  PackageNames different( m_greaterVersionComp.begin(),
+                          m_greaterVersionComp.end() );
+  Transaction depCalcSort( different, m_repo, installed, m_parser,
+                           m_config, m_locker );
 
   if ( depCalcSort.calcDeps() != Transaction::SUCCESS )
     return errx( depCalcSort.strerror(), depCalcSort.result() );
@@ -938,29 +903,26 @@ Pkgman::sysup()
     if ( m_parser->depSort() && contains( m_greaterVersionComp, pkg ) )
       sortedList.push_back( pkg );
 
-    if ( m_parser->deps() && ! isInstalled( pkg ) )
+    if ( m_parser->deps() && ! isInstalled( installed, pkg ) )
       newList.push_back( pkg );
   }
 
   if ( m_parser->deps() && newList.size() )
   {
-    Transaction install( newList, m_repo, m_state, m_parser,
+    Transaction install( newList, m_repo, installed, m_parser,
                          m_config, m_locker );
     executeTransaction( install, Transaction::INSTALL );
 
-    // Do not process the following update if the install transaction
-    // fails and the ''--group'' option is specified.
-    if (   install.result() != Transaction::SUCCESS
-        && m_parser->group() )
+    if ( install.result() != Transaction::SUCCESS && m_parser->group() )
       return;
 
-    // add newline separator between transactions
     cout << endl;
+    installed = m_state.read();
   }
 
-  target = m_parser->depSort() ? &sortedList : &m_greaterVersionComp;
+  target = m_parser->depSort() ? &sortedList : &different;
 
-  Transaction update( *target, m_repo, m_state, m_parser,
+  Transaction update( *target, m_repo, installed, m_parser,
                       m_config, m_locker );
   executeTransaction( update, Transaction::UPDATE );
 }
@@ -968,14 +930,16 @@ Pkgman::sysup()
 void
 Pkgman::setLock( bool lock )
 {
+  const auto installed = m_state.read();
+
   if ( lock )
     initRepo();
 
-  for ( const string& arg: m_parser->cmdArgs() )
+  for ( const auto& arg: packageNames( m_parser->cmdArgs() ) )
   {
     if ( lock )
     {
-      if ( isInstalled( arg ) )
+      if ( isInstalled( installed, arg ) )
       {
         if ( ! m_locker->lock( arg ) )
           errx( "already locked: " + arg );
@@ -983,11 +947,8 @@ Pkgman::setLock( bool lock )
       else
         return errx( "package '" + arg + "' not found" );
     }
-    else
-    {
-      if ( ! m_locker->unlock( arg ) )
-        return errx( "not locked previously: " + arg );
-    }
+    else if ( ! m_locker->unlock( arg ) )
+      return errx( "not locked previously: " + arg );
   }
 
   if ( ! m_locker->store() )
@@ -1124,66 +1085,69 @@ Pkgman::initRepo( bool listDuplicate )
   m_repo->initFromFS( m_config->rootList(), listDuplicate );
 }
 
-package_versions_t
-Pkgman::installedPackages()
-  const
+PackageNames
+Pkgman::packageNames( const list< char* >& names )
 {
-  package_versions_t packages;
-  const auto state = m_state.read();
-  for ( const auto& package: state.packages() )
-    packages[package.identity().name()] = package.identity().version();
-  return packages;
+  PackageNames result;
+  result.reserve( names.size() );
+  for ( const auto* name: names )
+    result.emplace_back( name );
+  return result;
+}
+
+PackageNames
+Pkgman::installedPackageNames( const pkgstate::snapshot& installed )
+{
+  PackageNames result;
+  result.reserve( installed.size() );
+  for ( const auto& package: installed.packages() )
+    result.push_back( package.identity().name() );
+  return result;
 }
 
 bool
-Pkgman::isInstalled( const pkgname_t& name )
-  const
+Pkgman::isInstalled( const pkgstate::snapshot& installed,
+                     const pkgname_t& name )
 {
-  return m_state.read().find_package( name ) != nullptr;
+  return installed.find_package( name ) != nullptr;
 }
 
 string
-Pkgman::installedVersion( const pkgname_t& name )
-  const
+Pkgman::installedVersion( const pkgstate::snapshot& installed,
+                          const pkgname_t& name )
 {
-  const auto state = m_state.read();
-  const auto* package = state.find_package( name );
+  const auto* package = installed.find_package( name );
   return package ? package->identity().version() : string();
 }
 
 void
-Pkgman::getMatchingInstalledPackages( const string& pattern,
-                                      package_versions_t& target,
-                                      bool useRegex )
+Pkgman::expandInstalledPatterns( const PackageNames& patterns,
+                              const pkgstate::snapshot& installed,
+                              PackageNames& target )
   const
 {
-  const auto state = m_state.read();
-
-  if ( useRegex )
+  for ( const auto& pattern: patterns )
   {
-    RegEx re( pattern );
-    for ( const auto& package: state.packages() )
-      if ( re.match( package.identity().name() ) )
-        target[package.identity().name()] = package.identity().version();
-    return;
-  }
+    if ( m_useRegex )
+    {
+      RegEx re( pattern );
+      for ( const auto& package: installed.packages() )
+      {
+        const auto& name = package.identity().name();
+        if ( re.match( name ) &&
+             find( target.begin(), target.end(), name ) == target.end() )
+          target.push_back( name );
+      }
+      continue;
+    }
 
-  for ( const auto& package: state.packages() )
-    if ( fnmatch( pattern.c_str(), package.identity().name().c_str(), 0 ) == 0 )
-      target[package.identity().name()] = package.identity().version();
-}
-
-void
-Pkgman::expandWildcardsPkgDB( const list< char* >& in,
-                               package_versions_t& target )
-{
-  for ( const auto& pattern: in )
-  {
-    package_versions_t packages;
-    getMatchingInstalledPackages(pattern, packages, m_useRegex);
-
-    for (const auto& [name, info] : packages)
-      target[name] = info;
+    for ( const auto& package: installed.packages() )
+    {
+      const auto& name = package.identity().name();
+      if ( fnmatch( pattern.c_str(), name.c_str(), 0 ) == 0 &&
+           find( target.begin(), target.end(), name ) == target.end() )
+        target.push_back( name );
+    }
   }
 }
 
@@ -1202,36 +1166,39 @@ Pkgman::expandWildcardsRepo( const list< char* >&  in,
 }
 
 void
-Pkgman::listDepSorted( package_versions_t& packages )
+Pkgman::listDepSorted( PackageNames packages,
+                       const pkgstate::snapshot& installed )
 {
+  sort( packages.begin(), packages.end() );
+  packages.erase( unique( packages.begin(), packages.end() ), packages.end() );
+
   while ( packages.size() )
   {
-    const auto& pkg = packages.begin();
-    string name = pkg->first;
-    packages.erase( pkg );
+    string name = packages.front();
+    packages.erase( packages.begin() );
 
-    Transaction
-      depcalc( name, m_repo, m_state, m_parser, m_config, m_locker );
+    Transaction depcalc( PackageNames{ name }, m_repo, installed,
+                         m_parser, m_config, m_locker );
     if ( depcalc.calcDeps() != Transaction::SUCCESS )
       return errx( depcalc.strerror(), depcalc.result() );
 
     for ( const auto& dep: depcalc.deps() )
     {
-      if ( packages.find( dep ) != packages.end() )
-      {
-        // be more verbose if we show not only installed packages
-        if ( m_parser->all() )
-          cout << ( isInstalled( dep ) ? "[i] " : "[ ] " );
+      const auto found = find( packages.begin(), packages.end(), dep );
+      if ( found == packages.end() )
+        continue;
 
-        briefInfo( dep );
-        packages.erase( dep );
-      }
+      if ( m_parser->all() )
+        cout << ( isInstalled( installed, dep ) ? "[i] " : "[ ] " );
+
+      briefInfo( dep, installed );
+      packages.erase( found );
     }
 
     if ( m_parser->all() )
-      cout << ( isInstalled( name ) ? "[i] " : "[ ] " );
+      cout << ( isInstalled( installed, name ) ? "[i] " : "[ ] " );
 
-    briefInfo( name );
+    briefInfo( name, installed );
   }
 }
 
@@ -1279,9 +1246,10 @@ Pkgman::compareVersions( const string& v1, const string& v2 )
 }
 
 void
-Pkgman::diffCalc( const package_versions_t& packages )
+Pkgman::diffCalc( const PackageNames& packages,
+                  const pkgstate::snapshot& installed )
 {
-  for ( const auto& [ name, version ]: packages )
+  for ( const auto& name: packages )
   {
     const auto& pkg = m_repo->getPackage( name );
     if ( ! pkg )
@@ -1290,8 +1258,8 @@ Pkgman::diffCalc( const package_versions_t& packages )
       continue;
     }
 
-    const auto& result =
-      compareVersions( pkg->version_release(), version );
+    const auto result = compareVersions(
+        pkg->version_release(), installedVersion( installed, name ) );
 
     if ( result == GREATER )
     {
@@ -1326,7 +1294,8 @@ Pkgman::printFormattedDiffLine( const string&  name,
 }
 
 void
-Pkgman::printDepList( const Package* pkg, int level )
+Pkgman::printDepList( const Package* pkg, int level,
+                      const pkgstate::snapshot& installed )
 {
   if ( pkg->dependencies().empty() )
     return;
@@ -1337,21 +1306,20 @@ Pkgman::printDepList( const Package* pkg, int level )
   static map< pkgname_t, bool > shownMap;
   for ( const auto& dep: deps )
   {
-    if ( ! m_parser->all() )
-      if ( ! isInstalled( dep ) )
-        continue;
+    if ( ! m_parser->all() && ! isInstalled( installed, dep ) )
+      continue;
 
     if ( shownMap[ dep ] )
       continue;
 
     cout << string( level, ' ' );
-    briefInfo( dep );
+    briefInfo( dep, installed );
 
     if ( m_parser->recursive() )
     {
       const auto& depkg = m_repo->getPackage( dep );
       if ( depkg )
-        printDepList( depkg, level + 1 );
+        printDepList( depkg, level + 1, installed );
     }
 
     if ( ! m_parser->full() )
@@ -1360,7 +1328,8 @@ Pkgman::printDepList( const Package* pkg, int level )
 }
 
 void
-Pkgman::printDepTree( const Package* pkg, int level )
+Pkgman::printDepTree( const Package* pkg, int level,
+                      const pkgstate::snapshot& installed )
 {
   if ( pkg->dependencies().empty() )
     return;
@@ -1371,14 +1340,13 @@ Pkgman::printDepTree( const Package* pkg, int level )
   static map< pkgname_t, bool > shownMap;
   for ( const auto& dep: deps )
   {
-    if ( ! m_parser->all() )
-      if ( ! isInstalled( dep ) )
-        continue;
+    if ( ! m_parser->all() && ! isInstalled( installed, dep ) )
+      continue;
 
-    cout << ( isInstalled( dep ) ? "[i] " : "[ ] " )
+    cout << ( isInstalled( installed, dep ) ? "[i] " : "[ ] " )
          << string( level, ' ' );
 
-    briefInfo( dep, /*newline*/ false );
+    briefInfo( dep, installed, false );
 
     if ( shownMap[ dep ] )
     {
@@ -1392,7 +1360,7 @@ Pkgman::printDepTree( const Package* pkg, int level )
     {
       const auto& depkg = m_repo->getPackage( dep );
       if ( depkg )
-        printDepTree( depkg, level + 2 );
+        printDepTree( depkg, level + 2, installed );
     }
 
     if ( ! m_parser->full() )
@@ -1401,16 +1369,15 @@ Pkgman::printDepTree( const Package* pkg, int level )
 }
 
 void
-Pkgman::printRevDepList( const pkgname_t& arg, int level )
+Pkgman::printRevDepList( const pkgname_t& arg, int level,
+                         const pkgstate::snapshot& installed )
 {
   set< string > revdep;
 
   for ( const auto& [ name, pkg ]: m_repo->packages() )
   {
-    // if --all option is set, print revdep for only installed packages
-    if ( ! m_parser->all() )
-      if ( ! isInstalled( name ) )
-        continue;
+    if ( ! m_parser->all() && ! isInstalled( installed, name ) )
+      continue;
 
     if ( pkg && contains( pkg->dependencies(), arg ) )
     {
@@ -1421,18 +1388,6 @@ Pkgman::printRevDepList( const pkgname_t& arg, int level )
         revdep.insert( name );
     }
   }
-
-  // FIXME XXX
-  // - there are two modes, tree and non-tree recursive mode; in
-  // tree mode, packages are shown multiple times, in non tree
-  // recursive mode they're only printed the first time; this is not
-  // necessarily optimal for rebuilding:
-  //
-  // a -> b -> d
-  //  \     ^
-  //   > c /
-  //
-  // trying to rebuild 'd' before 'c' might possibly fail
 
   static map< string, bool > shownMap;
 
@@ -1442,10 +1397,10 @@ Pkgman::printRevDepList( const pkgname_t& arg, int level )
       continue;
 
     cout << string( level, ' ' );
-    briefInfo( dep );
+    briefInfo( dep, installed );
 
     if ( m_parser->recursive() )
-      printRevDepList( dep, level + 1 );
+      printRevDepList( dep, level + 1, installed );
 
     if ( ! m_parser->full() )
       shownMap[ dep ] = true;
@@ -1453,22 +1408,15 @@ Pkgman::printRevDepList( const pkgname_t& arg, int level )
 }
 
 void
-Pkgman::printRevDepTree( const pkgname_t& arg, int level )
+Pkgman::printRevDepTree( const pkgname_t& arg, int level,
+                         const pkgstate::snapshot& installed )
 {
-  // used ArgParser options:
-  // -v, -vv, --path
-  // --all
-  // --recursive
-  // --full
   set< string > revdep;
 
   for ( const auto& [ name, pkg ]: m_repo->packages() )
   {
-    // if --all option is set, print revdep tree
-    // for only installed packages
-    if ( ! m_parser->all() )
-      if ( ! isInstalled( name ) )
-        continue;
+    if ( ! m_parser->all() && ! isInstalled( installed, name ) )
+      continue;
 
     if ( pkg && contains( pkg->dependencies(), arg ) )
     {
@@ -1480,26 +1428,14 @@ Pkgman::printRevDepTree( const pkgname_t& arg, int level )
     }
   }
 
-  // FIXME XXX
-  // - there are two modes, tree and non-tree recursive mode; in
-  // tree mode, packages are shown multiple times, in non tree
-  // recursive mode they're only printed the first time; this is not
-  // necessarily optimal for rebuilding:
-  //
-  // a -> b -> d
-  //  \     ^
-  //   > c /
-  //
-  // trying to rebuild 'd' before 'c' might possibly fail
-
   static map< string, bool > shownMap;
 
   for ( const auto& dep: revdep )
   {
-    cout << ( isInstalled( dep ) ? "[i] " : "[ ] " )
+    cout << ( isInstalled( installed, dep ) ? "[i] " : "[ ] " )
          << string( level, ' ' );
 
-    briefInfo( dep, /*newline*/ false );
+    briefInfo( dep, installed, false );
 
     if ( shownMap[ dep ] )
     {
@@ -1510,7 +1446,7 @@ Pkgman::printRevDepTree( const pkgname_t& arg, int level )
     cout << endl;
 
     if ( m_parser->recursive() )
-      printRevDepTree( dep, level + 2 );
+      printRevDepTree( dep, level + 2, installed );
 
     if ( ! m_parser->full() )
       shownMap[ dep ] = true;
@@ -1518,11 +1454,12 @@ Pkgman::printRevDepTree( const pkgname_t& arg, int level )
 }
 
 void
-Pkgman::getRemovableDeps( const string&    name,
-                          list< string >&  removable )
+Pkgman::getRemovableDeps( const string& name,
+                           PackageNames& removable,
+                           const pkgstate::snapshot& installed )
 {
   const auto& pkg = m_repo->getPackage( name );
-  if ( ! pkg || ! isInstalled( name ) )
+  if ( ! pkg || ! isInstalled( installed, name ) )
     return;
 
   list< string > deps;
@@ -1530,23 +1467,23 @@ Pkgman::getRemovableDeps( const string&    name,
 
   for ( const auto& dep: deps )
   {
-    list< string > revdep;
-    for ( const auto& [ pkgdb_name, pkgdb_pkg ]: m_repo->packages() )
+    PackageNames revdep;
+    for ( const auto& [ candidate_name, candidate_pkg ]: m_repo->packages() )
     {
-      if ( ! isInstalled( pkgdb_name ) )
+      if ( ! isInstalled( installed, candidate_name ) )
         continue;
 
-      list< string > pkgdb_pkg_deps;
-      split( pkgdb_pkg->dependencies(), ',', pkgdb_pkg_deps );
+      list< string > candidate_deps;
+      split( candidate_pkg->dependencies(), ',', candidate_deps );
 
-      if ( contains( pkgdb_pkg_deps, dep ) )
-        revdep.push_back( pkgdb_name );
+      if ( contains( candidate_deps, dep ) )
+        revdep.push_back( candidate_name );
     }
 
     if ( revdep.size() == 1 )
     {
       if ( m_parser->recursive() )
-        getRemovableDeps( dep, removable );
+        getRemovableDeps( dep, removable, installed );
 
       if ( revdep.front() == name )
         removable.push_back( dep );
@@ -1761,13 +1698,14 @@ Pkgman::evaluateResult( const Transaction&  transaction,
 
   if ( m_undefinedVersionComp.size() )
   {
+    const auto installedState = m_state.read();
     cout << "\n-- Packages with undecidable version difference "
          << "(use --config-append='preferhigher no')\n";
 
     for ( const auto& name: m_undefinedVersionComp )
       cout << name
            << " ("
-           << installedVersion( name )
+           << installedVersion( installedState, name )
            << " vs "
            << m_repo->getPackage( name )->version()
            << ")\n";
@@ -1787,4 +1725,40 @@ Pkgman::evaluateResult( const Transaction&  transaction,
   }
   else
     m_returnValue = P_PARTIAL_INSTALL_ERROR;
+}
+
+void
+Pkgman::briefInfo( const Package* pkg, bool newline )
+{
+  cout << ( m_parser->printPath() ? pkg->fullpath() : pkg->name() );
+
+  if ( m_parser->verbose() > 0 )
+    cout << " " << pkg->version_release();
+
+  if ( m_parser->verbose() > 1 && pkg->description().size() )
+    cout << ": " << pkg->description();
+
+  if ( newline )
+    cout << endl;
+}
+
+void
+Pkgman::briefInfo( const pkgname_t& name,
+                   const pkgstate::snapshot& installed,
+                   bool newline )
+{
+  initRepo();
+
+  const auto& pkg = m_repo->getPackage( name );
+  if ( pkg )
+    return briefInfo( pkg, newline );
+
+  cout << name;
+  const auto version = installedVersion( installed, name );
+  if ( version.size() && m_parser->verbose() > 0 )
+    cout << " " << version;
+  cout << " (not found in the packages sources tree)";
+
+  if ( newline )
+    cout << endl;
 }

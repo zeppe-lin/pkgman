@@ -286,29 +286,29 @@ protected:
   void initRepo( bool listDuplicate = false );
 
 
-  //! Return a fresh name/version view of installed packages.
-  package_versions_t installedPackages() const;
-
-  //! Return whether a package is installed in fresh durable state.
-  bool isInstalled( const pkgname_t& name ) const;
-
-  //! Return an installed version, or an empty string when absent.
-  string installedVersion( const pkgname_t& name ) const;
-
-  //! Add installed packages matching a wildcard or regular expression.
-  void getMatchingInstalledPackages( const string& pattern,
-                                     package_versions_t& target,
-                                     bool useRegex ) const;
+  //! Convert command arguments into owned package names.
+  static PackageNames packageNames( const list< char* >& names );
 
 
-  //! \brief   Get the packages that match the patterns
-  //!          from the installed ones
-  //!
-  //! \param   in      the list of patterns
-  //! \param   target  save into \a target the matching packages
-  //!
-  void expandWildcardsPkgDB( const list< char* >& in,
-                             package_versions_t& target );
+  //! Return installed package names in snapshot order.
+  static PackageNames installedPackageNames(
+      const pkgstate::snapshot& installed );
+
+
+  //! Return whether a package is present in a snapshot.
+  static bool isInstalled( const pkgstate::snapshot& installed,
+                           const pkgname_t& name );
+
+
+  //! Return a package version from a snapshot, or an empty string.
+  static string installedVersion( const pkgstate::snapshot& installed,
+                                  const pkgname_t& name );
+
+
+  //! Add installed packages matching command patterns.
+  void expandInstalledPatterns( const PackageNames& patterns,
+                             const pkgstate::snapshot& installed,
+                             PackageNames& target ) const;
 
 
   //! \brief   Get the packages that match the pattern
@@ -326,7 +326,8 @@ protected:
   //!          without injecting missing ones
   //!
   //! \param   packages  the packages to be sorted and listed
-  void listDepSorted( package_versions_t& packages );
+  void listDepSorted( PackageNames packages,
+                      const pkgstate::snapshot& installed );
 
 
   //! \brief   Print a file to stdout or open it with PAGER
@@ -361,7 +362,8 @@ protected:
   //!          - \a m_missingRepoPackages
   //!          - \a m_greaterVersionComp
   //!          - \a m_undefinedVersionComp
-  void diffCalc( const package_versions_t& packages );
+  void diffCalc( const PackageNames& packages,
+                 const pkgstate::snapshot& installed );
 
 
   //! \brief   Print the formatted line of the package
@@ -382,28 +384,32 @@ protected:
   //!
   //! \param   pkg  the package
   //! \param   level  the identation level
-  void printDepList( const Package* pkg, int level );
+  void printDepList( const Package* pkg, int level,
+                     const pkgstate::snapshot& installed );
 
 
   //! \brief   Print the tree of package dependencies
   //!
   //! \param   pkg    the package
   //! \param   level  the identation level
-  void printDepTree( const Package* pkg, int level );
+  void printDepTree( const Package* pkg, int level,
+                     const pkgstate::snapshot& installed );
 
 
   //! \brief   Print the list of package reverse dependencies
   //!
   //! \param   arg  the package name
   //! \param   level  the identation level
-  void printRevDepList( const pkgname_t& arg, int level );
+  void printRevDepList( const pkgname_t& arg, int level,
+                        const pkgstate::snapshot& installed );
 
 
   //! \brief   Print the tree of package reverse dependencies
   //!
   //! \param   arg    the package name
   //! \param   level  the identation level
-  void printRevDepTree( const pkgname_t& arg, int level );
+  void printRevDepTree( const pkgname_t& arg, int level,
+                        const pkgstate::snapshot& installed );
 
 
   //! \brief   Get the package's removable (unneeded) dependencies
@@ -414,8 +420,9 @@ protected:
   //! \param   pkg        the package name
   //! \param   removable  the list where to save the removable
   //!                     dependencies
-  void getRemovableDeps( const string&    pkg,
-                         list< string >&  removable );
+  void getRemovableDeps( const string& pkg,
+                          PackageNames& removable,
+                          const pkgstate::snapshot& installed );
 
 
   //! \brief   Search for \a pattern in \a filename
@@ -452,45 +459,15 @@ protected:
                        bool                interrupted=false );
 
 
-  //! \brief   Print the package brief info depending on the
-  //!          command-line verbosity level
-  //!
-  //! \tparam  pkg      the package
-  //! \tparam  newline  whether to print a newline afterward
-  template< typename T >
-    inline void briefInfo( const T& pkg, bool newline=true )
-    {
-      // the package name is given
-      if constexpr (   is_same< T, string >::value
-                    || is_same< T, char*  >::value )
-      {
-        initRepo();
+  //! Print available package information.
+  void briefInfo( const Package* pkg, bool newline=true );
 
-        const auto& _pkg = m_repo->getPackage( pkg );
-        if ( _pkg )
-          return briefInfo( _pkg, newline );
 
-        cout << pkg;
-        if ( const auto& version = installedVersion( pkg );
-             version.size() && m_parser->verbose() > 0 )
-          cout << " " << version;
-        cout << " (not found in the packages sources tree)";
-      }
-      else
-      {
-        // the package pointer is given
-        cout <<
-          ( m_parser->printPath() ? pkg->fullpath() : pkg->name() );
-
-        if ( m_parser->verbose() > 0 )
-          cout << " "  << pkg->version_release();
-
-        if ( m_parser->verbose() > 1 && pkg->description().size() )
-          cout << ": " << pkg->description();
-      }
-      if ( newline )
-        cout << endl;
-    }
+  //! Print a package name, falling back to installed state when absent
+  //! from the package sources tree.
+  void briefInfo( const pkgname_t& name,
+                  const pkgstate::snapshot& installed,
+                  bool newline=true );
 
 
 }; // class Pkgman

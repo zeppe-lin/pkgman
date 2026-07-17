@@ -46,6 +46,39 @@ genericStepFailure(int exitCode)
   return Transaction::PKGMK_E_GENERAL;
 }
 
+Transaction::Transaction( PackageNames            names,
+                          const Repository*       repo,
+                          pkgstate::snapshot      installed,
+                          const ArgParser*        parser,
+                          const ConfigParser*     config,
+                          Locker*                 locker )
+  : m_repo( repo ),
+    m_installedState( std::move( installed ) ),
+    m_parser( parser ),
+    m_config( config ),
+    m_locker( locker ),
+    m_resolver(),
+    m_transactionType( NONE ),
+    m_transactionResult( SUCCESS ),
+    m_logfd( -1 ),
+    m_depCalced( false ),
+    m_packages(),
+    m_depNameList(),
+    m_depList(),
+    m_installedPackages(),
+    m_removedPackages(),
+    m_alreadyInstalledPackages(),
+    m_ignoredPackages(),
+    m_missingPackages(),
+    m_downloadFailedPackages(),
+    m_buildFailedPackages(),
+    m_installFailedPackages(),
+    m_removeFailedPackages()
+{
+  for ( const auto& name: names )
+    m_packages.push_back( make_pair( name, m_repo->getPackage( name ) ) );
+}
+
 const
 Transaction::Transaction_t& Transaction::type()
   const
@@ -96,7 +129,8 @@ Transaction::install( Transaction::Transaction_t transactionType )
     }
 
     // skip if trying to install already installed package
-    if ( transactionType == INSTALL && isInstalled( name ) )
+    if ( transactionType == INSTALL &&
+         m_installedState.find_package( name ) != nullptr )
     {
       m_alreadyInstalledPackages.push_back( name );
       continue;
@@ -284,7 +318,7 @@ Transaction::remove()
 
     // also, skip if the package isn't installed or missing
     // in the packages sources tree
-    if ( ! isInstalled( name ) || ! pkg )
+    if ( m_installedState.find_package( name ) == nullptr || ! pkg )
     {
       m_missingPackages.push_back( make_pair( name, "" ) );
 
@@ -382,7 +416,7 @@ Transaction::calcDeps()
   return m_transactionResult = SUCCESS;
 }
 
-const list< pkgname_t >&
+const PackageNames&
 Transaction::deps()
   const
 {
@@ -541,22 +575,6 @@ Transaction::strerror( const Result_t& result )
 ///////////////////////////////////////////////////////////////////////
 
 
-bool
-Transaction::isInstalled( const pkgname_t& name )
-  const
-{
-  return m_state.read().find_package( name ) != nullptr;
-}
-
-string
-Transaction::installedVersion( const pkgname_t& name )
-  const
-{
-  const auto state = m_state.read();
-  const auto* package = state.find_package( name );
-  return package ? package->identity().version() : string();
-}
-
 inline string
 Transaction::logPathFromPattern( const Package* pkg )
 {
@@ -659,7 +677,8 @@ Transaction::pkgadd( const Package* pkg )
   string message = "pkgman: ";
   {
     string name = pkg->name();
-    string from = installedVersion( pkg->name() );
+    const auto* current = m_installedState.find_package( name );
+    string from = current ? current->identity().version() : string();
     string to   = pkg->version_release();
 
     if ( m_transactionType == UPDATE )
