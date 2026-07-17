@@ -11,3 +11,11 @@ vercomp = executable(
 )
 
 test('version comparator', vercomp)
+
+state_integration = find_program('state-integration.sh')
+
+test(
+  'installed state integration',
+  state_integration,
+  args: [pkgman_exe],
+)

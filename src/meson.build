@@ -45,7 +45,7 @@ configure_file(
   configuration: conf_h,
 )
 
-executable(
+pkgman_exe = executable(
   'pkgman',
   sources,
   kwargs: exe_kwargs,
