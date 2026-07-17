@@ -21,7 +21,7 @@ Build-time
   * C++17 compiler (GCC 8+, Clang 5+)
   * Meson
   * Ninja
-  * [libpkgcore][libpkgcore]
+  * [libpkgstate][libpkgstate]
   * `scdoc(1)` to generate manual pages
     (enabled by default via the `manpages` option)
   * `pkg-config(1)` for dependency discovery
@@ -74,7 +74,7 @@ Link Mode
 ---------
 
 `pkgman` can be built against shared or static external dependencies
-(e.g., [libpkgcore][libpkgcore]).
+(e.g., [libpkgstate][libpkgstate]).
 
 Shared:
 
@@ -121,6 +121,6 @@ See [COPYING](COPYING) for license terms and
 
 [pkgmk]: https://github.com/zeppe-lin/pkgmk
 [pkgutils]: https://github.com/zeppe-lin/pkgutils
-[libpkgcore]: https://github.com/zeppe-lin/libpkgcore
+[libpkgstate]: https://github.com/zeppe-lin/libpkgstate
 [prt-get]: https://git.crux.nu/tools/prt-get.git
 [gpllicense]: https://gnu.org/licenses/gpl.html

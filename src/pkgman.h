@@ -9,13 +9,14 @@
 #include <string>
 #include <utility>
 
+#include <libpkgstate/libpkgstate.h>
+
 class ArgParser;
 class ConfigParser;
 class Repository;
 
 #include "transaction.h"
 #include "locker.h"
-#include "pkgdb.h"
 #include "signaldispatcher.h"
 #include "versioncomparator.h"
 
@@ -33,7 +34,7 @@ public:
   //! \brief   Create a Pkgman object
   //!
   //! \param   parser  the argument parser to be used
-  Pkgman( const ArgParser* parser );
+  Pkgman( const ArgParser* parser, pkgstate::store& state );
 
 
   //! Destroy a Pkgman object
@@ -244,8 +245,8 @@ protected:
   int m_returnValue;
 
 
-  //! Package database of installed packages
-  PkgDB* m_pkgDB;
+  //! Durable installed package state.
+  pkgstate::store& m_state;
 
 
   //! Whether \a ConfigParser::useRegex() or \a ArgParser::useRegex() is set
@@ -285,15 +286,29 @@ protected:
   void initRepo( bool listDuplicate = false );
 
 
+  //! Return a fresh name/version view of installed packages.
+  package_versions_t installedPackages() const;
+
+  //! Return whether a package is installed in fresh durable state.
+  bool isInstalled( const pkgname_t& name ) const;
+
+  //! Return an installed version, or an empty string when absent.
+  string installedVersion( const pkgname_t& name ) const;
+
+  //! Add installed packages matching a wildcard or regular expression.
+  void getMatchingInstalledPackages( const string& pattern,
+                                     package_versions_t& target,
+                                     bool useRegex ) const;
+
+
   //! \brief   Get the packages that match the patterns
   //!          from the installed ones
   //!
   //! \param   in      the list of patterns
   //! \param   target  save into \a target the matching packages
   //!
-  //! \see     PkgDB::getMatchingPackages()
-  void expandWildcardsPkgDB( const list< char* >&    in,
-                             std::map<string, pkgutil::pkginfo_t>&  target );
+  void expandWildcardsPkgDB( const list< char* >& in,
+                             package_versions_t& target );
 
 
   //! \brief   Get the packages that match the pattern
@@ -311,7 +326,7 @@ protected:
   //!          without injecting missing ones
   //!
   //! \param   packages  the packages to be sorted and listed
-  void listDepSorted(map<string, pkgutil::pkginfo_t>& packages );
+  void listDepSorted( package_versions_t& packages );
 
 
   //! \brief   Print a file to stdout or open it with PAGER
@@ -346,7 +361,7 @@ protected:
   //!          - \a m_missingRepoPackages
   //!          - \a m_greaterVersionComp
   //!          - \a m_undefinedVersionComp
-  void diffCalc(const std::map<string, pkgutil::pkginfo_t>& packages);
+  void diffCalc( const package_versions_t& packages );
 
 
   //! \brief   Print the formatted line of the package
@@ -456,7 +471,7 @@ protected:
           return briefInfo( _pkg, newline );
 
         cout << pkg;
-        if ( const auto& version = m_pkgDB->getVersionRelease( pkg );
+        if ( const auto& version = installedVersion( pkg );
              version.size() && m_parser->verbose() > 0 )
           cout << " " << version;
         cout << " (not found in the packages sources tree)";

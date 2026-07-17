@@ -1,4 +1,4 @@
-common_deps = [libpkgcore_dep, libpkgstate_dep]
+common_deps = [libpkgstate_dep]
 common_incs = []
 common_link_args = []
 
@@ -24,7 +24,6 @@ sources = files(
   'locker.cpp',
   'main.cpp',
   'package.cpp',
-  'pkgdb.cpp',
   'pkgman.cpp',
   'pkgmksetting.cpp',
   'p_regex.cpp',

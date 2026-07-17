@@ -15,7 +15,6 @@
 #include "argparser.h"
 #include "configparser.h"
 #include "helpers.h"
-#include "pkgdb.h"
 #include "pkgmksetting.h"
 #include "process.h"
 #include "transaction.h"
@@ -97,7 +96,7 @@ Transaction::install( Transaction::Transaction_t transactionType )
     }
 
     // skip if trying to install already installed package
-    if ( transactionType == INSTALL && m_pkgDB->isInstalled( name ) )
+    if ( transactionType == INSTALL && isInstalled( name ) )
     {
       m_alreadyInstalledPackages.push_back( name );
       continue;
@@ -285,7 +284,7 @@ Transaction::remove()
 
     // also, skip if the package isn't installed or missing
     // in the packages sources tree
-    if ( ! m_pkgDB->isInstalled( name ) || ! pkg )
+    if ( ! isInstalled( name ) || ! pkg )
     {
       m_missingPackages.push_back( make_pair( name, "" ) );
 
@@ -542,6 +541,22 @@ Transaction::strerror( const Result_t& result )
 ///////////////////////////////////////////////////////////////////////
 
 
+bool
+Transaction::isInstalled( const pkgname_t& name )
+  const
+{
+  return m_state.read().find_package( name ) != nullptr;
+}
+
+string
+Transaction::installedVersion( const pkgname_t& name )
+  const
+{
+  const auto state = m_state.read();
+  const auto* package = state.find_package( name );
+  return package ? package->identity().version() : string();
+}
+
 inline string
 Transaction::logPathFromPattern( const Package* pkg )
 {
@@ -644,7 +659,7 @@ Transaction::pkgadd( const Package* pkg )
   string message = "pkgman: ";
   {
     string name = pkg->name();
-    string from = m_pkgDB->getVersionRelease( pkg->name() );
+    string from = installedVersion( pkg->name() );
     string to   = pkg->version_release();
 
     if ( m_transactionType == UPDATE )

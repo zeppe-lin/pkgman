@@ -13,13 +13,6 @@ project(
 
 want_static = get_option('link_mode') == 'static'
 
-libpkgcore_dep = dependency(
-  'libpkgcore',
-  required: true,
-  static: want_static,
-  fallback: ['libpkgcore', 'libpkgcore_dep'],
-)
-
 libpkgstate_dep = dependency(
   'libpkgstate',
   version: '>=0.2.0',
@@ -40,7 +33,6 @@ buildmeta = {
   'SHAREDSTATEDIR': get_option('sharedstatedir'),
   'BINDIR': prefix / get_option('bindir'),
   'SBINDIR': prefix / get_option('sbindir'),
-  'LIBPKGCORE_VERSION': libpkgcore_dep.version(),
   'LIBPKGSTATE_VERSION': libpkgstate_dep.version(),
 }
 

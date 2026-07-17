@@ -10,7 +10,7 @@
 #include <utility>
 #include <vector>
 
-#include <libpkgcore/libpkgcore.h>
+#include <libpkgstate/libpkgstate.h>
 
 #include "depresolver.h"
 #include "locker.h"
@@ -23,7 +23,6 @@ class ArgParser;
 class ConfigParser;
 class Locker;
 class Package;
-class PkgDB;
 class Repository;
 
 
@@ -141,19 +140,19 @@ public:
   //! \tparam  names   the package source name or a list of packages
   //!                  sources names to be processed
   //! \tparam  repo    the repository to look for packages
-  //! \tparam  pkgDB   the package database of installed packages
+  //! \param   state   durable installed package state
   //! \tparam  parser  the argument parser
   //! \tparam  config  the configuration file parser
   //! \tparam  locker  the package locker
   template< typename T >
     Transaction( const T&            names,
                  const Repository*   repo,
-                 PkgDB*              pkgDB,
+                 pkgstate::store&    state,
                  const ArgParser*    parser,
                  const ConfigParser* config,
                  Locker*             locker )
       : m_repo( repo ),
-        m_pkgDB( pkgDB ),
+        m_state( state ),
         m_parser( parser ),
         m_config( config ),
         m_locker( locker ),
@@ -180,9 +179,9 @@ public:
             make_pair( names, m_repo->getPackage( names )  ) );
       }
       else if constexpr
-        ( is_same< T, map<pkgname_t, pkgutil::pkginfo_t> >::value )
+        ( is_same< T, package_versions_t >::value )
       {
-        // Got 'map< name, pkginfo_t >' as argument
+        // Got a name/version map as argument
         for ( const auto& [name, info] : names )
           m_packages.push_back(
               make_pair( name, m_repo->getPackage( name ) ) );
@@ -372,8 +371,8 @@ private:
   const Repository* m_repo;
 
 
-  //! Package database of installed packages
-  PkgDB* m_pkgDB;
+  //! Durable installed package state.
+  pkgstate::store& m_state;
 
 
   //! Argument parser
@@ -515,6 +514,13 @@ private:
   //! \return  \a StepResult value indicating the package installing
   //!                       result
   StepResult pkgadd(const Package* pkg) const;
+
+
+  //! Return whether a package is installed in fresh durable state.
+  bool isInstalled( const pkgname_t& name ) const;
+
+  //! Return an installed version, or an empty string when absent.
+  string installedVersion( const pkgname_t& name ) const;
 
 
   //! \brief   Calculate dependencies for this transaction

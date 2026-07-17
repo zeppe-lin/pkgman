@@ -57,11 +57,17 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: Checkout libpkgcore
+      - name: Checkout libpkgimage
         uses: actions/checkout@v5
         with:
-          repository: zeppe-lin/libpkgcore
-          path: subprojects/libpkgcore
+          repository: zeppe-lin/libpkgimage
+          path: subprojects/libpkgimage
+
+      - name: Checkout libpkgstate
+        uses: actions/checkout@v5
+        with:
+          repository: zeppe-lin/libpkgstate
+          path: subprojects/libpkgstate
 
       - name: Install build dependencies
         run: ${{ matrix.env.install }}
@@ -71,10 +77,13 @@ jobs:
           meson setup build \
             --buildtype=plain \
             --wrap-mode=nodownload \
-            --force-fallback-for=libpkgcore \
+            --force-fallback-for=libpkgimage,libpkgstate \
             --prefix=/usr \
             -D link_mode=${{ matrix.cfg.link_mode }} \
-            -D libpkgcore:link_mode=${{ matrix.cfg.link_mode }}
+            -D libpkgimage:default_library=${{ matrix.cfg.link_mode }} \
+            -D libpkgimage:link_mode=${{ matrix.cfg.link_mode }} \
+            -D libpkgstate:default_library=${{ matrix.cfg.link_mode }} \
+            -D libpkgstate:link_mode=${{ matrix.cfg.link_mode }}
 
       - name: Build pkgman
         run: meson compile -C build -v

@@ -3,9 +3,12 @@
 //! \copyright See COPYING for license terms and COPYRIGHT for notices.
 
 #include <cstdlib>
+#include <filesystem>
 #include <iostream>
 
 #include <signal.h>
+
+#include <libpkgstate/libpkgstate.h>
 
 #include "argparser.h"
 #include "process.h"
@@ -15,18 +18,30 @@
 #include "pkgman-config.h"
 
 using namespace std;
+namespace fs = std::filesystem;
 
 static int
 print_version()
 {
   cout << PACKAGE_STRING << "\n";
-  cout << "using libpkgcore " << LIBPKGCORE_VERSION << "\n";
   cout << "using libpkgstate " << LIBPKGSTATE_VERSION << "\n";
 
   cout << "\nReport bugs to: " << PACKAGE_BUGREPORT << "\n";
   cout << "Project homepage: " << PACKAGE_URL << "\n";
 
   return EXIT_SUCCESS;
+}
+
+
+static fs::path
+state_database_path( const string& root )
+{
+  const fs::path database = fs::path( SHAREDSTATEDIR ) / "pkg/db";
+
+  if ( root.empty() || root == "/" )
+    return database;
+
+  return fs::path( root ) / database.relative_path();
 }
 
 static void inline
@@ -79,7 +94,10 @@ main( int argc, char** argv )
    if ( parser.isTest() )
     cout << "\n*** TEST MODE ***\n";
 
-  Pkgman pkgman( &parser );
+  try
+  {
+    pkgstate::legacy_text_store state( state_database_path( parser.root() ) );
+    Pkgman pkgman( &parser, state );
   //if ( pkgman.returnValue() == -1 )
   //  exit( EXIT_FAILURE );
 
@@ -293,4 +311,10 @@ main( int argc, char** argv )
     cout << "\n*** TEST MODE END ***\n";
 
   return pkgman.returnValue();
+  }
+  catch ( const pkgstate::error& error )
+  {
+    cerr << "pkgman: installed state: " << error.what() << endl;
+    return EXIT_FAILURE;
+  }
 }
