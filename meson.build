@@ -20,6 +20,14 @@ libpkgcore_dep = dependency(
   fallback: ['libpkgcore', 'libpkgcore_dep'],
 )
 
+libpkgstate_dep = dependency(
+  'libpkgstate',
+  version: '>=0.2.0',
+  required: true,
+  static: want_static,
+  fallback: ['libpkgstate', 'libpkgstate_dep'],
+)
+
 prefix = get_option('prefix')
 
 buildmeta = {
@@ -33,6 +41,7 @@ buildmeta = {
   'BINDIR': prefix / get_option('bindir'),
   'SBINDIR': prefix / get_option('sbindir'),
   'LIBPKGCORE_VERSION': libpkgcore_dep.version(),
+  'LIBPKGSTATE_VERSION': libpkgstate_dep.version(),
 }
 
 subdir('src')
