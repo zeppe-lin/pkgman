@@ -106,6 +106,8 @@ DOCUMENTATION
 Manual pages are provided in `/man` and installed under the system
 manual hierarchy.
 
+Release notes are maintained in [NEWS.md](NEWS.md).
+
 ---
 
 LICENSE
