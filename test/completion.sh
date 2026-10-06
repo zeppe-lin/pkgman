@@ -162,7 +162,13 @@ complete_line pkgman ls alpha ''
 
 # Bash splits attached values at '=' before invoking completion.  Exercise
 # the real COMP_WORDS shape instead of fabricating --option=value as one
-# word.
+# word.  Bare values must already produce candidates; Readline decides
+# whether a single ambiguous Tab displays them immediately.
+complete_line pkgman install --ignore =
+reply_contains alpha
+reply_contains beta
+reply_contains gamma
+
 complete_line pkgman install --ignore = alpha,g
 reply_contains alpha,gamma
 
@@ -173,10 +179,19 @@ reply_contains alpha,beta
 reply_contains alpha,gamma
 reply_excludes alpha,alpha
 
-# Delegated pkgmk/pkgadd argument values complete the documented flags.
+# Delegated pkgmk/pkgadd argument values complete the documented flags,
+# including the empty attached-value state.
+complete_line pkgman install --margs =
+reply_contains -f
+reply_contains -um
+reply_contains -kw
+
 complete_line pkgman install --margs = -u
 reply_contains -um
 reply_contains -uf
+
+complete_line pkgman install --aargs =
+reply_contains -f
 
 complete_line pkgman install --aargs = -
 reply_contains -f
