@@ -23,3 +23,15 @@ argparser_test = executable(
 )
 
 test('argument parser aliases', argparser_test)
+
+bash = find_program('bash', required: false)
+if bash.found()
+  test(
+    'bash completion',
+    bash,
+    args: [
+      files('completion.sh'),
+      meson.project_source_root() / 'completion' / 'pkgman.bash',
+    ],
+  )
+endif
