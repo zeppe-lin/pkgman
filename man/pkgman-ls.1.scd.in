@@ -6,7 +6,7 @@ pkgman-ls - list contents of a package source directory
 
 # SYNOPSIS
 
-*pkgman ls* [*--path*] _package-name_ ...
+*pkgman ls* [*--path*] _package-name_
 
 # DESCRIPTION
 
