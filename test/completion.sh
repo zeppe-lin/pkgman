@@ -203,6 +203,32 @@ reply_contains gamma
 grep -F -- '--root=/alternate printf' \
   "$PKGMAN_COMPLETION_TEST_LOG" >/dev/null
 
+# Queries whose candidate population comes from installed package state must
+# consult the selected root as well.
+: > "$PKGMAN_COMPLETION_TEST_LOG"
+complete_line pkgman --root = /alternate remove a
+reply_contains alpha
+grep -F -- '--root=/alternate list' \
+  "$PKGMAN_COMPLETION_TEST_LOG" >/dev/null
+
+: > "$PKGMAN_COMPLETION_TEST_LOG"
+complete_line pkgman update --root = /alternate b
+reply_contains beta
+grep -F -- '--root=/alternate diff' \
+  "$PKGMAN_COMPLETION_TEST_LOG" >/dev/null
+
+: > "$PKGMAN_COMPLETION_TEST_LOG"
+complete_line pkgman --root = /alternate unlock a
+reply_contains alpha
+grep -F -- '--root=/alternate list-locked' \
+  "$PKGMAN_COMPLETION_TEST_LOG" >/dev/null
+
+: > "$PKGMAN_COMPLETION_TEST_LOG"
+complete_line pkgman remove --root = /alternate --ignore = a
+reply_contains alpha
+grep -F -- '--root=/alternate list' \
+  "$PKGMAN_COMPLETION_TEST_LOG" >/dev/null
+
 # Attached path options are completed as paths, not pkgman tokens.
 complete_line pkgman --root = "$tmpdir/root-"
 reply_contains "$tmpdir/root-one/"

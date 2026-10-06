@@ -24,6 +24,23 @@ argparser_test = executable(
 
 test('argument parser aliases', argparser_test)
 
+pkgdb_root_test = executable(
+  'pkgdb-root-test',
+  [
+    'pkgdb_root_test.cpp',
+    '../src/argparser.cpp',
+    '../src/pkgdb.cpp',
+    '../src/p_regex.cpp',
+  ],
+  include_directories: [
+    include_directories('stubs'),
+    include_directories('../src'),
+  ],
+  install: false
+)
+
+test('alternate-root package database', pkgdb_root_test)
+
 bash = find_program('bash', required: false)
 if bash.found()
   test(
