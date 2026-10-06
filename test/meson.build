@@ -11,3 +11,15 @@ vercomp = executable(
 )
 
 test('version comparator', vercomp)
+
+argparser_test = executable(
+  'argparser-test',
+  [
+    'argparser_alias_test.cpp',
+    '../src/argparser.cpp',
+  ],
+  include_directories: include_directories('../src'),
+  install: false
+)
+
+test('argument parser aliases', argparser_test)

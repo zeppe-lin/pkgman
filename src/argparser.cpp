@@ -212,7 +212,7 @@ ArgParser::parse()
       else if ( arg == "-f" )
         m_pkgaddArgs += " -f";
 
-      else if ( arg == "-fi" )
+      else if ( arg == "-i" || arg == "-fi" )
         m_pkgaddArgs += " -f";
 
       // pkgmk arguments aliases
