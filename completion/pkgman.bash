@@ -241,7 +241,7 @@ _pkgman_reassemble_comp_words()
   exclude=${exclude//[^$COMP_WORDBREAKS]}
   if [ -z "$exclude" ]; then
     _pkgman_words=("${COMP_WORDS[@]}")
-    return
+    return 0
   fi
 
   for ((i = 0, j = 0; i < ${#COMP_WORDS[@]}; ++i, ++j)); do
@@ -262,7 +262,7 @@ _pkgman_reassemble_comp_words()
       if [ $i -lt $((${#COMP_WORDS[@]} - 1)) ]; then
         ((i += 1))
       else
-        return
+        return 0
       fi
     done
 
@@ -271,6 +271,8 @@ _pkgman_reassemble_comp_words()
       _pkgman_cword=$j
     fi
   done
+
+  return 0
 }
 
 _pkgman_complete_attached_path()
