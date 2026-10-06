@@ -530,7 +530,7 @@ Pkgman::printPath()
 void
 Pkgman::printIsInstalled()
 {
-  for ( const string& arg: m_parser->cmdArgs() )
+  for ( const string arg: m_parser->cmdArgs() )
   {
     if ( ! m_pkgDB->isInstalled( arg ) )
       return errx( "package '" + arg + "' is not installed" );
@@ -813,7 +813,7 @@ Pkgman::install( Transaction::Transaction_t transaction_t )
 
   // this can be done without initRepo()
   bool update = transaction_t == Transaction::UPDATE;
-  for ( const string& pkg: args )
+  for ( const string pkg: args )
   {
     bool isInstalled = m_pkgDB->isInstalled( pkg );
 
@@ -892,7 +892,7 @@ Pkgman::remove()
   if ( m_parser->deps() )
   {
     list< string > removable;
-    for ( const string& pkg: args )
+    for ( const string pkg: args )
     {
       removable.push_back( pkg );
       getRemovableDeps( pkg, removable );
@@ -976,7 +976,7 @@ Pkgman::setLock( bool lock )
   if ( lock )
     initRepo();
 
-  for ( const string& arg: m_parser->cmdArgs() )
+  for ( const string arg: m_parser->cmdArgs() )
   {
     if ( lock )
     {
