@@ -306,10 +306,9 @@ Package::expandShellCommands( string&               input,
     while ( ( pos = input.find( startTag[ i ], pos ) )
         != string::npos )
     {
-      if ( unameBuf.release )
-        input = replaceAll( input,
-                            startTag[ i ] + "uname -r" + endTag[ i ],
-                            unameBuf.release );
+      input = replaceAll( input,
+                          startTag[ i ] + "uname -r" + endTag[ i ],
+                          unameBuf.release );
 
       dpos = input.find( startTag[ i ] + "date" );
       if ( dpos != string::npos )
