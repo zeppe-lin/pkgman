@@ -229,14 +229,16 @@ reply_contains alpha
 grep -F -- '--root=/alternate list' \
   "$PKGMAN_COMPLETION_TEST_LOG" >/dev/null
 
-# Attached path options are completed as paths, not pkgman tokens.
+# Attached path options are completed as paths, not pkgman tokens.  Directory
+# candidates stay unsuffixed in COMPREPLY; Readline adds the slash because the
+# completion function enables the filenames option.
 complete_line pkgman --root = "$tmpdir/root-"
-reply_contains "$tmpdir/root-one/"
-reply_contains "$tmpdir/root-two/"
+reply_contains "$tmpdir/root-one"
+reply_contains "$tmpdir/root-two"
 reply_excludes "$tmpdir/root-file"
 
 complete_line pkgman --root = "$tmpdir/root-one/ch"
-reply_contains "$tmpdir/root-one/child-one/"
+reply_contains "$tmpdir/root-one/child-one"
 reply_excludes "$tmpdir/root-one/child-file"
 
 complete_line pkgman --config = "$tmpdir/config-"

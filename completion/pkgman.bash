@@ -283,7 +283,7 @@ _pkgman_complete_attached_path()
   COMPREPLY=()
   if [ "$mode" = directory ]; then
     while IFS= read -r match; do
-      COMPREPLY+=("${match%/}/")
+      COMPREPLY+=("$match")
     done < <(compgen -d -- "$value")
     compopt -o filenames -o nospace 2>/dev/null || true
   else
